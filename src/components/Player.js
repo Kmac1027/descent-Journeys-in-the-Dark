@@ -48,3 +48,7 @@ function Player() {
 }
 
 export default Player;
+
+// "homepage": "http://Kmac1027.github.io/descent-Journeys-in-the-Dark",
+// "predeploy": "npm run build",
+// "deploy": "gh-pages -d build"

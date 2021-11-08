@@ -2,12 +2,12 @@ import { map1 } from '../data/dungeonMaps/map1'
 import { heroData } from '../data/heroData.js'
 
 
-function tilesAndTokens() {
+function TilesAndTokens() {
   return (
     <div className='hidden'>
       {/* hero tokens */}
       <div>
-        <img id='herotoken' src={heroData.steelhorns.token_path} alt={heroData.steelhorns.name} />
+        <img id='heroToken' src={heroData.steelhorns.token_path} alt={heroData.steelhorns.name} />
       </div >
       {/* dungeon floor tiles */}
       <div>
@@ -22,4 +22,4 @@ function tilesAndTokens() {
   );
 }
 
-export default tilesAndTokens;
+export default TilesAndTokens;

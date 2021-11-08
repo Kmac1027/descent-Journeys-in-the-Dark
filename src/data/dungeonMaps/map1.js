@@ -1,4 +1,5 @@
-import { heroToken } from '../../player_actions/movement'
+import { heroToken } from '../../player_actions/movement';
+import { disableMovment } from '../../player_actions/movement';
 
 
 export const canvaseSize = {
@@ -97,21 +98,81 @@ export const map1 = {
       x: 100,
       y: 200
     },
+    21: {
+      x: 150,
+      y: 200
+    },
+    22: {
+      x: 200,
+      y: 200
+    },
+    23: {
+      x: 100,
+      y: 250
+    },
+    24: {
+      x: 150,
+      y: 250
+    },
 
   }
 
 
 };
 
+
 export function collisionDetection(previousX, previousY) {
+  // if (heroToken.x < 100 && heroToken.y <= 0) {
+  //   heroToken.x = previousX;
+  //   heroToken.y = previousY;
+  // }
 
-  if (heroToken.x < 100 && heroToken.y <= 0) {
-    heroToken.x = previousX;
-    heroToken.y = previousY;
+  if (heroToken.x === 100 && heroToken.y === 0) {
+    disableMovment.left = true;
+    disableMovment.up = true;
   }
-  if (heroToken.x < 50 && heroToken.y <= 50) {
-    heroToken.x = previousX;
-    heroToken.y = previousY;
+  if (heroToken.x === 150 && heroToken.y === 0) {
+    disableMovment.right = true;
+    disableMovment.up = true;
   }
-
+  if (heroToken.x === 50 && heroToken.y === 50) {
+    disableMovment.left = true;
+    disableMovment.up = true;
+  }
+  if (heroToken.x === 0 && heroToken.y === 100) {
+    disableMovment.left = true;
+    disableMovment.up = true;
+  }
+  if (heroToken.x === 0 && heroToken.y === 150) {
+    disableMovment.left = true;
+    disableMovment.down = true;
+  }
+  if (heroToken.x === 50 && heroToken.y === 200) {
+    disableMovment.left = true;
+    disableMovment.down = true;
+  }
+  if (heroToken.x === 100 && heroToken.y === 250) {
+    disableMovment.left = true;
+    disableMovment.down = true;
+  }
+  if (heroToken.x === 150 && heroToken.y === 250) {
+    disableMovment.right = true;
+    disableMovment.down = true;
+  }
+  if (heroToken.x === 200 && heroToken.y === 200) {
+    disableMovment.right = true;
+    disableMovment.down = true;
+  }
+  if (heroToken.x === 250 && heroToken.y === 150) {
+    disableMovment.right = true;
+    disableMovment.down = true;
+  }
+  if (heroToken.x === 250 && heroToken.y === 100) {
+    disableMovment.right = true;
+    disableMovment.up = true;
+  }
+  if (heroToken.x === 200 && heroToken.y === 50) {
+    disableMovment.right = true;
+    disableMovment.up = true;
+  }
 }
