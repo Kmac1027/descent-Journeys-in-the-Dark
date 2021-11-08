@@ -3,14 +3,41 @@
 }
 
 
-.App-header {
+/* .App-header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+} */
+
+body {
+  background-color: #333;
+  color: #fff;
+  align-items: center;
+  justify-content: center;
 }
+
+.hidden{
+  display: none;
+  }
+
+  .card{
+    height: 200px;
+    width: 150px;
+    padding: 5px;
+  }
+
+  .right {
+    float: right;
+
+  }
+
+  .left {
+    float: left;
+
+  }
 

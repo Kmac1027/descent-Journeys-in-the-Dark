@@ -59,9 +59,11 @@ function Canvas() {
   document.addEventListener('keydown', keyDown);
   document.addEventListener('keyup', keyUp);
   return (
-    <div>
-      <canvas ref={canvas} id='canvas' width={canvaseSize.width} height={canvaseSize.height}></canvas>
-    </div >
+    <div className='left'>
+      <div id='canvasDivId'>
+        <canvas ref={canvas} id='canvas' width={canvaseSize.width} height={canvaseSize.height}></canvas>
+      </div >
+    </div>
   );
 }
 
