@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from "react";
 // import { heroData } from '../data/heroData'
 import { heroToken, keyDown, keyUp, detectWalls, previousPosition } from '../player_actions/movement'
-import { canvaseSize, map1, collisionDetection } from '../data/dungeonMaps/map1'
+import { canvaseSize, map1, collisionDetection, skeletonToken } from '../data/dungeonMaps/map1'
 import '../styles/canvas.css';
+
 
 
 function Canvas() {
@@ -11,6 +12,7 @@ function Canvas() {
   useEffect(() => {
     const ctx = canvas.current.getContext('2d');
     let heroTokenId = document.getElementById('heroToken');
+    let skeletonTokenId = document.getElementById('skeletonToken');
     let mapTileToken = document.getElementById('mapTileToken');
     let startAreaGlyph = document.getElementById('startAreaGlyph');
 
@@ -21,12 +23,13 @@ function Canvas() {
         ctx.strokeStyle = '#ffffff';
         ctx.strokeRect(tiles[tile].x, tiles[tile].y, map1.tile_size.height, map1.tile_size.width);
       }
-
       ctx.drawImage(startAreaGlyph, map1.start_area.x, map1.start_area.y, map1.tile_size.height, map1.tile_size.width);
       ctx.strokeStyle = '#ffffff';
       ctx.strokeRect(map1.start_area.x, map1.start_area.y, map1.tile_size.height, map1.tile_size.width);
     }
-
+    function drawMonsterToken() {
+      ctx.drawImage(skeletonTokenId, skeletonToken.x, skeletonToken.y, skeletonToken.w, skeletonToken.h);
+    }
     function drawHeroToken() {
       ctx.drawImage(heroTokenId, heroToken.x, heroToken.y, heroToken.w, heroToken.h);
     }
@@ -43,11 +46,13 @@ function Canvas() {
     function update() {
       clear();
       drawTile();
+      drawMonsterToken();
       drawHeroToken();
       newPosition()
       requestAnimationFrame(update)
     }
     update()
+
 
   }, []);
 

@@ -127,6 +127,7 @@ export function collisionDetection(previousX, previousY) {
   //   heroToken.y = previousY;
   // }
 
+  //outer walls
   if (heroToken.x === 100 && heroToken.y === 0) {
     disableMovment.left = true;
     disableMovment.up = true;
@@ -175,4 +176,37 @@ export function collisionDetection(previousX, previousY) {
     disableMovment.right = true;
     disableMovment.up = true;
   }
+
+  //obstacles
+
+  //monsters collision detection
+
+  if (heroToken.x - 50 === skeletonToken.x && heroToken.y === skeletonToken.y) {
+    // console.log(heroToken.x, skeletonToken.x)
+    disableMovment.left = true;
+  }
+  if (heroToken.x + 50 === skeletonToken.x && heroToken.y === skeletonToken.y) {
+    // console.log(heroToken.x, skeletonToken.x)
+    disableMovment.right = true;
+  }
+  if ((heroToken.y - 50) === skeletonToken.y && heroToken.x === skeletonToken.x) {
+    // console.log(heroToken.y, skeletonToken.y)
+    disableMovment.up = true;
+  }
+  if ((heroToken.y + 50) === skeletonToken.y && heroToken.x === skeletonToken.x) {
+    // console.log(heroToken.y, skeletonToken.y)
+    disableMovment.down = true;
+  }
+}
+
+
+//monsters
+export const skeletonToken = {
+  w: 50,
+  h: 50,
+  x: 150,
+  y: 150,
+  speed: 5,
+  dx: 0,
+  dy: 0
 }

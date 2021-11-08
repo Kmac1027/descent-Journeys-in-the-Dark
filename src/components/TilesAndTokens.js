@@ -1,5 +1,6 @@
-import { map1 } from '../data/dungeonMaps/map1'
-import { heroData } from '../data/heroData.js'
+import { map1 } from '../data/dungeonMaps/map1';
+import { heroData } from '../data/heroData.js';
+import { monsterData } from '../data/monsterData.js';
 
 
 function TilesAndTokens() {
@@ -13,6 +14,10 @@ function TilesAndTokens() {
       <div>
         <img id='mapTileToken' src={map1.floor_image_path} alt={'tile'} />
       </div >
+      <div>
+        {/* monster tokens */}
+        <img id='skeletonToken' src={monsterData.skeleton.normal.token_path} alt={'tile'} />
+      </div>
       {/* items and icons */}
       <div>
         <img id='startAreaGlyph' src={map1.start_area.start_glyph_image_path} alt={'tile'} />
