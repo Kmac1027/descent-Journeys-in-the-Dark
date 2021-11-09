@@ -1,6 +1,7 @@
 export const monsterData = {
   skeleton: {
     normal: {
+      name: 'skeleton',
       number_of_players: 5,
       max_wounds: 4,
       base_armor: 0,
@@ -15,9 +16,19 @@ export const monsterData = {
         2: '+1 range'
       },
       monster_card_img_path: 'images/monster_card/skeleton.jpg',
-      token_path: 'images/monster_token/skeleton.png'
+      token_path: 'images/monster_token/skeleton.png',
+      skeletonToken: {
+        w: 50,
+        h: 50,
+        x: 0,
+        y: 0,
+        speed: 5,
+        dx: 0,
+        dy: 0
+      }
     },
     master: {
+      name: 'masterSkeleton',
       number_of_players: 5,
       max_wounds: 5,
       base_armor: 1,
@@ -34,7 +45,16 @@ export const monsterData = {
         3: 'undying'
       },
       monster_card_img_path: 'images/monster_card/skeleton.jpg',
-      token_path: 'images/monster_token/skeleton_master.png'
+      token_path: 'images/monster_token/skeleton_master.png',
+      skeletonToken: {
+        w: 50,
+        h: 50,
+        x: 0,
+        y: 0,
+        speed: 5,
+        dx: 0,
+        dy: 0
+      }
     }
   }
 }

@@ -7,7 +7,7 @@ import { heroToken } from '../player_actions/movement';
 import { skeletonToken, startingMoney } from '../data/dungeonMaps/map1';
 
 function Player({ chosenHero, showDiceRoll, showShopItems }) {
-  const [checkMeleeAttack, setCheckMeleeAttack] = useState(true)
+  const [checkMeleeAttack, setCheckMeleeAttack] = useState(true);
   function clicked() {
     if (checkMeleeAttack === false) {
       setCheckMeleeAttack(true)
@@ -85,11 +85,11 @@ function Player({ chosenHero, showDiceRoll, showShopItems }) {
         <div id='weapons'>
           <div>
             <p>Weapon 1:</p>
-            <input type='image' id='weapon1' className='card' src={weapon1.img_path} alt='Weapon 1' onClick={clicked()}></input>
+            <input type='image' id='weapon1' className='card' src={weapon1.img_path} alt='Weapon 1' onClick={clicked}></input>
           </div>
           <div>
             <p>Weapon 2:</p>
-            <input type='image' id='weapon2' className='card' src={weapon2.img_path} alt='Weapon 2' onClick={clicked()}></input>
+            <input type='image' id='weapon2' className='card' src={weapon2.img_path} alt='Weapon 2' onClick={clicked}></input>
           </div>
           <div>
             <p>Armor:</p>

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 // import { heroData } from '../data/heroData'
 import { heroToken, keyDown, keyUp, detectWalls, previousPosition } from '../player_actions/movement'
-import { canvaseSize, map1, collisionDetection, skeletonToken } from '../data/dungeonMaps/map1'
+import { canvaseSize, map1Floor, collisionDetection, map1 } from '../data/dungeonMaps/map1'
 import '../styles/canvas.css';
 
 
@@ -12,23 +12,27 @@ function Canvas() {
   useEffect(() => {
     const ctx = canvas.current.getContext('2d');
     let heroTokenId = document.getElementById('heroToken');
-    let skeletonTokenId = document.getElementById('skeletonToken');
+    let skeletonTokenId = document.getElementById('masterSkeleton');
     let mapTileToken = document.getElementById('mapTileToken');
     let startAreaGlyph = document.getElementById('startAreaGlyph');
 
     function drawTile() {
-      let tiles = map1.floor_tiles;
+      let tiles = map1Floor.floor_tiles;
       for (let tile in tiles) {
-        ctx.drawImage(mapTileToken, tiles[tile].x, tiles[tile].y, map1.tile_size.height, map1.tile_size.width);
+        ctx.drawImage(mapTileToken, tiles[tile].x, tiles[tile].y, map1Floor.tile_size.height, map1Floor.tile_size.width);
         ctx.strokeStyle = '#ffffff';
-        ctx.strokeRect(tiles[tile].x, tiles[tile].y, map1.tile_size.height, map1.tile_size.width);
+        ctx.strokeRect(tiles[tile].x, tiles[tile].y, map1Floor.tile_size.height, map1Floor.tile_size.width);
       }
-      ctx.drawImage(startAreaGlyph, map1.start_area.x, map1.start_area.y, map1.tile_size.height, map1.tile_size.width);
+      ctx.drawImage(startAreaGlyph, map1Floor.start_area.x, map1Floor.start_area.y, map1Floor.tile_size.height, map1Floor.tile_size.width);
       ctx.strokeStyle = '#ffffff';
-      ctx.strokeRect(map1.start_area.x, map1.start_area.y, map1.tile_size.height, map1.tile_size.width);
+      ctx.strokeRect(map1Floor.start_area.x, map1Floor.start_area.y, map1Floor.tile_size.height, map1Floor.tile_size.width);
     }
     function drawMonsterToken() {
-      ctx.drawImage(skeletonTokenId, skeletonToken.x, skeletonToken.y, skeletonToken.w, skeletonToken.h);
+      ctx.drawImage(skeletonTokenId,
+        map1.monsters.masterSkeleton1.x,
+        map1.monsters.masterSkeleton1.y,
+        map1.monsters.masterSkeleton1.data.skeletonToken.w,
+        map1.monsters.masterSkeleton1.data.skeletonToken.h);
     }
     function drawHeroToken() {
       ctx.drawImage(heroTokenId, heroToken.x, heroToken.y, heroToken.w, heroToken.h);

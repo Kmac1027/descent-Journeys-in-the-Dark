@@ -1,14 +1,32 @@
 import { heroToken } from '../../player_actions/movement';
+import { monsterData } from '../../data/monsterData';
 import { disableMovment } from '../../player_actions/movement';
 
-
+export const map1 = {
+  monsters: {
+    skeleton1: {
+      data: monsterData.skeleton.normal,
+      x: 150,
+      y: 150
+    },
+    skeleton2: monsterData.skeleton.normal,
+    masterSkeleton1: {
+      data: monsterData.skeleton.master,
+      x: 150,
+      y: 150
+    },
+  },
+  obstacles: {},
+  glyphs: {},
+  treasure_chests: {}
+}
 
 
 export const canvaseSize = {
   width: 950,
   height: 800
 }
-export const map1 = {
+export const map1Floor = {
   tile_size: {
     height: 50,
     width: 50
@@ -206,8 +224,6 @@ export function collisionDetection(previousX, previousY) {
   }
 }
 
-
-//monsters
 export const skeletonToken = {
   w: 50,
   h: 50,

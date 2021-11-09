@@ -43,7 +43,7 @@ function App() {
           showDiceRoll={showDiceRoll}
           showShopItems={showShopItems}
         />
-        {/* <Overlord /> */}
+        <Overlord />
 
 
       </header>
