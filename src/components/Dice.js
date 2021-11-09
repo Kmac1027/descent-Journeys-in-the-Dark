@@ -1,5 +1,6 @@
 import Dice from 'react-dice-roll';
-import { diceSideData } from '../data/diceSideData.js'
+import { diceSideData } from '../data/diceSideData.js';
+import { attack, checkRange, checkMiss } from '../player_actions/attack';
 
 
 
@@ -7,7 +8,16 @@ import { diceSideData } from '../data/diceSideData.js'
 function DiceRoll({ showDiceRoll }) {
 
   function diceRoll(rollValue) {
-    console.log(diceSideData.red[`side${rollValue}`]);
+    //  checkRange();
+    attack(
+      diceSideData.red[`side${rollValue}`].damage,
+      diceSideData.red[`side${rollValue}`].range,
+      diceSideData.red[`side${rollValue}`].surge,
+      diceSideData.red[`side${rollValue}`].miss
+    );
+
+
+    // console.log(diceSideData.red[`side${rollValue}`]);
     setTimeout(showDiceRoll, [2000]);
   }
 

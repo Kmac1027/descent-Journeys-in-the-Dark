@@ -3,12 +3,12 @@ import { heroData } from '../data/heroData.js';
 import { monsterData } from '../data/monsterData.js';
 
 
-function TilesAndTokens() {
+function TilesAndTokens({ chosenHero }) {
   return (
     <div className='hidden'>
       {/* hero tokens */}
       <div>
-        <img id='heroToken' src={heroData.steelhorns.token_path} alt={heroData.steelhorns.name} />
+        <img id='heroToken' src={chosenHero.token_path} alt={heroData.steelhorns.name} />
       </div >
       {/* dungeon floor tiles */}
       <div>

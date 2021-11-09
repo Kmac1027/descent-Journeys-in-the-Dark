@@ -2,6 +2,8 @@ import { heroToken } from '../../player_actions/movement';
 import { disableMovment } from '../../player_actions/movement';
 
 
+
+
 export const canvaseSize = {
   width: 950,
   height: 800
@@ -120,6 +122,7 @@ export const map1 = {
 
 };
 
+export const startingMoney = { amount: 300 };
 
 export function collisionDetection(previousX, previousY) {
   // if (heroToken.x < 100 && heroToken.y <= 0) {
@@ -184,18 +187,22 @@ export function collisionDetection(previousX, previousY) {
   if (heroToken.x - 50 === skeletonToken.x && heroToken.y === skeletonToken.y) {
     // console.log(heroToken.x, skeletonToken.x)
     disableMovment.left = true;
+
   }
   if (heroToken.x + 50 === skeletonToken.x && heroToken.y === skeletonToken.y) {
     // console.log(heroToken.x, skeletonToken.x)
     disableMovment.right = true;
+
   }
   if ((heroToken.y - 50) === skeletonToken.y && heroToken.x === skeletonToken.x) {
     // console.log(heroToken.y, skeletonToken.y)
     disableMovment.up = true;
+
   }
   if ((heroToken.y + 50) === skeletonToken.y && heroToken.x === skeletonToken.x) {
     // console.log(heroToken.y, skeletonToken.y)
     disableMovment.down = true;
+
   }
 }
 

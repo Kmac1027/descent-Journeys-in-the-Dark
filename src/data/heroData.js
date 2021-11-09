@@ -20,7 +20,8 @@ export const heroData = {
     },
     conquest_value: 3,
     hero_card_img_path: 'images/hero_card/steelhorns.jpg',
-    token_path: 'images/hero_tokens/steelhorns.jpg'
+    token_path: 'images/hero_tokens/steelhorns.jpg',
+    items: []
   },
   battlemage_jaes: {
     name: 'Battlemage Jaes',
@@ -41,7 +42,8 @@ export const heroData = {
     },
     conquest_value: 3,
     hero_card_img_path: 'images/hero_card/battlemage_jaes.jpg',
-    token_path: 'images/hero_tokens/battlemage_jaes.jpg'
+    token_path: 'images/hero_tokens/battlemage_jaes.jpg',
+    items: []
   },
 
 }

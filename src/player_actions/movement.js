@@ -1,5 +1,6 @@
 import { map1 } from '../data/dungeonMaps/map1'
 
+
 export const heroToken = {
   w: 50,
   h: 50,
@@ -59,6 +60,8 @@ export function moveUp() {
   disableMovment.up = false;
   disableMovment.down = false;
 
+
+
 }
 export function moveDown() {
   // heroToken.dy = heroToken.speed
@@ -69,6 +72,8 @@ export function moveDown() {
   disableMovment.left = false;
   disableMovment.up = false;
   disableMovment.down = false;
+
+
 }
 export function moveLeft() {
   // heroToken.dx = -heroToken.speed
@@ -79,6 +84,8 @@ export function moveLeft() {
   disableMovment.left = false;
   disableMovment.up = false;
   disableMovment.down = false;
+
+
 }
 export function moveRight() {
   // heroToken.dx = heroToken.speed
@@ -89,6 +96,8 @@ export function moveRight() {
   disableMovment.left = false;
   disableMovment.up = false;
   disableMovment.down = false;
+
+
 }
 
 export let previousPosition = {
