@@ -4,7 +4,7 @@ import { heroData } from '../data/heroData.js';
 import { monsterData } from '../data/monsterData.js';
 import { shopItems } from '../data/items/shopItems';
 import { heroToken } from '../player_actions/movement';
-import { skeletonToken, startingMoney } from '../data/dungeonMaps/map1';
+import { map1, startingMoney } from '../data/dungeonMaps/map1';
 
 function Player({ chosenHero, showDiceRoll, showShopItems }) {
   const [checkMeleeAttack, setCheckMeleeAttack] = useState(true);
@@ -17,16 +17,16 @@ function Player({ chosenHero, showDiceRoll, showShopItems }) {
   }
   useEffect(() => {
     // console.log('i ran')
-    if (heroToken.x - 50 === skeletonToken.x && heroToken.y === skeletonToken.y) {
+    if (heroToken.x - 50 === map1.monsters.skeletonToken.x && heroToken.y === map1.monsters.skeletonToken.y) {
       showDiceRoll()
     }
-    if (heroToken.x + 50 === skeletonToken.x && heroToken.y === skeletonToken.y) {
+    if (heroToken.x + 50 === map1.monsters.skeletonToken.x && heroToken.y === map1.monsters.skeletonToken.y) {
       showDiceRoll()
     }
-    if ((heroToken.y - 50) === skeletonToken.y && heroToken.x === skeletonToken.x) {
+    if ((heroToken.y - 50) === map1.monsters.skeletonToken.y && heroToken.x === map1.monsters.skeletonToken.x) {
       showDiceRoll()
     }
-    if ((heroToken.y + 50) === skeletonToken.y && heroToken.x === skeletonToken.x) {
+    if ((heroToken.y + 50) === map1.monsters.skeletonToken.y && heroToken.x === map1.monsters.skeletonToken.x) {
       showDiceRoll()
     }
   }, [checkMeleeAttack]);

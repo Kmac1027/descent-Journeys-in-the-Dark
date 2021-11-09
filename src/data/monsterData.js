@@ -17,15 +17,7 @@ export const monsterData = {
       },
       monster_card_img_path: 'images/monster_card/skeleton.jpg',
       token_path: 'images/monster_token/skeleton.png',
-      skeletonToken: {
-        w: 50,
-        h: 50,
-        x: 0,
-        y: 0,
-        speed: 5,
-        dx: 0,
-        dy: 0
-      }
+
     },
     master: {
       name: 'masterSkeleton',
@@ -46,15 +38,6 @@ export const monsterData = {
       },
       monster_card_img_path: 'images/monster_card/skeleton.jpg',
       token_path: 'images/monster_token/skeleton_master.png',
-      skeletonToken: {
-        w: 50,
-        h: 50,
-        x: 0,
-        y: 0,
-        speed: 5,
-        dx: 0,
-        dy: 0
-      }
     }
   }
 }

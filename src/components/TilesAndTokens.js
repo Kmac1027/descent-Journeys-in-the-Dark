@@ -1,6 +1,6 @@
 import { map1, map1Floor } from '../data/dungeonMaps/map1';
 import { heroData } from '../data/heroData.js';
-// import { monsterData } from '../data/monsterData.js';
+import { monsterData } from '../data/monsterData.js';
 
 
 function TilesAndTokens({ chosenHero }) {
@@ -18,7 +18,7 @@ function TilesAndTokens({ chosenHero }) {
       </div >
       {/* dungeon floor tiles */}
       <div>
-        <img id='mapTileToken' src={map1Floor.floor_image_path} alt={'tile'} />
+        <img id='mapTileToken' src={map1Floor.floor_image_path} alt={'map tile'} />
       </div >
       <div>
         {/* monster tokens */}
@@ -27,11 +27,11 @@ function TilesAndTokens({ chosenHero }) {
             <img id={monster.name + i} src={monster.token_path} alt={monster.name}></img>
           </div>
         )} */}
-        <img id='masterSkeleton' src={map1.monsters.masterSkeleton1.data.token_path} alt={'tile'} />
+        <img id='skeleton' src={monsterData.skeleton.normal.token_path} alt={'skeleton token'} />
       </div>
       {/* items and icons */}
       <div>
-        <img id='startAreaGlyph' src={map1Floor.start_area.start_glyph_image_path} alt={'tile'} />
+        <img id='startAreaGlyph' src={map1.glyphs.white_glyph_img_path} alt={'start area glyph'} />
       </div >
 
     </div>
