@@ -14,7 +14,7 @@ function App() {
   // let chosenHero = 'battlemage_jaes'
   let chosenHero = 'steelhorns'
   const [showDice, setShowDice] = useState(false);
-  const [showShop, setShowShop] = useState(false);
+
 
   function showDiceRoll() {
     if (showDice === false) {
@@ -23,25 +23,17 @@ function App() {
       setShowDice(false);
     }
   }
-  function showShopItems() {
-    if (showShop === false) {
-      setShowShop(true);
-    } else {
-      setShowShop(false);
-    }
-  }
+
 
   return (
     <div className="App">
       <header>
         <TilesAndTokens chosenHero={chosenHero} />
         {showDice ? <DiceRoll showDiceRoll={showDiceRoll} /> : null}
-        {showShop ? <Shop showShopItems={showShopItems} /> : null}
         <Canvas chosenHero={chosenHero} />
         <Player
           chosenHero={chosenHero}
           showDiceRoll={showDiceRoll}
-          showShopItems={showShopItems}
         />
         <Overlord />
 

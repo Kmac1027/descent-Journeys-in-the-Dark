@@ -11,6 +11,8 @@
 #shopItems{
 display: flex;
 flex-direction: row;
+flex-wrap: wrap;
+flex-basis: auto;
   background-color: white;
   justify-content: center;
   align-self: center;

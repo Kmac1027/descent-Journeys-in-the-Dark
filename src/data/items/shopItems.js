@@ -1,8 +1,14 @@
-export const shopItems = {
+export const shopItemData =
+{
   sword: {
     name: 'Sword',
-    weapon_type: 'melee',
-    surge: { 2: '+1 damage' },
+    type: 'melee',
+    surge: {
+      1: {
+        surge_cost: 1,
+        ability: '+1 damage'
+      }
+    },
     special_abilities: {
       off_hand_bonus: '+1 damage',
       other: false,
@@ -13,14 +19,21 @@ export const shopItems = {
     },
     hands: 1,
     cost: 75,
-    img_path: 'images/items/shop/sword.png'
+    img_path: 'images/items/shop/sword.png',
+    number_available: 3
   },
   crossbow: {
     name: 'Crossbow',
-    weapon_type: 'ranged',
+    type: 'ranged',
     surge: {
-      2: '+1 damage',
-      3: '+1 range'
+      1: {
+        surge_cost: 2,
+        ability: '+1 damage'
+      },
+      2: {
+        surge_cost: 3,
+        ability: '+1 range'
+      }
     },
     special_abilities: {
       off_hand_bonus: false,
@@ -32,6 +45,29 @@ export const shopItems = {
     },
     hands: 1,
     cost: 150,
-    img_path: 'images/items/shop/crossbow.jpeg'
+    img_path: 'images/items/shop/crossbow.png',
+    number_available: 2
+  },
+  axe: {
+    name: 'Axe',
+    type: 'melee',
+    surge: {
+      1: {
+        surge_cost: 1,
+        ability: '+1 damage'
+      }
+    },
+    special_abilities: {
+      off_hand_bonus: false,
+      other: false,
+    },
+    combat_dice: {
+      red: 1,
+      green: 1
+    },
+    hands: 2,
+    cost: 100,
+    img_path: 'images/items/shop/axe.png',
+    number_available: 1
   }
 }
