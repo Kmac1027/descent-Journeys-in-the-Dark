@@ -1,4 +1,4 @@
-import { map1, map1Floor } from '../data/dungeonMaps/map1';
+import { map1 } from '../data/dungeonMaps/map1';
 import { heroData } from '../data/heroData.js';
 import { monsterData } from '../data/monsterData.js';
 
@@ -18,20 +18,17 @@ function TilesAndTokens({ chosenHero }) {
       </div >
       {/* dungeon floor tiles */}
       <div>
-        <img id='mapTileToken' src={map1Floor.floor_image_path} alt={'map tile'} />
+        <img id='mapTileToken' src={map1.map1Floor.floor_image_path} alt={'map tile'} />
       </div >
       <div>
         {/* monster tokens */}
-        {/* {monsterArray.map((monster, i) =>
-          <div key={monster.name + i}>
-            <img id={monster.name + i} src={monster.token_path} alt={monster.name}></img>
-          </div>
-        )} */}
-        <img id='skeleton' src={monsterData.skeleton.normal.token_path} alt={'skeleton token'} />
+        <img id='skeleton' src={'images/monster_token/skeleton.png'} alt={'Skeleton token'} />
+        <img id='masterSkeleton' src={'images/monster_token/skeleton_master.png'} alt={'Master Skeleton token'} />
       </div>
       {/* items and icons */}
       <div>
-        <img id='startAreaGlyph' src={map1.glyphs.white_glyph_img_path} alt={'start area glyph'} />
+        <img id='whiteGlyph' src={'images/map_tiles/item_icons/ancient glyph of teleportation white.jpg'} alt={'white glyph'} />
+        <img id='redGlyph' src={'images/map_tiles/item_icons/ancient glyph of teleportation red.jpg'} alt={'red glyph'} />
       </div >
 
     </div>

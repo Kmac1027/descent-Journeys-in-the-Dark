@@ -1,40 +1,38 @@
 
 // import './styles/reset.css';
 import './styles/App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Player from './components/Player';
 import Canvas from './components/Canvas';
-import DiceRoll from './components/Dice';
+
 import TilesAndTokens from './components/TilesAndTokens';
 import Shop from './components/Shop';
 import Overlord from './components/Overlord';
+// import { targetClicked, mousePos, correctedPosition } from './player_actions/mouseClick'
 
 
 function App() {
   // let chosenHero = 'battlemage_jaes'
   let chosenHero = 'steelhorns'
-  const [showDice, setShowDice] = useState(false);
+  let chosenQuest = 'map1';
 
-
-  function showDiceRoll() {
-    if (showDice === false) {
-      setShowDice(true);
-    } else {
-      setShowDice(false);
-    }
-  }
+  // useEffect(() => {
+  //   document.addEventListener("mousemove", function (e) {
+  //     mousePos.x = e.clientX;
+  //     mousePos.y = e.clientY;
+  //   });
+  //   let canvasClick = document.getElementById('canvas');
+  //   canvasClick.addEventListener('click', targetClicked);
+  // }, []);
 
 
   return (
     <div className="App">
       <header>
         <TilesAndTokens chosenHero={chosenHero} />
-        {showDice ? <DiceRoll showDiceRoll={showDiceRoll} /> : null}
-        <Canvas chosenHero={chosenHero} />
-        <Player
-          chosenHero={chosenHero}
-          showDiceRoll={showDiceRoll}
-        />
+
+        <Canvas chosenHero={chosenHero} chosenQuest={chosenQuest} />
+        <Player chosenHero={chosenHero} chosenQuest={chosenQuest} />
         <Overlord />
 
 

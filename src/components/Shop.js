@@ -1,6 +1,7 @@
-import '../styles/shop.css'
+import '../styles/shop.css';
+import { heroData } from '../data/heroData';
 import { shopItemData } from '../data/items/shopItems';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 export let shopItemsArray = [];
 for (let key in shopItemData) {
@@ -9,13 +10,13 @@ for (let key in shopItemData) {
 }
 
 
-function Shop({ weapon1, setWeapon1, weapon2, setWeapon2, money, setMoney }) {
+function Shop({ chosenHero, weapon1, setWeapon1, weapon2, setWeapon2, money, setMoney, showShopItems, herosDice, setHerosDice }) {
   const [availableItems, setAvailableItems] = useState(shopItemsArray);
-  // const [soldOut, setSoldOut] = useState(false)
+
 
   function buy(item) {
     if (item.type === 'melee' || item.type === 'ranged' || item.type === 'magic' || item.type === 'shield') {
-      if (weapon1 && weapon2) {
+      if ((weapon1 && weapon2) || (weapon1 && item.hands === 2) || (weapon2 && item.hands === 2)) {
         alert(`You have no space for this ${item.name} `);
       } else {
         if (money < item.cost) {
@@ -36,6 +37,12 @@ function Shop({ weapon1, setWeapon1, weapon2, setWeapon2, money, setMoney }) {
           } else if (!weapon1 && weapon2) {
             setWeapon1(item)
           }
+          if (item.combat_dice) {
+            for (let color in item.combat_dice) {
+              heroData[chosenHero].dice[color] += item.combat_dice[color]
+            }
+            setHerosDice(heroData[chosenHero].dice)
+          }
         }
       }
     } else if (item.type === 'anything') {
@@ -43,18 +50,12 @@ function Shop({ weapon1, setWeapon1, weapon2, setWeapon2, money, setMoney }) {
     }
 
   }
-  // useEffect(() => {
-  //   if (availableItems === []) {
-  //     setSoldOut(true);
-  //   } else {
-  //     setSoldOut(false);
-  //   }
-  // }, [availableItems]);
 
 
   return (
     <div id='shop' style={{ left: '30%', top: '30%', }}>
       <h2>Shop</h2>
+      <button onClick={() => showShopItems()}>Close Shop</button>
       <div id='shopItems' >
         {availableItems.map((item, i) =>
           <div key={i}>
