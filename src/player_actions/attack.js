@@ -11,17 +11,17 @@ export const disableAttack = {
 
 export const attackType = { type: null }
 
-export const selectedTarget = {
-  name: null,
-}
 
 
 
-export function attack(diceRoll, selectedWeapon, offHand, showDiceRoll) {
-  console.log(selectedTarget.name)
+
+export function attack(diceRoll, selectedWeapon, offHand, selectedTarget, attackOn, attackCardsActive, showDiceRoll) {
+  console.log(selectedTarget.id)
   console.log(diceRoll)
-  console.log(selectedWeapon)
-  console.log(offHand)
+  // console.log(selectedWeapon)
+  // console.log(offHand)
+  attackOn()
+  attackCardsActive()
   // showDiceRoll()
 
 }

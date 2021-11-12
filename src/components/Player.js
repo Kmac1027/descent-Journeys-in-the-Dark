@@ -9,8 +9,8 @@ import { heroData } from '../data/heroData.js';
 import { shopItemData } from '../data/items/shopItems';
 import { heroToken, disableMovment } from '../player_actions/movement';
 import { map1, startingMoney } from '../data/dungeonMaps/map1';
-import { attack, attackType } from '../player_actions/attack';
-import { targetClicked, mousePos, correctedPosition, attackTargetClicked } from '../player_actions/mouseClick';
+import { attack, attackType, } from '../player_actions/attack';
+import { targetClicked, mousePos, correctedPosition, attackTargetClicked, selectedTarget } from '../player_actions/mouseClick';
 
 
 function Player({ chosenHero, chosenQuest }) {
@@ -33,7 +33,7 @@ function Player({ chosenHero, chosenQuest }) {
 
 
   //attack
-  const [herosDice, setHerosDice] = useState(heroData[chosenHero].dice)
+
   const [numberOfAttacks, setNumberOfAttacks] = useState(0);
   const [attackActive, setAttackActive] = useState(false);
   const [weaponCardsActive, setWeaponCardsActive] = useState(false);
@@ -46,6 +46,11 @@ function Player({ chosenHero, chosenQuest }) {
       setWeaponCardsActive(true)
     } else {
       setWeaponCardsActive(false)
+      if (showDice === true) {
+        showDiceRoll()
+        attackOn()
+      }
+
     }
   }
   function attackOn() {
@@ -67,8 +72,8 @@ function Player({ chosenHero, chosenQuest }) {
     } else if (attackActive === true) {
       canvasClick.removeEventListener('click', targetClicked)
       canvasClick.addEventListener('click', attackTargetClicked);
-    }
 
+    }
   }, [attackActive]);
 
   //attacking
@@ -82,6 +87,7 @@ function Player({ chosenHero, chosenQuest }) {
     setOffHand(offHandWeapon)
     showDiceRoll();
   }
+
   const [showDice, setShowDice] = useState(false);
   function showDiceRoll() {
     if (showDice === false) {
@@ -154,12 +160,12 @@ function Player({ chosenHero, chosenQuest }) {
       } else {
         item.number_available += 1
       }
-      if (item.combat_dice) {
-        for (let color in item.combat_dice) {
-          heroData[chosenHero].dice[color] -= item.combat_dice[color]
-        }
-        setHerosDice(heroData[chosenHero].dice)
-      }
+      // if (item.combat_dice) {
+      //   for (let color in item.combat_dice) {
+      //     heroData[chosenHero].dice[color] -= item.combat_dice[color]
+      //   }
+      //   setHerosDice(heroData[chosenHero].dice)
+      // }
     }
   }
 
@@ -180,6 +186,7 @@ function Player({ chosenHero, chosenQuest }) {
           {showReturnToTown ?
             <div>
               {showReturnToTown ? <button height='100px' width='100px' onClick={attackCardsActive}>{weaponCardsActive ? 'Stop Attack' : 'Attack'}</button> : null}
+
               {weaponCardsActive ? <p>Select the Weapon you want to use, then your target</p> : null}
             </div>
             :
@@ -322,17 +329,16 @@ function Player({ chosenHero, chosenQuest }) {
         money={money}
         setMoney={setMoney}
         showShopItems={showShopItems}
-        herosdice={herosDice}
-        setHerosDice={setHerosDice}
       /> : null}
 
       {showDice ? <DiceRoll
         chosenHero={chosenHero}
         showDiceRoll={showDiceRoll}
-        herosDice={herosDice}
-        setHerosDice={setHerosDice}
+        selectedTarget={selectedTarget}
 
         attack={attack}
+        attackOn={attackOn}
+        attackCardsActive={attackCardsActive}
         attackActive={attackActive}
         selectedWeapon={selectedWeapon}
         offHand={offHand}
@@ -343,22 +349,6 @@ function Player({ chosenHero, chosenQuest }) {
         correctedPosition={correctedPosition}
       /> : null}
 
-
-
-      {/* {showDice ?
-        <div id='dicePool' style={{ position: 'absolute', left: '50%', top: '50%', }}>
-          <Dice size={100}
-            onRoll={(roll) => attack(weapon1, weapon2, meleePowerDie, rangedPowerDie, magicPowerDie, heroToken, correctedPosition, roll, showDiceRoll)}
-            triggers={['click']}
-            faces={[`${diceSideData.red.sides.side1.img_path}`,
-            `${diceSideData.red.sides.side2.img_path}`,
-            `${diceSideData.red.sides.side3.img_path}`,
-            `${diceSideData.red.sides.side4.img_path}`,
-            `${diceSideData.red.sides.side5.img_path}`,
-            `${diceSideData.red.sides.side6.img_path}`]
-            }
-          />
-        </div> : null} */}
     </div >
 
   );

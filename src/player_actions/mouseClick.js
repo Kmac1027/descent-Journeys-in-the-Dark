@@ -1,7 +1,11 @@
 import { map1 } from '../data/dungeonMaps/map1'
-import { selectedTarget, attackType, disableAttack } from './attack';
-import { disableMovment } from './movement';
+import { attackType, disableAttack } from './attack';
 import { heroToken } from './movement';
+
+
+export let selectedTarget = {
+  id: null
+};
 
 export let mousePos = {
   x: null,
@@ -15,7 +19,7 @@ export let correctedPosition = {
 
 export function targetClicked() {
   //mouse correction
-  console.log('Regular target Clicked')
+  // console.log('Regular target Clicked')
   for (let x = 0; x <= map1.mapSize.width; x += 50) {
     if (mousePos.x > x) {
       correctedPosition.x = x;
@@ -57,8 +61,9 @@ export function attackTargetClicked() {
       for (let monster in monsters) {
         if (correctedPosition.x === monsters[monster].x && correctedPosition.y === monsters[monster].y) {
           console.log(monster)
-          selectedTarget.name = monster
           disableAttack.melee = false;
+          selectedTarget.id = monsters[monster].id
+
           break;
         } else {
           disableAttack.melee = true;

@@ -10,7 +10,7 @@ for (let key in shopItemData) {
 }
 
 
-function Shop({ chosenHero, weapon1, setWeapon1, weapon2, setWeapon2, money, setMoney, showShopItems, herosDice, setHerosDice }) {
+function Shop({ chosenHero, weapon1, setWeapon1, weapon2, setWeapon2, money, setMoney, showShopItems }) {
   const [availableItems, setAvailableItems] = useState(shopItemsArray);
 
 
@@ -41,7 +41,7 @@ function Shop({ chosenHero, weapon1, setWeapon1, weapon2, setWeapon2, money, set
             for (let color in item.combat_dice) {
               heroData[chosenHero].dice[color] += item.combat_dice[color]
             }
-            setHerosDice(heroData[chosenHero].dice)
+            // setHerosDice(heroData[chosenHero].dice)
           }
         }
       }
