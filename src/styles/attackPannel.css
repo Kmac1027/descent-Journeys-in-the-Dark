@@ -1,0 +1,59 @@
+.diceRow{
+  justify-content: center;
+  display:flex;
+  flex-wrap: wrap;
+}
+.singleDie{
+  padding: 10px;
+}
+
+#attackPannel{
+  /* position: absolute; */
+  background-color: gray;
+  display: grid;
+  grid-template-columns: 70% 30%;
+  grid-template-rows: 60% 20% 20%;
+}
+
+#roll{
+  background-color: red;
+  grid-column-start: 1;
+grid-column-end: 2;
+grid-row-start: 1;
+grid-row-end: 2;
+}
+
+#dicePic{
+  justify-content: center;
+  display:flex;
+  flex-wrap: wrap;
+  background-color: blue;
+  grid-column-start: 2;
+grid-column-end: 3;
+grid-row-start: 1;
+grid-row-end: 2;
+}
+
+#attackButton{
+  background-color: green;
+grid-column-start: 1;
+grid-column-end: 2;
+grid-row-start: 3;
+grid-row-end: 4
+}
+
+#enemyPics{
+  background-color: yellow;
+  grid-column-start: 2;
+grid-column-end: 3;
+grid-row-start: 1;
+grid-row-end: 2
+}
+
+#enemyStats{
+  background-color: white;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 4
+}

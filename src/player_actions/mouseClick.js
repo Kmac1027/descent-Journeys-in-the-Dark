@@ -4,7 +4,8 @@ import { heroToken } from './movement';
 
 
 export let selectedTarget = {
-  id: null
+  id: null,
+  name: null
 };
 
 export let mousePos = {
@@ -62,7 +63,8 @@ export function attackTargetClicked() {
         if (correctedPosition.x === monsters[monster].x && correctedPosition.y === monsters[monster].y) {
           console.log(monster)
           disableAttack.melee = false;
-          selectedTarget.id = monsters[monster].id
+          selectedTarget.id = monsters[monster].id;
+          selectedTarget.name = monsters[monster].name
 
           break;
         } else {
