@@ -1,26 +1,22 @@
 import '../styles/player.css';
+// import Dice from 'react-dice-roll';
+// import { diceSideData } from '../data/diceSideData.js';
 import Shop, { shopItemsArray } from './Shop';
 import DiceRoll from './Dice';
 import { useState, useEffect } from 'react';
 import { heroData } from '../data/heroData.js';
 // import { monsterData } from '../data/monsterData.js';
 import { shopItemData } from '../data/items/shopItems';
-import { heroToken } from '../player_actions/movement';
+import { heroToken, disableMovment } from '../player_actions/movement';
 import { map1, startingMoney } from '../data/dungeonMaps/map1';
-import { attack, checkRange, checkMiss } from '../player_actions/attack';
+import { attack, attackType } from '../player_actions/attack';
 import { targetClicked, mousePos, correctedPosition, attackTargetClicked } from '../player_actions/mouseClick';
 
 
 function Player({ chosenHero, chosenQuest }) {
-  // useEffect(() => {
-  //   document.addEventListener("mousemove", function (e) {
-  //     mousePos.x = e.clientX;
-  //     mousePos.y = e.clientY;
-  //   });
-  //   let canvasClick = document.getElementById('canvas');
-  //   canvasClick.addEventListener('click', targetClicked);
-  // }, []);
-  //player stats
+
+
+
   const [currentHealth, setCurrentHealth] = useState(heroData[chosenHero].max_wounds);
   const [maxHealth, setMaxHealth] = useState(heroData[chosenHero].max_wounds);
   const [currentFatigue, setCurrentFatigue] = useState(heroData[chosenHero].max_fatigue);
@@ -40,9 +36,18 @@ function Player({ chosenHero, chosenQuest }) {
   const [herosDice, setHerosDice] = useState(heroData[chosenHero].dice)
   const [numberOfAttacks, setNumberOfAttacks] = useState(0);
   const [attackActive, setAttackActive] = useState(false);
-  const [pickTargetText, setPickTargetText] = useState(false)
+  const [weaponCardsActive, setWeaponCardsActive] = useState(false);
+  // const [dicePool, setDicePool] = useState();
 
 
+
+  function attackCardsActive() {
+    if (weaponCardsActive === false) {
+      setWeaponCardsActive(true)
+    } else {
+      setWeaponCardsActive(false)
+    }
+  }
   function attackOn() {
     if (attackActive === false) {
       setAttackActive(true)
@@ -66,14 +71,69 @@ function Player({ chosenHero, chosenQuest }) {
 
   }, [attackActive]);
 
+  //attacking
+  const [selectedWeapon, setSelectedWeapon] = useState({});
+  const [offHand, setOffHand] = useState({})
+
+  function attacking(weapon, offHandWeapon) {
+    attackType.type = weapon.type;
+    attackOn();
+    setSelectedWeapon(weapon)
+    setOffHand(offHandWeapon)
+    showDiceRoll();
+  }
+  const [showDice, setShowDice] = useState(false);
+  function showDiceRoll() {
+    if (showDice === false) {
+      setShowDice(true);
+    } else {
+      setShowDice(false);
+    }
+  }
+
 
   //weapons and items
   const [weapon1, setWeapon1] = useState(shopItemData.sword);
   const [weapon2, setWeapon2] = useState();
   const [armor, setArmor] = useState({});
 
-  //shop
+  //shop and town
+  const [showReturnToTown, setShowReturnToTown] = useState(false)
   const [showShop, setShowShop] = useState(false);
+
+  useEffect(() => {
+    if (heroToken.x === map1.tokenPlacement.start_area.x && heroToken.y === map1.tokenPlacement.start_area.y) {
+      setShowReturnToTown(true)
+    } else {
+      setShowReturnToTown(false)
+    }
+  }, [])
+
+  function returnToTown() {
+    if (heroToken.x === map1.town.x + 50 && heroToken.y === map1.town.y + 50) {
+      heroToken.x = map1.tokenPlacement.start_area.x
+      heroToken.y = map1.tokenPlacement.start_area.y
+      setShowReturnToTown(true)
+      disableMovment.up = false;
+      disableMovment.left = false;
+      disableMovment.right = false;
+      disableMovment.down = false;
+      disableMovment.downRight = false
+      disableMovment.upLeft = false;
+      disableMovment.upRight = false;
+      disableMovment.downLeft = false;
+    } else if (heroToken.x === map1.tokenPlacement.start_area.x && heroToken.y === map1.tokenPlacement.start_area.y) {
+      heroToken.x = map1.town.x + 50;
+      heroToken.y = map1.town.y + 50;
+      setShowReturnToTown(false)
+    } else {
+      alert('you are not at a glyph of teleportation')
+    }
+
+  }
+
+
+
   function showShopItems() {
     if (showShop === false) {
       setShowShop(true);
@@ -103,28 +163,6 @@ function Player({ chosenHero, chosenQuest }) {
     }
   }
 
-  //attacking
-  const [showDice, setShowDice] = useState(false);
-  function showDiceRoll() {
-    if (showDice === false) {
-      setShowDice(true);
-    } else {
-      setShowDice(false);
-    }
-  }
-
-  // const [checkMeleeAttack, setCheckMeleeAttack] = useState(true);
-  // function clicked() {
-  //   if (checkMeleeAttack === false) {
-  //     setCheckMeleeAttack(true)
-  //   } else {
-  //     setCheckMeleeAttack(false)
-  //   }
-  // }
-  // useEffect(() => {
-  //   // console.log('i ran')
-
-  // }, [checkMeleeAttack]);
 
 
 
@@ -139,9 +177,22 @@ function Player({ chosenHero, chosenQuest }) {
           <p>conquest tokens:{currentConquestTokens}/{maxConquestTokens}</p>
 
 
-          <button height='100px' width='100px' onClick={showShopItems}>shop</button>
-          <button height='100px' width='100px' onClick={attackOn}>{attackActive ? 'Stop Attack' : 'Attack'}</button>
-          {attackActive ? <p>Select a target to attack, then select the weapon you wish to use</p> : null}
+          {showReturnToTown ?
+            <div>
+              {showReturnToTown ? <button height='100px' width='100px' onClick={attackCardsActive}>{weaponCardsActive ? 'Stop Attack' : 'Attack'}</button> : null}
+              {weaponCardsActive ? <p>Select the Weapon you want to use, then your target</p> : null}
+            </div>
+            :
+            <div>
+              <button height='100px' width='100px' onClick={showShopItems}>shop</button>
+            </div>}
+
+          <button height='100px' width='100px' onClick={returnToTown}>{showReturnToTown ? 'Go to Town' : 'Go to Dungeon'}</button>
+
+
+
+
+
 
 
         </div>
@@ -170,11 +221,11 @@ function Player({ chosenHero, chosenQuest }) {
 
           {/* weapon 1 */}
           <div>
-            {attackActive ?
+            {weaponCardsActive ?
               <div>
                 <p>Weapon 1:</p>
                 {weapon1 ? <input type='image' id='weapon1' className='card' src={weapon1.img_path} alt='Weapon 1'
-                  onClick={() => attack(weapon1, weapon2, meleePowerDie, rangedPowerDie, magicPowerDie, heroToken, correctedPosition)}></input> : null}
+                  onClick={() => attacking(weapon1, weapon2)}></input> : null}
               </div>
               :
               <div>
@@ -189,11 +240,11 @@ function Player({ chosenHero, chosenQuest }) {
           {/* weapon 2 */}
           <div>
 
-            {attackActive ?
+            {weaponCardsActive ?
               <div>
                 <p>Weapon 2:</p>
                 {weapon2 ? <input type='image' id='weapon2' className='card' src={weapon2.img_path} alt='Weapon 2'
-                  onClick={() => attack(weapon2, weapon1, meleePowerDie, rangedPowerDie, magicPowerDie, heroToken, correctedPosition)}></input> : null}
+                  onClick={() => attacking(weapon2, weapon1)}></input> : null}
               </div>
               :
               <div>
@@ -274,13 +325,40 @@ function Player({ chosenHero, chosenQuest }) {
         herosdice={herosDice}
         setHerosDice={setHerosDice}
       /> : null}
+
       {showDice ? <DiceRoll
         chosenHero={chosenHero}
         showDiceRoll={showDiceRoll}
-        herosdice={herosDice}
+        herosDice={herosDice}
         setHerosDice={setHerosDice}
-        showDice={showDice}
+
+        attack={attack}
+        attackActive={attackActive}
+        selectedWeapon={selectedWeapon}
+        offHand={offHand}
+        meleePowerDie={meleePowerDie}
+        rangedPowerDie={rangedPowerDie}
+        magicPowerDie={magicPowerDie}
+        heroToken={heroToken}
+        correctedPosition={correctedPosition}
       /> : null}
+
+
+
+      {/* {showDice ?
+        <div id='dicePool' style={{ position: 'absolute', left: '50%', top: '50%', }}>
+          <Dice size={100}
+            onRoll={(roll) => attack(weapon1, weapon2, meleePowerDie, rangedPowerDie, magicPowerDie, heroToken, correctedPosition, roll, showDiceRoll)}
+            triggers={['click']}
+            faces={[`${diceSideData.red.sides.side1.img_path}`,
+            `${diceSideData.red.sides.side2.img_path}`,
+            `${diceSideData.red.sides.side3.img_path}`,
+            `${diceSideData.red.sides.side4.img_path}`,
+            `${diceSideData.red.sides.side5.img_path}`,
+            `${diceSideData.red.sides.side6.img_path}`]
+            }
+          />
+        </div> : null} */}
     </div >
 
   );
@@ -288,8 +366,13 @@ function Player({ chosenHero, chosenQuest }) {
 
 export default Player;
 
+
+
+
+
+
+
+
 // "homepage": "http://Kmac1027.github.io/descent-Journeys-in-the-Dark",
 // "predeploy": "npm run build",
 // "deploy": "gh-pages -d build"
-
-// onClick={() => attack(weapon2, meleePowerDie, rangedPowerDie, magicPowerDie, heroToken, map1.tokenPlacement.monsters.skeletonToken, correctedPosition)

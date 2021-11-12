@@ -5,7 +5,7 @@ import { mouseClickCorrection, correctedPosition } from '../../player_actions/mo
 import { Skeleton, MasterSkeleton } from '../monsterData';
 
 
-let skeleton1 = new Skeleton(1, 250, 150);
+let skeleton1 = new Skeleton(1, 150, 150);
 let skeleton2 = new Skeleton(2, 150, 250);
 let masterSkeleton1 = new MasterSkeleton(1, 0, 150);
 
@@ -22,18 +22,16 @@ export const map1 = {
       x: 100,
       y: 0
     },
-    glyphs: {
-      white_glyph_img_path: 'images/map_tiles/item_icons/ancient glyph of teleportation white.jpg',
-      red_glyph_img_path: 'images/map_tiles.item_icons/ancient glyph of teleportation Red',
-      start_area: {
-        x: 100,
-        y: 0
-      },
-    },
+    glyphs: {},
     treasure_chests: {},
-    items: {}
+    items: {},
   },
-
+  town: {
+    x: 350,
+    y: 0,
+    h: 150,
+    w: 150
+  },
 
   mapSize: {
     width: 950,
@@ -273,37 +271,90 @@ export function collisionDetection(previousX, previousY) {
   //obstacle collision detection
 
   //monsters collision detection
+  let monsters = map1.tokenPlacement.monsters
+  // for (let monster in monsters) {
+  //   console.log('for loop ran')
+  //   if (heroToken.x - 50 === monsters[monster].x && heroToken.y === monsters[monster].y) {
+  //     disableMovment.left = true;
 
-  if (heroToken.x - 50 === map1.tokenPlacement.monsters.skeleton1.x && heroToken.y === map1.tokenPlacement.monsters.skeleton1.y) {
-    disableMovment.left = true;
-  }
-  if (heroToken.x + 50 === map1.tokenPlacement.monsters.skeleton1.x && heroToken.y === map1.tokenPlacement.monsters.skeleton1.y) {
-    disableMovment.right = true;
-  }
-  if ((heroToken.y - 50) === map1.tokenPlacement.monsters.skeleton1.y && heroToken.x === map1.tokenPlacement.monsters.skeleton1.x) {
+  //   }
+  //   else if (heroToken.x + 50 === monsters[monster].x && heroToken.y === monsters[monster].y) {
+  //     disableMovment.right = true;
+  //   }
+  //   else if ((heroToken.y - 50) === monsters[monster].y && heroToken.x === monsters[monster].x) {
+  //     disableMovment.up = true;
+  //   }
+  //   else if ((heroToken.y + 50) === monsters[monster].y && heroToken.x === monsters[monster].x) {
+  //     disableMovment.down = true;
+
+  //   }
+  //   else if (heroToken.x + 50 === monsters[monster].x && heroToken.y + 50 === monsters[monster].y) {
+  //     disableMovment.downRight = true
+  //   }
+  //   else if (heroToken.x + 50 === monsters[monster].x && heroToken.y - 50 === monsters[monster].y) {
+  //     disableMovment.upRight = true
+
+  //   }
+  //   else if (heroToken.x - 50 === monsters[monster].x && heroToken.y + 50 === monsters[monster].y) {
+  //     disableMovment.downLeft = true
+  //   }
+  //   else if (heroToken.x - 50 === monsters[monster].x && heroToken.y - 50 === monsters[monster].y) {
+  //     disableMovment.upLeft = true
+  //   }
+  // }
+
+  //town collision detection
+  if (heroToken.x === map1.town.x + 50 && heroToken.y === map1.town.y + 50) {
     disableMovment.up = true;
-  }
-  if ((heroToken.y + 50) === map1.tokenPlacement.monsters.skeleton1.y && heroToken.x === map1.tokenPlacement.monsters.skeleton1.x) {
+    disableMovment.left = true;
+    disableMovment.right = true;
     disableMovment.down = true;
-  }
-  if (heroToken.x + 50 === map1.tokenPlacement.monsters.skeleton1.x && heroToken.y + 50 === map1.tokenPlacement.monsters.skeleton1.y) {
     disableMovment.downRight = true
+    disableMovment.upLeft = true;
+    disableMovment.upRight = true;
+    disableMovment.downLeft = true;
   }
-  if (heroToken.x + 50 === map1.tokenPlacement.monsters.skeleton1.x && heroToken.y - 50 === map1.tokenPlacement.monsters.skeleton1.y) {
-    disableMovment.upRight = true
-  }
-  if (heroToken.x - 50 === map1.tokenPlacement.monsters.skeleton1.x && heroToken.y + 50 === map1.tokenPlacement.monsters.skeleton1.y) {
-    disableMovment.downLeft = true
-  }
-  if (heroToken.x - 50 === map1.tokenPlacement.monsters.skeleton1.x && heroToken.y - 50 === map1.tokenPlacement.monsters.skeleton1.y) {
-    disableMovment.upLeft = true
-  }
+  // if (heroToken.x === map1.town.x && heroToken.y === map1.town.y) {
+  //   disableMovment.upRight = true;
+  //   disableMovment.up = true;
+  //   disableMovment.upLeft = true;
+  //   disableMovment.left = true;
+  //   disableMovment.downLeft = true;
+  // } if (heroToken.x + 50 === map1.town.x && heroToken.y === map1.town.y) {
+  //   disableMovment.upLeft = true;
+  //   disableMovment.up = true;
+  //   disableMovment.upRight = true;
+  // } if (heroToken.x + 100 === map1.town.x && heroToken.y === map1.town.y) {
+  //   disableMovment.downRight = true;
+  //   disableMovment.right = true;
+  //   disableMovment.upRight = true;
+  //   disableMovment.up = true;
+  //   disableMovment.upLeft = true;
+  // } if (heroToken.x === map1.town.x && heroToken.y + 50 === map1.town.y) {
+  //   disableMovment.downLeft = true;
+  //   disableMovment.left = true;
+  //   disableMovment.upLeft = true;
+  // } if (heroToken.x + 100 === map1.town.x && heroToken.y + 50 === map1.town.y) {
+  //   disableMovment.downRight = true;
+  //   disableMovment.right = true;
+  //   disableMovment.upRight = true;
+  // } if (heroToken.x === map1.town.x && heroToken.y + 100 === map1.town.y) {
+  //   disableMovment.downLeft = true;
+  //   disableMovment.left = true;
+  //   disableMovment.upLeft = true;
+  //   disableMovment.down = true;
+  // } if (heroToken.x + 50 === map1.town.x && heroToken.y + 100 === map1.town.y) {
+  //   disableMovment.downLeft = true;
+  //   disableMovment.down = true;
+  //   disableMovment.downRight = true;
+  // } if (heroToken.x + 100 === map1.town.x && heroToken.y + 100 === map1.town.y) {
+  //   disableMovment.downLeft = true;
+  //   disableMovment.down = true;
+  //   disableMovment.downRight = true;
+  //   disableMovment.right = true;
+  //   disableMovment.upRight = true;
+  // }
+
+
 }
 
-function correct() {
-  if (correctedPosition.x === map1.monsters.skeletonToken.x && correctedPosition.y === map1.monsters.skeletonToken.y) {
-    console.log('correct!');
-  } else {
-    console.log('incorrect')
-  }
-}

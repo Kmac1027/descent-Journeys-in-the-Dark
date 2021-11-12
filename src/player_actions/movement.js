@@ -4,8 +4,8 @@ import { map1 } from '../data/dungeonMaps/map1'
 export const heroToken = {
   w: 50,
   h: 50,
-  x: map1.tokenPlacement.glyphs.start_area.x,
-  y: map1.tokenPlacement.glyphs.start_area.y,
+  x: map1.tokenPlacement.start_area.x,
+  y: map1.tokenPlacement.start_area.y,
   speed: 5,
   dx: 0,
   dy: 0

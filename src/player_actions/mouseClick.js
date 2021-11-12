@@ -1,5 +1,7 @@
 import { map1 } from '../data/dungeonMaps/map1'
-import { disableAttack } from './attack';
+import { selectedTarget, attackType, disableAttack } from './attack';
+import { disableMovment } from './movement';
+import { heroToken } from './movement';
 
 export let mousePos = {
   x: null,
@@ -13,6 +15,7 @@ export let correctedPosition = {
 
 export function targetClicked() {
   //mouse correction
+  console.log('Regular target Clicked')
   for (let x = 0; x <= map1.mapSize.width; x += 50) {
     if (mousePos.x > x) {
       correctedPosition.x = x;
@@ -23,23 +26,11 @@ export function targetClicked() {
       correctedPosition.y = y;
     }
   }
-  // console.log(correctedPosition);
-  // else {
-  //   if ('target item or gold') {
-  //     // pickUpItem();
-  //   } else if ('target treasure chest') {
-  //     // openTreasureChest()
-  //   } else if ('target is Gliph') {
-  //     if ('glyph activated') {
-  //       // 'return to town?'
-  //     } else {
-  //       // 'activate glyph'
-  //     }
-  //   }
-  // }
 }
 
 export function attackTargetClicked() {
+
+  console.log('Attack target Clicked')
   //mouse correction
   for (let x = 0; x <= map1.mapSize.width; x += 50) {
     if (mousePos.x > x) {
@@ -52,14 +43,32 @@ export function attackTargetClicked() {
     }
   }
 
-  let monsters = map1.tokenPlacement.monsters
-  for (let monster in monsters) {
-    if (correctedPosition.x === monsters[monster].x && correctedPosition.y === monsters[monster].y) {
-      console.log(monster)
-      disableAttack.melee = false;
-      break;
+  if (attackType.type === 'melee') {
+    if ((heroToken.x - 50 === correctedPosition.x && heroToken.y === correctedPosition.y) ||
+      (heroToken.x + 50 === correctedPosition.x && heroToken.y === correctedPosition.y) ||
+      (heroToken.y - 50 === correctedPosition.y && heroToken.x === correctedPosition.x) ||
+      (heroToken.y + 50 === correctedPosition.y && heroToken.x === correctedPosition.x) ||
+      (heroToken.x + 50 === correctedPosition.x && heroToken.y + 50 === correctedPosition.y) ||
+      (heroToken.x + 50 === correctedPosition.x && heroToken.y - 50 === correctedPosition.y) ||
+      (heroToken.x - 50 === correctedPosition.x && heroToken.y + 50 === correctedPosition.y) || (
+        heroToken.x - 50 === correctedPosition.x && heroToken.y - 50 === correctedPosition.y)) {
+
+      let monsters = map1.tokenPlacement.monsters
+      for (let monster in monsters) {
+        if (correctedPosition.x === monsters[monster].x && correctedPosition.y === monsters[monster].y) {
+          console.log(monster)
+          selectedTarget.name = monster
+          disableAttack.melee = false;
+          break;
+        } else {
+          disableAttack.melee = true;
+        }
+      }
     } else {
-      console.log('not a monster')
+      console.log('you are not in melee range')
     }
+  } else {
+    console.log('this is the ranged and magic area')
   }
+
 }

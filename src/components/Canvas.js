@@ -22,11 +22,13 @@ function Canvas() {
     //drawing on canvas
     const ctx = canvas.current.getContext('2d');
     let heroTokenId = document.getElementById('heroToken');
-
-    let masterSkeleton = document.getElementById('masterSkeleton')
+    let town = document.getElementById('town');
     let mapTileTokenId = document.getElementById('mapTileToken');
     let startAreaGlyphId = document.getElementById('whiteGlyph');
 
+    function drawTown() {
+      ctx.drawImage(town, map1.town.x, map1.town.y, map1.town.h, map1.town.w);
+    }
     function drawTile() {
       let tiles = map1.map1Floor.floor_tiles;
       for (let tile in tiles) {
@@ -62,12 +64,14 @@ function Canvas() {
     }
     function drawHeroToken() {
       ctx.drawImage(heroTokenId, heroToken.x, heroToken.y, heroToken.w, heroToken.h);
+      ctx.strokeStyle = '#ffffff';
+      ctx.strokeRect(heroToken.x, heroToken.y, heroToken.w, heroToken.h);
     }
 
     function newPosition() {
       heroToken.x += heroToken.dx;
       heroToken.y += heroToken.dy;
-      collisionDetection(previousPosition.x, previousPosition.y);
+      collisionDetection();
       detectWalls(canvas.current);
     }
     function clear() {
@@ -77,6 +81,7 @@ function Canvas() {
       clear();
       drawTile();
       drawMonsterToken();
+      drawTown();
       drawHeroToken();
       newPosition()
       requestAnimationFrame(update)

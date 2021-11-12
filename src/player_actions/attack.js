@@ -1,6 +1,7 @@
 import { heroData } from '../data/heroData';
 import { diceSideData } from '../data/diceSideData';
 import { shopItems } from '../data/items/shopItems';
+import { map1 } from '../data/dungeonMaps/map1';
 
 export const disableAttack = {
   melee: true,
@@ -8,58 +9,19 @@ export const disableAttack = {
   magic: true
 }
 
+export const attackType = { type: null }
+
+export const selectedTarget = {
+  name: null,
+}
 
 
 
-export function attack(weapon, offHandWeapon, meleePowerDie, rangedPowerDie, magicPowerDie, heroToken, correctedPosition) {
-
-  let clickedPosition = correctedPosition;
-
-  if (weapon.type === 'melee') {
-
-    if (disableAttack.melee === false) {
-
-
-      if (heroToken.x - 50 === clickedPosition.x && heroToken.y === clickedPosition.y) {
-        console.log('can attack');
-      }
-      else if (heroToken.x + 50 === clickedPosition.x && heroToken.y === clickedPosition.y) {
-        console.log('can attack');
-      }
-      else if (heroToken.y - 50 === clickedPosition.y && heroToken.x === clickedPosition.x) {
-        console.log('can attack');
-      }
-      else if (heroToken.y + 50 === clickedPosition.y && heroToken.x === clickedPosition.x) {
-        console.log('can attack');
-      }
-      else if (heroToken.x + 50 === clickedPosition.x && heroToken.y + 50 === clickedPosition.y) {
-        console.log('can attack');
-      }
-      else if (heroToken.x + 50 === clickedPosition.x && heroToken.y - 50 === clickedPosition.y) {
-        console.log('can attack');
-      }
-      else if (heroToken.x - 50 === clickedPosition.x && heroToken.y + 50 === clickedPosition.y) {
-        console.log('can attack');
-      }
-      else if (heroToken.x - 50 === clickedPosition.x && heroToken.y - 50 === clickedPosition.y) {
-        console.log('can attack');
-      } else {
-        console.log('target not within melee range')
-      }
-
-
-    } else {
-      console.log('Disable melee attack is true, you may not attack at this time')
-    }
-
-  } else {
-    console.log('ranged and magic weapon area')
-  }
-
-
-
-
-
-
+export function attack(diceRoll, selectedWeapon, offHand, showDiceRoll) {
+  console.log(selectedTarget.name)
+  console.log(diceRoll)
+  console.log(selectedWeapon)
+  console.log(offHand)
+  // showDiceRoll()
 
 }

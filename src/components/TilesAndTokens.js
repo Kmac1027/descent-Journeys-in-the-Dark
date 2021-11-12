@@ -30,6 +30,10 @@ function TilesAndTokens({ chosenHero }) {
         <img id='whiteGlyph' src={'images/map_tiles/item_icons/ancient glyph of teleportation white.jpg'} alt={'white glyph'} />
         <img id='redGlyph' src={'images/map_tiles/item_icons/ancient glyph of teleportation red.jpg'} alt={'red glyph'} />
       </div >
+      {/* town */}
+      <div>
+        <img id='town' src={'images/map_tiles/town.png'} alt={'town'} />
+      </div>
 
     </div>
   );
