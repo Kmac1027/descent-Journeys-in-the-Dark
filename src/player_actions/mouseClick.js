@@ -35,7 +35,7 @@ export function targetClicked() {
 
 export function attackTargetClicked() {
 
-  console.log('Attack target Clicked')
+  // console.log('Attack target Clicked')
   //mouse correction
   for (let x = 0; x <= map1.mapSize.width; x += 50) {
     if (mousePos.x > x) {
@@ -61,11 +61,12 @@ export function attackTargetClicked() {
       let monsters = map1.tokenPlacement.monsters
       for (let monster in monsters) {
         if (correctedPosition.x === monsters[monster].x && correctedPosition.y === monsters[monster].y) {
-          console.log(monster)
+          console.log(monster, ' Selected to attack')
+          map1.tokenPlacement.marker.x = monsters[monster].x
+          map1.tokenPlacement.marker.y = monsters[monster].y
           disableAttack.melee = false;
           selectedTarget.id = monsters[monster].id;
           selectedTarget.name = monsters[monster].name
-
           break;
         } else {
           disableAttack.melee = true;
@@ -74,8 +75,22 @@ export function attackTargetClicked() {
     } else {
       console.log('you are not in melee range')
     }
-  } else {
-    console.log('this is the ranged and magic area')
+  } else if ((attackType.type === 'ranged' || (attackType.type === 'magic'))) {
+    let monsters = map1.tokenPlacement.monsters
+    for (let monster in monsters) {
+      if (correctedPosition.x === monsters[monster].x && correctedPosition.y === monsters[monster].y) {
+        console.log(monster, ' Selected to attack')
+        map1.tokenPlacement.marker.x = monsters[monster].x
+        map1.tokenPlacement.marker.y = monsters[monster].y
+        disableAttack.ranged = false;
+        disableAttack.magic = false;
+        selectedTarget.id = monsters[monster].id;
+        selectedTarget.name = monsters[monster].name
+        break;
+      } else {
+        disableAttack.ranged = true;
+        disableAttack.magic = true;
+      }
+    }
   }
-
 }

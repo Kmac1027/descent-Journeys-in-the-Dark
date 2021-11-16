@@ -3,6 +3,7 @@ import { heroToken } from '../../player_actions/movement';
 import { disableMovment } from '../../player_actions/movement';
 import { mouseClickCorrection, correctedPosition } from '../../player_actions/mouseClick'
 import { Skeleton, MasterSkeleton } from '../monsterData';
+import { runLoop } from '../../components/Canvas'
 
 
 let skeleton1 = new Skeleton(1, 150, 150);
@@ -25,6 +26,10 @@ export const map1 = {
     glyphs: {},
     treasure_chests: {},
     items: {},
+    marker: {
+      x: -100,
+      y: -100
+    },
   },
   town: {
     x: 350,
@@ -148,7 +153,7 @@ export const map1 = {
   startingMoney: { amount: 300 },
 }
 
-export function collisionDetection(previousX, previousY) {
+export function collisionDetection(runLoopX, runLoopY) {
   // if (heroToken.x < 100 && heroToken.y <= 0) {
   //   heroToken.x = previousX;
   //   heroToken.y = previousY;
@@ -271,37 +276,42 @@ export function collisionDetection(previousX, previousY) {
   //obstacle collision detection
 
   //monsters collision detection
-  let monsters = map1.tokenPlacement.monsters
-  // for (let monster in monsters) {
-  //   console.log('for loop ran')
-  //   if (heroToken.x - 50 === monsters[monster].x && heroToken.y === monsters[monster].y) {
-  //     disableMovment.left = true;
+  if (heroToken.x !== runLoopX || heroToken.y !== runLoopY) {
+    let monsters = map1.tokenPlacement.monsters
+    // console.log('for loop ran')
+    for (let monster in monsters) {
+      if (heroToken.x - 50 === monsters[monster].x && heroToken.y === monsters[monster].y) {
+        disableMovment.left = true;
 
-  //   }
-  //   else if (heroToken.x + 50 === monsters[monster].x && heroToken.y === monsters[monster].y) {
-  //     disableMovment.right = true;
-  //   }
-  //   else if ((heroToken.y - 50) === monsters[monster].y && heroToken.x === monsters[monster].x) {
-  //     disableMovment.up = true;
-  //   }
-  //   else if ((heroToken.y + 50) === monsters[monster].y && heroToken.x === monsters[monster].x) {
-  //     disableMovment.down = true;
+      }
+      else if (heroToken.x + 50 === monsters[monster].x && heroToken.y === monsters[monster].y) {
+        disableMovment.right = true;
+      }
+      else if ((heroToken.y - 50) === monsters[monster].y && heroToken.x === monsters[monster].x) {
+        disableMovment.up = true;
+      }
+      else if ((heroToken.y + 50) === monsters[monster].y && heroToken.x === monsters[monster].x) {
+        disableMovment.down = true;
 
-  //   }
-  //   else if (heroToken.x + 50 === monsters[monster].x && heroToken.y + 50 === monsters[monster].y) {
-  //     disableMovment.downRight = true
-  //   }
-  //   else if (heroToken.x + 50 === monsters[monster].x && heroToken.y - 50 === monsters[monster].y) {
-  //     disableMovment.upRight = true
+      }
+      else if (heroToken.x + 50 === monsters[monster].x && heroToken.y + 50 === monsters[monster].y) {
+        disableMovment.downRight = true
+      }
+      else if (heroToken.x + 50 === monsters[monster].x && heroToken.y - 50 === monsters[monster].y) {
+        disableMovment.upRight = true
 
-  //   }
-  //   else if (heroToken.x - 50 === monsters[monster].x && heroToken.y + 50 === monsters[monster].y) {
-  //     disableMovment.downLeft = true
-  //   }
-  //   else if (heroToken.x - 50 === monsters[monster].x && heroToken.y - 50 === monsters[monster].y) {
-  //     disableMovment.upLeft = true
-  //   }
-  // }
+      }
+      else if (heroToken.x - 50 === monsters[monster].x && heroToken.y + 50 === monsters[monster].y) {
+        disableMovment.downLeft = true
+      }
+      else if (heroToken.x - 50 === monsters[monster].x && heroToken.y - 50 === monsters[monster].y) {
+        disableMovment.upLeft = true
+      }
+    }
+    runLoop.x = heroToken.x;
+    runLoop.y = heroToken.y
+  }
+
 
   //town collision detection
   if (heroToken.x === map1.town.x + 50 && heroToken.y === map1.town.y + 50) {

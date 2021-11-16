@@ -8,7 +8,7 @@ import { heroData } from '../data/heroData.js';
 // import { monsterData } from '../data/monsterData.js';
 import { shopItemData } from '../data/items/shopItems';
 import { heroToken, disableMovment } from '../player_actions/movement';
-import { map1, startingMoney } from '../data/dungeonMaps/map1';
+import { map1 } from '../data/dungeonMaps/map1';
 import { attack, attackType, } from '../player_actions/attack';
 import { targetClicked, mousePos, correctedPosition, attackTargetClicked, selectedTarget } from '../player_actions/mouseClick';
 
@@ -16,7 +16,7 @@ import { targetClicked, mousePos, correctedPosition, attackTargetClicked, select
 function Player({ chosenHero, chosenQuest }) {
 
 
-
+  // const [addToAttackPannel, setAddToAttackPannel] = useState(false)
   const [currentHealth, setCurrentHealth] = useState(heroData[chosenHero].max_wounds);
   const [maxHealth, setMaxHealth] = useState(heroData[chosenHero].max_wounds);
   const [currentFatigue, setCurrentFatigue] = useState(heroData[chosenHero].max_fatigue);
@@ -49,6 +49,9 @@ function Player({ chosenHero, chosenQuest }) {
       if (showDice === true) {
         showDiceRoll()
         attackOn()
+        map1.tokenPlacement.marker.x = -100
+        map1.tokenPlacement.marker.y = -100
+        selectedTarget.id = null
       }
 
     }
@@ -335,6 +338,10 @@ function Player({ chosenHero, chosenQuest }) {
         chosenHero={chosenHero}
         showDiceRoll={showDiceRoll}
         selectedTarget={selectedTarget}
+        map1={map1}
+        // addToAttackPannel={addToAttackPannel}
+        // setAddToAttackPannel={setAddToAttackPannel}
+        weaponCardsActive={weaponCardsActive}
 
         attack={attack}
         attackOn={attackOn}

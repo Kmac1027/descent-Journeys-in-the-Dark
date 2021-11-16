@@ -19,6 +19,7 @@ function TilesAndTokens({ chosenHero }) {
       {/* dungeon floor tiles */}
       <div>
         <img id='mapTileToken' src={map1.map1Floor.floor_image_path} alt={'map tile'} />
+        <img id='marker' src={'images/map_tiles/marker.png'} alt={'target marker'} />
       </div >
       <div>
         {/* monster tokens */}

@@ -1,4 +1,5 @@
 
+
 export class Skeleton {
   constructor(id, x, y) {
     this.id = id;

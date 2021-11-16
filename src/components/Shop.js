@@ -1,7 +1,7 @@
 import '../styles/shop.css';
 import { heroData } from '../data/heroData';
 import { shopItemData } from '../data/items/shopItems';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export let shopItemsArray = [];
 for (let key in shopItemData) {
@@ -16,7 +16,7 @@ function Shop({ chosenHero, weapon1, setWeapon1, weapon2, setWeapon2, money, set
 
   function buy(item) {
     if (item.type === 'melee' || item.type === 'ranged' || item.type === 'magic' || item.type === 'shield') {
-      if ((weapon1 && weapon2) || (weapon1 && item.hands === 2) || (weapon2 && item.hands === 2)) {
+      if ((weapon1 && weapon2) || (weapon1 && item.hands === 2) || (weapon2 && item.hands === 2) || (weapon1 && weapon1.hands === 2) || (weapon2 && weapon2.hands === 2)) {
         alert(`You have no space for this ${item.name} `);
       } else {
         if (money < item.cost) {
@@ -50,7 +50,43 @@ function Shop({ chosenHero, weapon1, setWeapon1, weapon2, setWeapon2, money, set
     }
 
   }
+  useEffect(() => {
+    dragElement(document.getElementById("shop"));
 
+    function dragElement(elmnt) {
+      var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+      if (document.getElementById(elmnt.id + "header")) {
+        document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+      } else {
+        elmnt.onmousedown = dragMouseDown;
+      }
+
+      function dragMouseDown(e) {
+        e = e || window.event;
+        e.preventDefault();
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        document.onmousemove = elementDrag;
+      }
+
+      function elementDrag(e) {
+        e = e || window.event;
+        e.preventDefault();
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+      }
+
+      function closeDragElement() {
+        document.onmouseup = null;
+        document.onmousemove = null;
+      }
+    }
+  }, [])
 
   return (
     <div id='shop' style={{ left: '30%', top: '30%', }}>

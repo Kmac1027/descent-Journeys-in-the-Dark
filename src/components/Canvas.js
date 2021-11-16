@@ -1,23 +1,19 @@
 import '../styles/canvas.css';
 import React, { useEffect, useRef } from "react";
 // import { heroData } from '../data/heroData'
-import { heroToken, keyDown, keyUp, detectWalls, previousPosition } from '../player_actions/movement'
+import { heroToken, keyDown, keyUp, detectWalls } from '../player_actions/movement'
 import { collisionDetection, map1 } from '../data/dungeonMaps/map1'
-import { mouseClickCorrection, mousePos } from '../player_actions/mouseClick'
 
 
+export let runLoop = {
+  x: 0,
+  y: 0
+}
 
 function Canvas() {
   const canvas = useRef(null);
 
   useEffect(() => {
-    //mouse click
-    // document.addEventListener("mousemove", function (e) {
-    //   mousePos.x = e.clientX;
-    //   mousePos.y = e.clientY;
-    // });
-    // let canvasClick = document.getElementById('canvas');
-    // canvasClick.addEventListener('click', mouseClickCorrection);
 
     //drawing on canvas
     const ctx = canvas.current.getContext('2d');
@@ -25,21 +21,27 @@ function Canvas() {
     let town = document.getElementById('town');
     let mapTileTokenId = document.getElementById('mapTileToken');
     let startAreaGlyphId = document.getElementById('whiteGlyph');
+    let markerId = document.getElementById('marker');
 
     function drawTown() {
       ctx.drawImage(town, map1.town.x, map1.town.y, map1.town.h, map1.town.w);
     }
-    function drawTile() {
+    function drawLevel() {
+      //floor tiles
       let tiles = map1.map1Floor.floor_tiles;
       for (let tile in tiles) {
         ctx.drawImage(mapTileTokenId, tiles[tile].x, tiles[tile].y, map1.map1Floor.tile_size.height, map1.map1Floor.tile_size.width);
         ctx.strokeStyle = '#ffffff';
         ctx.strokeRect(tiles[tile].x, tiles[tile].y, map1.map1Floor.tile_size.height, map1.map1Floor.tile_size.width);
       }
+      //glyphs
       ctx.drawImage(startAreaGlyphId, map1.tokenPlacement.start_area.x, map1.tokenPlacement.start_area.y, map1.map1Floor.tile_size.height, map1.map1Floor.tile_size.width);
       ctx.strokeStyle = '#ffffff';
       ctx.strokeRect(map1.tokenPlacement.start_area.x, map1.tokenPlacement.start_area.y, map1.map1Floor.tile_size.height, map1.map1Floor.tile_size.width);
+
     }
+
+
     function drawMonsterToken() {
       let monsters = map1.tokenPlacement.monsters;
       for (let monster in monsters) {
@@ -60,7 +62,8 @@ function Canvas() {
         }
 
       }
-
+      //marker
+      ctx.drawImage(markerId, map1.tokenPlacement.marker.x, map1.tokenPlacement.marker.y, 50, 50)
     }
     function drawHeroToken() {
       ctx.drawImage(heroTokenId, heroToken.x, heroToken.y, heroToken.w, heroToken.h);
@@ -71,7 +74,7 @@ function Canvas() {
     function newPosition() {
       heroToken.x += heroToken.dx;
       heroToken.y += heroToken.dy;
-      collisionDetection();
+      collisionDetection(runLoop.x, runLoop.y);
       detectWalls(canvas.current);
     }
     function clear() {
@@ -79,7 +82,7 @@ function Canvas() {
     }
     function update() {
       clear();
-      drawTile();
+      drawLevel();
       drawMonsterToken();
       drawTown();
       drawHeroToken();
