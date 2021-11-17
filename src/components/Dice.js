@@ -40,8 +40,10 @@ function DiceRoll({
   correctedPosition
 }) {
 
+  const [count, setCount] = useState(1)
   const [checkSelectedTarget, setCheckSelectedTarget] = useState(selectedTarget)
   const [turnDiceOff, setTurnDiceOff] = useState(true);
+  const [turnMainDiceOff, setTurnMainDiceOff] = useState(true);
   const [addToAttackPannel, setAddToAttackPannel] = useState(false)
   const [redDice, setRedDice] = useState(redDiceArray);
   const [blueDice, setBlueDice] = useState(blueDiceArray);
@@ -55,7 +57,7 @@ function DiceRoll({
       setCheckSelectedTarget(selectedTarget)
       // console.log(checkSelectedTarget)
       if (checkSelectedTarget.id) {
-        setTurnDiceOff(false)
+        setTurnMainDiceOff(false)
         if (!addToAttackPannel) {
           addToAttackPannelFunction()
           clearInterval(interval)
@@ -157,7 +159,7 @@ function DiceRoll({
       attackOn()
       attackCardsActive()
     } else {
-
+      setTurnDiceOff(false)
       diceRoll.damage += diceSideData[color].sides[`side${roll}`].damage
       diceRoll.surge += diceSideData[color].sides[`side${roll}`].surge
       diceRoll.range += diceSideData[color].sides[`side${roll}`].range
@@ -168,6 +170,7 @@ function DiceRoll({
       diceImg.height = 50;
       diceImg.width = 50;
       dicePicDiv.appendChild(diceImg);
+
     }
 
   }
@@ -231,10 +234,11 @@ function DiceRoll({
 
       <div id='diceRow'>
         {redDice.map((die, i) =>
-          <div key={i} className='singleDie'>
+
+          <div key={i} id={count} className='singleDie'>
             <Dice size={100} onRoll={(roll => addDiceRoll(roll, 'red'))}
               triggers={['click', 'Enter']}
-              disabled={turnDiceOff}
+              disabled={turnMainDiceOff}
               defaultValue={1}
               faces={[`${diceSideData.red.sides.side1.img_path}`,
               `${diceSideData.red.sides.side2.img_path}`,
@@ -242,15 +246,17 @@ function DiceRoll({
               `${diceSideData.red.sides.side4.img_path}`,
               `${diceSideData.red.sides.side5.img_path}`,
               `${diceSideData.red.sides.side6.img_path}`]}
-              cheatValue={6}
+            // cheatValue={6}
             />
+            {/* {setCount(count + 1)} */}
           </div>
         )}
         {whiteDice.map((die, i) =>
-          <div key={i} className='singleDie'>
+          <div key={i} id={i} className='singleDie'>
+            {/* {console.log(document.getElementById(i))} */}
             <Dice size={100} onRoll={(roll => addDiceRoll(roll, 'white'))}
               triggers={['click']}
-              disabled={turnDiceOff}
+              disabled={turnMainDiceOff}
               defaultValue={2}
               faces={[`${diceSideData.white.sides.side1.img_path}`,
               `${diceSideData.white.sides.side2.img_path}`,
@@ -265,7 +271,7 @@ function DiceRoll({
           <div key={i} className='singleDie'>
             <Dice size={100} onRoll={(roll => addDiceRoll(roll, 'blue'))}
               triggers={['click']}
-              disabled={turnDiceOff}
+              disabled={turnMainDiceOff}
               defaultValue={1}
               faces={[`${diceSideData.blue.sides.side1.img_path}`,
               `${diceSideData.blue.sides.side2.img_path}`,
@@ -278,6 +284,7 @@ function DiceRoll({
         )}
         {greenDice.map((die, i) =>
           <div key={i} className='singleDie'>
+
             <Dice size={100} onRoll={(roll => addDiceRoll(roll, 'green'))}
               triggers={['click']}
               disabled={turnDiceOff}

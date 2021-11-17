@@ -1,6 +1,4 @@
 import '../styles/player.css';
-// import Dice from 'react-dice-roll';
-// import { diceSideData } from '../data/diceSideData.js';
 import Shop, { shopItemsArray } from './Shop';
 import DiceRoll from './Dice';
 import { useState, useEffect } from 'react';
