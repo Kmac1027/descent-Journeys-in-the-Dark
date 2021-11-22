@@ -23,8 +23,6 @@ function DiceRoll({
   setHerosDice,
   selectedTarget,
   map1,
-  // addToAttackPannel,
-  // setAddToAttackPannel,
   weaponCardsActive,
 
   attack,
@@ -199,6 +197,7 @@ function DiceRoll({
     diceImg.height = 50;
     diceImg.width = 50;
     dicePicDiv.appendChild(diceImg);
+
     let hide = document.getElementById(id)
     hide.className = 'hidden'
   }
@@ -256,7 +255,7 @@ function DiceRoll({
         </div>
 
         <div id='dicePic'>
-          <button id='attackButton' onClick={() => attack(damage, range, surge, selectedWeapon, offHand, selectedTarget, attackOn, attackCardsActive, showDiceRoll)}>click to attack</button>
+          <button id='attackButton' onClick={() => attack(heroToken, damage, range, surge, selectedWeapon, offHand, selectedTarget, attackOn, attackCardsActive, showDiceRoll)}>click to attack</button>
         </div>
 
         <div id='enemyPic'><p></p></div>
