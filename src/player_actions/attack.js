@@ -15,10 +15,10 @@ export const attackType = { type: null }
 
 
 
-export function attack(diceRoll, selectedWeapon, offHand, selectedTarget, attackOn, attackCardsActive, showDiceRoll) {
+export function attack(damage, range, surge, selectedWeapon, offHand, selectedTarget, attackOn, attackCardsActive, showDiceRoll) {
   let selectedMonster = map1.tokenPlacement.monsters[selectedTarget.name + selectedTarget.id.toString()];
   // console.log(selectedMonster.max_wounds)
-  let hitAmount = diceRoll.damage - selectedMonster.base_armor
+  let hitAmount = damage - selectedMonster.base_armor
   selectedMonster.max_wounds -= hitAmount
   // console.log(selectedMonster.max_wounds)
   if (selectedMonster.max_wounds <= 0) {

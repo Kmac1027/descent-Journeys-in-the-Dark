@@ -235,4 +235,42 @@ export const diceSideData = {
       }
     }
   },
+
+
+  //////POWER DICE
+  powerDice: {
+    color: 'black',
+    sides: {
+      side1: {
+        enhancment: false,
+        surge: 0,
+        img_path: 'images/dice/black/black1.png'
+      },
+      side2: {
+        enhancment: false,
+        surge: 1,
+        img_path: 'images/dice/black/black2.png'
+      },
+      side3: {
+        enhancment: false,
+        surge: 1,
+        img_path: 'images/dice/black/black3.png'
+      },
+      side4: {
+        enhancment: true,
+        surge: 0,
+        img_path: 'images/dice/black/black4.png'
+      },
+      side5: {
+        enhancment: true,
+        surge: 0,
+        img_path: 'images/dice/black/black5.png'
+      },
+      side6: {
+        enhancment: true,
+        surge: 0,
+        img_path: 'images/dice/black/black6.png'
+      }
+    }
+  },
 }

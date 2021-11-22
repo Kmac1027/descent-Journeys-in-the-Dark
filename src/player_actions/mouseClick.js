@@ -37,16 +37,35 @@ export function attackTargetClicked() {
 
   // console.log('Attack target Clicked')
   //mouse correction
-  for (let x = 0; x <= map1.mapSize.width; x += 50) {
-    if (mousePos.x > x) {
-      correctedPosition.x = x;
-    }
+
+  if (mousePos.x % 50 === mousePos.x) {
+    correctedPosition.x = 0;
   }
-  for (let y = 0; y <= map1.mapSize.height; y += 50) {
-    if (mousePos.y > y) {
-      correctedPosition.y = y;
-    }
+  else if (mousePos.x % 50 > 0) {
+    correctedPosition.x = mousePos.x - mousePos.x % 50;
   }
+  else {
+    correctedPosition.x = mousePos.x;
+  }
+  if (mousePos % 50 === mousePos) {
+    correctedPosition = 0;
+  }
+  else if (mousePos.y % 50 > 0) {
+    correctedPosition.y = mousePos.y - mousePos.y % 50;
+  }
+  else {
+    correctedPosition.y = mousePos.y;
+  }
+  // for (let x = 0; x <= map1.mapSize.width; x += 50) {
+  //   if (mousePos.x > x) {
+  //     correctedPosition.x = x;
+  //   }
+  // }
+  // for (let y = 0; y <= map1.mapSize.height; y += 50) {
+  //   if (mousePos.y > y) {
+  //     correctedPosition.y = y;
+  //   }
+  // }
 
   if (attackType.type === 'melee') {
     if ((heroToken.x - 50 === correctedPosition.x && heroToken.y === correctedPosition.y) ||

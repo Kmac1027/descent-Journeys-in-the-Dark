@@ -39,23 +39,27 @@ function DiceRoll({
   heroToken,
   correctedPosition
 }) {
-
-  const [count, setCount] = useState(1)
   const [checkSelectedTarget, setCheckSelectedTarget] = useState(selectedTarget)
   const [turnDiceOff, setTurnDiceOff] = useState(true);
   const [turnMainDiceOff, setTurnMainDiceOff] = useState(true);
   const [addToAttackPannel, setAddToAttackPannel] = useState(false)
+
   const [redDice, setRedDice] = useState(redDiceArray);
   const [blueDice, setBlueDice] = useState(blueDiceArray);
   const [whiteDice, setWhiteDice] = useState(whiteDiceArray);
   const [greenDice, setGreenDice] = useState(greenDiceArray);
   const [yellowDice, setYellowDice] = useState(yellowDiceArray);
-  const [turnOffTargetCheck, setTurnOffTargetCheck] = useState(true)
+  const [meleePowerDice, setMeleePowerDice] = useState(meleePowerDiceArray);
+  const [rangedPowerDice, setRangedPowerDice] = useState(rangedPowerDiceArray);
+  const [magicPowerDice, setMagicPowerDice] = useState(magicPowerDiceArray);
+
+  const [damage, setDamage] = useState(0)
+  const [range, setRange] = useState(0)
+  const [surge, setSurge] = useState(0)
 
   useEffect(() => {
     let interval = window.setInterval(() => {
       setCheckSelectedTarget(selectedTarget)
-      // console.log(checkSelectedTarget)
       if (checkSelectedTarget.id) {
         setTurnMainDiceOff(false)
         if (!addToAttackPannel) {
@@ -65,13 +69,6 @@ function DiceRoll({
       }
     }, 1000);
   }, [])
-
-
-  let diceRoll = {
-    damage: 0,
-    surge: 0,
-    range: 0
-  }
 
   useEffect(() => {
     redDiceArray = [];
@@ -108,22 +105,22 @@ function DiceRoll({
       for (let i = 0; i < meleePowerDie; i++) {
         meleePowerDiceArray.push(1)
       }
+      setMeleePowerDice(meleePowerDiceArray)
     } else if (selectedWeapon.type === 'ranged') {
       for (let i = 0; i < rangedPowerDie; i++) {
         rangedPowerDiceArray.push(1)
       }
+      setRangedPowerDice(rangedPowerDiceArray)
     } else if (selectedWeapon.type === 'magic') {
       for (let i = 0; i < magicPowerDie; i++) {
         magicPowerDiceArray.push(1)
       }
+      setMagicPowerDice(magicPowerDiceArray)
     }
-
   }, [attackActive])
-
 
   function addToAttackPannelFunction() {
     // let stringify = [checkSelectedTarget.name][0][0].toUpperCase() + [checkSelectedTarget.name][0].slice(1);
-
     let selectedMonster = map1.tokenPlacement.monsters[selectedTarget.name + selectedTarget.id.toString()];
 
     let enemyPicDiv = document.getElementById('enemyPic');
@@ -146,12 +143,18 @@ function DiceRoll({
     enemyCardImg.className = 'card';
     enemyCardDiv.appendChild(enemyCardImg)
 
+    let weaponPicDiv = document.getElementById('weaponCard');
+    let weaponImg = document.createElement('img');
+    weaponImg.src = selectedWeapon.img_path
+    weaponImg.className = 'card';
+    weaponPicDiv.appendChild(weaponImg);
+    // console.log(selectedWeapon.img_path)
+
     setAddToAttackPannel(true);
 
   }
 
-
-  function addDiceRoll(roll, color) {
+  function addDiceRoll(roll, color, id) {
     if (diceSideData[color].sides[`side${roll}`].miss === true) {
       alert('Attack Missed');
       selectedTarget.name = null;
@@ -160,9 +163,13 @@ function DiceRoll({
       attackCardsActive()
     } else {
       setTurnDiceOff(false)
-      diceRoll.damage += diceSideData[color].sides[`side${roll}`].damage
-      diceRoll.surge += diceSideData[color].sides[`side${roll}`].surge
-      diceRoll.range += diceSideData[color].sides[`side${roll}`].range
+
+      let tempDamage = damage + diceSideData[color].sides[`side${roll}`].damage
+      setDamage(tempDamage)
+      let tempRange = range + diceSideData[color].sides[`side${roll}`].range
+      setRange(tempRange)
+      let tempSurge = surge + diceSideData[color].sides[`side${roll}`].surge
+      setSurge(tempSurge)
 
       let dicePicDiv = document.getElementById('dicePic');
       let diceImg = document.createElement('img');
@@ -171,9 +178,32 @@ function DiceRoll({
       diceImg.width = 50;
       dicePicDiv.appendChild(diceImg);
 
-    }
+      let hide = document.getElementById(id)
+      hide.className = 'hidden'
 
+    }
   }
+
+
+
+  function addPowerDiceRoll(roll, id) {
+
+    let tempSurge = surge + diceSideData.powerDice.sides[`side${roll}`].surge
+    setSurge(tempSurge)
+
+
+
+    let dicePicDiv = document.getElementById('dicePic');
+    let diceImg = document.createElement('img');
+    diceImg.src = diceSideData.powerDice.sides[`side${roll}`].img_path;
+    diceImg.height = 50;
+    diceImg.width = 50;
+    dicePicDiv.appendChild(diceImg);
+    let hide = document.getElementById(id)
+    hide.className = 'hidden'
+  }
+
+
   useEffect(() => {
     dragElement(document.getElementById("attackPannel"));
     function dragElement(elmnt) {
@@ -217,12 +247,16 @@ function DiceRoll({
     <div id='dicePool' style={{ position: 'absolute', left: '50%', top: '50%', }}>
       <div id='attackPannel'>
 
-        <div id='weaponCard'><p>weapon card</p></div>
+        <div id='weaponCard'><p></p></div>
         <div id='abilities'><p>abilities</p></div>
-        <div id='roll'><p>roll</p></div>
+        <div id='roll'>
+          <p>Damage: {damage}</p>
+          <p>Range: {range}</p>
+          <p>Surge: {surge}</p>
+        </div>
 
         <div id='dicePic'>
-          <button id='attackButton' onClick={() => attack(diceRoll, selectedWeapon, offHand, selectedTarget, attackOn, attackCardsActive, showDiceRoll)}>click to attack</button>
+          <button id='attackButton' onClick={() => attack(damage, range, surge, selectedWeapon, offHand, selectedTarget, attackOn, attackCardsActive, showDiceRoll)}>click to attack</button>
         </div>
 
         <div id='enemyPic'><p></p></div>
@@ -234,9 +268,8 @@ function DiceRoll({
 
       <div id='diceRow'>
         {redDice.map((die, i) =>
-
-          <div key={i} id={count} className='singleDie'>
-            <Dice size={100} onRoll={(roll => addDiceRoll(roll, 'red'))}
+          <div key={i} id={i} className='singleDie'>
+            <Dice size={100} onRoll={(roll => addDiceRoll(roll, 'red', i))}
               triggers={['click', 'Enter']}
               disabled={turnMainDiceOff}
               defaultValue={1}
@@ -248,13 +281,12 @@ function DiceRoll({
               `${diceSideData.red.sides.side6.img_path}`]}
             // cheatValue={6}
             />
-            {/* {setCount(count + 1)} */}
           </div>
         )}
         {whiteDice.map((die, i) =>
-          <div key={i} id={i} className='singleDie'>
+          <div key={i} id={i + 100} className='singleDie'>
             {/* {console.log(document.getElementById(i))} */}
-            <Dice size={100} onRoll={(roll => addDiceRoll(roll, 'white'))}
+            <Dice size={100} onRoll={(roll => addDiceRoll(roll, 'white', i + 100))}
               triggers={['click']}
               disabled={turnMainDiceOff}
               defaultValue={2}
@@ -268,11 +300,12 @@ function DiceRoll({
           </div>
         )}
         {blueDice.map((die, i) =>
-          <div key={i} className='singleDie'>
-            <Dice size={100} onRoll={(roll => addDiceRoll(roll, 'blue'))}
+          <div key={i} id={i + 200} className='singleDie'>
+            <Dice size={100} onRoll={(roll => addDiceRoll(roll, 'blue', i + 200))}
               triggers={['click']}
               disabled={turnMainDiceOff}
               defaultValue={1}
+
               faces={[`${diceSideData.blue.sides.side1.img_path}`,
               `${diceSideData.blue.sides.side2.img_path}`,
               `${diceSideData.blue.sides.side3.img_path}`,
@@ -283,12 +316,12 @@ function DiceRoll({
           </div>
         )}
         {greenDice.map((die, i) =>
-          <div key={i} className='singleDie'>
-
-            <Dice size={100} onRoll={(roll => addDiceRoll(roll, 'green'))}
+          <div key={i} id={i + 300} className='singleDie'>
+            <Dice size={100} onRoll={(roll => addDiceRoll(roll, 'green', (i + 300)))}
               triggers={['click']}
               disabled={turnDiceOff}
               defaultValue={1}
+
               faces={[`${diceSideData.green.sides.side1.img_path}`,
               `${diceSideData.green.sides.side2.img_path}`,
               `${diceSideData.green.sides.side3.img_path}`,
@@ -300,8 +333,8 @@ function DiceRoll({
           </div>
         )}
         {yellowDice.map((die, i) =>
-          <div key={i} className='singleDie'>
-            <Dice size={100} onRoll={(roll => addDiceRoll(roll, 'yellow'))}
+          <div key={i} id={i + 400} className='singleDie'>
+            <Dice size={100} onRoll={(roll => addDiceRoll(roll, 'yellow', i + 400))}
               triggers={['click']}
               disabled={turnDiceOff}
               defaultValue={1}
@@ -315,6 +348,59 @@ function DiceRoll({
             />
           </div>
         )}
+
+
+        {/* POWER DICE */}
+
+        {meleePowerDice.map((die, i) =>
+          <div key={i} id={i + 500} className='singleDie'>
+            <Dice size={100} onRoll={(roll => addPowerDiceRoll(roll, i + 500))}
+              triggers={['click']}
+              disabled={turnDiceOff}
+              defaultValue={1}
+              faces={[`${diceSideData.powerDice.sides.side1.img_path}`,
+              `${diceSideData.powerDice.sides.side2.img_path}`,
+              `${diceSideData.powerDice.sides.side3.img_path}`,
+              `${diceSideData.powerDice.sides.side4.img_path}`,
+              `${diceSideData.powerDice.sides.side5.img_path}`,
+              `${diceSideData.powerDice.sides.side6.img_path}`]}
+            />
+          </div>
+        )}
+
+        {rangedPowerDice.map((die, i) =>
+          <div key={i} id={i + 600} className='singleDie'>
+            <Dice size={100} onRoll={(roll => addPowerDiceRoll(roll, i + 600))}
+              triggers={['click']}
+              disabled={turnDiceOff}
+              defaultValue={1}
+              faces={[`${diceSideData.powerDice.sides.side1.img_path}`,
+              `${diceSideData.powerDice.sides.side2.img_path}`,
+              `${diceSideData.powerDice.sides.side3.img_path}`,
+              `${diceSideData.powerDice.sides.side4.img_path}`,
+              `${diceSideData.powerDice.sides.side5.img_path}`,
+              `${diceSideData.powerDice.sides.side6.img_path}`]}
+            />
+          </div>
+        )}
+
+        {magicPowerDice.map((die, i) =>
+          <div key={i} id={i + 700} className='singleDie'>
+            <Dice size={100} onRoll={(roll => addPowerDiceRoll(roll, i + 700))}
+              triggers={['click']}
+              disabled={turnDiceOff}
+              defaultValue={1}
+              faces={[`${diceSideData.powerDice.sides.side1.img_path}`,
+              `${diceSideData.powerDice.sides.side2.img_path}`,
+              `${diceSideData.powerDice.sides.side3.img_path}`,
+              `${diceSideData.powerDice.sides.side4.img_path}`,
+              `${diceSideData.powerDice.sides.side5.img_path}`,
+              `${diceSideData.powerDice.sides.side6.img_path}`]}
+            />
+          </div>
+        )}
+
+
       </div>
     </div>
   );
