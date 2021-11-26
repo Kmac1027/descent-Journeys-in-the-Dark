@@ -183,20 +183,20 @@ function Player({ chosenHero, chosenQuest }) {
           <p>Gold: {money} </p>
           <p>conquest tokens:{currentConquestTokens}/{maxConquestTokens}</p>
 
+          <div style={{}}>
+            {showReturnToTown ?
+              <div>
+                {showReturnToTown ? <button height='100px' width='100px' onClick={attackCardsActive}>{weaponCardsActive ? 'Stop Attack' : 'Attack'}</button> : null}
 
-          {showReturnToTown ?
-            <div>
-              {showReturnToTown ? <button height='100px' width='100px' onClick={attackCardsActive}>{weaponCardsActive ? 'Stop Attack' : 'Attack'}</button> : null}
+                {weaponCardsActive ? <p>Select the Weapon you want to use, then your target</p> : null}
+              </div>
+              :
+              <div>
+                <button height='100px' width='100px' onClick={showShopItems}>shop</button>
+              </div>}
 
-              {weaponCardsActive ? <p>Select the Weapon you want to use, then your target</p> : null}
-            </div>
-            :
-            <div>
-              <button height='100px' width='100px' onClick={showShopItems}>shop</button>
-            </div>}
-
-          <button height='100px' width='100px' onClick={returnToTown}>{showReturnToTown ? 'Go to Town' : 'Go to Dungeon'}</button>
-
+            <button height='100px' width='100px' onClick={returnToTown}>{showReturnToTown ? 'Go to Town' : 'Go to Dungeon'}</button>
+          </div>
 
 
 

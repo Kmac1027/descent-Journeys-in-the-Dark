@@ -41,6 +41,8 @@ function DiceRoll({
   const [turnDiceOff, setTurnDiceOff] = useState(true);
   const [turnMainDiceOff, setTurnMainDiceOff] = useState(true);
   const [addToAttackPannel, setAddToAttackPannel] = useState(false)
+  const [enhance, setEnhance] = useState(0)
+  const [enhanceChoice, setEnhanceChoice] = useState(false)
 
   const [redDice, setRedDice] = useState(redDiceArray);
   const [blueDice, setBlueDice] = useState(blueDiceArray);
@@ -50,7 +52,7 @@ function DiceRoll({
   const [meleePowerDice, setMeleePowerDice] = useState(meleePowerDiceArray);
   const [rangedPowerDice, setRangedPowerDice] = useState(rangedPowerDiceArray);
   const [magicPowerDice, setMagicPowerDice] = useState(magicPowerDiceArray);
-  const [enhance, setEnhance] = useState(false)
+
 
   const [damage, setDamage] = useState(0)
   const [range, setRange] = useState(0)
@@ -163,12 +165,9 @@ function DiceRoll({
     } else {
       setTurnDiceOff(false)
 
-      let tempDamage = damage + diceSideData[color].sides[`side${roll}`].damage
-      setDamage(tempDamage)
-      let tempRange = range + diceSideData[color].sides[`side${roll}`].range
-      setRange(tempRange)
-      let tempSurge = surge + diceSideData[color].sides[`side${roll}`].surge
-      setSurge(tempSurge)
+      setDamage(damage => damage + diceSideData[color].sides[`side${roll}`].damage)
+      setRange(range => range + diceSideData[color].sides[`side${roll}`].range)
+      setSurge(surge => surge + diceSideData[color].sides[`side${roll}`].surge)
 
       let dicePicDiv = document.getElementById('dicePic');
       let diceImg = document.createElement('img');
@@ -186,19 +185,18 @@ function DiceRoll({
 
 
   function addPowerDiceRoll(roll, id) {
+    setSurge(surge => surge + diceSideData.powerDice.sides[`side${roll}`].surge)
 
-    let tempSurge = surge + diceSideData.powerDice.sides[`side${roll}`].surge
-    setSurge(tempSurge)
     let dicePicDiv = document.getElementById('dicePic');
     let diceImg = document.createElement('img');
     diceImg.src = diceSideData.powerDice.sides[`side${roll}`].img_path;
     diceImg.height = 50;
     diceImg.width = 50;
     dicePicDiv.appendChild(diceImg);
+
     if (diceSideData.powerDice.sides[`side${roll}`].enhancment === true) {
-      // console.log('enhancment side')
-      diceImg.style.border = '6px inset red'
-      // diceImg.click = console.log('clicked')
+      // diceImg.style.border = '6px inset red'
+      setEnhance(enhance => enhance + 1)
 
 
     }
@@ -206,6 +204,15 @@ function DiceRoll({
     hide.className = 'hidden'
   }
 
+  function addEnhancment(choice) {
+    console.log(choice)
+    if (choice === 'damage') {
+      setDamage(damage => damage + 1)
+    } else if (choice === 'range') {
+      setRange(range => range + 1)
+    }
+    setEnhance(enhance => enhance - 1)
+  }
 
   useEffect(() => {
     dragElement(document.getElementById("attackPannel"));
@@ -255,8 +262,10 @@ function DiceRoll({
         <div id='roll'>
           <p>Damage: {damage}</p>
           <p>Range: {range}</p>
-          <p>Surge: {surge}</p>
-          {enhance ? <button>button</button> : null}
+
+          {surge > 0 ? <button>Surge: {surge}</button> : null}
+          <br />
+          {enhance > 0 ? <button onClick={() => setEnhanceChoice(true)}>Add Enhancment: {enhance}</button> : null}
         </div>
 
         <div id='dicePic'>
@@ -407,6 +416,20 @@ function DiceRoll({
 
 
       </div>
+
+      {enhanceChoice && enhance !== 0 ?
+        <div style={{ position: 'absolute', backgroundColor: 'black', height: '150px', width: '250px' }}
+        >
+          <button onClick={() => setEnhanceChoice(false)}>Exit</button>
+          <p>Enhancments left: {enhance}</p>
+          <button onClick={() => addEnhancment('damage')}>Damage</button>
+          <button onClick={() => addEnhancment('range')}>Range</button>
+        </div>
+        :
+        null
+      }
+
+
     </div>
   );
 }
