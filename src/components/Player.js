@@ -101,7 +101,7 @@ function Player({ chosenHero, chosenQuest }) {
 
   //weapons and items
   const [weapon1, setWeapon1] = useState(shopItemData.sword);
-  const [weapon2, setWeapon2] = useState();
+  const [weapon2, setWeapon2] = useState(shopItemData.crossbow);
   const [armor, setArmor] = useState({});
 
   //shop and town

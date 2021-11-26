@@ -50,6 +50,7 @@ function DiceRoll({
   const [meleePowerDice, setMeleePowerDice] = useState(meleePowerDiceArray);
   const [rangedPowerDice, setRangedPowerDice] = useState(rangedPowerDiceArray);
   const [magicPowerDice, setMagicPowerDice] = useState(magicPowerDiceArray);
+  const [enhance, setEnhance] = useState(false)
 
   const [damage, setDamage] = useState(0)
   const [range, setRange] = useState(0)
@@ -188,16 +189,19 @@ function DiceRoll({
 
     let tempSurge = surge + diceSideData.powerDice.sides[`side${roll}`].surge
     setSurge(tempSurge)
-
-
-
     let dicePicDiv = document.getElementById('dicePic');
     let diceImg = document.createElement('img');
     diceImg.src = diceSideData.powerDice.sides[`side${roll}`].img_path;
     diceImg.height = 50;
     diceImg.width = 50;
     dicePicDiv.appendChild(diceImg);
+    if (diceSideData.powerDice.sides[`side${roll}`].enhancment === true) {
+      // console.log('enhancment side')
+      diceImg.style.border = '6px inset red'
+      // diceImg.click = console.log('clicked')
 
+
+    }
     let hide = document.getElementById(id)
     hide.className = 'hidden'
   }
@@ -252,6 +256,7 @@ function DiceRoll({
           <p>Damage: {damage}</p>
           <p>Range: {range}</p>
           <p>Surge: {surge}</p>
+          {enhance ? <button>button</button> : null}
         </div>
 
         <div id='dicePic'>
@@ -351,7 +356,7 @@ function DiceRoll({
 
         {/* POWER DICE */}
 
-        {meleePowerDice.map((die, i) =>
+        {selectedWeapon.type === 'melee' ? meleePowerDice.map((die, i) =>
           <div key={i} id={i + 500} className='singleDie'>
             <Dice size={100} onRoll={(roll => addPowerDiceRoll(roll, i + 500))}
               triggers={['click']}
@@ -363,11 +368,12 @@ function DiceRoll({
               `${diceSideData.powerDice.sides.side4.img_path}`,
               `${diceSideData.powerDice.sides.side5.img_path}`,
               `${diceSideData.powerDice.sides.side6.img_path}`]}
+              cheatValue={6}
             />
           </div>
-        )}
+        ) : null}
 
-        {rangedPowerDice.map((die, i) =>
+        {selectedWeapon.type === 'ranged' ? rangedPowerDice.map((die, i) =>
           <div key={i} id={i + 600} className='singleDie'>
             <Dice size={100} onRoll={(roll => addPowerDiceRoll(roll, i + 600))}
               triggers={['click']}
@@ -381,9 +387,9 @@ function DiceRoll({
               `${diceSideData.powerDice.sides.side6.img_path}`]}
             />
           </div>
-        )}
+        ) : null}
 
-        {magicPowerDice.map((die, i) =>
+        {selectedWeapon.type === 'magic' ? magicPowerDice.map((die, i) =>
           <div key={i} id={i + 700} className='singleDie'>
             <Dice size={100} onRoll={(roll => addPowerDiceRoll(roll, i + 700))}
               triggers={['click']}
@@ -397,7 +403,7 @@ function DiceRoll({
               `${diceSideData.powerDice.sides.side6.img_path}`]}
             />
           </div>
-        )}
+        ) : null}
 
 
       </div>
