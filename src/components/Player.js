@@ -1,6 +1,7 @@
 import '../styles/player.css';
 import Shop, { shopItemsArray } from './Shop';
 import DiceRoll from './Dice';
+import Potions from './Potions';
 import { useState, useEffect } from 'react';
 import { heroData } from '../data/heroData.js';
 // import { monsterData } from '../data/monsterData.js';
@@ -14,7 +15,6 @@ import { targetClicked, mousePos, correctedPosition, attackTargetClicked, select
 function Player({ chosenHero, chosenQuest }) {
 
 
-  // const [addToAttackPannel, setAddToAttackPannel] = useState(false)
   const [currentHealth, setCurrentHealth] = useState(heroData[chosenHero].max_wounds);
   const [maxHealth, setMaxHealth] = useState(heroData[chosenHero].max_wounds);
   const [currentFatigue, setCurrentFatigue] = useState(heroData[chosenHero].max_fatigue);
@@ -26,18 +26,17 @@ function Player({ chosenHero, chosenQuest }) {
   const [speed, setSpeed] = useState(heroData[chosenHero].speed)
   const [money, setMoney] = useState(map1.startingMoney.amount);
   const [equipRunes, setEquipRunes] = useState(true)
+  const [showPotions, setShowPotions] = useState(false)
+  const [potions, setPotions] = useState([])
+  
   const [meleePowerDie, setMeleePowerDie] = useState(heroData[chosenHero].traits.melee_trait);
   const [rangedPowerDie, setrangedPowerDie] = useState(heroData[chosenHero].traits.ranged_trait);
   const [magicPowerDie, setMagicPowerDie] = useState(heroData[chosenHero].traits.magic_trait);
 
-
   //attack
-
   const [numberOfAttacks, setNumberOfAttacks] = useState(0);
   const [attackActive, setAttackActive] = useState(false);
   const [weaponCardsActive, setWeaponCardsActive] = useState(false);
-  // const [dicePool, setDicePool] = useState();
-
 
 
   function attackCardsActive() {
@@ -98,7 +97,6 @@ function Player({ chosenHero, chosenQuest }) {
       setShowDice(false);
     }
   }
-
 
   //weapons and items
   const [weapon1, setWeapon1] = useState(shopItemData.sword);
@@ -185,10 +183,6 @@ function Player({ chosenHero, chosenQuest }) {
       }
     }
   }
-
-
-
-
 
   return (
     <div>
@@ -305,7 +299,7 @@ function Player({ chosenHero, chosenQuest }) {
         <div id='bag'>
           <div>
             <p>Potions:</p>
-            <img className='card' src={'images/items/shop/leather_armor.png'} alt='g'></img>
+            <input type='image' className='card' src={'images/health_potion_card.png'} alt='Potions' onClick={()=>setShowPotions(true)}></input>
             <div>
               {showShop ? <button onClick={sell}>Sell</button> : null}
             </div>
@@ -345,6 +339,8 @@ function Player({ chosenHero, chosenQuest }) {
         setArmor={setArmor}
         equipRunes={equipRunes}
         setEquipRunes={setEquipRunes}
+        potions={potions}
+        setPotions={setPotions}
       /> : null}
 
       {showDice ? <DiceRoll
@@ -368,6 +364,18 @@ function Player({ chosenHero, chosenQuest }) {
         heroToken={heroToken}
         correctedPosition={correctedPosition}
       /> : null}
+
+      {showPotions ? <Potions 
+      showPotions={showPotions}
+      setShowPotions={setShowPotions}
+      potions={potions}
+      setPotions={setPotions}
+      currentHealth={currentHealth}
+      setCurrentHealth={setCurrentHealth}
+      currentFatigue={currentFatigue}
+      setCurrentFatigue={setCurrentFatigue}
+
+      />: null }
 
     </div >
 

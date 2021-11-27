@@ -10,14 +10,14 @@ for (let key in shopItemData) {
 }
 
 //potions
-let health_potion = {
+export let health_potion = {
   name: 'Health Potion',
   type: 'potion',
   heal_amount: 3,
   cost: 50,
   img_path: 'images/items/shop/health_potion.png'
 }
-let vitality_potion = {
+export let vitality_potion = {
   name: 'Vitality Potion',
   type: 'potion',
   heal_amount: 'max',
@@ -36,10 +36,23 @@ function Shop({ chosenHero,
   armor,
   setArmor,
   equipRunes,
-  setEquipRunes
+  setEquipRunes,
+  potions,
+  setPotions
 }) {
   const [availableItems, setAvailableItems] = useState(shopItemsArray);
 
+  function addPotion(type){
+if(potions.length === 3){
+  alert('you have no more room for potions')
+  } else {
+    if(type === 'health'){
+      //push health potion
+    } else if(type==='vitality'){
+      //push vit potion
+    }
+  }
+}
 
   function buy(item) {
     if (money < item.cost) {
@@ -151,13 +164,17 @@ function Shop({ chosenHero,
 
       <div id='potions' style={{ display: 'flex', flexdirection: 'row' }}>
         <div id='healthPotion' style={{ padding: '10px', border: 'outset' }}>
-          <input type='image' height='50' width='50' src={health_potion.img_path} alt={health_potion.name} onClick={() => console.log('bought health potion')}></input>
+          <input type='image' height='50' width='50' src={health_potion.img_path} alt={health_potion.name} 
+          onClick={() => addPotion('health')
+          }></input>
           <p>Item: {health_potion.name}</p>
           <p>Price: {health_potion.cost} Gold</p>
         </div>
 
         <div id='vitalityPotion' style={{ padding: '10px', border: 'outset' }}>
-          <input type='image' height='50' width='50' src={vitality_potion.img_path} alt={vitality_potion.name} onClick={() => console.log('bought vitality potion')}></input>
+          <input type='image' height='50' width='50' src={vitality_potion.img_path} alt={vitality_potion.name} 
+          onClick={() => addPotion('vitality')
+          }></input>
           <p>Item: {vitality_potion.name}</p>
           <p>Price: {vitality_potion.cost} Gold</p>
         </div>

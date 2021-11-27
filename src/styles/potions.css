@@ -1,0 +1,21 @@
+#potions {
+  background-color: white;
+  position: absolute;
+  justify-content: center;
+  align-self: center;
+  color: black;
+  max-height: 600px;
+  max-width: 800px;
+  overflow-y: auto;
+}
+
+/* #shopItems{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 800px;
+    background-color: white;
+    justify-content: center;
+    align-self: center;
+    color: black;
+    } */
