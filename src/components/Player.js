@@ -21,10 +21,11 @@ function Player({ chosenHero, chosenQuest }) {
   const [maxFatigue, setMaxFatigue] = useState(heroData[chosenHero].max_fatigue);
   const [currentConquestTokens, setCurrentConquestTokens] = useState(heroData[chosenHero].max_fatigue);
   const [maxConquestTokens, setMaxConquestTokens] = useState(heroData[chosenHero].max_fatigue);
-  const [baseArmor, setBaseArmor] = useState(heroData[chosenHero].base_armor);
+  const [currentArmor, setCurrentArmor] = useState(heroData[chosenHero].base_armor);
   const [maxSpeed, setMaxSpeed] = useState(heroData[chosenHero].speed);
   const [speed, setSpeed] = useState(heroData[chosenHero].speed)
   const [money, setMoney] = useState(map1.startingMoney.amount);
+  const [equpRunes, setEquipRunes] = useState(true)
   const [meleePowerDie, setMeleePowerDie] = useState(heroData[chosenHero].traits.melee_trait);
   const [rangedPowerDie, setrangedPowerDie] = useState(heroData[chosenHero].traits.ranged_trait);
   const [magicPowerDie, setMagicPowerDie] = useState(heroData[chosenHero].traits.magic_trait);
@@ -102,7 +103,20 @@ function Player({ chosenHero, chosenQuest }) {
   //weapons and items
   const [weapon1, setWeapon1] = useState(shopItemData.sword);
   const [weapon2, setWeapon2] = useState(shopItemData.crossbow);
-  const [armor, setArmor] = useState({});
+  const [armor, setArmor] = useState(shopItemData.leather_armor);
+
+  useEffect(() => {
+    if (armor) {
+      if (armor.specialAbilities !== false) {
+        console.log(armor.specialAbilities)
+      }
+      setCurrentArmor(heroData[chosenHero].base_armor + armor.armor)
+
+    } else {
+      setCurrentArmor(heroData[chosenHero].base_armor)
+    }
+
+  }, [armor])
 
   //shop and town
   const [showReturnToTown, setShowReturnToTown] = useState(false)
@@ -139,8 +153,6 @@ function Player({ chosenHero, chosenQuest }) {
 
   }
 
-
-
   function showShopItems() {
     if (showShop === false) {
       setShowShop(true);
@@ -153,6 +165,12 @@ function Player({ chosenHero, chosenQuest }) {
     if (!item) {
       alert('you have no item to sell')
     } else {
+      if (item.type === 'armor') {
+        console.log(item.special_abilities.equipRunes)
+        if (item.special_abilities.equipRunes === false) {
+          setEquipRunes(true)
+        }
+      }
       let sellAmount = Math.floor(item.cost / 2);
       let newMoney = money + sellAmount;
       setMoney(newMoney);
@@ -161,12 +179,6 @@ function Player({ chosenHero, chosenQuest }) {
       } else {
         item.number_available += 1
       }
-      // if (item.combat_dice) {
-      //   for (let color in item.combat_dice) {
-      //     heroData[chosenHero].dice[color] -= item.combat_dice[color]
-      //   }
-      //   setHerosDice(heroData[chosenHero].dice)
-      // }
     }
   }
 
@@ -183,7 +195,7 @@ function Player({ chosenHero, chosenQuest }) {
           <p>Gold: {money} </p>
           <p>conquest tokens:{currentConquestTokens}/{maxConquestTokens}</p>
 
-          <div style={{}}>
+          <div>
             {showReturnToTown ?
               <div>
                 {showReturnToTown ? <button height='100px' width='100px' onClick={attackCardsActive}>{weaponCardsActive ? 'Stop Attack' : 'Attack'}</button> : null}
@@ -198,18 +210,13 @@ function Player({ chosenHero, chosenQuest }) {
             <button height='100px' width='100px' onClick={returnToTown}>{showReturnToTown ? 'Go to Town' : 'Go to Dungeon'}</button>
           </div>
 
-
-
-
-
-
         </div>
         <div id='statBlock'>
           <div id='stats'>
             <h3>Stats</h3>
             <p>Health: {currentHealth} / {maxHealth}</p>
             <p>Fatigue: {currentFatigue} / {maxFatigue}</p>
-            <p>Armor: {baseArmor}</p>
+            <p>Armor: {currentArmor}</p>
             <p>Speed: {speed}/{maxSpeed} </p>
           </div>
           <div id='traits'>
@@ -268,9 +275,9 @@ function Player({ chosenHero, chosenQuest }) {
           {/* armor */}
           <div>
             <p>Armor:</p>
-            <img className='card' src={'images/items/shop/leather_armor.png'} alt='g'></img>
+            {armor ? <img className='card' src={armor.img_path} alt={armor.name}></img> : null}
             <div>
-              {showShop ? <button onClick={() => sell(armor)}>Sell</button> : null}
+              {showShop ? <button onClick={() => { sell(armor); setArmor(); }}>Sell</button> : null}
             </div>
           </div>
         </div>
@@ -330,6 +337,10 @@ function Player({ chosenHero, chosenQuest }) {
         money={money}
         setMoney={setMoney}
         showShopItems={showShopItems}
+        armor={armor}
+        setArmor={setArmor}
+        equipRunes={equpRunes}
+        setEquipRunes={setEquipRunes}
       /> : null}
 
       {showDice ? <DiceRoll

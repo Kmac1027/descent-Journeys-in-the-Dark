@@ -1,0 +1,23 @@
+
+#surgePurchase{
+  background-color: white;
+  position: absolute;
+  justify-content: center;
+  align-self: center;
+  color: black;
+  width:600px;
+  height: 700px;
+}
+
+
+
+#surgeItems{
+display: flex;
+flex-direction: row;
+flex-wrap: wrap;
+max-width: 600px;
+background-color: white;
+justify-content: center;
+align-self: center;
+color: black
+}

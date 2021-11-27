@@ -15,11 +15,15 @@ export const attackType = { type: null }
 
 
 
-export function attack(heroToken, damage, range, surge, selectedWeapon, offHand, selectedTarget, attackOn, attackCardsActive, showDiceRoll) {
+export function attack(heroToken, damage, range, surge, pierce, selectedWeapon, offHand, selectedTarget, attackOn, attackCardsActive, showDiceRoll) {
   let selectedMonster = map1.tokenPlacement.monsters[selectedTarget.name + selectedTarget.id.toString()];
 
   if (selectedWeapon.type === 'melee') {
-    let hitAmount = damage - selectedMonster.base_armor
+    let monsterArmor = selectedMonster.base_armor - pierce
+    if (monsterArmor <= 0) {
+      monsterArmor = 0
+    }
+    let hitAmount = damage - monsterArmor
     selectedMonster.max_wounds -= hitAmount
   }
 
@@ -36,12 +40,17 @@ export function attack(heroToken, damage, range, surge, selectedWeapon, offHand,
     if (range < rangeNeeded) {
       alert('Attack Missed, Not Enough Range')
     } else {
-      let hitAmount = damage - selectedMonster.base_armor
+      let monsterArmor = selectedMonster.base_armor - pierce
+      if (monsterArmor <= 0) {
+        monsterArmor = 0
+      }
+      let hitAmount = damage - monsterArmor
       selectedMonster.max_wounds -= hitAmount
     }
     // console.log(rangeNeeded)
-
   }
+
+
   if (selectedMonster.max_wounds <= 0) {
     delete map1.tokenPlacement.monsters[selectedTarget.name + selectedTarget.id.toString()]
   }

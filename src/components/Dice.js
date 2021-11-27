@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import { heroData } from '../data/heroData'
 import { } from '../data/monsterData'
 import { diceSideData } from '../data/diceSideData.js';
+import SurgePurchase from './SurgePurchase'
 
 let redDiceArray = [];
 let blueDiceArray = [];
@@ -43,6 +44,9 @@ function DiceRoll({
   const [addToAttackPannel, setAddToAttackPannel] = useState(false)
   const [enhance, setEnhance] = useState(0)
   const [enhanceChoice, setEnhanceChoice] = useState(false)
+  const [purchaseSurgeAbilities, setPurchaseSurgeAbilities] = useState(false)
+  const [pierce, setPierce] = useState(0)
+  const [powerDieRolled, setPowerDieRolled] = useState(0)
 
   const [redDice, setRedDice] = useState(redDiceArray);
   const [blueDice, setBlueDice] = useState(blueDiceArray);
@@ -186,6 +190,7 @@ function DiceRoll({
 
   function addPowerDiceRoll(roll, id) {
     setSurge(surge => surge + diceSideData.powerDice.sides[`side${roll}`].surge)
+    setPowerDieRolled(powerDieRolled => powerDieRolled + 1)
 
     let dicePicDiv = document.getElementById('dicePic');
     let diceImg = document.createElement('img');
@@ -213,6 +218,60 @@ function DiceRoll({
     }
     setEnhance(enhance => enhance - 1)
   }
+
+  //calculate special abilities and off hand weapon bonuses
+  useEffect(() => {
+    //special abilities
+    if (selectedWeapon.special_abilities.other !== false) {
+      // console.log('Special Abilities ', selectedWeapon.special_abilities.other)
+      let specialAbility = selectedWeapon.special_abilities.other
+      for (let key in specialAbility) {
+        if (specialAbility[key].type === 'addDamage') {
+          setDamage(damage => damage + specialAbility[key].amount)
+        }
+        if (specialAbility[key].type === 'addRange') {
+          setRange(range => range + specialAbility[key].amount)
+        }
+        if (specialAbility[key].type === 'addSurge') {
+          setSurge(surge => surge + specialAbility[key].amount)
+        }
+        if (specialAbility[key].type === 'addPierce') {
+          setPierce(pierce => pierce + specialAbility[key].amount)
+        }
+      }
+    }
+    //offHand
+    if (offHand) {
+      if (offHand.special_abilities.off_hand_bonus !== false) {
+
+        let offHandBonus = offHand.special_abilities.off_hand_bonus
+        // console.log('Off hand weapon: ', offHand.special_abilities.off_hand_bonus)
+
+        for (let key in offHandBonus) {
+          let weaponPicDiv = document.getElementById('abilities');
+          let offHandText = document.createElement('p')
+          offHandText.innerText = offHandBonus[key].text
+          weaponPicDiv.appendChild(offHandText);
+
+          if (offHandBonus[key].type === 'addDamage') {
+            setDamage(damage => damage + offHandBonus[key].amount)
+          }
+          if (offHandBonus[key].type === 'addRange') {
+            setRange(range => range + offHandBonus[key].amount)
+          }
+          if (offHandBonus[key].type === 'addSurge') {
+            setSurge(surge => surge + offHandBonus[key].amount)
+          }
+          if (offHandBonus[key].type === 'addPierce') {
+            setPierce(pierce => pierce + offHandBonus[key].amount)
+          }
+        }
+      }
+
+    }
+
+  }, [])
+
 
   useEffect(() => {
     dragElement(document.getElementById("attackPannel"));
@@ -251,25 +310,27 @@ function DiceRoll({
     }
   }, [])
 
-
-
   return (
     <div id='dicePool' style={{ position: 'absolute', left: '50%', top: '50%', }}>
       <div id='attackPannel'>
 
-        <div id='weaponCard'><p></p></div>
+        <div id='weaponCard'>
+
+        </div>
+
         <div id='abilities'><p>abilities</p></div>
         <div id='roll'>
           <p>Damage: {damage}</p>
           <p>Range: {range}</p>
+          {pierce !== 0 ? <p>pierce: {pierce}</p> : null}
 
-          {surge > 0 ? <button>Surge: {surge}</button> : null}
+          {surge > 0 ? <button onClick={() => setPurchaseSurgeAbilities(true)}>Surge: {surge}</button> : null}
           <br />
           {enhance > 0 ? <button onClick={() => setEnhanceChoice(true)}>Add Enhancment: {enhance}</button> : null}
         </div>
 
         <div id='dicePic'>
-          <button id='attackButton' onClick={() => attack(heroToken, damage, range, surge, selectedWeapon, offHand, selectedTarget, attackOn, attackCardsActive, showDiceRoll)}>click to attack</button>
+          <button id='attackButton' onClick={() => attack(heroToken, damage, range, surge, pierce, selectedWeapon, offHand, selectedTarget, attackOn, attackCardsActive, showDiceRoll)}>click to attack</button>
         </div>
 
         <div id='enemyPic'><p></p></div>
@@ -292,7 +353,7 @@ function DiceRoll({
               `${diceSideData.red.sides.side4.img_path}`,
               `${diceSideData.red.sides.side5.img_path}`,
               `${diceSideData.red.sides.side6.img_path}`]}
-            // cheatValue={6}
+              cheatValue={4}
             />
           </div>
         )}
@@ -377,14 +438,14 @@ function DiceRoll({
               `${diceSideData.powerDice.sides.side4.img_path}`,
               `${diceSideData.powerDice.sides.side5.img_path}`,
               `${diceSideData.powerDice.sides.side6.img_path}`]}
-              cheatValue={6}
+            // cheatValue={6}
             />
           </div>
         ) : null}
 
         {selectedWeapon.type === 'ranged' ? rangedPowerDice.map((die, i) =>
-          <div key={i} id={i + 600} className='singleDie'>
-            <Dice size={100} onRoll={(roll => addPowerDiceRoll(roll, i + 600))}
+          <div key={i} id={i + 500} className='singleDie'>
+            <Dice size={100} onRoll={(roll => addPowerDiceRoll(roll, i + 500))}
               triggers={['click']}
               disabled={turnDiceOff}
               defaultValue={1}
@@ -399,8 +460,8 @@ function DiceRoll({
         ) : null}
 
         {selectedWeapon.type === 'magic' ? magicPowerDice.map((die, i) =>
-          <div key={i} id={i + 700} className='singleDie'>
-            <Dice size={100} onRoll={(roll => addPowerDiceRoll(roll, i + 700))}
+          <div key={i} id={i + 500} className='singleDie'>
+            <Dice size={100} onRoll={(roll => addPowerDiceRoll(roll, i + 500))}
               triggers={['click']}
               disabled={turnDiceOff}
               defaultValue={1}
@@ -417,20 +478,36 @@ function DiceRoll({
 
       </div>
 
-      {enhanceChoice && enhance !== 0 ?
-        <div style={{ position: 'absolute', backgroundColor: 'black', height: '150px', width: '250px' }}
-        >
-          <button onClick={() => setEnhanceChoice(false)}>Exit</button>
-          <p>Enhancments left: {enhance}</p>
-          <button onClick={() => addEnhancment('damage')}>Damage</button>
-          <button onClick={() => addEnhancment('range')}>Range</button>
-        </div>
-        :
-        null
+      {
+        enhanceChoice && enhance !== 0 ?
+          <div style={{ position: 'absolute', backgroundColor: 'black', height: '150px', width: '250px' }}
+          >
+            <button onClick={() => setEnhanceChoice(false)}>Exit</button>
+            <p>Enhancments left: {enhance}</p>
+            <button onClick={() => addEnhancment('damage')}>Damage</button>
+            <button onClick={() => addEnhancment('range')}>Range</button>
+          </div>
+          :
+          null
       }
 
+      {purchaseSurgeAbilities && surge !== 0 ? <SurgePurchase
+        surge={surge}
+        setSurge={setSurge}
+        setPurchaseSurgeAbilities={setPurchaseSurgeAbilities}
+        selectedWeapon={selectedWeapon}
+        damage={damage}
+        setDamage={setDamage}
+        range={range}
+        setRange={setRange}
+        pierce={pierce}
+        setPierce={setPierce}
+        powerDieRolled={powerDieRolled}
+        setPowerDieRolled={setPowerDieRolled}
 
-    </div>
+
+      /> : null}
+    </div >
   );
 }
 

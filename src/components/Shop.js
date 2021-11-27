@@ -10,18 +10,61 @@ for (let key in shopItemData) {
 }
 
 
-function Shop({ chosenHero, weapon1, setWeapon1, weapon2, setWeapon2, money, setMoney, showShopItems }) {
+function Shop({ chosenHero,
+  weapon1,
+  setWeapon1,
+  weapon2,
+  setWeapon2,
+  money,
+  setMoney,
+  showShopItems,
+  armor,
+  setArmor,
+  equipRunes,
+  setEquipRunes
+}) {
   const [availableItems, setAvailableItems] = useState(shopItemsArray);
 
 
   function buy(item) {
     if (item.type === 'melee' || item.type === 'ranged' || item.type === 'magic' || item.type === 'shield') {
-      if ((weapon1 && weapon2) || (weapon1 && item.hands === 2) || (weapon2 && item.hands === 2) || (weapon1 && weapon1.hands === 2) || (weapon2 && weapon2.hands === 2)) {
-        alert(`You have no space for this ${item.name} `);
+      if (item.rune === true && equipRunes === false) {
+        alert('Your Armor Prevents you from Equiping this rune')
       } else {
-        if (money < item.cost) {
-          alert(`you dont have enough money for this ${item.name}`);
+        if ((weapon1 && weapon2) || (weapon1 && item.hands === 2) || (weapon2 && item.hands === 2) || (weapon1 && weapon1.hands === 2) || (weapon2 && weapon2.hands === 2)) {
+          alert(`You have no space for this ${item.name} `);
         } else {
+          if (money < item.cost) {
+            alert(`you dont have enough money for this ${item.name}`);
+          } else {
+            let newMoney = Math.floor(money - item.cost);
+            setMoney(newMoney);
+            if (item.number_available > 1) {
+              item.number_available -= 1
+            } else {
+              shopItemsArray.splice(shopItemsArray.indexOf(item), 1);
+            }
+            setAvailableItems(shopItemsArray);
+            if (!weapon1 && !weapon2) {
+              setWeapon1(item);
+            } else if (weapon1 && !weapon2) {
+              setWeapon2(item);
+            } else if (!weapon1 && weapon2) {
+              setWeapon1(item)
+            }
+          }
+        }
+      }
+    } else if (item.type === 'armor') {
+      if (armor) {
+        alert(`you have no space for this ${item.name}`)
+      } else {
+        if (((weapon1 && weapon1.rune === true) && item.special_abilities.equipRunes === false) || ((weapon2 && weapon2.rune === true) && item.special_abilities.equipRunes === false)) {
+          alert('Your Equipt Runes prevent you from weaing this type of armor')
+        } else {
+          if (item.special_abilities.equipRunes === false) {
+            setEquipRunes(false)
+          }
           let newMoney = Math.floor(money - item.cost);
           setMoney(newMoney);
           if (item.number_available > 1) {
@@ -30,25 +73,10 @@ function Shop({ chosenHero, weapon1, setWeapon1, weapon2, setWeapon2, money, set
             shopItemsArray.splice(shopItemsArray.indexOf(item), 1);
           }
           setAvailableItems(shopItemsArray);
-          if (!weapon1 && !weapon2) {
-            setWeapon1(item);
-          } else if (weapon1 && !weapon2) {
-            setWeapon2(item);
-          } else if (!weapon1 && weapon2) {
-            setWeapon1(item)
-          }
-          if (item.combat_dice) {
-            for (let color in item.combat_dice) {
-              heroData[chosenHero].dice[color] += item.combat_dice[color]
-            }
-            // setHerosDice(heroData[chosenHero].dice)
-          }
+          setArmor(item)
         }
       }
-    } else if (item.type === 'anything') {
-      alert('not of type created yet')
     }
-
   }
   useEffect(() => {
     dragElement(document.getElementById("shop"));
