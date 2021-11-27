@@ -1,22 +1,22 @@
 #shop{
-    background-color: white;
-    position: absolute;
-    justify-content: center;
-    align-self: center;
-    color: black
+background-color: white;
+position: absolute;
+justify-content: center;
+align-self: center;
+color: black;
+max-height: 600px;
+overflow-y: auto;
   }
-
-
 
 #shopItems{
 display: flex;
 flex-direction: row;
 flex-wrap: wrap;
-max-width: 600px;
-  background-color: white;
-  justify-content: center;
-  align-self: center;
-  color: black
+max-width: 800px;
+background-color: white;
+justify-content: center;
+align-self: center;
+color: black;
 }
 
 

@@ -25,7 +25,7 @@ function Player({ chosenHero, chosenQuest }) {
   const [maxSpeed, setMaxSpeed] = useState(heroData[chosenHero].speed);
   const [speed, setSpeed] = useState(heroData[chosenHero].speed)
   const [money, setMoney] = useState(map1.startingMoney.amount);
-  const [equpRunes, setEquipRunes] = useState(true)
+  const [equipRunes, setEquipRunes] = useState(true)
   const [meleePowerDie, setMeleePowerDie] = useState(heroData[chosenHero].traits.melee_trait);
   const [rangedPowerDie, setrangedPowerDie] = useState(heroData[chosenHero].traits.ranged_trait);
   const [magicPowerDie, setMagicPowerDie] = useState(heroData[chosenHero].traits.magic_trait);
@@ -107,11 +107,15 @@ function Player({ chosenHero, chosenQuest }) {
 
   useEffect(() => {
     if (armor) {
-      if (armor.specialAbilities !== false) {
-        console.log(armor.specialAbilities)
+      if (armor.special_abilities !== false) {
+        if (heroData[chosenHero].speed > armor.special_abilities.speedReduce) {
+          setSpeed(armor.special_abilities.speedReduce)
+          if (armor.special_abilities.equipRunes === false) {
+            setEquipRunes(false)
+          }
+        }
       }
       setCurrentArmor(heroData[chosenHero].base_armor + armor.armor)
-
     } else {
       setCurrentArmor(heroData[chosenHero].base_armor)
     }
@@ -166,7 +170,7 @@ function Player({ chosenHero, chosenQuest }) {
       alert('you have no item to sell')
     } else {
       if (item.type === 'armor') {
-        console.log(item.special_abilities.equipRunes)
+        // console.log(item.special_abilities.equipRunes)
         if (item.special_abilities.equipRunes === false) {
           setEquipRunes(true)
         }
@@ -339,7 +343,7 @@ function Player({ chosenHero, chosenQuest }) {
         showShopItems={showShopItems}
         armor={armor}
         setArmor={setArmor}
-        equipRunes={equpRunes}
+        equipRunes={equipRunes}
         setEquipRunes={setEquipRunes}
       /> : null}
 

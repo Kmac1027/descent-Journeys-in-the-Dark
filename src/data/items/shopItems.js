@@ -259,10 +259,10 @@ export const shopItemData =
     special_abilities: {
       speedReduce: 4,
       equipRunes: false,
-      text: 'your base speed is reduced to 4, you maynot equip runes',
+      text: 'your base speed is reduced to 4. You may not equip runes',
     },
     cost: 100,
     img_path: 'images/items/shop/chain_mail.png',
     number_available: 2
-  }
+  },
 }
