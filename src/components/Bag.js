@@ -1,5 +1,7 @@
 import '../styles/bag.css'
 import { useEffect, useState } from 'react'
+import { potionsArray } from './Potions';
+import SwapScreen from './SwapScreen'
 
 export let bagArray = [];
 
@@ -12,10 +14,14 @@ function Bag({
   weapon1,
   setWeapon1,
   weapon2,
-  setWeapon2
+  setWeapon2,
+  armor,
+  setArmor
 }) {
 
   const [bag, setBag] = useState(bagArray);
+  const [bagCheck, setBagCheck] = useState(true)
+  const [swapDuelWield, setSwapDuelWield] = useState(false)
 
   function swap(item) {
     let result = window.confirm(`Do you want to Equip this ${item.name}?`)
@@ -38,10 +44,15 @@ function Bag({
               bagArray.push(weapon2)
               setWeapon1(item)
             }
+
+
           } else if (item.hands === 1) {
             if (weapon1 && weapon2) {
-              //come up with a way to have the player be able to select wich weapon they want to swap
+              setSwapDuelWield(true)
+              //either this or prompt boxes
             }
+
+
             else if (!weapon1 || (!weapon1 && !weapon2)) {
               setWeapon1(item)
             } else if ((weapon1 && !weapon2) && weapon1.hands !== 2) {
@@ -56,9 +67,36 @@ function Bag({
           }
         }
         bagArray.splice(bagArray.indexOf(item), 1)
+      } else if(item.type === 'armor'){
+        bagArray.push(armor)
+        setArmor(item)
       }
     }
+    if(bagCheck === true){
+      setBagCheck(false)
+    } else {
+      setBagCheck(true)
+    }
   }
+
+  function addPotionToPotionBag(potion){
+    if(potionsArray.length >= 3){
+      alert('You have no room to add a potion to your potion bag')
+    } else {
+      potionsArray.push(potion)
+      bagArray.splice(bagArray.indexOf(potion), 1)
+    }
+    if(bagCheck === true){
+      setBagCheck(false)
+    } else {
+      setBagCheck(true)
+    }
+  }
+
+useEffect(()=>{
+setBag(bagArray)
+
+}, [bagCheck, sell])
 
   useEffect(() => {
     dragElement(document.getElementById("storageBag"));
@@ -102,18 +140,33 @@ function Bag({
     <div id='storageBag' style={{ left: '30%', top: '30%', }}>
       <button onClick={() => setShowBag(false)}>Close</button>
       <h1>Item Bag</h1>
+      
       <div style={{ display: 'flex', flexdirection: 'row' }}>
         {bag.map((item, i) =>
+        item.type !== 'potion' ?
           <div key={i} id={i} style={{ padding: '10px' }}>
             <input className='card' type='image' src={item.img_path} alt={item.name}
-              onClick={() => swap(item)}
-            ></input>
+              onClick={() => swap(item)}></input>
             <br />
-            {showShop ? <button onClick={() => { sell(item); bagArray.splice(bagArray.indexOf(item), 1) }}>Sell</button> : null}
+            {showShop ? <button onClick={() => { sell(item);
+               bagArray.splice(bagArray.indexOf(item), 1) }}>Sell</button> : null}
           </div>
-
+            :  
+          <div key={i} id={i} style={{ padding: '10px' }}>
+          <input height='50px' width='50px' type='image' src={item.img_path} alt={item.name}
+           onClick={() => addPotionToPotionBag(item)}
+         ></input>
+         <br />
+         {showShop ? <button onClick={() => { sell(item); bagArray.splice(bagArray.indexOf(item), 1) }}>Sell</button> : null}
+         </div>
         )}
       </div>
+      {swapDuelWield ? <SwapScreen 
+      weapon1={weapon1} 
+      setWeapon1={setWeapon1}
+      weapon2={weapon2} 
+      setWeapon2={setWeapon2}
+      /> : null}
     </div>
   );
 }

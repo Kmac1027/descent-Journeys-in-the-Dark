@@ -6,8 +6,6 @@ import { potionsArray } from './Potions';
 import { bagArray } from './Bag';
 
 
-
-//WHEN you purchae an item from the SHOP DIRECTLY INTO THE BAG IT DOES NOT DECREES THE NUMBER IN THE SHOP NOR TAKE AWAY THE PLAYERS MONEY
 export let shopItemsArray = [];
 for (let key in shopItemData) {
   // console.log('sword pushed into array')
@@ -46,11 +44,10 @@ function Shop({ chosenHero,
   const [availableItems, setAvailableItems] = useState(shopItemsArray);
 
   function addPotion(type) {
-    if (potionsArray.length === 3) {
-      // alert('you have no more room for potions')
+    if (potionsArray.length >= 3) {
       let result = window.confirm('You have no more room for potions, would you like to add it to your bag?');
       if (result === true) {
-        if (bagArray.length === 3) {
+        if (bagArray.length >= 3) {
           alert('Your Bag is Full!')
         } else {
           if (type === 'health') {
@@ -58,6 +55,8 @@ function Shop({ chosenHero,
           } else if (type === 'vitality') {
             bagArray.push(vitality_potion)
           }
+          let newMoney = Math.floor(money - health_potion.cost);
+          setMoney(newMoney);
         }
       }
     } else {
@@ -66,6 +65,8 @@ function Shop({ chosenHero,
       } else if (type === 'vitality') {
         potionsArray.push(vitality_potion)
       }
+      let newMoney = Math.floor(money - health_potion.cost);
+      setMoney(newMoney);
     }
   }
 
@@ -77,20 +78,36 @@ function Shop({ chosenHero,
         if (item.rune === true && equipRunes === false) {
           let result = window.confirm(`Your Armor Prevents you from Equiping this ${item.name}, would you like to add it to your Bag?`)
           if (result === true) {
-            if (bagArray.length === 3) {
+            if (bagArray.length >= 3) {
               alert('Your Bag is Full!')
             } else {
               bagArray.push(item)
+              let newMoney = Math.floor(money - item.cost);
+              setMoney(newMoney);
+              if (item.number_available > 1) {
+                item.number_available -= 1
+              } else {
+                shopItemsArray.splice(shopItemsArray.indexOf(item), 1);
+              }
+              setAvailableItems(shopItemsArray);
             }
           }
         } else {
           if ((weapon1 && weapon2) || (weapon1 && item.hands === 2) || (weapon2 && item.hands === 2) || (weapon1 && weapon1.hands === 2) || (weapon2 && weapon2.hands === 2)) {
             let result = window.confirm(`You have no space for this ${item.name}, would you like to add it to your Bag?`)
             if (result === true) {
-              if (bagArray.length === 3) {
+              if (bagArray.length >= 3) {
                 alert('Your Bag is Full!')
               } else {
                 bagArray.push(item)
+                let newMoney = Math.floor(money - item.cost);
+                setMoney(newMoney);
+                if (item.number_available > 1) {
+                  item.number_available -= 1
+                } else {
+                  shopItemsArray.splice(shopItemsArray.indexOf(item), 1);
+                }
+                setAvailableItems(shopItemsArray);
               }
             }
           } else {
@@ -116,17 +133,25 @@ function Shop({ chosenHero,
         if (armor) {
           let result = window.confirm(`You have no space for this ${item.name}, would you like to add it to your Bag?`)
           if (result === true) {
-            if (bagArray.length === 3) {
+            if (bagArray.length >= 3) {
               alert('Your Bag is Full!')
             } else {
               bagArray.push(item)
+              let newMoney = Math.floor(money - item.cost);
+              setMoney(newMoney);
+              if (item.number_available > 1) {
+                item.number_available -= 1
+              } else {
+                shopItemsArray.splice(shopItemsArray.indexOf(item), 1);
+              }
+              setAvailableItems(shopItemsArray);
             }
           }
         } else {
           if (((weapon1 && weapon1.rune === true) && item.special_abilities.equipRunes === false) || ((weapon2 && weapon2.rune === true) && item.special_abilities.equipRunes === false)) {
             let result = window.confirm(`Your Equipt Runes prevent you from weaing this type of Armor, would you like to add it to your Bag?`)
             if (result === true) {
-              if (bagArray.length === 3) {
+              if (bagArray.length >= 3) {
                 alert('Your Bag is Full!')
               } else {
                 bagArray.push(item)

@@ -16,7 +16,6 @@ import { targetClicked, mousePos, correctedPosition, attackTargetClicked, select
 
 function Player({ chosenHero, chosenQuest }) {
 
-
   const [currentHealth, setCurrentHealth] = useState(heroData[chosenHero].max_wounds);
   const [maxHealth, setMaxHealth] = useState(heroData[chosenHero].max_wounds);
   const [currentFatigue, setCurrentFatigue] = useState(heroData[chosenHero].max_fatigue);
@@ -26,7 +25,8 @@ function Player({ chosenHero, chosenQuest }) {
   const [currentArmor, setCurrentArmor] = useState(heroData[chosenHero].base_armor);
   const [maxSpeed, setMaxSpeed] = useState(heroData[chosenHero].speed);
   const [speed, setSpeed] = useState(heroData[chosenHero].speed)
-  const [money, setMoney] = useState(map1.startingMoney.amount);
+  // const [money, setMoney] = useState(map1.startingMoney.amount);
+  const [money, setMoney] = useState(10000);
   const [equipRunes, setEquipRunes] = useState(true)
   const [showPotions, setShowPotions] = useState(false)
   const [showBag, setShowBag] = useState(false)
@@ -178,7 +178,7 @@ function Player({ chosenHero, chosenQuest }) {
       let sellAmount = Math.floor(item.cost / 2);
       let newMoney = money + sellAmount;
       setMoney(newMoney);
-      if (shopItemsArray.includes(item) === false) {
+      if (shopItemsArray.includes(item) === false && item.type !== 'potion') {
         shopItemsArray.push(item)
       } else {
         item.number_available += 1
@@ -363,10 +363,7 @@ function Player({ chosenHero, chosenQuest }) {
         showDiceRoll={showDiceRoll}
         selectedTarget={selectedTarget}
         map1={map1}
-        // addToAttackPannel={addToAttackPannel}
-        // setAddToAttackPannel={setAddToAttackPannel}
         weaponCardsActive={weaponCardsActive}
-
         attack={attack}
         attackOn={attackOn}
         attackCardsActive={attackCardsActive}
@@ -391,8 +388,8 @@ function Player({ chosenHero, chosenQuest }) {
         setCurrentFatigue={setCurrentFatigue}
         showShop={showShop}
         sell={sell}
-
       /> : null}
+
       {showBag ? <Bag
         showBag={showBag}
         setShowBag={setShowBag}
@@ -403,6 +400,8 @@ function Player({ chosenHero, chosenQuest }) {
         setWeapon1={setWeapon1}
         weapon2={weapon2}
         setWeapon2={setWeapon2}
+        armor={armor}
+        setArmor={setArmor}
       /> : null}
     </div >
 

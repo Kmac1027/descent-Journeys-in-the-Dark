@@ -1,6 +1,5 @@
 import '../styles/potions.css'
 import { useEffect, useState } from 'react'
-import { health_potion, vitality_potion } from './Shop'
 
 export let potionsArray = [];
 
@@ -17,7 +16,7 @@ function Potions({
   sell
 }) {
   const [potions, setPotions] = useState(potionsArray)
-  const [check, setCheck] = useState(true)
+  const [checkPotions, setCheckPotions] = useState(true)
 
   function drinkPotion(type) {
     // console.log(type)
@@ -32,25 +31,23 @@ function Potions({
         var removePotion = potionsArray[i];
         break;
       }
-
     }
     // console.log(potionsArray.indexOf(removePotion))
     potionsArray.splice(potionsArray.indexOf(removePotion), 1)
-    if (check === true) {
-      setCheck(false)
+    if (checkPotions === true) {
+      setCheckPotions(false)
     } else {
-      setCheck(true)
+      setCheckPotions(true)
     }
 
   }
-
 
   useEffect(() => {
     if (currentHealth > maxHealth) {
       setCurrentHealth(maxHealth)
     }
     setPotions(potionsArray)
-  }, [check])
+  }, [checkPotions])
 
 
   useEffect(() => {
@@ -90,7 +87,6 @@ function Potions({
       }
     }
   }, [])
-
 
   return (
     <div id='potions' style={{ left: '30%', top: '30%', }}>
