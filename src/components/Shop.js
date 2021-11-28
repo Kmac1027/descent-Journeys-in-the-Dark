@@ -2,7 +2,12 @@ import '../styles/shop.css';
 import { heroData } from '../data/heroData';
 import { shopItemData } from '../data/items/shopItems';
 import { useState, useEffect } from 'react';
+import { potionsArray } from './Potions';
+import { bagArray } from './Bag';
 
+
+
+//WHEN you purchae an item from the SHOP DIRECTLY INTO THE BAG IT DOES NOT DECREES THE NUMBER IN THE SHOP NOR TAKE AWAY THE PLAYERS MONEY
 export let shopItemsArray = [];
 for (let key in shopItemData) {
   // console.log('sword pushed into array')
@@ -13,14 +18,14 @@ for (let key in shopItemData) {
 export let health_potion = {
   name: 'Health Potion',
   type: 'potion',
-  heal_amount: 3,
+  restore: 3,
   cost: 50,
   img_path: 'images/items/shop/health_potion.png'
 }
 export let vitality_potion = {
   name: 'Vitality Potion',
   type: 'potion',
-  heal_amount: 'max',
+  restore: 'max fatigue',
   cost: 50,
   img_path: 'images/items/shop/vitality_potion.png'
 }
@@ -37,22 +42,32 @@ function Shop({ chosenHero,
   setArmor,
   equipRunes,
   setEquipRunes,
-  potions,
-  setPotions
 }) {
   const [availableItems, setAvailableItems] = useState(shopItemsArray);
 
-  function addPotion(type){
-if(potions.length === 3){
-  alert('you have no more room for potions')
-  } else {
-    if(type === 'health'){
-      //push health potion
-    } else if(type==='vitality'){
-      //push vit potion
+  function addPotion(type) {
+    if (potionsArray.length === 3) {
+      // alert('you have no more room for potions')
+      let result = window.confirm('You have no more room for potions, would you like to add it to your bag?');
+      if (result === true) {
+        if (bagArray.length === 3) {
+          alert('Your Bag is Full!')
+        } else {
+          if (type === 'health') {
+            bagArray.push(health_potion)
+          } else if (type === 'vitality') {
+            bagArray.push(vitality_potion)
+          }
+        }
+      }
+    } else {
+      if (type === 'health') {
+        potionsArray.push(health_potion)
+      } else if (type === 'vitality') {
+        potionsArray.push(vitality_potion)
+      }
     }
   }
-}
 
   function buy(item) {
     if (money < item.cost) {
@@ -60,10 +75,24 @@ if(potions.length === 3){
     } else {
       if (item.type === 'melee' || item.type === 'ranged' || item.type === 'magic') {
         if (item.rune === true && equipRunes === false) {
-          alert('Your Armor Prevents you from Equiping this rune')
+          let result = window.confirm(`Your Armor Prevents you from Equiping this ${item.name}, would you like to add it to your Bag?`)
+          if (result === true) {
+            if (bagArray.length === 3) {
+              alert('Your Bag is Full!')
+            } else {
+              bagArray.push(item)
+            }
+          }
         } else {
           if ((weapon1 && weapon2) || (weapon1 && item.hands === 2) || (weapon2 && item.hands === 2) || (weapon1 && weapon1.hands === 2) || (weapon2 && weapon2.hands === 2)) {
-            alert(`You have no space for this ${item.name} `);
+            let result = window.confirm(`You have no space for this ${item.name}, would you like to add it to your Bag?`)
+            if (result === true) {
+              if (bagArray.length === 3) {
+                alert('Your Bag is Full!')
+              } else {
+                bagArray.push(item)
+              }
+            }
           } else {
             let newMoney = Math.floor(money - item.cost);
             setMoney(newMoney);
@@ -85,10 +114,24 @@ if(potions.length === 3){
         }
       } else if (item.type === 'armor') {
         if (armor) {
-          alert(`you have no space for this ${item.name}`)
+          let result = window.confirm(`You have no space for this ${item.name}, would you like to add it to your Bag?`)
+          if (result === true) {
+            if (bagArray.length === 3) {
+              alert('Your Bag is Full!')
+            } else {
+              bagArray.push(item)
+            }
+          }
         } else {
           if (((weapon1 && weapon1.rune === true) && item.special_abilities.equipRunes === false) || ((weapon2 && weapon2.rune === true) && item.special_abilities.equipRunes === false)) {
-            alert('Your Equipt Runes prevent you from weaing this type of armor')
+            let result = window.confirm(`Your Equipt Runes prevent you from weaing this type of Armor, would you like to add it to your Bag?`)
+            if (result === true) {
+              if (bagArray.length === 3) {
+                alert('Your Bag is Full!')
+              } else {
+                bagArray.push(item)
+              }
+            }
           } else {
             if (item.special_abilities.equipRunes === false) {
               setEquipRunes(false)
@@ -164,17 +207,17 @@ if(potions.length === 3){
 
       <div id='potions' style={{ display: 'flex', flexdirection: 'row' }}>
         <div id='healthPotion' style={{ padding: '10px', border: 'outset' }}>
-          <input type='image' height='50' width='50' src={health_potion.img_path} alt={health_potion.name} 
-          onClick={() => addPotion('health')
-          }></input>
+          <input type='image' height='50' width='50' src={health_potion.img_path} alt={health_potion.name}
+            onClick={() => addPotion('health')
+            }></input>
           <p>Item: {health_potion.name}</p>
           <p>Price: {health_potion.cost} Gold</p>
         </div>
 
         <div id='vitalityPotion' style={{ padding: '10px', border: 'outset' }}>
-          <input type='image' height='50' width='50' src={vitality_potion.img_path} alt={vitality_potion.name} 
-          onClick={() => addPotion('vitality')
-          }></input>
+          <input type='image' height='50' width='50' src={vitality_potion.img_path} alt={vitality_potion.name}
+            onClick={() => addPotion('vitality')
+            }></input>
           <p>Item: {vitality_potion.name}</p>
           <p>Price: {vitality_potion.cost} Gold</p>
         </div>

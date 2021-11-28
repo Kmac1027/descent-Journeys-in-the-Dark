@@ -1,10 +1,10 @@
-#potions {
-  background-color: rgb(120, 177, 221);
+#storageBag {
+  background-color: rgb(165, 106, 42);
   position: absolute;
   justify-content: center;
   align-self: center;
   color: black;
-  max-height: 600px;
-  max-width: 800px;
+  max-height: 800px;
+  max-width: 900px;
   overflow-y: auto;
 }

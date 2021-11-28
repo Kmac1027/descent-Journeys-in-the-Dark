@@ -2,10 +2,12 @@ import '../styles/player.css';
 import Shop, { shopItemsArray } from './Shop';
 import DiceRoll from './Dice';
 import Potions from './Potions';
+import Bag from './Bag'
 import { useState, useEffect } from 'react';
 import { heroData } from '../data/heroData.js';
 // import { monsterData } from '../data/monsterData.js';
 import { shopItemData } from '../data/items/shopItems';
+import { potionsArray } from './Potions';
 import { heroToken, disableMovment } from '../player_actions/movement';
 import { map1 } from '../data/dungeonMaps/map1';
 import { attack, attackType, } from '../player_actions/attack';
@@ -27,8 +29,8 @@ function Player({ chosenHero, chosenQuest }) {
   const [money, setMoney] = useState(map1.startingMoney.amount);
   const [equipRunes, setEquipRunes] = useState(true)
   const [showPotions, setShowPotions] = useState(false)
-  const [potions, setPotions] = useState([])
-  
+  const [showBag, setShowBag] = useState(false)
+
   const [meleePowerDie, setMeleePowerDie] = useState(heroData[chosenHero].traits.melee_trait);
   const [rangedPowerDie, setrangedPowerDie] = useState(heroData[chosenHero].traits.ranged_trait);
   const [magicPowerDie, setMagicPowerDie] = useState(heroData[chosenHero].traits.magic_trait);
@@ -184,6 +186,22 @@ function Player({ chosenHero, chosenQuest }) {
     }
   }
 
+  function turnOnPotionScreen() {
+    if (showPotions === false) {
+      setShowPotions(true)
+    } else {
+      setShowPotions(false)
+    }
+  }
+
+  function turnOnBagScreen() {
+    if (showBag === false) {
+      setShowBag(true)
+    } else {
+      setShowBag(false)
+    }
+  }
+
   return (
     <div>
       <div id='playerContainer'>
@@ -299,14 +317,13 @@ function Player({ chosenHero, chosenQuest }) {
         <div id='bag'>
           <div>
             <p>Potions:</p>
-            <input type='image' className='card' src={'images/health_potion_card.png'} alt='Potions' onClick={()=>setShowPotions(true)}></input>
-            <div>
-              {showShop ? <button onClick={sell}>Sell</button> : null}
-            </div>
+            <input type='image' className='card' src={'images/health_potion_card.png'} alt='Potions' onClick={turnOnPotionScreen}></input>
           </div>
           <div>
             <p>Bag:</p>
-            <img className='card' src={'images/items/shop/leather_armor.png'} alt='g'></img>
+            <input type='image' className='card' src={'images/bag_card.png'} alt='Item Bag'
+              onClick={turnOnBagScreen}
+            ></input>
           </div>
         </div>
 
@@ -339,8 +356,6 @@ function Player({ chosenHero, chosenQuest }) {
         setArmor={setArmor}
         equipRunes={equipRunes}
         setEquipRunes={setEquipRunes}
-        potions={potions}
-        setPotions={setPotions}
       /> : null}
 
       {showDice ? <DiceRoll
@@ -365,18 +380,30 @@ function Player({ chosenHero, chosenQuest }) {
         correctedPosition={correctedPosition}
       /> : null}
 
-      {showPotions ? <Potions 
-      showPotions={showPotions}
-      setShowPotions={setShowPotions}
-      potions={potions}
-      setPotions={setPotions}
-      currentHealth={currentHealth}
-      setCurrentHealth={setCurrentHealth}
-      currentFatigue={currentFatigue}
-      setCurrentFatigue={setCurrentFatigue}
+      {showPotions ? <Potions
+        showPotions={showPotions}
+        setShowPotions={setShowPotions}
+        maxHealth={maxHealth}
+        currentHealth={currentHealth}
+        setCurrentHealth={setCurrentHealth}
+        maxFatigue={maxFatigue}
+        currentFatigue={currentFatigue}
+        setCurrentFatigue={setCurrentFatigue}
+        showShop={showShop}
+        sell={sell}
 
-      />: null }
-
+      /> : null}
+      {showBag ? <Bag
+        showBag={showBag}
+        setShowBag={setShowBag}
+        showShop={showShop}
+        sell={sell}
+        equipRunes={equipRunes}
+        weapon1={weapon1}
+        setWeapon1={setWeapon1}
+        weapon2={weapon2}
+        setWeapon2={setWeapon2}
+      /> : null}
     </div >
 
   );
