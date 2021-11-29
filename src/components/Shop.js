@@ -1,6 +1,9 @@
 import '../styles/shop.css';
 import { heroData } from '../data/heroData';
 import { shopItemData } from '../data/items/shopItems';
+import { copperTreasures } from '../data/items/copperTreasures';
+import { silverTreasures } from '../data/items/silverTreasures';
+import { goldTreasures } from '../data/items/goldTreasures';
 import { useState, useEffect } from 'react';
 import { potionsArray } from './Potions';
 import { bagArray } from './Bag';
@@ -8,10 +11,20 @@ import { bagArray } from './Bag';
 
 export let shopItemsArray = [];
 for (let key in shopItemData) {
-  // console.log('sword pushed into array')
   shopItemsArray.push(shopItemData[key])
 }
-
+export let copperTreasureArray = []
+for (let key in copperTreasures) {
+  copperTreasureArray.push(copperTreasures[key])
+}
+export let silverTreasureArray = []
+for (let key in silverTreasures) {
+  silverTreasureArray.push(silverTreasures[key])
+}
+export let goldTreasureArray = []
+for (let key in goldTreasures) {
+  goldTreasureArray.push(goldTreasures[key])
+}
 //potions
 export let health_potion = {
   name: 'Health Potion',
@@ -105,6 +118,63 @@ function Shop({ chosenHero,
     }
     let newMoney = Math.floor(money - 500);
     setMoney(newMoney);
+  }
+
+  function randomTreasure(type) {
+    if (type === 'copper') {
+      if (money < 250) {
+        alert('You do not have enough money to purchawe a Copper treasure')
+      } else {
+        if (copperTreasureArray.length <= 0) {
+          alert('All the Copper Treasures are Gone')
+        } else {
+          let newMoney = Math.floor(money - 250);
+          setMoney(newMoney);
+          let pickRandomItem = Math.floor(Math.random() * (copperTreasureArray.length - 1))
+          console.log(copperTreasureArray[pickRandomItem])
+          let randomItem = copperTreasureArray[pickRandomItem]
+          bagArray.push(randomItem)
+          copperTreasureArray.splice(copperTreasureArray.indexOf(randomItem), 1);
+          alert(`You Got a ${randomItem.name}`)
+        }
+      }
+    }
+    if (type === 'silver') {
+      if (money < 500) {
+        alert('You do not have enough money to purchase a Silver treasure')
+      } else {
+        if (silverTreasureArray.length <= 0) {
+          alert('All the Silver Treasures are Gone')
+        } else {
+          let newMoney = Math.floor(money - 500);
+          setMoney(newMoney);
+          let pickRandomItem = Math.floor(Math.random() * (silverTreasureArray.length - 1))
+          console.log(silverTreasureArray[pickRandomItem])
+          let randomItem = silverTreasureArray[pickRandomItem]
+          bagArray.push(randomItem)
+          silverTreasureArray.splice(silverTreasureArray.indexOf(randomItem), 1);
+          alert(`You Got a ${randomItem.name}`)
+        }
+      }
+    }
+    if (type === 'gold') {
+      if (money < 750) {
+        alert('You do not have enough money to purchase a Gold treasure')
+      } else {
+        if (goldTreasureArray.length <= 0) {
+          alert('All the Gold Treasures are Gone')
+        } else {
+          let newMoney = Math.floor(money - 750);
+          setMoney(newMoney);
+          let pickRandomItem = Math.floor(Math.random() * (goldTreasureArray.length - 1))
+          console.log(goldTreasureArray[pickRandomItem])
+          let randomItem = goldTreasureArray[pickRandomItem]
+          bagArray.push(randomItem)
+          goldTreasureArray.splice(goldTreasureArray.indexOf(randomItem), 1);
+          alert(`You Got a ${randomItem.name}`)
+        }
+      }
+    }
   }
 
   function buy(item) {
@@ -328,7 +398,7 @@ function Shop({ chosenHero,
 
       <h3>Potions</h3>
 
-      <div id='potionsPurchase' style={{ display: 'flex', flexdirection: 'row' }}>
+      <div id='potionsPurchase' className='shopDiv' style={{ display: 'flex', flexdirection: 'row' }}>
         <div id='healthPotion' style={{ padding: '10px', border: 'outset' }}>
           <input type='image' height='50' width='50' src={health_potion.img_path} alt={health_potion.name}
             onClick={() => addPotion('health')
@@ -343,13 +413,13 @@ function Shop({ chosenHero,
             onClick={() => addPotion('vitality')
             }></input>
           <p>Item: {vitality_potion.name}</p>
-          <p>Restores Fatigue to Maximum</p>
+          <p>Restores Fatigue <br /> to Maximum</p>
           <p>Price: {vitality_potion.cost} Gold</p>
         </div>
       </div>
 
       <h3>Power Dice</h3>
-      <div id='powerDice' style={{ display: 'flex', flexdirection: 'row' }}>
+      <div id='powerDice' className='shopDiv' style={{ display: 'flex', flexdirection: 'row' }}>
         <div id='meleePowerDicePurchase' style={{ padding: '10px', border: 'outset' }}>
           <input type='image' height='50' width='50' src='images/melee_black_dice_purchase.jpg' alt='Purchase 1 Melee Power Dice'
             onClick={() => addPowerDice('melee')
@@ -375,9 +445,10 @@ function Shop({ chosenHero,
 
       <h3>Treasures</h3>
       <h4>Treasures Become Available For Purchase <br /> once a Treasure Chest of that Color is Found in the Dungeon</h4>
-      <div id='treasuresPurchase' style={{ display: 'flex', flexdirection: 'row' }}>
+      <div id='treasuresPurchase' className='shopDiv' style={{ display: 'flex', flexdirection: 'row' }}>
+
         {foundCopperTreasure ? <div id='coppertreasure' style={{ border: 'outset', padding: '10px' }}>
-          <input type='image' className='card' src='images/copper_treasure_back.png' alt='Copper Treasure' onClick={() => console.log('purchased Copper Treasure')}></input>
+          <input type='image' className='card' src='images/copper_treasure_back.png' alt='Copper Treasure' onClick={() => randomTreasure('copper')}></input>
           <p>Random Copper Treasure</p>
           <p>Cost: 250 Gold</p>
         </div> :
@@ -389,7 +460,7 @@ function Shop({ chosenHero,
 
         {foundSilverTreasure ?
           <div id='silvertreasure' style={{ border: 'outset', padding: '10px' }}>
-            <input type='image' className='card' src='images/silver_treasure_back.png' alt='Silver Treasure' onClick={() => console.log('purchased Silver Treasure')}></input>
+            <input type='image' className='card' src='images/silver_treasure_back.png' alt='Silver Treasure' onClick={() => randomTreasure('silver')}></input>
             <p>Random Silver Treasure</p>
             <p>Cost: 500 Gold</p>
           </div> :
@@ -401,7 +472,7 @@ function Shop({ chosenHero,
 
         {foundGoldTreasure ?
           <div id='goldtreasure' style={{ border: 'outset', padding: '10px' }}>
-            <input type='image' className='card' src='images/gold_treasure_back.png' alt='Gold Treasure' onClick={() => console.log('purchased Gold Treasure')}></input>
+            <input type='image' className='card' src='images/gold_treasure_back.png' alt='Gold Treasure' onClick={() => randomTreasure('gold')}></input>
             <p>Random Gold Treasure</p>
             <p>Cost: 750 Gold</p>
           </div> :
@@ -413,7 +484,7 @@ function Shop({ chosenHero,
       </div>
 
       <h3>Skills</h3>
-      <div id='skillsPurchase' style={{ display: 'flex', flexdirection: 'row' }}>
+      <div id='skillsPurchase' className='shopDiv' style={{ display: 'flex', flexdirection: 'row' }}>
         <div id='meleeSkillPurchase' style={{ border: 'outset', padding: '10px' }}>
           <input type='image' className='card' src='images/melee_skill_back.png' alt='Melee Skill' onClick={() => console.log('purchased Melee Skill')}></input>
           <p>Random Melee Skill</p>

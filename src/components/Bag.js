@@ -92,7 +92,34 @@ function Bag({
           setArmor(item)
           bagArray.splice(bagArray.indexOf(item), 1)
         }
+      } else if (item.type === 'other') {
+        if (other1 && other2) {
+          let result = window.confirm(`Do you want to Swap out your ${other1.name}?`)
+          if (result === true) {
+            bagArray.push(other1)
+            setOther1(item)
+          } else {
+            let result = window.confirm(`Do you want to Swap out your ${other2.name}?`)
+            if (result === true) {
+              bagArray.push(other2)
+              setOther2(item)
+            }
+          }
+        }
+        else if (!other1 || (!other1 && !other2)) {
+          setOther1(item)
+        } else if ((other1 && !other2) && other1.hands !== 2) {
+          setOther2(item)
+        } else if (other1.hands === 2) {
+          bagArray.push(other1)
+          setOther1(item)
+        } else if (other2.hands === 2) {
+          bagArray.push(other2)
+          setOther1(item)
+        }
+        bagArray.splice(bagArray.indexOf(item), 1)
       }
+
     }
     if (bagCheck === true) {
       setBagCheck(false)
@@ -100,6 +127,7 @@ function Bag({
       setBagCheck(true)
     }
   }
+
 
 
   function addPotionToPotionBag(potion) {

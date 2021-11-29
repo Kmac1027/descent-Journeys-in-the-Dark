@@ -101,7 +101,7 @@ export const copperTreasures =
     },
     hands: 1,
     cost: 250,
-    img_path: 'images/items/copperTreasure/dwarven_fire_bombs.jpg',
+    img_path: 'images/items/copperTreasures/dwarven_fire_bombs.jpg',
   },
   great_bow: {
     treasure: 'copper',
@@ -141,7 +141,7 @@ export const copperTreasures =
     },
     hands: 2,
     cost: 250,
-    img_path: 'images/items/copperTreasure/great_bow.jpg',
+    img_path: 'images/items/copperTreasures/great_bow.jpg',
   },
   pacify: {
     treasure: 'copper',

@@ -8,7 +8,6 @@ import { useState, useEffect } from 'react';
 import { heroData } from '../data/heroData.js';
 // import { monsterData } from '../data/monsterData.js';
 import { shopItemData } from '../data/items/shopItems';
-// import { findFunction } from '../data/items/copperTreasures'
 import { heroToken, disableMovment } from '../player_actions/movement';
 import { map1 } from '../data/dungeonMaps/map1';
 import { attack, attackType, } from '../player_actions/attack';
@@ -134,7 +133,7 @@ function Player({ chosenHero, chosenQuest }) {
       setBaseSpeed(heroData[chosenHero].speed)
     }
 
-  }, [armor, baseSpeed, speed])
+  }, [armor, baseSpeed, speed, other1, other2])
 
   //shop and town
   const [showReturnToTown, setShowReturnToTown] = useState(false)
@@ -192,7 +191,9 @@ function Player({ chosenHero, chosenQuest }) {
       let sellAmount = Math.floor(item.cost / 2);
       let newMoney = money + sellAmount;
       setMoney(newMoney);
-      if (shopItemsArray.includes(item) === false && item.type !== 'potion') {
+      if (shopItemsArray.includes(item) === false && item.type !== 'potion' &&
+        item.treasure === 'shop'
+      ) {
         shopItemsArray.push(item)
       } else {
         item.number_available += 1

@@ -6,7 +6,7 @@ export const heroData = {
     max_wounds: 16,
     max_fatigue: 3,
     base_armor: 1,
-    speed: 10,
+    speed: 4,
     traits: {
       melee_trait: 3,
       ranged_trait: 0,
