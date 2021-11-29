@@ -121,60 +121,65 @@ function Shop({ chosenHero,
   }
 
   function randomTreasure(type) {
-    if (type === 'copper') {
-      if (money < 250) {
-        alert('You do not have enough money to purchawe a Copper treasure')
-      } else {
-        if (copperTreasureArray.length <= 0) {
-          alert('All the Copper Treasures are Gone')
+    if(bagArray.length >= 3){
+alert('You have no room in your bag for a Treasure!')
+    }else {
+      if (type === 'copper') {
+        if (money < 250) {
+          alert('You do not have enough money to purchawe a Copper treasure')
         } else {
-          let newMoney = Math.floor(money - 250);
-          setMoney(newMoney);
-          let pickRandomItem = Math.floor(Math.random() * (copperTreasureArray.length - 1))
-          console.log(copperTreasureArray[pickRandomItem])
-          let randomItem = copperTreasureArray[pickRandomItem]
-          bagArray.push(randomItem)
-          copperTreasureArray.splice(copperTreasureArray.indexOf(randomItem), 1);
-          alert(`You Got a ${randomItem.name}`)
+          if (copperTreasureArray.length <= 0) {
+            alert('All the Copper Treasures are Gone')
+          } else {
+            let newMoney = Math.floor(money - 250);
+            setMoney(newMoney);
+            let pickRandomItem = Math.floor(Math.random() * (copperTreasureArray.length - 1))
+            console.log(copperTreasureArray[pickRandomItem])
+            let randomItem = copperTreasureArray[pickRandomItem]
+            bagArray.push(randomItem)
+            copperTreasureArray.splice(copperTreasureArray.indexOf(randomItem), 1);
+            alert(`You Got a ${randomItem.name}`)
+          }
+        }
+      }
+      if (type === 'silver') {
+        if (money < 500) {
+          alert('You do not have enough money to purchase a Silver treasure')
+        } else {
+          if (silverTreasureArray.length <= 0) {
+            alert('All the Silver Treasures are Gone')
+          } else {
+            let newMoney = Math.floor(money - 500);
+            setMoney(newMoney);
+            let pickRandomItem = Math.floor(Math.random() * (silverTreasureArray.length - 1))
+            console.log(silverTreasureArray[pickRandomItem])
+            let randomItem = silverTreasureArray[pickRandomItem]
+            bagArray.push(randomItem)
+            silverTreasureArray.splice(silverTreasureArray.indexOf(randomItem), 1);
+            alert(`You Got a ${randomItem.name}`)
+          }
+        }
+      }
+      if (type === 'gold') {
+        if (money < 750) {
+          alert('You do not have enough money to purchase a Gold treasure')
+        } else {
+          if (goldTreasureArray.length <= 0) {
+            alert('All the Gold Treasures are Gone')
+          } else {
+            let newMoney = Math.floor(money - 750);
+            setMoney(newMoney);
+            let pickRandomItem = Math.floor(Math.random() * (goldTreasureArray.length - 1))
+            console.log(goldTreasureArray[pickRandomItem])
+            let randomItem = goldTreasureArray[pickRandomItem]
+            bagArray.push(randomItem)
+            goldTreasureArray.splice(goldTreasureArray.indexOf(randomItem), 1);
+            alert(`You Got a ${randomItem.name}`)
+          }
         }
       }
     }
-    if (type === 'silver') {
-      if (money < 500) {
-        alert('You do not have enough money to purchase a Silver treasure')
-      } else {
-        if (silverTreasureArray.length <= 0) {
-          alert('All the Silver Treasures are Gone')
-        } else {
-          let newMoney = Math.floor(money - 500);
-          setMoney(newMoney);
-          let pickRandomItem = Math.floor(Math.random() * (silverTreasureArray.length - 1))
-          console.log(silverTreasureArray[pickRandomItem])
-          let randomItem = silverTreasureArray[pickRandomItem]
-          bagArray.push(randomItem)
-          silverTreasureArray.splice(silverTreasureArray.indexOf(randomItem), 1);
-          alert(`You Got a ${randomItem.name}`)
-        }
-      }
-    }
-    if (type === 'gold') {
-      if (money < 750) {
-        alert('You do not have enough money to purchase a Gold treasure')
-      } else {
-        if (goldTreasureArray.length <= 0) {
-          alert('All the Gold Treasures are Gone')
-        } else {
-          let newMoney = Math.floor(money - 750);
-          setMoney(newMoney);
-          let pickRandomItem = Math.floor(Math.random() * (goldTreasureArray.length - 1))
-          console.log(goldTreasureArray[pickRandomItem])
-          let randomItem = goldTreasureArray[pickRandomItem]
-          bagArray.push(randomItem)
-          goldTreasureArray.splice(goldTreasureArray.indexOf(randomItem), 1);
-          alert(`You Got a ${randomItem.name}`)
-        }
-      }
-    }
+
   }
 
   function buy(item) {

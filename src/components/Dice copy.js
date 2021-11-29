@@ -38,8 +38,7 @@ function DiceRoll({
   heroToken,
   correctedPosition,
   other1,
-  other2,
-  attackType
+  other2
 }) {
   const [checkSelectedTarget, setCheckSelectedTarget] = useState(selectedTarget)
   const [turnDiceOff, setTurnDiceOff] = useState(true);
@@ -49,7 +48,6 @@ function DiceRoll({
   const [enhanceChoice, setEnhanceChoice] = useState(false)
   const [purchaseSurgeAbilities, setPurchaseSurgeAbilities] = useState(false)
   const [pierce, setPierce] = useState(0)
-  const [blast, setBlast] = useState(0)
   const [powerDieRolled, setPowerDieRolled] = useState(0)
 
   const [redDice, setRedDice] = useState(redDiceArray);
@@ -130,18 +128,41 @@ function DiceRoll({
   }, [attackActive])
 
   function addToAttackPannelFunction() {
-    if (attackType.blast === true) {
-      let enemyPicDiv = document.getElementById('enemyPic');
-      let blastAttack = document.createElement('p')
-      blastAttack.textContent = 'BLAST ATTACK'
-      enemyPicDiv.appendChild(blastAttack)
-      let weaponPicDiv = document.getElementById('weaponCard');
-      let weaponImg = document.createElement('img');
-      weaponImg.src = selectedWeapon.img_path
-      weaponImg.className = 'card';
-      weaponPicDiv.appendChild(weaponImg);
-      let x = Math.abs(heroToken.x - selectedTarget.id.x) / 50
-      let y = Math.abs(heroToken.y - selectedTarget.id.y) / 50
+    // let stringify = [checkSelectedTarget.name][0][0].toUpperCase() + [checkSelectedTarget.name][0].slice(1);
+    let selectedMonster = map1.tokenPlacement.monsters[selectedTarget.name + selectedTarget.id.toString()];
+
+    let enemyPicDiv = document.getElementById('enemyPic');
+    let enemyImg = document.createElement('img');
+    enemyImg.src = selectedMonster.token_path
+    enemyImg.height = 75;
+    enemyImg.width = 75;
+    enemyPicDiv.appendChild(enemyImg);
+
+    let enemyHealth = document.createElement('p')
+    enemyHealth.textContent = `Health: ${selectedMonster.max_wounds}`
+    enemyPicDiv.appendChild(enemyHealth);
+    let enemyArmor = document.createElement('p')
+    enemyArmor.textContent = `Armor ${selectedMonster.base_armor}`
+    enemyPicDiv.appendChild(enemyArmor);
+
+    let enemyCardDiv = document.getElementById('enemyCard');
+    let enemyCardImg = document.createElement('img');
+    enemyCardImg.src = selectedMonster.monster_card_img_path
+    enemyCardImg.className = 'card';
+    enemyCardDiv.appendChild(enemyCardImg)
+
+    let weaponPicDiv = document.getElementById('weaponCard');
+    let weaponImg = document.createElement('img');
+    weaponImg.src = selectedWeapon.img_path
+    weaponImg.className = 'card';
+    weaponPicDiv.appendChild(weaponImg);
+    // console.log(selectedWeapon.img_path)
+
+
+    if (selectedWeapon.type === 'ranged' || selectedWeapon.type === 'magic') {
+      let selectedMonster = map1.tokenPlacement.monsters[selectedTarget.name + selectedTarget.id.toString()]
+      let x = Math.abs(heroToken.x - selectedMonster.x) / 50
+      let y = Math.abs(heroToken.y - selectedMonster.y) / 50
       console.log(x, y)
       if (x >= y) {
         setRangeNeeded(x)
@@ -149,53 +170,10 @@ function DiceRoll({
         setRangeNeeded(y)
       }
     } else {
-      let stringify = [checkSelectedTarget.name][0][0].toUpperCase() + [checkSelectedTarget.name][0].slice(1);
-
-      let selectedMonster = map1.tokenPlacement.monsters[selectedTarget.name + selectedTarget.id.toString()];
-
-      let enemyPicDiv = document.getElementById('enemyPic');
-      let enemyImg = document.createElement('img');
-      enemyImg.src = selectedMonster.token_path
-      enemyImg.height = 75;
-      enemyImg.width = 75;
-      enemyPicDiv.appendChild(enemyImg);
-
-      let enemyHealth = document.createElement('p')
-      enemyHealth.textContent = `Health: ${selectedMonster.max_wounds}`
-      enemyPicDiv.appendChild(enemyHealth);
-      let enemyArmor = document.createElement('p')
-      enemyArmor.textContent = `Armor ${selectedMonster.base_armor}`
-      enemyPicDiv.appendChild(enemyArmor);
-
-      let enemyCardDiv = document.getElementById('enemyCard');
-      let enemyCardImg = document.createElement('img');
-      enemyCardImg.src = selectedMonster.monster_card_img_path
-      enemyCardImg.className = 'card';
-      enemyCardDiv.appendChild(enemyCardImg)
-
-      let weaponPicDiv = document.getElementById('weaponCard');
-      let weaponImg = document.createElement('img');
-      weaponImg.src = selectedWeapon.img_path
-      weaponImg.className = 'card';
-      weaponPicDiv.appendChild(weaponImg);
-      // console.log(selectedWeapon.img_path)
-      if (selectedWeapon.type === 'ranged' || selectedWeapon.type === 'magic') {
-        let selectedMonster = map1.tokenPlacement.monsters[selectedTarget.name + selectedTarget.id.toString()]
-        let x = Math.abs(heroToken.x - selectedMonster.x) / 50
-        let y = Math.abs(heroToken.y - selectedMonster.y) / 50
-        console.log(x, y)
-        if (x >= y) {
-          setRangeNeeded(x)
-        } else {
-          setRangeNeeded(y)
-        }
-      } else {
-        setRangeNeeded('N/A')
-      }
-
-      setAddToAttackPannel(true);
-
+      setRangeNeeded('N/A')
     }
+
+    setAddToAttackPannel(true);
 
   }
 
@@ -278,9 +256,6 @@ function DiceRoll({
         if (specialAbility[key].type === 'addPierce') {
           setPierce(pierce => pierce + specialAbility[key].amount)
         }
-        if (specialAbility[key].type === 'addBlast') {
-          setBlast(blast => blast + specialAbility[key].amount)
-        }
       }
     }
     //offHand
@@ -305,9 +280,6 @@ function DiceRoll({
           }
           if (offHandBonus[key].type === 'addPierce') {
             setPierce(pierce => pierce + offHandBonus[key].amount)
-          }
-          if (offHandBonus[key].type === 'addBlast') {
-            setBlast(blast => blast + offHandBonus[key].amount)
           }
         }
       }
@@ -346,13 +318,6 @@ function DiceRoll({
           abilityText.innerText = specialAbility[key].text
           weaponPicDiv.appendChild(abilityText);
         }
-        if (specialAbility[key].type === 'addBlast' && (specialAbility[key].onlyFor === selectedWeapon.type || specialAbility[key].onlyFor === 'any')) {
-          setBlast(blast => blast + specialAbility[key].amount)
-          let weaponPicDiv = document.getElementById('abilities');
-          let abilityText = document.createElement('p')
-          abilityText.innerText = specialAbility[key].text
-          weaponPicDiv.appendChild(abilityText);
-        }
       }
     }
     //checks for Other2 special abilities
@@ -383,13 +348,6 @@ function DiceRoll({
         }
         if (specialAbility[key].type === 'addPierce' && (specialAbility[key].onlyFor === selectedWeapon.type || specialAbility[key].onlyFor === 'any')) {
           setPierce(pierce => pierce + specialAbility[key].amount)
-          let weaponPicDiv = document.getElementById('abilities');
-          let abilityText = document.createElement('p')
-          abilityText.innerText = specialAbility[key].text
-          weaponPicDiv.appendChild(abilityText);
-        }
-        if (specialAbility[key].type === 'addBlast' && (specialAbility[key].onlyFor === selectedWeapon.type || specialAbility[key].onlyFor === 'any')) {
-          setBlast(blast => blast + specialAbility[key].amount)
           let weaponPicDiv = document.getElementById('abilities');
           let abilityText = document.createElement('p')
           abilityText.innerText = specialAbility[key].text
@@ -449,8 +407,7 @@ function DiceRoll({
         <div id='roll'>
           <p>Damage: {damage}</p>
           <p>Range: {range} / Range Needed: {rangeNeeded}</p>
-          {pierce !== 0 ? <p>Pierce: {pierce}</p> : null}
-          {blast !== 0 ? <p>Blast: {blast}</p> : null}
+          {pierce !== 0 ? <p>pierce: {pierce}</p> : null}
 
           {surge > 0 ? <button onClick={() => setPurchaseSurgeAbilities(true)}>Surge: {surge}</button> : null}
           <br />
@@ -458,7 +415,7 @@ function DiceRoll({
         </div>
 
         <div id='dicePic'>
-          <button id='attackButton' onClick={() => attack(checkSelectedTarget, heroToken, damage, range, surge, pierce, blast, selectedWeapon, offHand, selectedTarget, attackOn, attackCardsActive, showDiceRoll)}>click to attack</button>
+          <button id='attackButton' onClick={() => attack(checkSelectedTarget, heroToken, damage, range, surge, pierce, selectedWeapon, offHand, selectedTarget, attackOn, attackCardsActive, showDiceRoll)}>click to attack</button>
         </div>
 
         <div id='enemyPic'><p></p></div>
@@ -632,8 +589,7 @@ function DiceRoll({
         setPierce={setPierce}
         powerDieRolled={powerDieRolled}
         setPowerDieRolled={setPowerDieRolled}
-        blast={blast}
-        setBlast={setBlast}
+
 
       /> : null}
     </div >

@@ -91,6 +91,22 @@ function Player({ chosenHero, chosenQuest }) {
 
   function attacking(weapon, offHandWeapon) {
     attackType.type = weapon.type;
+    if (weapon.surge !== false) {
+      for (let key in weapon.surge) {
+        if (weapon.surge[key].type === 'addBlast') {
+          attackType.blast = true
+          break;
+        }
+      }
+    }
+    if (weapon.special_abilities !== false) {
+      for (let key in weapon.special_abilities) {
+        if (weapon.special_abilities[key].type === 'addBlast') {
+          attackType.blast = true
+          break;
+        }
+      }
+    }
     attackOn();
     setSelectedWeapon(weapon)
     setOffHand(offHandWeapon)
@@ -107,8 +123,10 @@ function Player({ chosenHero, chosenQuest }) {
   }
 
   //weapons and items
-  const [weapon1, setWeapon1] = useState(shopItemData.sword);
-  const [weapon2, setWeapon2] = useState(shopItemData.crossbow);
+  // const [weapon1, setWeapon1] = useState(shopItemData.sword);
+  // const [weapon2, setWeapon2] = useState(shopItemData.crossbow);
+  const [weapon1, setWeapon1] = useState(copperTreasures.bane);
+  const [weapon2, setWeapon2] = useState();
   const [armor, setArmor] = useState(shopItemData.leather_armor);
   const [other1, setOther1] = useState()
   const [other2, setOther2] = useState()
@@ -412,6 +430,7 @@ function Player({ chosenHero, chosenQuest }) {
         correctedPosition={correctedPosition}
         other1={other1}
         other2={other2}
+        attackType={attackType}
       /> : null}
 
       {showPotions ? <Potions

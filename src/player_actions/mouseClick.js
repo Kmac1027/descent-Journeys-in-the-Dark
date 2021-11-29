@@ -67,7 +67,7 @@ export function attackTargetClicked() {
   //   }
   // }
 
-  if (attackType.type === 'melee') {
+  if (attackType.type === 'melee' && attackType.blast === false) {
     if ((heroToken.x - 50 === correctedPosition.x && heroToken.y === correctedPosition.y) ||
       (heroToken.x + 50 === correctedPosition.x && heroToken.y === correctedPosition.y) ||
       (heroToken.y - 50 === correctedPosition.y && heroToken.x === correctedPosition.x) ||
@@ -94,7 +94,8 @@ export function attackTargetClicked() {
     } else {
       console.log('you are not in melee range')
     }
-  } else if ((attackType.type === 'ranged' || (attackType.type === 'magic'))) {
+  } else if ((attackType.type === 'ranged' && attackType.blast === false)
+    || (attackType.type === 'magic' && attackType.blast === false)) {
     let monsters = map1.tokenPlacement.monsters
     for (let monster in monsters) {
       if (correctedPosition.x === monsters[monster].x && correctedPosition.y === monsters[monster].y) {
@@ -109,6 +110,21 @@ export function attackTargetClicked() {
       } else {
         disableAttack.ranged = true;
         disableAttack.magic = true;
+      }
+    }
+  } else if (attackType.blast === true) {
+    let tiles = map1.map1Floor.floor_tiles
+    for (let tile in tiles) {
+      if (correctedPosition.x === tiles[tile].x && correctedPosition.y === tiles[tile].y) {
+        console.log('Blast Attack!')
+        map1.tokenPlacement.marker.x = tiles[tile].x
+        map1.tokenPlacement.marker.y = tiles[tile].y
+        selectedTarget.id = tiles[tile]
+        selectedTarget.name = tiles
+        disableAttack.ranged = false;
+        disableAttack.magic = false;
+        disableAttack.melee = false;
+        break;
       }
     }
   }

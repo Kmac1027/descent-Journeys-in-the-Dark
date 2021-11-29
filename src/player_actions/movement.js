@@ -198,10 +198,6 @@ function moveDownLeft() {
 }
 
 
-
-
-
-
 //this detects the actual canvas sides
 export function detectWalls(canvas) {
   //left wall

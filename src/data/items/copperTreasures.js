@@ -88,10 +88,7 @@ export const copperTreasures =
         text: '+1 Range'
       },
     },
-    special_abilities: {
-      off_hand_bonus: false,
-      other: false,
-    },
+    special_abilities:false,
     combat_dice: {
       red: 0,
       blue: 1,
@@ -186,10 +183,7 @@ export const copperTreasures =
         text: 'Pierce 2'
       },
     },
-    special_abilities: {
-      off_hand_bonus: false,
-      other: false
-    },
+    special_abilities:false,
     combat_dice: {
       red: 0,
       blue: 0,
@@ -220,10 +214,7 @@ export const copperTreasures =
         text: '+1 Range'
       },
     },
-    special_abilities: {
-      off_hand_bonus: false,
-      other: false
-    },
+    special_abilities:false,
     combat_dice: {
       red: 0,
       blue: 0,
@@ -248,10 +239,7 @@ export const copperTreasures =
         text: 'Blast 1'
       },
     },
-    special_abilities: {
-      off_hand_bonus: false,
-      other: false
-    },
+    special_abilities:false,
     combat_dice: {
       red: 0,
       blue: 0,
@@ -305,7 +293,7 @@ export const copperTreasures =
       off_hand_bonus: false,
       other: {
         1: {
-          type: '',
+          type: 'shield',
           amount: 0,
           text: 'Exhaust to cancel 2 wound being dalt to you. You cannot use this item to cancel wounds dealt by attacks that ignore armor.'
         }
@@ -326,7 +314,7 @@ export const copperTreasures =
       off_hand_bonus: false,
       other: {
         1: {
-          type: '',
+          type: 'shield',
           amount: 0,
           text: 'Exhaust to cancel 2 wound being dalt to you. You cannot use this item to cancel wounds dealt by attacks that ignore armor.'
         }
@@ -391,7 +379,7 @@ export const copperTreasures =
     special_abilities: {
       other: {
         1: {
-          type: '',
+          type: 'healing',
           amount: 0,
           text: 'Spend 1 movement point and 1 fatigue to heal 1 wound to yourself or an adjacent figure. You may use this ability multiple times, paying its cost each time'
         }
@@ -411,7 +399,7 @@ export const copperTreasures =
     special_abilities: {
       other: {
         1: {
-          type: '',
+          type: 'speed',
           amount: 0,
           text: 'You gain 1 extra movment point during your turn(even if you would normally receive no movement points)'
         }
@@ -431,7 +419,7 @@ export const copperTreasures =
     special_abilities: {
       other: {
         1: {
-          type: '',
+          type: 'healing',
           amount: 0,
           text: 'Discard after equipping at the start of your turn to revocer 6 wounds and restore your fatigue to its maximum value'
         }
@@ -451,7 +439,7 @@ export const copperTreasures =
     special_abilities: {
       other: {
         1: {
-          type: '',
+          type: 'healing',
           amount: 0,
           text: 'Discard after equipping at the start of your turn to revocer 6 wounds and restore your fatigue to its maximum value'
         }
