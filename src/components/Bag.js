@@ -1,7 +1,7 @@
 import '../styles/bag.css'
 import { useEffect, useState } from 'react'
 import { potionsArray } from './Potions';
-import SwapScreen from './SwapScreen'
+// import SwapScreen from './SwapScreen'
 
 export let bagArray = [];
 
@@ -16,17 +16,22 @@ function Bag({
   weapon2,
   setWeapon2,
   armor,
-  setArmor
+  setArmor,
+  other1,
+  setOther1,
+  other2,
+  setOther2
 }) {
 
   const [bag, setBag] = useState(bagArray);
   const [bagCheck, setBagCheck] = useState(true)
-  const [swapDuelWield, setSwapDuelWield] = useState(false)
+  const [discardButton, setDiscardButton] = useState(false)
+
 
   function swap(item) {
     let result = window.confirm(`Do you want to Equip this ${item.name}?`)
     if (result === true) {
-      if (item.type === 'melee' || item.type === 'ranged' || item.type === 'magic') {
+      if (item.type === 'melee' || item.type === 'ranged' || item.type === 'magic' || item.type === 'shield') {
         if (item.rune === true && equipRunes === false) {
           alert('Your Armor Prevents you from Equiping this rune')
         } else {
@@ -42,17 +47,25 @@ function Bag({
               setWeapon1(item)
             } else if (!weapon1 && weapon2) {
               bagArray.push(weapon2)
+              setWeapon2()
               setWeapon1(item)
             }
 
 
           } else if (item.hands === 1) {
             if (weapon1 && weapon2) {
-              setSwapDuelWield(true)
-              //either this or prompt boxes
+              let result = window.confirm(`Do you want to Swap out your ${weapon1.name}?`)
+              if (result === true) {
+                bagArray.push(weapon1)
+                setWeapon1(item)
+              } else {
+                let result = window.confirm(`Do you want to Swap out your ${weapon2.name}?`)
+                if (result === true) {
+                  bagArray.push(weapon2)
+                  setWeapon2(item)
+                }
+              }
             }
-
-
             else if (!weapon1 || (!weapon1 && !weapon2)) {
               setWeapon1(item)
             } else if ((weapon1 && !weapon2) && weapon1.hands !== 2) {
@@ -65,38 +78,76 @@ function Bag({
               setWeapon1(item)
             }
           }
+          bagArray.splice(bagArray.indexOf(item), 1)
         }
-        bagArray.splice(bagArray.indexOf(item), 1)
-      } else if(item.type === 'armor'){
-        bagArray.push(armor)
-        setArmor(item)
+      } else if (item.type === 'armor') {
+        if (((weapon1 && weapon1.rune === true) && item.special_abilities.equipRunes === false)
+          || ((weapon2 && weapon2.rune === true) && item.special_abilities.equipRunes === false)
+          || ((other1 && other1.rune === true) && item.special_abilities.equipRunes === false)
+          || ((other2 && other2.rune === true) && item.special_abilities.equipRunes === false)
+        ) {
+          alert(`Your Equipt Runes prevent you from weaing this type of Armor`)
+        } else {
+          bagArray.push(armor)
+          setArmor(item)
+          bagArray.splice(bagArray.indexOf(item), 1)
+        }
       }
     }
-    if(bagCheck === true){
+    if (bagCheck === true) {
       setBagCheck(false)
     } else {
       setBagCheck(true)
     }
   }
 
-  function addPotionToPotionBag(potion){
-    if(potionsArray.length >= 3){
+
+  function addPotionToPotionBag(potion) {
+    if (potionsArray.length >= 3) {
       alert('You have no room to add a potion to your potion bag')
     } else {
       potionsArray.push(potion)
       bagArray.splice(bagArray.indexOf(potion), 1)
     }
-    if(bagCheck === true){
+    if (bagCheck === true) {
       setBagCheck(false)
     } else {
       setBagCheck(true)
     }
   }
 
-useEffect(()=>{
-setBag(bagArray)
+  function discardItemButton() {
+    if (discardButton === false) {
+      setDiscardButton(true)
+    } else {
+      setDiscardButton(false)
+    }
 
-}, [bagCheck, sell])
+  }
+  function discardItem(item) {
+    let result = window.confirm(`Once you Discard this ${item.name} it is gone Forever. Do you Really Want to Discard it?`)
+    if (result === true) {
+      bagArray.splice(bagArray.indexOf(item), 1)
+    }
+    if (bagCheck === true) {
+      setBagCheck(false)
+    } else {
+      setBagCheck(true)
+    }
+  }
+
+  function closeBag() {
+    if (bagArray.length > 3) {
+      alert('Your Bag is too Full! You Must Discard Something')
+    } else if (bagArray.length <= 3) {
+      setShowBag(false)
+    }
+  }
+
+  useEffect(() => {
+    setBag(bagArray)
+
+  }, [bagCheck, sell])
 
   useEffect(() => {
     dragElement(document.getElementById("storageBag"));
@@ -138,35 +189,43 @@ setBag(bagArray)
 
   return (
     <div id='storageBag' style={{ left: '30%', top: '30%', }}>
-      <button onClick={() => setShowBag(false)}>Close</button>
+      <button onClick={closeBag}>Close</button>
       <h1>Item Bag</h1>
-      
+
       <div style={{ display: 'flex', flexdirection: 'row' }}>
         {bag.map((item, i) =>
-        item.type !== 'potion' ?
-          <div key={i} id={i} style={{ padding: '10px' }}>
-            <input className='card' type='image' src={item.img_path} alt={item.name}
-              onClick={() => swap(item)}></input>
-            <br />
-            {showShop ? <button onClick={() => { sell(item);
-               bagArray.splice(bagArray.indexOf(item), 1) }}>Sell</button> : null}
-          </div>
-            :  
-          <div key={i} id={i} style={{ padding: '10px' }}>
-          <input height='50px' width='50px' type='image' src={item.img_path} alt={item.name}
-           onClick={() => addPotionToPotionBag(item)}
-         ></input>
-         <br />
-         {showShop ? <button onClick={() => { sell(item); bagArray.splice(bagArray.indexOf(item), 1) }}>Sell</button> : null}
-         </div>
+          item.type !== 'potion' ?
+            <div key={i} id={i} style={{ padding: '10px' }}>
+              <input className='card' type='image' src={item.img_path} alt={item.name}
+                onClick={() => swap(item)}></input>
+              <br />
+              {showShop ? <button onClick={() => {
+                sell(item);
+                bagArray.splice(bagArray.indexOf(item), 1)
+              }}>Sell</button> : null}
+
+              {discardButton ? <button onClick={() => { discardItem(item) }}>Discard Item</button> : null}
+            </div>
+            :
+            <div key={i} id={i} style={{ padding: '10px' }}>
+              <input height='50px' width='50px' type='image' src={item.img_path} alt={item.name}
+                onClick={() => addPotionToPotionBag(item)}
+              ></input>
+              <br />
+              {showShop ? <button onClick={() => { sell(item); bagArray.splice(bagArray.indexOf(item), 1) }}>Sell</button> : null}
+              {discardButton ? <button onClick={() => { discardItem(item) }}>Discard Item</button> : null}
+            </div>
         )}
       </div>
-      {swapDuelWield ? <SwapScreen 
-      weapon1={weapon1} 
-      setWeapon1={setWeapon1}
-      weapon2={weapon2} 
-      setWeapon2={setWeapon2}
-      /> : null}
+      {/* {swapScreen ? <SwapScreen
+        setSwapScreen={setSwapScreen}
+        weapon1={weapon1}
+        setWeapon1={setWeapon1}
+        weapon2={weapon2}
+        setWeapon2={setWeapon2}
+      /> : null} */}
+      {discardButton ? <button onClick={discardItemButton}>Keep Items</button> :
+        <button onClick={discardItemButton}>Discard an Item</button>}
     </div>
   );
 }

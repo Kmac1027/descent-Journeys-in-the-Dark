@@ -40,6 +40,19 @@ function Shop({ chosenHero,
   setArmor,
   equipRunes,
   setEquipRunes,
+  other1,
+  setOther1,
+  other2,
+  setOther2,
+  meleePowerDie,
+  setMeleePowerDie,
+  magicPowerDie,
+  setMagicPowerDie,
+  rangedPowerDie,
+  setRangedPowerDie,
+  foundCopperTreasure,
+  foundSilverTreasure,
+  foundGoldTreasure,
 }) {
   const [availableItems, setAvailableItems] = useState(shopItemsArray);
 
@@ -70,11 +83,35 @@ function Shop({ chosenHero,
     }
   }
 
+  function addPowerDice(type) {
+    if (type === 'melee') {
+      if (meleePowerDie >= 5) {
+        alert('You already have the maximum of 5 Power dice for this Trait')
+      } else {
+        setMeleePowerDie(meleePowerDie => meleePowerDie + 1);
+      }
+    } else if (type === 'ranged') {
+      if (rangedPowerDie >= 5) {
+        alert('You already have the maximum of 5 Power dice for this Trait')
+      } else {
+        setRangedPowerDie(rangedPowerDie => rangedPowerDie + 1);
+      }
+    } else if (type === 'magic') {
+      if (magicPowerDie >= 5) {
+        alert('You already have the maximum of 5 Power dice for this Trait')
+      } else {
+        setMagicPowerDie(magicPowerDie => magicPowerDie + 1);
+      }
+    }
+    let newMoney = Math.floor(money - 500);
+    setMoney(newMoney);
+  }
+
   function buy(item) {
     if (money < item.cost) {
       alert(`you dont have enough money for this ${item.name}`);
     } else {
-      if (item.type === 'melee' || item.type === 'ranged' || item.type === 'magic') {
+      if (item.type === 'melee' || item.type === 'ranged' || item.type === 'magic' || item.type === 'shield') {
         if (item.rune === true && equipRunes === false) {
           let result = window.confirm(`Your Armor Prevents you from Equiping this ${item.name}, would you like to add it to your Bag?`)
           if (result === true) {
@@ -148,7 +185,11 @@ function Shop({ chosenHero,
             }
           }
         } else {
-          if (((weapon1 && weapon1.rune === true) && item.special_abilities.equipRunes === false) || ((weapon2 && weapon2.rune === true) && item.special_abilities.equipRunes === false)) {
+          if (((weapon1 && weapon1.rune === true) && item.special_abilities.equipRunes === false)
+            || ((weapon2 && weapon2.rune === true) && item.special_abilities.equipRunes === false)
+            || ((other1 && other1.rune === true) && item.special_abilities.equipRunes === false)
+            || ((other2 && other2.rune === true) && item.special_abilities.equipRunes === false)
+          ) {
             let result = window.confirm(`Your Equipt Runes prevent you from weaing this type of Armor, would you like to add it to your Bag?`)
             if (result === true) {
               if (bagArray.length >= 3) {
@@ -172,9 +213,66 @@ function Shop({ chosenHero,
             setArmor(item)
           }
         }
+
+
+      } else if (item.type === 'other') {
+        if (item.rune === true && equipRunes === false) {
+          let result = window.confirm(`Your Armor Prevents you from Equiping this ${item.name}, would you like to add it to your Bag?`)
+          if (result === true) {
+            if (bagArray.length >= 3) {
+              alert('Your Bag is Full!')
+            } else {
+              bagArray.push(item)
+              let newMoney = Math.floor(money - item.cost);
+              setMoney(newMoney);
+              if (item.number_available > 1) {
+                item.number_available -= 1
+              } else {
+                shopItemsArray.splice(shopItemsArray.indexOf(item), 1);
+              }
+              setAvailableItems(shopItemsArray);
+            }
+          }
+        }
+        else if (other1 && other2) {
+          let result = window.confirm(`You have no space for this ${item.name}, would you like to add it to your Bag?`)
+          if (result === true) {
+            if (bagArray.length >= 3) {
+              alert('Your Bag is Full!')
+            } else {
+              bagArray.push(item)
+              let newMoney = Math.floor(money - item.cost);
+              setMoney(newMoney);
+              if (item.number_available > 1) {
+                item.number_available -= 1
+              } else {
+                shopItemsArray.splice(shopItemsArray.indexOf(item), 1);
+              }
+              setAvailableItems(shopItemsArray);
+            }
+          }
+        } else {
+          let newMoney = Math.floor(money - item.cost);
+          setMoney(newMoney);
+          if (item.number_available > 1) {
+            item.number_available -= 1
+          } else {
+            shopItemsArray.splice(shopItemsArray.indexOf(item), 1);
+          }
+          setAvailableItems(shopItemsArray);
+          if (!other1 && !other2) {
+            setOther1(item);
+          } else if (other1 && !other2) {
+            setOther2(item);
+          } else if (!other1 && other2) {
+            setOther1(item)
+          }
+        }
       }
     }
   }
+
+
   useEffect(() => {
     dragElement(document.getElementById("shop"));
 
@@ -230,12 +328,13 @@ function Shop({ chosenHero,
 
       <h3>Potions</h3>
 
-      <div id='potions' style={{ display: 'flex', flexdirection: 'row' }}>
+      <div id='potionsPurchase' style={{ display: 'flex', flexdirection: 'row' }}>
         <div id='healthPotion' style={{ padding: '10px', border: 'outset' }}>
           <input type='image' height='50' width='50' src={health_potion.img_path} alt={health_potion.name}
             onClick={() => addPotion('health')
             }></input>
           <p>Item: {health_potion.name}</p>
+          <p>Healths 3 Wounds</p>
           <p>Price: {health_potion.cost} Gold</p>
         </div>
 
@@ -244,7 +343,91 @@ function Shop({ chosenHero,
             onClick={() => addPotion('vitality')
             }></input>
           <p>Item: {vitality_potion.name}</p>
+          <p>Restores Fatigue to Maximum</p>
           <p>Price: {vitality_potion.cost} Gold</p>
+        </div>
+      </div>
+
+      <h3>Power Dice</h3>
+      <div id='powerDice' style={{ display: 'flex', flexdirection: 'row' }}>
+        <div id='meleePowerDicePurchase' style={{ padding: '10px', border: 'outset' }}>
+          <input type='image' height='50' width='50' src='images/melee_black_dice_purchase.jpg' alt='Purchase 1 Melee Power Dice'
+            onClick={() => addPowerDice('melee')
+            }></input>
+          <p>Item: +1 Melee Power Dice</p>
+          <p>Price: 500 Gold</p>
+        </div>
+        <div id='rangedPowerDicePurchase' style={{ padding: '10px', border: 'outset' }}>
+          <input type='image' height='50' width='50' src='images/ranged_black_dice_purchase.jpg' alt='Purchase 1 Ranged Power Dice'
+            onClick={() => addPowerDice('ranged')
+            }></input>
+          <p>Item: +1 Ranged Power Dice</p>
+          <p>Price: 500 Gold</p>
+        </div>
+        <div id='magicPowerDicePurchase' style={{ padding: '10px', border: 'outset' }}>
+          <input type='image' height='50' width='50' src='images/magic_black_dice_purchase.jpg' alt='Purchase 1 Magic Power Dice'
+            onClick={() => addPowerDice('magic')
+            }></input>
+          <p>Item: +1 Magic Power Dice</p>
+          <p>Price: 500 Gold</p>
+        </div>
+      </div>
+
+      <h3>Treasures</h3>
+      <h4>Treasures Become Available For Purchase <br /> once a Treasure Chest of that Color is Found in the Dungeon</h4>
+      <div id='treasuresPurchase' style={{ display: 'flex', flexdirection: 'row' }}>
+        {foundCopperTreasure ? <div id='coppertreasure' style={{ border: 'outset', padding: '10px' }}>
+          <input type='image' className='card' src='images/copper_treasure_back.png' alt='Copper Treasure' onClick={() => console.log('purchased Copper Treasure')}></input>
+          <p>Random Copper Treasure</p>
+          <p>Cost: 250 Gold</p>
+        </div> :
+          <div id='coppertreasure' style={{ border: 'outset', padding: '10px' }}>
+            <img src='images/copper_treasure_back.png' alt='Copper Treasure'></img>
+            <p>Not Available</p>
+          </div>
+        }
+
+        {foundSilverTreasure ?
+          <div id='silvertreasure' style={{ border: 'outset', padding: '10px' }}>
+            <input type='image' className='card' src='images/silver_treasure_back.png' alt='Silver Treasure' onClick={() => console.log('purchased Silver Treasure')}></input>
+            <p>Random Silver Treasure</p>
+            <p>Cost: 500 Gold</p>
+          </div> :
+          <div id='silvertreasure' style={{ border: 'outset', padding: '10px' }}>
+            <img src='images/silver_treasure_back.png' alt='Silver Treasure'></img>
+            <p>Not Available</p>
+          </div>
+        }
+
+        {foundGoldTreasure ?
+          <div id='goldtreasure' style={{ border: 'outset', padding: '10px' }}>
+            <input type='image' className='card' src='images/gold_treasure_back.png' alt='Gold Treasure' onClick={() => console.log('purchased Gold Treasure')}></input>
+            <p>Random Gold Treasure</p>
+            <p>Cost: 750 Gold</p>
+          </div> :
+          <div id='goldtreasure' style={{ border: 'outset', padding: '10px' }}>
+            <img src='images/gold_treasure_back.png' alt='Gold Treasure'></img>
+            <p>Not Available</p>
+          </div>
+        }
+      </div>
+
+      <h3>Skills</h3>
+      <div id='skillsPurchase' style={{ display: 'flex', flexdirection: 'row' }}>
+        <div id='meleeSkillPurchase' style={{ border: 'outset', padding: '10px' }}>
+          <input type='image' className='card' src='images/melee_skill_back.png' alt='Melee Skill' onClick={() => console.log('purchased Melee Skill')}></input>
+          <p>Random Melee Skill</p>
+          <p>Cost: 1000 Gold</p>
+        </div>
+        <div id='subterfugeSkillPurchase' style={{ border: 'outset', padding: '10px' }}>
+          <input type='image' className='card' src='images/subterfuge_skill_back.png' alt='Subterfuge Skill' onClick={() => console.log('purchased Subterfuge Skill')}></input>
+          <p>Random Subterfuge Skill</p>
+          <p>Cost: 1000 Gold</p>
+        </div>
+        <div id='wizardrySkillPurchase' style={{ border: 'outset', padding: '10px' }}>
+          <input type='image' className='card' src='images/wizardry_skill_back.png' alt='Wizardry Skill' onClick={() => console.log('purchased Wizardry Skill')}></input>
+          <p>Random Wizardry Skill</p>
+          <p>Cost: 1000 Gold</p>
         </div>
       </div>
     </div >

@@ -17,6 +17,7 @@ function Potions({
 }) {
   const [potions, setPotions] = useState(potionsArray)
   const [checkPotions, setCheckPotions] = useState(true)
+  const [discardButton, setDiscardButton] = useState(false)
 
   function drinkPotion(type) {
     // console.log(type)
@@ -40,6 +41,26 @@ function Potions({
       setCheckPotions(true)
     }
 
+  }
+
+  function discardItemButton() {
+    if (discardButton === false) {
+      setDiscardButton(true)
+    } else {
+      setDiscardButton(false)
+    }
+
+  }
+  function discardItem(item) {
+    let result = window.confirm(`Once you Discard this ${item.name} it is gone Forever. Do you Really Want to Discard it?`)
+    if (result === true) {
+      potionsArray.splice(potionsArray.indexOf(item), 1)
+    }
+    if (checkPotions === true) {
+      setCheckPotions(false)
+    } else {
+      setCheckPotions(true)
+    }
   }
 
   useEffect(() => {
@@ -103,9 +124,12 @@ function Potions({
             <p>Restore: {potion.name}</p>
             <p>Restore: {potion.restore}</p>
             {showShop ? <button onClick={() => { sell(potion); potionsArray.splice(potionsArray.indexOf(potion), 1) }}>Sell</button> : null}
+            {discardButton ? <button onClick={() => { discardItem(potion) }}>Discard Item</button> : null}
           </div>
         )}
       </div>
+      {discardButton ? <button onClick={discardItemButton}>Keep Items</button> :
+        <button onClick={discardItemButton}>Discard an Item</button>}
     </div>
   );
 }

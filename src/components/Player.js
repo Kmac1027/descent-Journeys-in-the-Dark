@@ -1,13 +1,14 @@
 import '../styles/player.css';
 import Shop, { shopItemsArray } from './Shop';
+import { copperTreasures } from '../data/items/copperTreasures';
 import DiceRoll from './Dice';
-import Potions from './Potions';
-import Bag from './Bag'
+import Potions, { potionsArray } from './Potions';
+import Bag, { bagArray } from './Bag'
 import { useState, useEffect } from 'react';
 import { heroData } from '../data/heroData.js';
 // import { monsterData } from '../data/monsterData.js';
 import { shopItemData } from '../data/items/shopItems';
-import { potionsArray } from './Potions';
+// import { findFunction } from '../data/items/copperTreasures'
 import { heroToken, disableMovment } from '../player_actions/movement';
 import { map1 } from '../data/dungeonMaps/map1';
 import { attack, attackType, } from '../player_actions/attack';
@@ -23,16 +24,22 @@ function Player({ chosenHero, chosenQuest }) {
   const [currentConquestTokens, setCurrentConquestTokens] = useState(heroData[chosenHero].max_fatigue);
   const [maxConquestTokens, setMaxConquestTokens] = useState(heroData[chosenHero].max_fatigue);
   const [currentArmor, setCurrentArmor] = useState(heroData[chosenHero].base_armor);
-  const [maxSpeed, setMaxSpeed] = useState(heroData[chosenHero].speed);
+  const [baseSpeed, setBaseSpeed] = useState(heroData[chosenHero].speed);
   const [speed, setSpeed] = useState(heroData[chosenHero].speed)
+
   // const [money, setMoney] = useState(map1.startingMoney.amount);
   const [money, setMoney] = useState(10000);
+
   const [equipRunes, setEquipRunes] = useState(true)
   const [showPotions, setShowPotions] = useState(false)
   const [showBag, setShowBag] = useState(false)
 
+  const [foundCopperTreasure, setFoundCopperTreasure] = useState(true)
+  const [foundSilverTreasure, setFoundSilverTreasure] = useState(true)
+  const [foundGoldTreasure, setFoundGoldTreasure] = useState(true)
+
   const [meleePowerDie, setMeleePowerDie] = useState(heroData[chosenHero].traits.melee_trait);
-  const [rangedPowerDie, setrangedPowerDie] = useState(heroData[chosenHero].traits.ranged_trait);
+  const [rangedPowerDie, setRangedPowerDie] = useState(heroData[chosenHero].traits.ranged_trait);
   const [magicPowerDie, setMagicPowerDie] = useState(heroData[chosenHero].traits.magic_trait);
 
   //attack
@@ -104,23 +111,30 @@ function Player({ chosenHero, chosenQuest }) {
   const [weapon1, setWeapon1] = useState(shopItemData.sword);
   const [weapon2, setWeapon2] = useState(shopItemData.crossbow);
   const [armor, setArmor] = useState(shopItemData.leather_armor);
+  const [other1, setOther1] = useState()
+  const [other2, setOther2] = useState()
 
   useEffect(() => {
     if (armor) {
       if (armor.special_abilities !== false) {
         if (heroData[chosenHero].speed > armor.special_abilities.speedReduce) {
-          setSpeed(armor.special_abilities.speedReduce)
+          setBaseSpeed(armor.special_abilities.speedReduce)
+
           if (armor.special_abilities.equipRunes === false) {
             setEquipRunes(false)
           }
         }
       }
       setCurrentArmor(heroData[chosenHero].base_armor + armor.armor)
+      if (speed > baseSpeed) {
+        setSpeed(baseSpeed)
+      }
     } else {
       setCurrentArmor(heroData[chosenHero].base_armor)
+      setBaseSpeed(heroData[chosenHero].speed)
     }
 
-  }, [armor])
+  }, [armor, baseSpeed, speed])
 
   //shop and town
   const [showReturnToTown, setShowReturnToTown] = useState(false)
@@ -198,7 +212,11 @@ function Player({ chosenHero, chosenQuest }) {
     if (showBag === false) {
       setShowBag(true)
     } else {
-      setShowBag(false)
+      if (bagArray.length > 3) {
+        alert('Your Bag is too Full! You Must Discard Something')
+      } else if (bagArray.length <= 3) {
+        setShowBag(false)
+      }
     }
   }
 
@@ -233,7 +251,7 @@ function Player({ chosenHero, chosenQuest }) {
             <p>Health: {currentHealth} / {maxHealth}</p>
             <p>Fatigue: {currentFatigue} / {maxFatigue}</p>
             <p>Armor: {currentArmor}</p>
-            <p>Speed: {speed}/{maxSpeed} </p>
+            <p>Speed: {speed}/{baseSpeed} </p>
           </div>
           <div id='traits'>
             <h3>Traits</h3>
@@ -254,13 +272,13 @@ function Player({ chosenHero, chosenQuest }) {
           <div>
             {weaponCardsActive ?
               <div>
-                <p>Weapon 1:</p>
+                <p style={{ padding: '5px' }}>Weapon 1</p>
                 {weapon1 ? <input type='image' id='weapon1' className='card' src={weapon1.img_path} alt='Weapon 1'
                   onClick={() => attacking(weapon1, weapon2)}></input> : null}
               </div>
               :
               <div>
-                <p>Weapon 1:</p>
+                <p style={{ padding: '5px' }}>Weapon 1</p>
                 {weapon1 ? <img id='weapon1' className='card' src={weapon1.img_path} alt='Weapon 1' /> : null}
               </div>}
             <div>
@@ -273,13 +291,13 @@ function Player({ chosenHero, chosenQuest }) {
 
             {weaponCardsActive ?
               <div>
-                <p>Weapon 2:</p>
+                <p style={{ padding: '5px' }}>Weapon 2</p>
                 {weapon2 ? <input type='image' id='weapon2' className='card' src={weapon2.img_path} alt='Weapon 2'
                   onClick={() => attacking(weapon2, weapon1)}></input> : null}
               </div>
               :
               <div>
-                <p>Weapon 2:</p>
+                <p style={{ padding: '5px' }}>Weapon 2</p>
                 {weapon2 ? <img id='weapon2' className='card' src={weapon2.img_path} alt='Weapon 2' /> : null}
               </div>}
 
@@ -290,7 +308,7 @@ function Player({ chosenHero, chosenQuest }) {
 
           {/* armor */}
           <div>
-            <p>Armor:</p>
+            <p style={{ padding: '5px' }}>Armor</p>
             {armor ? <img className='card' src={armor.img_path} alt={armor.name}></img> : null}
             <div>
               {showShop ? <button onClick={() => { sell(armor); setArmor(); }}>Sell</button> : null}
@@ -299,28 +317,31 @@ function Player({ chosenHero, chosenQuest }) {
         </div>
         <div id='other'>
           <div>
-            <p>Other 1:</p>
-            <img className='card' src={'images/items/shop/leather_armor.png'} alt='g'></img>
+            <p style={{ padding: '5px' }}>Other 1</p>
+            {other1 ? <input type='image' className='card' src={other1.img_path} alt={other1.name}
+              onClick={() => console.log(other1)}></input> : null}
             <div>
-              {showShop ? <button onClick={sell}>Sell</button> : null}
+              {showShop ? <button onClick={() => { sell(other1); setOther1() }}>Sell</button> : null}
             </div>
           </div>
           <div>
-            <p>Other 2:</p>
-            <img className='card' src={'images/items/shop/leather_armor.png'} alt='g'></img>
+            <p style={{ padding: '5px' }}>Other 2</p>
+            {other2 ? <input type='image' className='card' src={other2.img_path} alt={other2.name}
+              onClick={() => console.log(other2)}></input> : null}
+
             <div>
-              {showShop ? <button onClick={sell}>Sell</button> : null}
+              {showShop ? <button onClick={() => { sell(other2); setOther2() }}>Sell</button> : null}
             </div>
           </div>
         </div>
 
         <div id='bag'>
           <div>
-            <p>Potions:</p>
+            <p style={{ padding: '5px' }}>Potions:</p>
             <input type='image' className='card' src={'images/health_potion_card.png'} alt='Potions' onClick={turnOnPotionScreen}></input>
           </div>
           <div>
-            <p>Bag:</p>
+            <p style={{ padding: '5px' }}>Bag:</p>
             <input type='image' className='card' src={'images/bag_card.png'} alt='Item Bag'
               onClick={turnOnBagScreen}
             ></input>
@@ -330,15 +351,15 @@ function Player({ chosenHero, chosenQuest }) {
 
         <div id='skills'>
           <div>
-            <p>Skills 1</p>
+            <p style={{ padding: '5px' }}>Skills 1</p>
             <img className='card' src={'images/items/shop/leather_armor.png'} alt='g'></img>
           </div>
           <div>
-            <p>Skills 2</p>
+            <p style={{ padding: '5px' }}>Skills 2</p>
             <img className='card' src={'images/items/shop/leather_armor.png'} alt='g'></img>
           </div>
           <div>
-            <p>Skills 3</p>
+            <p style={{ padding: '5px' }}>Skills 3</p>
             <img className='card' src={'images/items/shop/leather_armor.png'} alt='g'></img>
           </div>
         </div>
@@ -356,6 +377,19 @@ function Player({ chosenHero, chosenQuest }) {
         setArmor={setArmor}
         equipRunes={equipRunes}
         setEquipRunes={setEquipRunes}
+        other1={other1}
+        setOther1={setOther1}
+        other2={other2}
+        setOther2={setOther2}
+        magicPowerDie={magicPowerDie}
+        setMagicPowerDie={setMagicPowerDie}
+        meleePowerDie={meleePowerDie}
+        setMeleePowerDie={setMeleePowerDie}
+        rangedPowerDie={rangedPowerDie}
+        setRangedPowerDie={setRangedPowerDie}
+        foundCopperTreasure={foundCopperTreasure}
+        foundSilverTreasure={foundSilverTreasure}
+        foundGoldTreasure={foundGoldTreasure}
       /> : null}
 
       {showDice ? <DiceRoll
@@ -375,6 +409,8 @@ function Player({ chosenHero, chosenQuest }) {
         magicPowerDie={magicPowerDie}
         heroToken={heroToken}
         correctedPosition={correctedPosition}
+        other1={other1}
+        other2={other2}
       /> : null}
 
       {showPotions ? <Potions
@@ -402,6 +438,10 @@ function Player({ chosenHero, chosenQuest }) {
         setWeapon2={setWeapon2}
         armor={armor}
         setArmor={setArmor}
+        other1={other1}
+        setOther1={setOther1}
+        other2={other2}
+        setOther2={setOther2}
       /> : null}
     </div >
 

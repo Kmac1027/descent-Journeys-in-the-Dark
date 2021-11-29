@@ -36,7 +36,9 @@ function DiceRoll({
   rangedPowerDie,
   magicPowerDie,
   heroToken,
-  correctedPosition
+  correctedPosition,
+  other1,
+  other2
 }) {
   const [checkSelectedTarget, setCheckSelectedTarget] = useState(selectedTarget)
   const [turnDiceOff, setTurnDiceOff] = useState(true);
@@ -61,6 +63,7 @@ function DiceRoll({
   const [damage, setDamage] = useState(0)
   const [range, setRange] = useState(0)
   const [surge, setSurge] = useState(0)
+  const [rangeNeeded, setRangeNeeded] = useState(0)
 
   useEffect(() => {
     let interval = window.setInterval(() => {
@@ -155,6 +158,21 @@ function DiceRoll({
     weaponPicDiv.appendChild(weaponImg);
     // console.log(selectedWeapon.img_path)
 
+
+    if (selectedWeapon.type === 'ranged' || selectedWeapon.type === 'magic') {
+      let selectedMonster = map1.tokenPlacement.monsters[selectedTarget.name + selectedTarget.id.toString()]
+      let x = Math.abs(heroToken.x - selectedMonster.x) / 50
+      let y = Math.abs(heroToken.y - selectedMonster.y) / 50
+      console.log(x, y)
+      if (x >= y) {
+        setRangeNeeded(x)
+      } else {
+        setRangeNeeded(y)
+      }
+    } else {
+      setRangeNeeded('N/A')
+    }
+
     setAddToAttackPannel(true);
 
   }
@@ -243,10 +261,8 @@ function DiceRoll({
     //offHand
     if (offHand) {
       if (offHand.special_abilities.off_hand_bonus !== false) {
-
         let offHandBonus = offHand.special_abilities.off_hand_bonus
         // console.log('Off hand weapon: ', offHand.special_abilities.off_hand_bonus)
-
         for (let key in offHandBonus) {
           let weaponPicDiv = document.getElementById('abilities');
           let offHandText = document.createElement('p')
@@ -269,7 +285,76 @@ function DiceRoll({
       }
 
     }
+    //checks for Other1 special abilities
+    if (other1 && other1.special_abilities.other !== false) {
+      let specialAbility = other1.special_abilities.other
 
+      for (let key in specialAbility) {
+        if (specialAbility[key].type === 'addDamage' && (specialAbility[key].onlyFor === selectedWeapon.type || specialAbility[key].onlyFor === 'any')) {
+          setDamage(damage => damage + specialAbility[key].amount)
+          let weaponPicDiv = document.getElementById('abilities');
+          let abilityText = document.createElement('p')
+          abilityText.innerText = specialAbility[key].text
+          weaponPicDiv.appendChild(abilityText);
+        }
+        if (specialAbility[key].type === 'addRange' && (specialAbility[key].onlyFor === selectedWeapon.type || specialAbility[key].onlyFor === 'any')) {
+          setRange(range => range + specialAbility[key].amount)
+          let weaponPicDiv = document.getElementById('abilities');
+          let abilityText = document.createElement('p')
+          abilityText.innerText = specialAbility[key].text
+          weaponPicDiv.appendChild(abilityText);
+        }
+        if (specialAbility[key].type === 'addSurge' && (specialAbility[key].onlyFor === selectedWeapon.type || specialAbility[key].onlyFor === 'any')) {
+          setSurge(surge => surge + specialAbility[key].amount)
+          let weaponPicDiv = document.getElementById('abilities');
+          let abilityText = document.createElement('p')
+          abilityText.innerText = specialAbility[key].text
+          weaponPicDiv.appendChild(abilityText);
+        }
+        if (specialAbility[key].type === 'addPierce' && (specialAbility[key].onlyFor === selectedWeapon.type || specialAbility[key].onlyFor === 'any')) {
+          setPierce(pierce => pierce + specialAbility[key].amount)
+          let weaponPicDiv = document.getElementById('abilities');
+          let abilityText = document.createElement('p')
+          abilityText.innerText = specialAbility[key].text
+          weaponPicDiv.appendChild(abilityText);
+        }
+      }
+    }
+    //checks for Other2 special abilities
+    if (other2 && other2.special_abilities.other !== false) {
+      // console.log('Special Abilities ', selectedWeapon.special_abilities.other)
+      let specialAbility = other2.special_abilities.other
+      for (let key in specialAbility) {
+        if (specialAbility[key].type === 'addDamage' && (specialAbility[key].onlyFor === selectedWeapon.type || specialAbility[key].onlyFor === 'any')) {
+          setDamage(damage => damage + specialAbility[key].amount)
+          let weaponPicDiv = document.getElementById('abilities');
+          let abilityText = document.createElement('p')
+          abilityText.innerText = specialAbility[key].text
+          weaponPicDiv.appendChild(abilityText);
+        }
+        if (specialAbility[key].type === 'addRange' && (specialAbility[key].onlyFor === selectedWeapon.type || specialAbility[key].onlyFor === 'any')) {
+          setRange(range => range + specialAbility[key].amount)
+          let weaponPicDiv = document.getElementById('abilities');
+          let abilityText = document.createElement('p')
+          abilityText.innerText = specialAbility[key].text
+          weaponPicDiv.appendChild(abilityText);
+        }
+        if (specialAbility[key].type === 'addSurge' && (specialAbility[key].onlyFor === selectedWeapon.type || specialAbility[key].onlyFor === 'any')) {
+          setSurge(surge => surge + specialAbility[key].amount)
+          let weaponPicDiv = document.getElementById('abilities');
+          let abilityText = document.createElement('p')
+          abilityText.innerText = specialAbility[key].text
+          weaponPicDiv.appendChild(abilityText);
+        }
+        if (specialAbility[key].type === 'addPierce' && (specialAbility[key].onlyFor === selectedWeapon.type || specialAbility[key].onlyFor === 'any')) {
+          setPierce(pierce => pierce + specialAbility[key].amount)
+          let weaponPicDiv = document.getElementById('abilities');
+          let abilityText = document.createElement('p')
+          abilityText.innerText = specialAbility[key].text
+          weaponPicDiv.appendChild(abilityText);
+        }
+      }
+    }
   }, [])
 
 
@@ -321,7 +406,7 @@ function DiceRoll({
         <div id='abilities'><p>abilities</p></div>
         <div id='roll'>
           <p>Damage: {damage}</p>
-          <p>Range: {range}</p>
+          <p>Range: {range} / Range Needed: {rangeNeeded}</p>
           {pierce !== 0 ? <p>pierce: {pierce}</p> : null}
 
           {surge > 0 ? <button onClick={() => setPurchaseSurgeAbilities(true)}>Surge: {surge}</button> : null}
@@ -330,7 +415,7 @@ function DiceRoll({
         </div>
 
         <div id='dicePic'>
-          <button id='attackButton' onClick={() => attack(heroToken, damage, range, surge, pierce, selectedWeapon, offHand, selectedTarget, attackOn, attackCardsActive, showDiceRoll)}>click to attack</button>
+          <button id='attackButton' onClick={() => attack(checkSelectedTarget, heroToken, damage, range, surge, pierce, selectedWeapon, offHand, selectedTarget, attackOn, attackCardsActive, showDiceRoll)}>click to attack</button>
         </div>
 
         <div id='enemyPic'><p></p></div>

@@ -1,9 +1,28 @@
 import '../styles/swapScreen.css'
 import { useEffect, useState } from 'react'
+import { bagArray } from './Bag'
 
-function SwapScreen({weapon1, setWeapon1,weapon2, setWeapon2, }) {
+function SwapScreen({
+  swapScreen,
+  setSwapScreen,
+  weapon1,
+  setWeapon1,
+  weapon2,
+  setWeapon2,
+  itemFromBag
+}) {
 
-
+  function swapWeapons(weapon) {
+    if (weapon === weapon1) {
+      bagArray.push(weapon1)
+      setWeapon1(itemFromBag)
+    } else if (weapon === weapon2) {
+      bagArray.push(weapon2)
+      setWeapon2(itemFromBag)
+    }
+    bagArray.splice(bagArray.indexOf(itemFromBag), 1)
+    setSwapScreen(false)
+  }
 
   useEffect(() => {
     dragElement(document.getElementById("swapScreen"));
@@ -45,15 +64,15 @@ function SwapScreen({weapon1, setWeapon1,weapon2, setWeapon2, }) {
 
   return (
     <div id='swapScreen' style={{ left: '30%', top: '30%', }}>
-        <h1>Which item do you wish to swap out?</h1>
-        <div>
+      <h1>Which item do you wish to swap out?</h1>
+      <div>
         <input className='card' type='image' src={weapon1.img_path} alt={weapon1.name}
-           onClick={() =>console.log(weapon1)}
-         ></input>
-          <input className='card' type='image' src={weapon2.img_path} alt={weapon1.name}
-           onClick={() => console.log(weapon2)}
-         ></input>
-     </div>
+          onClick={() => swapWeapons(weapon1)}
+        ></input>
+        <input className='card' type='image' src={weapon2.img_path} alt={weapon1.name}
+          onClick={() => swapWeapons(weapon2)}
+        ></input>
+      </div>
     </div>
   );
 }

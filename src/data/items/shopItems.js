@@ -2,6 +2,7 @@ export const shopItemData =
 //weapons
 {
   sword: {
+    treasure: 'shop',
     name: 'Sword',
     type: 'melee',
     rune: false,
@@ -36,6 +37,7 @@ export const shopItemData =
     number_available: 3
   },
   crossbow: {
+    treasure: 'shop',
     name: 'Crossbow',
     type: 'ranged',
     rune: false,
@@ -70,6 +72,7 @@ export const shopItemData =
     number_available: 2
   },
   axe: {
+    treasure: 'shop',
     name: 'Axe',
     type: 'melee',
     rune: false,
@@ -98,6 +101,7 @@ export const shopItemData =
     number_available: 2
   },
   bow: {
+    treasure: 'shop',
     name: 'Bow',
     type: 'ranged',
     rune: false,
@@ -138,6 +142,7 @@ export const shopItemData =
     number_available: 2
   },
   dagger: {
+    treasure: 'shop',
     name: 'Dagger',
     type: 'melee',
     rune: false,
@@ -172,6 +177,7 @@ export const shopItemData =
     number_available: 2
   },
   immolation: {
+    treasure: 'shop',
     name: 'Immolation',
     type: 'magic',
     rune: true,
@@ -206,6 +212,7 @@ export const shopItemData =
     number_available: 2
   },
   mage_staff: {
+    treasure: 'shop',
     name: 'Mage Staff',
     type: 'magic',
     rune: false,
@@ -242,6 +249,7 @@ export const shopItemData =
 
   //Armor
   leather_armor: {
+    treasure: 'shop',
     name: 'Leather Armor',
     type: 'armor',
     armor: 1,
@@ -252,6 +260,7 @@ export const shopItemData =
     number_available: 2
   },
   chain_mail: {
+    treasure: 'shop',
     name: 'Chain Mail',
     type: 'armor',
     armor: 2,
@@ -265,4 +274,43 @@ export const shopItemData =
     img_path: 'images/items/shop/chain_mail.png',
     number_available: 2
   },
+  //Shields
+  iron_shield: {
+    treasure: 'shop',
+    name: 'Iron Shield',
+    type: 'shield',
+    rune: false,
+    surge: false,
+    special_abilities: {
+      off_hand_bonus: false,
+      other: 'Exhaust to cancel 1 wound being dalt to you. You cannot use this item to cancel wounds dealt by attacks that ignore armor.'
+    },
+    combat_dice: false,
+    hands: 1,
+    cost: 25,
+    img_path: 'images/items/shop/iron_shield.png',
+    number_available: 2
+  },
+  //Others
+  ghost_armor: {
+    treasure: 'shop',
+    name: 'Ghost Armor',
+    type: 'other',
+    rune: true,
+    surge: false,
+    special_abilities: {
+      other: {
+        1: {
+          type: '',
+          amount: 0,
+          text: 'Spend 1 fatigue to cancel 1 wound being dealt to you. You may use this ability multiple times, paying its cost each time'
+        }
+      }
+    },
+    combat_dice: false,
+    hands: 0,
+    cost: 150,
+    img_path: 'images/items/shop/ghost_armor.png',
+    number_available: 1
+  }
 }
