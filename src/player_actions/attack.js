@@ -108,7 +108,7 @@ export function attack(
             let hitAmount = damage - monsterArmor;
             hitMonster.max_wounds -= hitAmount;
             if (hitMonster.max_wounds <= 0) {
-              delete map1.tokenPlacement.monsters[hitMonster];
+              delete map1.tokenPlacement.monsters[hitMonster.name + hitMonster.id.toString()];
             }
           }
         }
@@ -150,6 +150,19 @@ export function attack(
           }
         }
         console.log(effectedMonsters)
+        for (let i = 0; i < effectedMonsters.length; i++) {
+          let effectedMonster = effectedMonsters[i];
+          console.log(effectedMonster)
+          let monsterArmor = effectedMonster.base_armor - pierce;
+          if (monsterArmor <= 0) {
+            monsterArmor = 0;
+          }
+          let hitAmount = damage - monsterArmor;
+          effectedMonster.max_wounds -= hitAmount;
+          if (effectedMonster.max_wounds <= 0) {
+            delete map1.tokenPlacement.monsters[effectedMonster.name + effectedMonster.id.toString()];
+          }
+        }
       }
     }
     selectedTarget.name = null;
