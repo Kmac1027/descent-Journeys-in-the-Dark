@@ -1,6 +1,6 @@
 import '../styles/attackPannel.css'
 import Dice from 'react-dice-roll';
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { heroData } from '../data/heroData'
 import { } from '../data/monsterData'
 import { diceSideData } from '../data/diceSideData.js';
@@ -19,6 +19,7 @@ let magicPowerDiceArray = [];
 
 function DiceRoll({
   chosenHero,
+  chosenQuest,
   showDiceRoll,
   herosDice,
   setHerosDice,
@@ -149,9 +150,9 @@ function DiceRoll({
         setRangeNeeded(y)
       }
     } else {
-      let stringify = [checkSelectedTarget.name][0][0].toUpperCase() + [checkSelectedTarget.name][0].slice(1);
+      // let stringify = [checkSelectedTarget.name][0][0].toUpperCase() + [checkSelectedTarget.name][0].slice(1);
 
-      let selectedMonster = map1.tokenPlacement.monsters[selectedTarget.name + selectedTarget.id.toString()];
+      let selectedMonster = chosenQuest.tokenPlacement.monsters[selectedTarget.name + selectedTarget.id.toString()];
 
       let enemyPicDiv = document.getElementById('enemyPic');
       let enemyImg = document.createElement('img');
@@ -458,7 +459,7 @@ function DiceRoll({
         </div>
 
         <div id='dicePic'>
-          <button id='attackButton' onClick={() => attack(checkSelectedTarget, heroToken, damage, range, surge, pierce, blast, selectedWeapon, offHand, selectedTarget, attackOn, attackCardsActive, showDiceRoll)}>click to attack</button>
+          <button id='attackButton' onClick={() => attack(checkSelectedTarget, chosenQuest, heroToken, damage, range, surge, pierce, blast, selectedWeapon, offHand, selectedTarget, attackOn, attackCardsActive, showDiceRoll)}>click to attack</button>
         </div>
 
         <div id='enemyPic'><p></p></div>

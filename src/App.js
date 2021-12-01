@@ -9,13 +9,10 @@ import TilesAndTokens from './components/TilesAndTokens';
 import Overlord from './components/Overlord';
 import { map1, collisionDetection } from './data/dungeonMaps/map1';
 
-
-
 function App() {
   // let chosenHero = 'battlemage_jaes'
   let chosenHero = 'steelhorns'
   let chosenQuest = map1;
-
 
 
   return (

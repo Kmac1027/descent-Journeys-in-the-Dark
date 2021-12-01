@@ -1,7 +1,7 @@
 import { heroData } from "../data/heroData";
 import { diceSideData } from "../data/diceSideData";
 import { shopItems } from "../data/items/shopItems";
-import { map1 } from "../data/dungeonMaps/map1";
+
 
 export const disableAttack = {
   melee: true,
@@ -13,6 +13,7 @@ export const attackType = { type: null, blast: null };
 
 export function attack(
   checkSelectedTarget,
+  chosenQuest,
   heroToken,
   damage,
   range,
@@ -31,7 +32,7 @@ export function attack(
       alert("You have not selected a valid target");
     } else {
       let selectedMonster =
-        map1.tokenPlacement.monsters[
+        chosenQuest.tokenPlacement.monsters[
         selectedTarget.name + selectedTarget.id.toString()
         ];
 
@@ -68,7 +69,7 @@ export function attack(
       }
 
       if (selectedMonster.max_wounds <= 0) {
-        delete map1.tokenPlacement.monsters[
+        delete chosenQuest.tokenPlacement.monsters[
           selectedTarget.name + selectedTarget.id.toString()
         ];
       }
@@ -82,7 +83,7 @@ export function attack(
     }
   }
   else if (attackType.blast === true) {
-    let monsters = map1.tokenPlacement.monsters;
+    let monsters = chosenQuest.tokenPlacement.monsters;
     let rangeNeeded;
     let x = Math.abs(heroToken.x - selectedTarget.id.x) / 50;
     let y = Math.abs(heroToken.y - selectedTarget.id.y) / 50;
@@ -108,7 +109,7 @@ export function attack(
             let hitAmount = damage - monsterArmor;
             hitMonster.max_wounds -= hitAmount;
             if (hitMonster.max_wounds <= 0) {
-              delete map1.tokenPlacement.monsters[hitMonster.name + hitMonster.id.toString()];
+              delete chosenQuest.tokenPlacement.monsters[hitMonster.name + hitMonster.id.toString()];
             }
           }
         }
@@ -160,13 +161,14 @@ export function attack(
           let hitAmount = damage - monsterArmor;
           effectedMonster.max_wounds -= hitAmount;
           if (effectedMonster.max_wounds <= 0) {
-            delete map1.tokenPlacement.monsters[effectedMonster.name + effectedMonster.id.toString()];
+            delete chosenQuest.tokenPlacement.monsters[effectedMonster.name + effectedMonster.id.toString()];
           }
         }
       }
     }
     selectedTarget.name = null;
     selectedTarget.id = null;
+    attackType.blast = false;
     // console.log(selectedWeapon)
     // console.log(offHand)
     attackOn();

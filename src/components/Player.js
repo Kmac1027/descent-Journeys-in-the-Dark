@@ -134,7 +134,7 @@ function Player({ chosenHero, chosenQuest }) {
 
   useEffect(() => {
     if (armor) {
-      console.log('Armor triggered')
+      // console.log('Armor triggered')
       if (armor.special_abilities !== false) {
         if (heroData[chosenHero].speed > armor.special_abilities.speedReduce) {
           setBaseSpeed(armor.special_abilities.speedReduce)
@@ -264,9 +264,13 @@ function Player({ chosenHero, chosenQuest }) {
   }
 
   const [isOnGlyph, setIsOnGlyph] = useState(true);
-  const [showPickUpPotionButton, setShowPickUpPotionButton] = useState(false)
+  const [showPickUpHPButton, setShowPickUpHPButton] = useState(false)
+  const [showPickUpVPButton, setShowPickUpVPButton] = useState(false)
   const [pickedUpPotion, setPickedUpPotion] = useState()
   const [potionType, setPotionType] = useState()
+  const [showCTbutton, setShowCTButton] = useState(false)
+  const [showSTbutton, setShowSTButton] = useState(false)
+  const [showGTbutton, setShowGTButton] = useState(false)
 
   function pickUpPotion() {
     if (potionsArray >= 3) {
@@ -283,7 +287,8 @@ function Player({ chosenHero, chosenQuest }) {
             delete chosenQuest.tokenPlacement.items.vitality_potions[pickedUpPotion]
           }
 
-          setShowPickUpPotionButton(false)
+          setShowPickUpHPButton(false)
+          setShowPickUpVPButton(false)
         }
       }
     } else {
@@ -296,11 +301,18 @@ function Player({ chosenHero, chosenQuest }) {
         delete chosenQuest.tokenPlacement.items.vitality_potions[pickedUpPotion]
       }
 
-      setShowPickUpPotionButton(false)
+      setShowPickUpVPButton(false)
+      setShowPickUpHPButton(false)
     }
   }
 
+  function openTreasureChest() {
+    console.log('opened treasure chest')
+  }
+
   useEffect(() => {
+    let hps = chosenQuest.tokenPlacement.items.health_potions
+    let vps = chosenQuest.tokenPlacement.items.vitality_potions
     const keyPress = event => {
       if ((heroToken.x === chosenQuest.tokenPlacement.start_area.x &&
         heroToken.y === chosenQuest.tokenPlacement.start_area.y)
@@ -311,30 +323,29 @@ function Player({ chosenHero, chosenQuest }) {
         setIsOnGlyph(false)
       }
 
-      let hps = chosenQuest.tokenPlacement.items.health_potions
       for (let hp in hps) {
         if (heroToken.x === hps[hp].x && heroToken.y === hps[hp].y) {
-          console.log('inside forloop')
-          setShowPickUpPotionButton(true)
+          setShowPickUpHPButton(true)
           setPickedUpPotion(hp)
+          console.log(pickedUpPotion)
           setPotionType('health')
           break;
         } else {
-          setShowPickUpPotionButton(false)
+          setShowPickUpHPButton(false)
         }
       }
 
-      let vps = chosenQuest.tokenPlacement.items.vitality_potions
       for (let vp in vps) {
         if (heroToken.x === vps[vp].x && heroToken.y === vps[vp].y) {
-          setShowPickUpPotionButton(true)
+          setShowPickUpVPButton(true)
           setPickedUpPotion(vp)
           setPotionType('vitality')
           break;
         } else {
-          setShowPickUpPotionButton(false)
+          setShowPickUpVPButton(false)
         }
       }
+
     }
     window.addEventListener("keydown", keyPress);
     return () => {
@@ -363,8 +374,10 @@ function Player({ chosenHero, chosenQuest }) {
                 <button height='100px' width='100px' onClick={showShopItems}>shop</button>
               </div>}
             {isOnGlyph ? <button height='100px' width='100px' onClick={returnToTown}>{showReturnToTown ? 'Go to Town' : 'Go to Dungeon'}</button> : null}
-            {showPickUpPotionButton ? <button height='100px' width='100px'
+            {showPickUpHPButton || showPickUpVPButton ? <button height='100px' width='100px'
               onClick={pickUpPotion}>Pick Up Potion</button> : null}
+            {showCTbutton || showSTbutton || showGTbutton ? <button height='100px' width='100px'
+              onClick={openTreasureChest}>Open Treasure Chest</button> : null}
 
           </div>
 
