@@ -1,7 +1,5 @@
 import { heroToken } from '../../player_actions/movement';
-// import { monsterData } from '../../data/monsterData';
 import { disableMovment } from '../../player_actions/movement';
-import { mouseClickCorrection, correctedPosition } from '../../player_actions/mouseClick'
 import { Skeleton, MasterSkeleton } from '../monsterData';
 import { runLoop } from '../../components/Canvas'
 
@@ -23,9 +21,44 @@ export const map1 = {
       x: 100,
       y: 0
     },
-    glyphs: {},
-    treasure_chests: {},
-    items: {},
+    glyphs: {
+      1: {
+        x: 250,
+        y: 150
+      }
+
+    },
+    activated_glyphs: {
+      // 1: {
+      //   x: 250,
+      //   y: 150
+      // }
+    },
+    treasure_chests: {
+      copper: {
+        1: {
+          x: 100,
+          y: 250
+        },
+      },
+      silver: {},
+      gold: {}
+    },
+    items: {
+      health_potions: {
+        1: {
+          x: 0,
+          y: 100
+        },
+      },
+      vitality_potions: {
+        1: {
+          x: 250,
+          y: 100
+        },
+      },
+      gold_pile: {}
+    },
     marker: {
       x: -100,
       y: -100
@@ -43,12 +76,11 @@ export const map1 = {
     height: 800
   },
 
-  map1Floor: {
+  floor: {
     tile_size: {
       height: 50,
       width: 50
     },
-    floor_image_path: 'images/map_tiles/floors/corridor_2x2.png',
     floor_tiles: {
       1: {
         x: 100,

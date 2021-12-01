@@ -6,24 +6,16 @@ import Player from './components/Player';
 import Canvas from './components/Canvas';
 
 import TilesAndTokens from './components/TilesAndTokens';
-import Shop from './components/Shop';
 import Overlord from './components/Overlord';
-// import { targetClicked, mousePos, correctedPosition } from './player_actions/mouseClick'
+import { map1, collisionDetection } from './data/dungeonMaps/map1';
+
 
 
 function App() {
   // let chosenHero = 'battlemage_jaes'
   let chosenHero = 'steelhorns'
-  let chosenQuest = 'map1';
+  let chosenQuest = map1;
 
-  // useEffect(() => {
-  //   document.addEventListener("mousemove", function (e) {
-  //     mousePos.x = e.clientX;
-  //     mousePos.y = e.clientY;
-  //   });
-  //   let canvasClick = document.getElementById('canvas');
-  //   canvasClick.addEventListener('click', targetClicked);
-  // }, []);
 
 
   return (
@@ -31,7 +23,8 @@ function App() {
       <header>
         <TilesAndTokens chosenHero={chosenHero} />
 
-        <Canvas chosenHero={chosenHero} chosenQuest={chosenQuest} />
+        <Canvas chosenHero={chosenHero} chosenQuest={chosenQuest}
+          collisionDetection={collisionDetection} />
         <Player chosenHero={chosenHero} chosenQuest={chosenQuest} />
         <Overlord />
 

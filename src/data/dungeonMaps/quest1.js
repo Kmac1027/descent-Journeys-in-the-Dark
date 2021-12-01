@@ -6,17 +6,41 @@ import { runLoop } from '../../components/Canvas'
 
 export const quest1 = {
   tokenPlacement: {
-    monsters: {
-
+    monsters: {},
+    clue_token: {},
+    obstacles: {
+      water: {},
+      rubble: {},
+      pit: {}
     },
-    obstacles: {},
     start_area: {
       x: 0,
       y: 1000
     },
+    doors: {
+      normal: {},
+      yellow: {},
+      blue: {},
+      red: {}
+    },
+    rune_keys: {
+      yellow: {},
+      blue: {},
+      red: {}
+    },
     glyphs: {},
-    treasure_chests: {},
-    items: {},
+    activated_glyphs: {},
+    treasure_chests: {
+      copper: {},
+      silver: {},
+      gold: {}
+    },
+    items: {
+      health_potions: {},
+      vitality_potions: {},
+      gold_pile: {}
+    },
+    stairs: {},
   },
   town: {
     x: 350,
@@ -35,7 +59,6 @@ export const quest1 = {
       height: 50,
       width: 50
     },
-    floor_image_path: 'images/map_tiles/floors/corridor_2x2.png',
     floor_tiles: {
       //area 4
       1: {
@@ -380,7 +403,7 @@ export const quest1 = {
         x: 600,
         y: 950
       },
-      80: {
+      86: {
         x: 650,
         y: 950
       },

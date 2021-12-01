@@ -18,7 +18,7 @@ function TilesAndTokens({ chosenHero }) {
       </div >
       {/* dungeon floor tiles */}
       <div>
-        <img id='mapTileToken' src={map1.map1Floor.floor_image_path} alt={'map tile'} />
+        <img id='mapTileToken' src={'images/map_tiles/floors/corridor_2x2.png'} alt={'map tile'} />
         <img id='marker' src={'images/map_tiles/marker.png'} alt={'target marker'} />
       </div >
       <div>
@@ -30,6 +30,11 @@ function TilesAndTokens({ chosenHero }) {
       <div>
         <img id='whiteGlyph' src={'images/map_tiles/item_icons/ancient glyph of teleportation white.jpg'} alt={'white glyph'} />
         <img id='redGlyph' src={'images/map_tiles/item_icons/ancient glyph of teleportation red.jpg'} alt={'red glyph'} />
+        <img id='healthPotion' src={'images/items/shop/health_potion.png'} alt={'health potion'} />
+        <img id='vitalityPotion' src={'images/items/shop/vitality_potion.png'} alt={'vitality potion'} />
+        <img id='copperChest' src={'images/map_tiles/item_icons/chest_copper.png'} alt={'copper chest'} />
+        <img id='silverChest' src={'images/map_tiles/item_icons/chest_silver.png'} alt={'silver chest'} />
+        <img id='goldChest' src={'images/map_tiles/item_icons/chest_gold.png'} alt={'gold chest'} />
       </div >
       {/* town */}
       <div>

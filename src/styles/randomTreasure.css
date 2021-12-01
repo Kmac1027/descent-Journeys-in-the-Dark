@@ -1,0 +1,13 @@
+#randomTreasure {
+  background-color: rgb(255, 255, 255);
+  position: absolute;
+  justify-content: center;
+  align-self: center;
+  color: black;
+  max-height: 600px;
+  max-width: 800px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+}

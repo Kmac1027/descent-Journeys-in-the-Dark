@@ -113,7 +113,7 @@ export function attackTargetClicked() {
       }
     }
   } else if (attackType.blast === true) {
-    let tiles = map1.map1Floor.floor_tiles
+    let tiles = map1.floor.floor_tiles
     for (let tile in tiles) {
       if (correctedPosition.x === tiles[tile].x && correctedPosition.y === tiles[tile].y) {
         console.log('Blast Attack!')

@@ -1,5 +1,5 @@
 import '../styles/player.css';
-import Shop, { shopItemsArray } from './Shop';
+import Shop, { shopItemsArray, health_potion, vitality_potion } from './Shop';
 import { copperTreasures } from '../data/items/copperTreasures';
 import DiceRoll from './Dice';
 import Potions, { potionsArray } from './Potions';
@@ -9,7 +9,7 @@ import { heroData } from '../data/heroData.js';
 // import { monsterData } from '../data/monsterData.js';
 import { shopItemData } from '../data/items/shopItems';
 import { heroToken, disableMovment } from '../player_actions/movement';
-import { map1 } from '../data/dungeonMaps/map1';
+// import { map1 } from '../data/dungeonMaps/map1';
 import { attack, attackType, } from '../player_actions/attack';
 import { targetClicked, mousePos, correctedPosition, attackTargetClicked, selectedTarget } from '../player_actions/mouseClick';
 
@@ -25,8 +25,9 @@ function Player({ chosenHero, chosenQuest }) {
   const [currentArmor, setCurrentArmor] = useState(heroData[chosenHero].base_armor);
   const [baseSpeed, setBaseSpeed] = useState(heroData[chosenHero].speed);
   const [speed, setSpeed] = useState(heroData[chosenHero].speed)
+  const [condition, setCondition] = useState('Normal')
 
-  // const [money, setMoney] = useState(map1.startingMoney.amount);
+  // const [money, setMoney] = useState(chosenQuest.startingMoney.amount);
   const [money, setMoney] = useState(10000);
 
   const [equipRunes, setEquipRunes] = useState(true)
@@ -55,8 +56,8 @@ function Player({ chosenHero, chosenQuest }) {
       if (showDice === true) {
         showDiceRoll()
         attackOn()
-        map1.tokenPlacement.marker.x = -100
-        map1.tokenPlacement.marker.y = -100
+        chosenQuest.tokenPlacement.marker.x = -100
+        chosenQuest.tokenPlacement.marker.y = -100
         selectedTarget.id = null
       }
 
@@ -133,6 +134,7 @@ function Player({ chosenHero, chosenQuest }) {
 
   useEffect(() => {
     if (armor) {
+      console.log('Armor triggered')
       if (armor.special_abilities !== false) {
         if (heroData[chosenHero].speed > armor.special_abilities.speedReduce) {
           setBaseSpeed(armor.special_abilities.speedReduce)
@@ -153,12 +155,34 @@ function Player({ chosenHero, chosenQuest }) {
 
   }, [armor, baseSpeed, speed, other1, other2])
 
+  useEffect(() => {
+    if (other1 && other1.name === 'Crystal of Tival') {
+      alert(`Crystal of Tival Equipt! ${other1.special_abilities.other[1].text}`)
+      setCurrentHealth(currentHealth => currentHealth + 6)
+      if (currentHealth > maxHealth) {
+        setCurrentHealth(maxHealth)
+      }
+      setCurrentFatigue(maxFatigue)
+      setOther1()
+    }
+    if (other2 && other2.name === 'Crystal of Tival') {
+      alert(`Crystal of Tival Equipt! ${other2.special_abilities.other[1].text}`)
+      setCurrentHealth(currentHealth => currentHealth + 6)
+      if (currentHealth > maxHealth) {
+        setCurrentHealth(maxHealth)
+      }
+      setCurrentFatigue(maxFatigue)
+      setOther2()
+    }
+  }, [other1, other2])
+
+
   //shop and town
   const [showReturnToTown, setShowReturnToTown] = useState(false)
   const [showShop, setShowShop] = useState(false);
 
   useEffect(() => {
-    if (heroToken.x === map1.tokenPlacement.start_area.x && heroToken.y === map1.tokenPlacement.start_area.y) {
+    if (heroToken.x === chosenQuest.tokenPlacement.start_area.x && heroToken.y === chosenQuest.tokenPlacement.start_area.y) {
       setShowReturnToTown(true)
     } else {
       setShowReturnToTown(false)
@@ -166,9 +190,9 @@ function Player({ chosenHero, chosenQuest }) {
   }, [])
 
   function returnToTown() {
-    if (heroToken.x === map1.town.x + 50 && heroToken.y === map1.town.y + 50) {
-      heroToken.x = map1.tokenPlacement.start_area.x
-      heroToken.y = map1.tokenPlacement.start_area.y
+    if (heroToken.x === chosenQuest.town.x + 50 && heroToken.y === chosenQuest.town.y + 50) {
+      heroToken.x = chosenQuest.tokenPlacement.start_area.x
+      heroToken.y = chosenQuest.tokenPlacement.start_area.y
       setShowReturnToTown(true)
       disableMovment.up = false;
       disableMovment.left = false;
@@ -178,9 +202,9 @@ function Player({ chosenHero, chosenQuest }) {
       disableMovment.upLeft = false;
       disableMovment.upRight = false;
       disableMovment.downLeft = false;
-    } else if (heroToken.x === map1.tokenPlacement.start_area.x && heroToken.y === map1.tokenPlacement.start_area.y) {
-      heroToken.x = map1.town.x + 50;
-      heroToken.y = map1.town.y + 50;
+    } else if (heroToken.x === chosenQuest.tokenPlacement.start_area.x && heroToken.y === chosenQuest.tokenPlacement.start_area.y) {
+      heroToken.x = chosenQuest.town.x + 50;
+      heroToken.y = chosenQuest.town.y + 50;
       setShowReturnToTown(false)
     } else {
       alert('you are not at a glyph of teleportation')
@@ -239,6 +263,85 @@ function Player({ chosenHero, chosenQuest }) {
     }
   }
 
+  const [isOnGlyph, setIsOnGlyph] = useState(true);
+  const [showPickUpPotionButton, setShowPickUpPotionButton] = useState(false)
+  const [pickedUpPotion, setPickedUpPotion] = useState()
+  const [potionType, setPotionType] = useState()
+
+  function pickUpPotion() {
+    if (potionsArray >= 3) {
+      let result = window.confirm('You have no more room for potions, would you like to add it to your bag?');
+      if (result === true) {
+        if (bagArray >= 3) {
+          alert('You have no room in your bag')
+        } else {
+          if (potionType === 'health') {
+            bagArray.push(health_potion);
+            delete chosenQuest.tokenPlacement.items.health_potions[pickedUpPotion]
+          } else if (potionType === 'vitality') {
+            bagArray.push(vitality_potion)
+            delete chosenQuest.tokenPlacement.items.vitality_potions[pickedUpPotion]
+          }
+
+          setShowPickUpPotionButton(false)
+        }
+      }
+    } else {
+      if (potionType === 'health') {
+        // console.log(health_potion)
+        potionsArray.push(health_potion)
+        delete chosenQuest.tokenPlacement.items.health_potions[pickedUpPotion]
+      } else if (potionType === 'vitality') {
+        potionsArray.push(vitality_potion)
+        delete chosenQuest.tokenPlacement.items.vitality_potions[pickedUpPotion]
+      }
+
+      setShowPickUpPotionButton(false)
+    }
+  }
+
+  useEffect(() => {
+    const keyPress = event => {
+      if ((heroToken.x === chosenQuest.tokenPlacement.start_area.x &&
+        heroToken.y === chosenQuest.tokenPlacement.start_area.y)
+        || (heroToken.x === chosenQuest.town.x + 50 &&
+          heroToken.y === chosenQuest.town.y + 50)) {
+        setIsOnGlyph(true)
+      } else {
+        setIsOnGlyph(false)
+      }
+
+      let hps = chosenQuest.tokenPlacement.items.health_potions
+      for (let hp in hps) {
+        if (heroToken.x === hps[hp].x && heroToken.y === hps[hp].y) {
+          console.log('inside forloop')
+          setShowPickUpPotionButton(true)
+          setPickedUpPotion(hp)
+          setPotionType('health')
+          break;
+        } else {
+          setShowPickUpPotionButton(false)
+        }
+      }
+
+      let vps = chosenQuest.tokenPlacement.items.vitality_potions
+      for (let vp in vps) {
+        if (heroToken.x === vps[vp].x && heroToken.y === vps[vp].y) {
+          setShowPickUpPotionButton(true)
+          setPickedUpPotion(vp)
+          setPotionType('vitality')
+          break;
+        } else {
+          setShowPickUpPotionButton(false)
+        }
+      }
+    }
+    window.addEventListener("keydown", keyPress);
+    return () => {
+      window.removeEventListener("keydown", keyPress);
+    }
+  }, [])
+
   return (
     <div>
       <div id='playerContainer'>
@@ -259,8 +362,10 @@ function Player({ chosenHero, chosenQuest }) {
               <div>
                 <button height='100px' width='100px' onClick={showShopItems}>shop</button>
               </div>}
+            {isOnGlyph ? <button height='100px' width='100px' onClick={returnToTown}>{showReturnToTown ? 'Go to Town' : 'Go to Dungeon'}</button> : null}
+            {showPickUpPotionButton ? <button height='100px' width='100px'
+              onClick={pickUpPotion}>Pick Up Potion</button> : null}
 
-            <button height='100px' width='100px' onClick={returnToTown}>{showReturnToTown ? 'Go to Town' : 'Go to Dungeon'}</button>
           </div>
 
         </div>
@@ -274,10 +379,11 @@ function Player({ chosenHero, chosenQuest }) {
           </div>
           <div id='traits'>
             <h3>Traits</h3>
-            <p>Number of attacks left: {numberOfAttacks}</p>
+
             <p>Melee Power Die: {meleePowerDie}</p>
             <p>Ranged Power Die: {rangedPowerDie}</p>
             <p>Magic Power Die: {magicPowerDie} </p>
+            <p>Condition: {condition}</p>
           </div>
           <div id='heroAbility'>
             <h3>Hero Ability:</h3>
@@ -337,16 +443,24 @@ function Player({ chosenHero, chosenQuest }) {
         <div id='other'>
           <div>
             <p style={{ padding: '5px' }}>Other 1</p>
-            {other1 ? <input type='image' className='card' src={other1.img_path} alt={other1.name}
-              onClick={() => console.log(other1)}></input> : null}
+            {other1 ?
+              other1.activate ?
+                <input type='image' className='card' src={other1.img_path} alt={other1.name}
+                  onClick={() => console.log(other1)}></input>
+                : <img className='card' src={other1.img_path} alt={other1.name}></img>
+              : null}
             <div>
               {showShop ? <button onClick={() => { sell(other1); setOther1() }}>Sell</button> : null}
             </div>
           </div>
           <div>
             <p style={{ padding: '5px' }}>Other 2</p>
-            {other2 ? <input type='image' className='card' src={other2.img_path} alt={other2.name}
-              onClick={() => console.log(other2)}></input> : null}
+            {other2 ?
+              other2.activate ?
+                <input type='image' className='card' src={other2.img_path} alt={other2.name}
+                  onClick={() => console.log(other2)}></input>
+                : <img className='card' src={other2.img_path} alt={other2.name}></img>
+              : null}
 
             <div>
               {showShop ? <button onClick={() => { sell(other2); setOther2() }}>Sell</button> : null}
@@ -415,7 +529,7 @@ function Player({ chosenHero, chosenQuest }) {
         chosenHero={chosenHero}
         showDiceRoll={showDiceRoll}
         selectedTarget={selectedTarget}
-        map1={map1}
+        chosenQuest={chosenQuest}
         weaponCardsActive={weaponCardsActive}
         attack={attack}
         attackOn={attackOn}

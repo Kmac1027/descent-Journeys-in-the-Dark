@@ -293,6 +293,7 @@ export const shopItemData =
   },
   //Others
   ghost_armor: {
+    activate: true,
     treasure: 'shop',
     name: 'Ghost Armor',
     type: 'other',

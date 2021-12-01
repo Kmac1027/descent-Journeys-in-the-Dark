@@ -88,7 +88,7 @@ export const copperTreasures =
         text: '+1 Range'
       },
     },
-    special_abilities:false,
+    special_abilities: false,
     combat_dice: {
       red: 0,
       blue: 1,
@@ -183,7 +183,7 @@ export const copperTreasures =
         text: 'Pierce 2'
       },
     },
-    special_abilities:false,
+    special_abilities: false,
     combat_dice: {
       red: 0,
       blue: 0,
@@ -214,7 +214,7 @@ export const copperTreasures =
         text: '+1 Range'
       },
     },
-    special_abilities:false,
+    special_abilities: false,
     combat_dice: {
       red: 0,
       blue: 0,
@@ -239,7 +239,7 @@ export const copperTreasures =
         text: 'Blast 1'
       },
     },
-    special_abilities:false,
+    special_abilities: false,
     combat_dice: {
       red: 0,
       blue: 0,
@@ -269,7 +269,7 @@ export const copperTreasures =
   },
   cloak_of_deception: {
     treasure: 'copper',
-    name: 'Cloak of Desception',
+    name: 'Cloak of Deception',
     type: 'armor',
     armor: 1,
     surge: false,
@@ -329,6 +329,7 @@ export const copperTreasures =
 
   //Others
   belt_of_strength: {
+    activate: false,
     treasure: 'copper',
     name: 'Belt of Strength',
     type: 'other',
@@ -350,6 +351,7 @@ export const copperTreasures =
     img_path: 'images/items/copperTreasures/belt_of_strength.jpg',
   },
   mana_weave: {
+    activate: false,
     treasure: 'copper',
     name: 'Mana Weave',
     type: 'other',
@@ -371,6 +373,7 @@ export const copperTreasures =
     img_path: 'images/items/copperTreasures/mana_weave.jpg',
   },
   minor_healing: {
+    activate: true,
     treasure: 'copper',
     name: 'Minor Healing',
     type: 'other',
@@ -391,6 +394,7 @@ export const copperTreasures =
     img_path: 'images/items/copperTreasures/minor_healing.jpg',
   },
   ring_of_quickness: {
+    activate: false,
     treasure: 'copper',
     name: 'Ring of Quickness',
     type: 'other',
@@ -411,6 +415,7 @@ export const copperTreasures =
     img_path: 'images/items/copperTreasures/ring_of_quickness.jpg',
   },
   crystal_of_tival: {
+    activate: false,
     treasure: 'copper',
     name: 'Crystal of Tival',
     type: 'other',
@@ -431,6 +436,7 @@ export const copperTreasures =
     img_path: 'images/items/copperTreasures/crystal_of_tival.jpg',
   },
   crystal_of_tival_2: {
+    activate: false,
     treasure: 'copper',
     name: 'Crystal of Tival',
     type: 'other',
@@ -485,11 +491,3 @@ export const copperTreasures =
     img_path: 'images/items/copperTreasures/treasure_cache_vitality_potion.jpg'
   },
 }
-
-// export function findFunction(passedInFunction,) {
-//   for (let key in copperTreasures) {
-//     if (passedInFunction === copperTreasures[key]) {
-
-//     }
-//   }
-// }

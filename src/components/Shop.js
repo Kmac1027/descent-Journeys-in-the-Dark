@@ -7,6 +7,7 @@ import { goldTreasures } from '../data/items/goldTreasures';
 import { useState, useEffect } from 'react';
 import { potionsArray } from './Potions';
 import { bagArray } from './Bag';
+import RandomTreasure from './RandomTreasure';
 
 
 export let shopItemsArray = [];
@@ -68,6 +69,8 @@ function Shop({ chosenHero,
   foundGoldTreasure,
 }) {
   const [availableItems, setAvailableItems] = useState(shopItemsArray);
+  const [showTreasure, setShowTreasure] = useState(false)
+  const [imgSrc, setImgSrc] = useState()
 
   function addPotion(type) {
     if (potionsArray.length >= 3) {
@@ -121,9 +124,9 @@ function Shop({ chosenHero,
   }
 
   function randomTreasure(type) {
-    if(bagArray.length >= 3){
-alert('You have no room in your bag for a Treasure!')
-    }else {
+    if (bagArray.length >= 3) {
+      alert('You have no room in your bag for a Treasure!')
+    } else {
       if (type === 'copper') {
         if (money < 250) {
           alert('You do not have enough money to purchawe a Copper treasure')
@@ -138,7 +141,8 @@ alert('You have no room in your bag for a Treasure!')
             let randomItem = copperTreasureArray[pickRandomItem]
             bagArray.push(randomItem)
             copperTreasureArray.splice(copperTreasureArray.indexOf(randomItem), 1);
-            alert(`You Got a ${randomItem.name}`)
+            setImgSrc(randomItem.img_path)
+            setShowTreasure(true)
           }
         }
       }
@@ -156,7 +160,8 @@ alert('You have no room in your bag for a Treasure!')
             let randomItem = silverTreasureArray[pickRandomItem]
             bagArray.push(randomItem)
             silverTreasureArray.splice(silverTreasureArray.indexOf(randomItem), 1);
-            alert(`You Got a ${randomItem.name}`)
+            setImgSrc(randomItem.img_path)
+            setShowTreasure(true)
           }
         }
       }
@@ -174,13 +179,15 @@ alert('You have no room in your bag for a Treasure!')
             let randomItem = goldTreasureArray[pickRandomItem]
             bagArray.push(randomItem)
             goldTreasureArray.splice(goldTreasureArray.indexOf(randomItem), 1);
-            alert(`You Got a ${randomItem.name}`)
+            setImgSrc(randomItem.img_path)
+            setShowTreasure(true)
           }
         }
       }
     }
 
   }
+
 
   function buy(item) {
     if (money < item.cost) {
@@ -506,6 +513,15 @@ alert('You have no room in your bag for a Treasure!')
           <p>Cost: 1000 Gold</p>
         </div>
       </div>
+
+      {showTreasure ?
+        <RandomTreasure
+          showTreasure={showTreasure}
+          setShowTreasure={setShowTreasure}
+          imgSrc={imgSrc}
+          setImgSrc={setImgSrc} />
+        : null}
+
     </div >
 
   );
