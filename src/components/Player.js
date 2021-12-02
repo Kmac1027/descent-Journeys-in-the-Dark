@@ -93,12 +93,15 @@ function Player({ chosenHero, chosenQuest }) {
       setAttackActive(false)
     }
   }
+
   useEffect(() => {
-    document.addEventListener("mousemove", function (e) {
-      mousePos.x = e.clientX;
-      mousePos.y = e.clientY;
-    });
     let canvasClick = document.getElementById('canvas');
+    document.addEventListener("mousemove", function (e) {
+      const rect = canvasClick.getBoundingClientRect();
+      mousePos.x = e.clientX - rect.left;
+      mousePos.y = e.clientY - rect.top;
+    });
+
     if (attackActive === false) {
       canvasClick.removeEventListener('click', attackTargetClicked)
       canvasClick.addEventListener('click', targetClicked);
@@ -149,8 +152,8 @@ function Player({ chosenHero, chosenQuest }) {
   //weapons and items
   // const [weapon1, setWeapon1] = useState(shopItemData.sword);
   // const [weapon2, setWeapon2] = useState(shopItemData.crossbow);
-  const [weapon1, setWeapon1] = useState(copperTreasures.bane);
-  const [weapon2, setWeapon2] = useState();
+  const [weapon1, setWeapon1] = useState(shopItemData.sword);
+  const [weapon2, setWeapon2] = useState(shopItemData.sword);
   const [armor, setArmor] = useState(shopItemData.leather_armor);
   const [other1, setOther1] = useState()
   const [other2, setOther2] = useState()
@@ -459,7 +462,7 @@ function Player({ chosenHero, chosenQuest }) {
   }, [])
 
   return (
-    <div>
+    <div id='playerScreen'>
       <div id='playerContainer'>
         <div id='heroCardDiv'>
           <img className='heroCard' src={heroData[chosenHero].hero_card_img_path} alt={heroData.steelhorns.name} />

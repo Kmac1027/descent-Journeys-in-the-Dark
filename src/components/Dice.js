@@ -439,7 +439,7 @@ function DiceRoll({
   }, [])
 
   return (
-    <div id='dicePool' style={{ position: 'absolute', left: '50%', top: '50%', }}>
+    <div id='dicePool' style={{ position: 'absolute', left: '-80%', top: '30%', }}>
       <div id='attackPannel'>
 
         <div id='weaponCard'>

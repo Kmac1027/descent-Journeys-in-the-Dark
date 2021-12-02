@@ -1,11 +1,11 @@
-import { map1 } from '../data/dungeonMaps/map1'
-
+// import { map1 } from '../data/dungeonMaps/map1'
+import { quest1 } from '../data/dungeonMaps/quest1'
 
 export const heroToken = {
   w: 50,
   h: 50,
-  x: map1.tokenPlacement.start_area.x,
-  y: map1.tokenPlacement.start_area.y,
+  x: quest1.town.x + 50,
+  y: quest1.town.y + 50,
   speed: 5,
   dx: 0,
   dy: 0

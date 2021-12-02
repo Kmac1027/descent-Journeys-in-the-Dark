@@ -8,11 +8,12 @@ import Canvas from './components/Canvas';
 import TilesAndTokens from './components/TilesAndTokens';
 import Overlord from './components/Overlord';
 import { map1, collisionDetection } from './data/dungeonMaps/map1';
+import { quest1, quest1CollisionDetection } from './data/dungeonMaps/quest1';
 
 function App() {
   // let chosenHero = 'battlemage_jaes'
   let chosenHero = 'steelhorns'
-  let chosenQuest = map1;
+  let chosenQuest = quest1;
 
 
   return (
@@ -21,7 +22,7 @@ function App() {
         <TilesAndTokens chosenHero={chosenHero} />
 
         <Canvas chosenHero={chosenHero} chosenQuest={chosenQuest}
-          collisionDetection={collisionDetection} />
+          collisionDetection={quest1CollisionDetection} />
         <Player chosenHero={chosenHero} chosenQuest={chosenQuest} />
         <Overlord />
 

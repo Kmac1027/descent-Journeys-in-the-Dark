@@ -396,7 +396,7 @@ function Shop({ chosenHero,
   }, [])
 
   return (
-    <div id='shop' style={{ left: '30%', top: '30%', }}>
+    <div id='shop' style={{ left: '-80%', top: '30%', }}>
       <h2>Shop</h2>
       <button onClick={() => showShopItems()}>Close Shop</button>
       <div id='shopItems' >
