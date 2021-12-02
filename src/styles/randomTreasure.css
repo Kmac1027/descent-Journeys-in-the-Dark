@@ -6,8 +6,9 @@
   color: black;
   max-height: 600px;
   max-width: 800px;
+  min-width: 400px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   text-align: center;
-  min-height: 100vh;
 }

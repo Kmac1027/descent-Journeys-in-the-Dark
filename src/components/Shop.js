@@ -67,10 +67,12 @@ function Shop({ chosenHero,
   foundCopperTreasure,
   foundSilverTreasure,
   foundGoldTreasure,
+  showTreasureDiv,
+  setShowTreasureDiv,
+  randomTreasure,
+  setRandomTreasure
 }) {
   const [availableItems, setAvailableItems] = useState(shopItemsArray);
-  const [showTreasure, setShowTreasure] = useState(false)
-  const [imgSrc, setImgSrc] = useState()
 
   function addPotion(type) {
     if (potionsArray.length >= 3) {
@@ -123,7 +125,7 @@ function Shop({ chosenHero,
     setMoney(newMoney);
   }
 
-  function randomTreasure(type) {
+  function getRandomTreasure(type) {
     if (bagArray.length >= 3) {
       alert('You have no room in your bag for a Treasure!')
     } else {
@@ -140,9 +142,9 @@ function Shop({ chosenHero,
             console.log(copperTreasureArray[pickRandomItem])
             let randomItem = copperTreasureArray[pickRandomItem]
             bagArray.push(randomItem)
+            setRandomTreasure(randomItem)
             copperTreasureArray.splice(copperTreasureArray.indexOf(randomItem), 1);
-            setImgSrc(randomItem.img_path)
-            setShowTreasure(true)
+            setShowTreasureDiv(true)
           }
         }
       }
@@ -159,9 +161,9 @@ function Shop({ chosenHero,
             console.log(silverTreasureArray[pickRandomItem])
             let randomItem = silverTreasureArray[pickRandomItem]
             bagArray.push(randomItem)
+            setRandomTreasure(randomItem)
             silverTreasureArray.splice(silverTreasureArray.indexOf(randomItem), 1);
-            setImgSrc(randomItem.img_path)
-            setShowTreasure(true)
+            setShowTreasureDiv(true)
           }
         }
       }
@@ -178,9 +180,9 @@ function Shop({ chosenHero,
             console.log(goldTreasureArray[pickRandomItem])
             let randomItem = goldTreasureArray[pickRandomItem]
             bagArray.push(randomItem)
+            setRandomTreasure(randomItem)
             goldTreasureArray.splice(goldTreasureArray.indexOf(randomItem), 1);
-            setImgSrc(randomItem.img_path)
-            setShowTreasure(true)
+            setShowTreasureDiv(true)
           }
         }
       }
@@ -460,7 +462,7 @@ function Shop({ chosenHero,
       <div id='treasuresPurchase' className='shopDiv' style={{ display: 'flex', flexdirection: 'row' }}>
 
         {foundCopperTreasure ? <div id='coppertreasure' style={{ border: 'outset', padding: '10px' }}>
-          <input type='image' className='card' src='images/copper_treasure_back.png' alt='Copper Treasure' onClick={() => randomTreasure('copper')}></input>
+          <input type='image' className='card' src='images/copper_treasure_back.png' alt='Copper Treasure' onClick={() => getRandomTreasure('copper')}></input>
           <p>Random Copper Treasure</p>
           <p>Cost: 250 Gold</p>
         </div> :
@@ -472,7 +474,7 @@ function Shop({ chosenHero,
 
         {foundSilverTreasure ?
           <div id='silvertreasure' style={{ border: 'outset', padding: '10px' }}>
-            <input type='image' className='card' src='images/silver_treasure_back.png' alt='Silver Treasure' onClick={() => randomTreasure('silver')}></input>
+            <input type='image' className='card' src='images/silver_treasure_back.png' alt='Silver Treasure' onClick={() => getRandomTreasure('silver')}></input>
             <p>Random Silver Treasure</p>
             <p>Cost: 500 Gold</p>
           </div> :
@@ -484,7 +486,7 @@ function Shop({ chosenHero,
 
         {foundGoldTreasure ?
           <div id='goldtreasure' style={{ border: 'outset', padding: '10px' }}>
-            <input type='image' className='card' src='images/gold_treasure_back.png' alt='Gold Treasure' onClick={() => randomTreasure('gold')}></input>
+            <input type='image' className='card' src='images/gold_treasure_back.png' alt='Gold Treasure' onClick={() => getRandomTreasure('gold')}></input>
             <p>Random Gold Treasure</p>
             <p>Cost: 750 Gold</p>
           </div> :
@@ -514,13 +516,12 @@ function Shop({ chosenHero,
         </div>
       </div>
 
-      {showTreasure ?
+      {showTreasureDiv ?
         <RandomTreasure
-          showTreasure={showTreasure}
-          setShowTreasure={setShowTreasure}
-          imgSrc={imgSrc}
-          setImgSrc={setImgSrc} />
-        : null}
+          showTreasureDiv={showTreasureDiv}
+          setShowTreasureDiv={setShowTreasureDiv}
+          randomTreasure={randomTreasure}
+        /> : null}
 
     </div >
 

@@ -1,9 +1,17 @@
 import '../styles/player.css';
-import Shop, { shopItemsArray, health_potion, vitality_potion } from './Shop';
+import Shop, {
+  shopItemsArray,
+  health_potion,
+  vitality_potion,
+  copperTreasureArray,
+  silverTreasureArray,
+  goldTreasureArray
+} from './Shop';
 import { copperTreasures } from '../data/items/copperTreasures';
 import DiceRoll from './Dice';
 import Potions, { potionsArray } from './Potions';
 import Bag, { bagArray } from './Bag'
+import RandomTreasure from './RandomTreasure'
 import { useState, useEffect } from 'react';
 import { heroData } from '../data/heroData.js';
 // import { monsterData } from '../data/monsterData.js';
@@ -14,6 +22,21 @@ import { attack, attackType, } from '../player_actions/attack';
 import { targetClicked, mousePos, correctedPosition, attackTargetClicked, selectedTarget } from '../player_actions/mouseClick';
 
 
+function chestInRange(playerPos, chest) {
+  if ((playerPos.x === chest.x && playerPos.y === chest.y) ||
+    (playerPos.x - 50 === chest.x && playerPos.y === chest.y) ||
+    (playerPos.x + 50 === chest.x && playerPos.y === chest.y) ||
+    (playerPos.y - 50 === chest.y && playerPos.x === chest.x) ||
+    (playerPos.y + 50 === chest.y && playerPos.x === chest.x) ||
+    (playerPos.x + 50 === chest.x && playerPos.y + 50 === chest.y) ||
+    (playerPos.x + 50 === chest.x && playerPos.y - 50 === chest.y) ||
+    (playerPos.x - 50 === chest.x && playerPos.y + 50 === chest.y) || (
+      playerPos.x - 50 === chest.x && playerPos.y - 50 === chest.y)) {
+    return true
+  } else {
+    return false
+  }
+}
 function Player({ chosenHero, chosenQuest }) {
 
   const [currentHealth, setCurrentHealth] = useState(heroData[chosenHero].max_wounds);
@@ -34,9 +57,9 @@ function Player({ chosenHero, chosenQuest }) {
   const [showPotions, setShowPotions] = useState(false)
   const [showBag, setShowBag] = useState(false)
 
-  const [foundCopperTreasure, setFoundCopperTreasure] = useState(true)
-  const [foundSilverTreasure, setFoundSilverTreasure] = useState(true)
-  const [foundGoldTreasure, setFoundGoldTreasure] = useState(true)
+  const [foundCopperTreasure, setFoundCopperTreasure] = useState(false)
+  const [foundSilverTreasure, setFoundSilverTreasure] = useState(false)
+  const [foundGoldTreasure, setFoundGoldTreasure] = useState(false)
 
   const [meleePowerDie, setMeleePowerDie] = useState(heroData[chosenHero].traits.melee_trait);
   const [rangedPowerDie, setRangedPowerDie] = useState(heroData[chosenHero].traits.ranged_trait);
@@ -140,6 +163,7 @@ function Player({ chosenHero, chosenQuest }) {
           setBaseSpeed(armor.special_abilities.speedReduce)
 
           if (armor.special_abilities.equipRunes === false) {
+            console.log('Equiped Runes set to false')
             setEquipRunes(false)
           }
         }
@@ -151,9 +175,10 @@ function Player({ chosenHero, chosenQuest }) {
     } else {
       setCurrentArmor(heroData[chosenHero].base_armor)
       setBaseSpeed(heroData[chosenHero].speed)
+      setEquipRunes(true)
     }
 
-  }, [armor, baseSpeed, speed, other1, other2])
+  }, [armor, baseSpeed, speed, other1, other2, chosenHero])
 
   useEffect(() => {
     if (other1 && other1.name === 'Crystal of Tival') {
@@ -271,6 +296,9 @@ function Player({ chosenHero, chosenQuest }) {
   const [showCTbutton, setShowCTButton] = useState(false)
   const [showSTbutton, setShowSTButton] = useState(false)
   const [showGTbutton, setShowGTButton] = useState(false)
+  const [treasureChestType, setTreasureChestType] = useState()
+  const [showTreasureDiv, setShowTreasureDiv] = useState(false)
+  const [randomTreasure, setRandomTreasure] = useState({})
 
   function pickUpPotion() {
     if (potionsArray >= 3) {
@@ -306,13 +334,63 @@ function Player({ chosenHero, chosenQuest }) {
     }
   }
 
-  function openTreasureChest() {
-    console.log('opened treasure chest')
+  function openTreasureChest(type) {
+    if (bagArray.length >= 3) {
+      alert('You Have no more room for items in your bag!')
+    } else {
+      if (type === 'copper') {
+        setFoundCopperTreasure(true)
+        if (copperTreasureArray.length <= 0) {
+          alert('You Find 250 Gold Coins')
+          setMoney(money => money + 250)
+        } else {
+          let pickRandomItem = Math.floor(Math.random() * (copperTreasureArray.length - 1))
+          console.log(copperTreasureArray[pickRandomItem])
+          let randomItem = copperTreasureArray[pickRandomItem]
+          setRandomTreasure(randomItem)
+          bagArray.push(randomItem)
+          copperTreasureArray.splice(copperTreasureArray.indexOf(randomItem), 1);
+          setShowTreasureDiv(true)
+        }
+      } else if (type === 'silver') {
+        setFoundSilverTreasure(true)
+        if (silverTreasureArray.length <= 0) {
+          alert('You Find 500 Gold Coins')
+          setMoney(money => money + 250)
+        } else {
+          let pickRandomItem = Math.floor(Math.random() * (silverTreasureArray.length - 1))
+          console.log(silverTreasureArray[pickRandomItem])
+          let randomItem = silverTreasureArray[pickRandomItem]
+          setRandomTreasure(randomItem)
+          bagArray.push(randomItem)
+          silverTreasureArray.splice(silverTreasureArray.indexOf(randomItem), 1);
+          setShowTreasureDiv(true)
+        }
+      } else if (type === 'gold') {
+        setFoundGoldTreasure(true)
+        if (goldTreasureArray.length <= 0) {
+          alert('You Find 750 Gold Coins')
+          setMoney(money => money + 250)
+        } else {
+          let pickRandomItem = Math.floor(Math.random() * (goldTreasureArray.length - 1))
+          console.log(goldTreasureArray[pickRandomItem])
+          let randomItem = goldTreasureArray[pickRandomItem]
+          setRandomTreasure(randomItem)
+          bagArray.push(randomItem)
+          goldTreasureArray.splice(goldTreasureArray.indexOf(randomItem), 1);
+          setShowTreasureDiv(true)
+        }
+      }
+    }
+    // setTreasureChestType()
   }
 
   useEffect(() => {
     let hps = chosenQuest.tokenPlacement.items.health_potions
     let vps = chosenQuest.tokenPlacement.items.vitality_potions
+    let copper = chosenQuest.tokenPlacement.treasure_chests.copper
+    let silver = chosenQuest.tokenPlacement.treasure_chests.silver
+    let gold = chosenQuest.tokenPlacement.treasure_chests.gold
     const keyPress = event => {
       if ((heroToken.x === chosenQuest.tokenPlacement.start_area.x &&
         heroToken.y === chosenQuest.tokenPlacement.start_area.y)
@@ -346,6 +424,33 @@ function Player({ chosenHero, chosenQuest }) {
         }
       }
 
+      for (let box in copper) {
+        let inRange = chestInRange(heroToken, copper[box])
+        if (inRange === true) {
+          setShowCTButton(true)
+          setTreasureChestType('copper')
+        } else {
+          setShowCTButton(false)
+        }
+      }
+      for (let box in silver) {
+        let inRange = chestInRange(heroToken, silver[box])
+        if (inRange === true) {
+          setShowSTButton(true)
+          setTreasureChestType('silver')
+        } else {
+          setShowSTButton(false)
+        }
+      }
+      for (let box in gold) {
+        let inRange = chestInRange(heroToken, gold[box])
+        if (inRange === true) {
+          setShowGTButton(true)
+          setTreasureChestType('gold')
+        } else {
+          setShowGTButton(false)
+        }
+      }
     }
     window.addEventListener("keydown", keyPress);
     return () => {
@@ -377,7 +482,7 @@ function Player({ chosenHero, chosenQuest }) {
             {showPickUpHPButton || showPickUpVPButton ? <button height='100px' width='100px'
               onClick={pickUpPotion}>Pick Up Potion</button> : null}
             {showCTbutton || showSTbutton || showGTbutton ? <button height='100px' width='100px'
-              onClick={openTreasureChest}>Open Treasure Chest</button> : null}
+              onClick={() => openTreasureChest(treasureChestType)}>Open Treasure Chest</button> : null}
 
           </div>
 
@@ -421,6 +526,7 @@ function Player({ chosenHero, chosenQuest }) {
               </div>}
             <div>
               {showShop ? <button onClick={() => { sell(weapon1); setWeapon1(); }}>Sell</button> : null}
+              {showBag ? <button onClick={() => { bagArray.push(weapon1); setWeapon1() }}>Store in Bag</button> : null}
             </div>
           </div>
 
@@ -441,6 +547,7 @@ function Player({ chosenHero, chosenQuest }) {
 
             <div>
               {showShop ? <button onClick={() => { sell(weapon2); setWeapon2(); }}>Sell</button> : null}
+              {showBag ? <button onClick={() => { bagArray.push(weapon2); setWeapon2() }}>Store in Bag</button> : null}
             </div>
           </div>
 
@@ -450,6 +557,7 @@ function Player({ chosenHero, chosenQuest }) {
             {armor ? <img className='card' src={armor.img_path} alt={armor.name}></img> : null}
             <div>
               {showShop ? <button onClick={() => { sell(armor); setArmor(); }}>Sell</button> : null}
+              {showBag ? <button onClick={() => { bagArray.push(armor); setArmor() }}>Store in Bag</button> : null}
             </div>
           </div>
         </div>
@@ -464,6 +572,7 @@ function Player({ chosenHero, chosenQuest }) {
               : null}
             <div>
               {showShop ? <button onClick={() => { sell(other1); setOther1() }}>Sell</button> : null}
+              {showBag ? <button onClick={() => { bagArray.push(other1); setOther1() }}>Store in Bag</button> : null}
             </div>
           </div>
           <div>
@@ -477,6 +586,7 @@ function Player({ chosenHero, chosenQuest }) {
 
             <div>
               {showShop ? <button onClick={() => { sell(other2); setOther2() }}>Sell</button> : null}
+              {showBag ? <button onClick={() => { bagArray.push(other2); setOther2() }}>Store in Bag</button> : null}
             </div>
           </div>
         </div>
@@ -536,6 +646,10 @@ function Player({ chosenHero, chosenQuest }) {
         foundCopperTreasure={foundCopperTreasure}
         foundSilverTreasure={foundSilverTreasure}
         foundGoldTreasure={foundGoldTreasure}
+        showTreasureDiv={showTreasureDiv}
+        setShowTreasureDiv={setShowTreasureDiv}
+        randomTreasure={randomTreasure}
+        setRandomTreasure={setRandomTreasure}
       /> : null}
 
       {showDice ? <DiceRoll
@@ -589,7 +703,16 @@ function Player({ chosenHero, chosenQuest }) {
         setOther1={setOther1}
         other2={other2}
         setOther2={setOther2}
+        setEquipRunes={setEquipRunes}
       /> : null}
+
+      {showTreasureDiv ?
+        <RandomTreasure
+          showTreasureDiv={showTreasureDiv}
+          setShowTreasureDiv={setShowTreasureDiv}
+          randomTreasure={randomTreasure}
+        />
+        : null}
     </div >
 
   );

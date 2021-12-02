@@ -1,11 +1,23 @@
 import '../styles/randomTreasure.css';
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
-function RandomTreasure({ showTreasure, setShowTreasure, imgSrc, setImgSrc }) {
+function RandomTreasure({ showTreasurediv, setShowTreasureDiv, randomTreasure }) {
+  const [bgColor, setBgColor] = useState()
+
+  useEffect(() => {
+    if (randomTreasure.treasure === 'copper') {
+      setBgColor('#b87333')
+    } else if (randomTreasure.treasure === 'silver') {
+      setBgColor('#c0c0c0')
+    } else if (randomTreasure.treasure === 'gold') {
+      setBgColor('#ffd700')
+    } else {
+      setBgColor('gray')
+    }
+  }, [])
 
   function closeTreasure() {
-    setShowTreasure(false)
-    setImgSrc()
+    setShowTreasureDiv(false)
   }
   useEffect(() => {
     dragElement(document.getElementById("randomTreasure"));
@@ -45,8 +57,10 @@ function RandomTreasure({ showTreasure, setShowTreasure, imgSrc, setImgSrc }) {
     }
   }, [])
   return (
-    <div id='randomTreasure'>
-      <img src={imgSrc} alt={'Treasure'} />
+    <div id='randomTreasure' style={{ left: '30%', top: '30%', backgroundColor: `${bgColor}` }}>
+      <h2>YOU GOT A {randomTreasure.name}!</h2>
+      <h5>It has been added to your bag</h5>
+      <img src={randomTreasure.img_path} alt={'Treasure'} />
       <button onClick={() => closeTreasure()}>Close</button>
     </div>
   );

@@ -20,7 +20,8 @@ function Bag({
   other1,
   setOther1,
   other2,
-  setOther2
+  setOther2,
+  setEquipRunes
 }) {
 
   const [bag, setBag] = useState(bagArray);
@@ -88,8 +89,15 @@ function Bag({
         ) {
           alert(`Your Equipt Runes prevent you from weaing this type of Armor`)
         } else {
-          bagArray.push(armor)
+          if (armor) {
+            bagArray.push(armor)
+          }
           setArmor(item)
+          if (item.special_abilities.equipRunes === false) {
+            setEquipRunes(false)
+          } else {
+            setEquipRunes(true)
+          }
           bagArray.splice(bagArray.indexOf(item), 1)
         }
       } else if (item.type === 'other') {
