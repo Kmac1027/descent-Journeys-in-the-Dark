@@ -32,7 +32,7 @@ export function targetClicked() {
       correctedPosition.y = y;
     }
   }
-  // console.log('X: ', correctedPosition.x, 'Y: ', correctedPosition.y)
+  console.log('X: ', correctedPosition.x, 'Y: ', correctedPosition.y)
 }
 
 export function attackTargetClicked() {
@@ -68,7 +68,7 @@ export function attackTargetClicked() {
   //     correctedPosition.y = y;
   //   }
   // }
-  console.log(attackType.type, attackType.blast)
+  // console.log(attackType.type, attackType.blast)
   if (attackType.type === 'melee' && (attackType.blast === false || attackType.blast === null)) {
     if ((heroToken.x - 50 === correctedPosition.x && heroToken.y === correctedPosition.y) ||
       (heroToken.x + 50 === correctedPosition.x && heroToken.y === correctedPosition.y) ||

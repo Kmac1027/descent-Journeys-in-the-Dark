@@ -1,10 +1,10 @@
-import { heroToken } from '../../player_actions/movement';
+import { heroToken, previousPosition } from '../../player_actions/movement';
 // import { monsterData } from '../../data/monsterData';
 import { disableMovment } from '../../player_actions/movement';
 import { Skeleton, MasterSkeleton } from '../monsterData';
 import { runLoop } from '../../components/Canvas'
 
-let skeleton1 = new Skeleton(1, 450, 1000);
+let skeleton1 = new Skeleton(1, 450, 1050);
 
 export const quest1 = {
   name: 'Quest 1: Into the Dark',
@@ -20,7 +20,7 @@ export const quest1 = {
     },
     start_area: {
       x: 0,
-      y: 1000
+      y: 1050
     },
     doors: {
       normal: {},
@@ -53,7 +53,7 @@ export const quest1 = {
   },
   town: {
     x: 0,
-    y: 1100,
+    y: 1150,
     h: 150,
     w: 150
   },
@@ -69,14 +69,40 @@ export const quest1 = {
       width: 50
     },
     floor_tiles: {
-      //area 4
-      1: {
+      //fix
+      300: {
+        x: 500,
+        y: 0
+      },
+      400: {
+        x: 550,
+        y: 0
+      },
+      500: {
         x: 600,
         y: 0
       },
-      2: {
+      600: {
         x: 650,
         y: 0
+      },
+      700: {
+        x: 700,
+        y: 0
+      },
+      800: {
+        x: 750,
+        y: 0
+      },
+
+      //area 4
+      1: {
+        x: 600,
+        y: -50
+      },
+      2: {
+        x: 650,
+        y: -50
       },
       3: {
         x: 500,
@@ -874,128 +900,24 @@ export const quest1 = {
 
   startingMoney: { amount: 300 },
 }
+//loop is to add the missing Y-axis line of squares in area 4
+export let positionArray = []
+for (let tile in quest1.floor.floor_tiles) {
+  quest1.floor.floor_tiles[tile].y = quest1.floor.floor_tiles[tile].y + 50
+  positionArray.push({ x: quest1.floor.floor_tiles[tile].x, y: quest1.floor.floor_tiles[tile].y })
+}
 
 export function quest1CollisionDetection(runLoopX, runLoopY) {
-  //   // if (heroToken.x < 100 && heroToken.y <= 0) {
-  //   //   heroToken.x = previousX;
-  //   //   heroToken.y = previousY;
-  //   // }
 
   //   //outer walls
-  //   //square 1
-  //   if (heroToken.x === 100 && heroToken.y === 0) {
-  //     disableMovment.left = true;
-  //     disableMovment.up = true;
-  //     disableMovment.upLeft = true;
-  //     disableMovment.upRight = true;
-  //   }
-  //   //square 2
-  //   if (heroToken.x === 150 && heroToken.y === 0) {
-  //     disableMovment.right = true;
-  //     disableMovment.up = true;
-  //     disableMovment.upLeft = true;
-  //     disableMovment.upRight = true;
-  //   }
-  //   //square 3
-  //   if (heroToken.x === 50 && heroToken.y === 50) {
-  //     disableMovment.left = true;
-  //     disableMovment.up = true;
-  //     disableMovment.upLeft = true;
-  //   }
-  //   // square 4
-  //   if (heroToken.x === 100 && heroToken.y === 50) {
-  //     disableMovment.upLeft = true;
-  //   }
-  //   //square 5
-  //   if (heroToken.x === 150 && heroToken.y === 50) {
-  //     disableMovment.upRight = true;
-  //   }
-  //   //square 6
-  //   if (heroToken.x === 200 && heroToken.y === 50) {
-  //     disableMovment.right = true;
-  //     disableMovment.up = true;
-  //     disableMovment.upRight = true;
-  //   }
-  //   //square 7
-  //   if (heroToken.x === 0 && heroToken.y === 100) {
-  //     disableMovment.left = true;
-  //     disableMovment.up = true;
-  //     disableMovment.upLeft = true;
-  //     disableMovment.downLeft = true;
-  //   }
-  //   //square 8
-  //   if (heroToken.x === 50 && heroToken.y === 100) {
-  //     disableMovment.upLeft = true
-  //   }
-  //   //square 11
-  //   if (heroToken.x === 200 && heroToken.y === 100) {
-  //     disableMovment.upRight = true
-  //   }
-  //   //square 12
-  //   if (heroToken.x === 250 && heroToken.y === 100) {
-  //     disableMovment.right = true;
-  //     disableMovment.up = true;
-  //     disableMovment.upRight = true;
-  //     disableMovment.downRight = true;
-  //   }
-  //   //square 13
-  //   if (heroToken.x === 0 && heroToken.y === 150) {
-  //     disableMovment.left = true;
-  //     disableMovment.down = true;
-  //     disableMovment.downLeft = true;
-  //   }
-  //   //square 14
-  //   if (heroToken.x === 50 && heroToken.y === 150) {
-  //     disableMovment.downLeft = true;
-  //   }
-  //   //square 17
-  //   if (heroToken.x === 200 && heroToken.y === 150) {
-  //     disableMovment.downRight = true;
-  //   }
-  //   // square 18
-  //   if (heroToken.x === 250 && heroToken.y === 150) {
-  //     disableMovment.right = true;
-  //     disableMovment.down = true;
-  //     disableMovment.upRight = true;
-  //     disableMovment.downRight = true;
-  //   }
-  //   //square 19
-  //   if (heroToken.x === 50 && heroToken.y === 200) {
-  //     disableMovment.left = true;
-  //     disableMovment.down = true;
-  //     disableMovment.downLeft = true;
-  //     disableMovment.upLeft = true;
-  //   }
-  //   //square 20
-  //   if (heroToken.x === 100 && heroToken.y === 200) {
-  //     disableMovment.downLeft = true;
-  //   }
-  //   // square 21
-  //   if (heroToken.x === 150 && heroToken.y === 200) {
-  //     disableMovment.downRight = true;
-  //   }
-  //   //square 22
-  //   if (heroToken.x === 200 && heroToken.y === 200) {
-  //     disableMovment.right = true;
-  //     disableMovment.down = true;
-  //     disableMovment.downRight = true;
-  //   }
-  //   //square 23
-  //   if (heroToken.x === 100 && heroToken.y === 250) {
-  //     disableMovment.left = true;
-  //     disableMovment.down = true;
-  //     disableMovment.downLeft = true;
-  //     disableMovment.downRight = true;
-  //   }
-  //   // square 24
-  //   if (heroToken.x === 150 && heroToken.y === 250) {
-  //     disableMovment.right = true;
-  //     disableMovment.down = true;
-  //     disableMovment.downLeft = true;
-  //     disableMovment.downRight = true;
-  //   }
+
 
   //obstacle collision detection
+  if (heroToken.x === 0 && heroToken.y === 1000) {
+    disableMovment.up = true;
+    disableMovment.upRight = true
+    disableMovment.upLeft = true
+  }
 
   //monsters collision detection
   if (heroToken.x !== runLoopX || heroToken.y !== runLoopY) {
@@ -1004,7 +926,6 @@ export function quest1CollisionDetection(runLoopX, runLoopY) {
     for (let monster in monsters) {
       if (heroToken.x - 50 === monsters[monster].x && heroToken.y === monsters[monster].y) {
         disableMovment.left = true;
-
       }
       else if (heroToken.x + 50 === monsters[monster].x && heroToken.y === monsters[monster].y) {
         disableMovment.right = true;
@@ -1034,59 +955,16 @@ export function quest1CollisionDetection(runLoopX, runLoopY) {
     runLoop.y = heroToken.y
   }
 
-
   //town collision detection
-  // if (heroToken.x === map1.town.x + 50 && heroToken.y === map1.town.y + 50) {
-  //   disableMovment.up = true;
-  //   disableMovment.left = true;
-  //   disableMovment.right = true;
-  //   disableMovment.down = true;
-  //   disableMovment.downRight = true
-  //   disableMovment.upLeft = true;
-  //   disableMovment.upRight = true;
-  //   disableMovment.downLeft = true;
-  // }
-
-
-  // if (heroToken.x === map1.town.x && heroToken.y === map1.town.y) {
-  //   disableMovment.upRight = true;
-  //   disableMovment.up = true;
-  //   disableMovment.upLeft = true;
-  //   disableMovment.left = true;
-  //   disableMovment.downLeft = true;
-  // } if (heroToken.x + 50 === map1.town.x && heroToken.y === map1.town.y) {
-  //   disableMovment.upLeft = true;
-  //   disableMovment.up = true;
-  //   disableMovment.upRight = true;
-  // } if (heroToken.x + 100 === map1.town.x && heroToken.y === map1.town.y) {
-  //   disableMovment.downRight = true;
-  //   disableMovment.right = true;
-  //   disableMovment.upRight = true;
-  //   disableMovment.up = true;
-  //   disableMovment.upLeft = true;
-  // } if (heroToken.x === map1.town.x && heroToken.y + 50 === map1.town.y) {
-  //   disableMovment.downLeft = true;
-  //   disableMovment.left = true;
-  //   disableMovment.upLeft = true;
-  // } if (heroToken.x + 100 === map1.town.x && heroToken.y + 50 === map1.town.y) {
-  //   disableMovment.downRight = true;
-  //   disableMovment.right = true;
-  //   disableMovment.upRight = true;
-  // } if (heroToken.x === map1.town.x && heroToken.y + 100 === map1.town.y) {
-  //   disableMovment.downLeft = true;
-  //   disableMovment.left = true;
-  //   disableMovment.upLeft = true;
-  //   disableMovment.down = true;
-  // } if (heroToken.x + 50 === map1.town.x && heroToken.y + 100 === map1.town.y) {
-  //   disableMovment.downLeft = true;
-  //   disableMovment.down = true;
-  //   disableMovment.downRight = true;
-  // } if (heroToken.x + 100 === map1.town.x && heroToken.y + 100 === map1.town.y) {
-  //   disableMovment.downLeft = true;
-  //   disableMovment.down = true;
-  //   disableMovment.downRight = true;
-  //   disableMovment.right = true;
-  //   disableMovment.upRight = true;
-  // }
+  if (heroToken.x === quest1.town.x + 50 && heroToken.y === quest1.town.y + 50) {
+    disableMovment.up = true;
+    disableMovment.left = true;
+    disableMovment.right = true;
+    disableMovment.down = true;
+    disableMovment.downRight = true
+    disableMovment.upLeft = true;
+    disableMovment.upRight = true;
+    disableMovment.downLeft = true;
+  }
 }
 

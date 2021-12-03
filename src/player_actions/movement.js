@@ -1,5 +1,5 @@
 // import { map1 } from '../data/dungeonMaps/map1'
-import { quest1 } from '../data/dungeonMaps/quest1'
+import { quest1, positionArray } from '../data/dungeonMaps/quest1'
 
 export const heroToken = {
   w: 50,
@@ -10,7 +10,6 @@ export const heroToken = {
   dx: 0,
   dy: 0
 }
-
 
 export const disableMovment = {
   right: false,
@@ -24,7 +23,9 @@ export const disableMovment = {
 }
 export function keyDown(event) {
   event.preventDefault();
-  if ((event.key === 'ArrowRight' && disableMovment.right === false) || (event.key === 'Right' && disableMovment.right === false) || (event.key === 'd' && disableMovment.right === false)) {
+  if (
+    ((event.key === 'ArrowRight' && disableMovment.right === false) || (event.key === 'Right' && disableMovment.right === false) || (event.key === 'd' && disableMovment.right === false))
+  ) {
     moveRight();
 
   } else if ((event.key === 'ArrowLeft' && disableMovment.left === false) || (event.key === 'Left' && disableMovment.left === false) || (event.key === 'a' && disableMovment.left === false)) {
