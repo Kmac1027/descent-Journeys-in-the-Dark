@@ -47,7 +47,7 @@ function Canvas({ chosenQuest, collisionDetection }) {
       let glyphs = chosenQuest.tokenPlacement.glyphs;
       for (let glyph in glyphs) {
         ctx.drawImage(redGlyphId, glyphs[glyph].x, glyphs[glyph].y, chosenQuest.floor.tile_size.height, chosenQuest.floor.tile_size.width)
-        ctx.strokeStyle = '#ffffff';
+        ctx.strokeStyle = 'red';
         ctx.strokeRect(glyphs[glyph].x, glyphs[glyph].y, chosenQuest.floor.tile_size.height, chosenQuest.floor.tile_size.width);
       }
 

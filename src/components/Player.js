@@ -432,6 +432,7 @@ function Player({ chosenHero, chosenQuest }) {
         if (inRange === true) {
           setShowCTButton(true)
           setTreasureChestType('copper')
+          break;
         } else {
           setShowCTButton(false)
         }
@@ -441,6 +442,7 @@ function Player({ chosenHero, chosenQuest }) {
         if (inRange === true) {
           setShowSTButton(true)
           setTreasureChestType('silver')
+          break;
         } else {
           setShowSTButton(false)
         }
@@ -450,6 +452,7 @@ function Player({ chosenHero, chosenQuest }) {
         if (inRange === true) {
           setShowGTButton(true)
           setTreasureChestType('gold')
+          break;
         } else {
           setShowGTButton(false)
         }
