@@ -304,6 +304,7 @@ export const quest1 = {
   },
 
   startingMoney: { amount: 300 },
+  startingConquestTokens: 5,
 }
 
 export function quest1CollisionDetection(runLoopX, runLoopY) {

@@ -38,13 +38,16 @@ function chestInRange(playerPos, chest) {
   }
 }
 function Player({ chosenHero, chosenQuest }) {
+  let copper = chosenQuest.tokenPlacement.treasure_chests.copper
+  let silver = chosenQuest.tokenPlacement.treasure_chests.silver
+  let gold = chosenQuest.tokenPlacement.treasure_chests.gold
 
   const [currentHealth, setCurrentHealth] = useState(heroData[chosenHero].max_wounds);
   const [maxHealth, setMaxHealth] = useState(heroData[chosenHero].max_wounds);
   const [currentFatigue, setCurrentFatigue] = useState(heroData[chosenHero].max_fatigue);
   const [maxFatigue, setMaxFatigue] = useState(heroData[chosenHero].max_fatigue);
-  const [currentConquestTokens, setCurrentConquestTokens] = useState(heroData[chosenHero].max_fatigue);
-  const [maxConquestTokens, setMaxConquestTokens] = useState(heroData[chosenHero].max_fatigue);
+  const [heroConquestValue, setHeroConquestValue] = useState(heroData[chosenHero].conquest_value);
+  const [levelConquestTokens, setLevelConquestTokens] = useState(chosenQuest.startingConquestTokens);
   const [currentArmor, setCurrentArmor] = useState(heroData[chosenHero].base_armor);
   const [baseSpeed, setBaseSpeed] = useState(heroData[chosenHero].speed);
   const [speed, setSpeed] = useState(heroData[chosenHero].speed)
@@ -302,9 +305,11 @@ function Player({ chosenHero, chosenQuest }) {
   const [treasureChestType, setTreasureChestType] = useState()
   const [showTreasureDiv, setShowTreasureDiv] = useState(false)
   const [randomTreasure, setRandomTreasure] = useState({})
+  const [pickedUpChest, setPickedUpChest] = useState()
 
   function pickUpPotion() {
-    if (potionsArray >= 3) {
+    if (potionsArray.length >= 3) {
+
       let result = window.confirm('You have no more room for potions, would you like to add it to your bag?');
       if (result === true) {
         if (bagArray >= 3) {
@@ -317,23 +322,21 @@ function Player({ chosenHero, chosenQuest }) {
             bagArray.push(vitality_potion)
             delete chosenQuest.tokenPlacement.items.vitality_potions[pickedUpPotion]
           }
-
           setShowPickUpHPButton(false)
           setShowPickUpVPButton(false)
         }
       }
     } else {
       if (potionType === 'health') {
-        // console.log(health_potion)
         potionsArray.push(health_potion)
         delete chosenQuest.tokenPlacement.items.health_potions[pickedUpPotion]
       } else if (potionType === 'vitality') {
         potionsArray.push(vitality_potion)
         delete chosenQuest.tokenPlacement.items.vitality_potions[pickedUpPotion]
       }
-
       setShowPickUpVPButton(false)
       setShowPickUpHPButton(false)
+
     }
   }
 
@@ -346,13 +349,19 @@ function Player({ chosenHero, chosenQuest }) {
         if (copperTreasureArray.length <= 0) {
           alert('You Find 250 Gold Coins')
           setMoney(money => money + 250)
+          delete chosenQuest.tokenPlacement.treasure_chests.copper[pickedUpChest]
+          setPickedUpChest()
+          setShowCTButton(false)
         } else {
           let pickRandomItem = Math.floor(Math.random() * (copperTreasureArray.length - 1))
-          console.log(copperTreasureArray[pickRandomItem])
+          // console.log(copperTreasureArray[pickRandomItem])
           let randomItem = copperTreasureArray[pickRandomItem]
           setRandomTreasure(randomItem)
           bagArray.push(randomItem)
           copperTreasureArray.splice(copperTreasureArray.indexOf(randomItem), 1);
+          delete chosenQuest.tokenPlacement.treasure_chests.copper[pickedUpChest]
+          setPickedUpChest()
+          setShowCTButton(false)
           setShowTreasureDiv(true)
         }
       } else if (type === 'silver') {
@@ -360,6 +369,9 @@ function Player({ chosenHero, chosenQuest }) {
         if (silverTreasureArray.length <= 0) {
           alert('You Find 500 Gold Coins')
           setMoney(money => money + 250)
+          delete chosenQuest.tokenPlacement.treasure_chests.silver[pickedUpChest]
+          setPickedUpChest()
+          setShowSTButton(false)
         } else {
           let pickRandomItem = Math.floor(Math.random() * (silverTreasureArray.length - 1))
           console.log(silverTreasureArray[pickRandomItem])
@@ -367,6 +379,9 @@ function Player({ chosenHero, chosenQuest }) {
           setRandomTreasure(randomItem)
           bagArray.push(randomItem)
           silverTreasureArray.splice(silverTreasureArray.indexOf(randomItem), 1);
+          delete chosenQuest.tokenPlacement.treasure_chests.silver[pickedUpChest]
+          setPickedUpChest()
+          setShowSTButton(false)
           setShowTreasureDiv(true)
         }
       } else if (type === 'gold') {
@@ -374,6 +389,9 @@ function Player({ chosenHero, chosenQuest }) {
         if (goldTreasureArray.length <= 0) {
           alert('You Find 750 Gold Coins')
           setMoney(money => money + 250)
+          delete chosenQuest.tokenPlacement.treasure_chests.gold[pickedUpChest]
+          setPickedUpChest()
+          setShowGTButton(false)
         } else {
           let pickRandomItem = Math.floor(Math.random() * (goldTreasureArray.length - 1))
           console.log(goldTreasureArray[pickRandomItem])
@@ -381,6 +399,9 @@ function Player({ chosenHero, chosenQuest }) {
           setRandomTreasure(randomItem)
           bagArray.push(randomItem)
           goldTreasureArray.splice(goldTreasureArray.indexOf(randomItem), 1);
+          delete chosenQuest.tokenPlacement.treasure_chests.gold[pickedUpChest]
+          setPickedUpChest()
+          setShowGTButton(false)
           setShowTreasureDiv(true)
         }
       }
@@ -391,9 +412,8 @@ function Player({ chosenHero, chosenQuest }) {
   useEffect(() => {
     let hps = chosenQuest.tokenPlacement.items.health_potions
     let vps = chosenQuest.tokenPlacement.items.vitality_potions
-    let copper = chosenQuest.tokenPlacement.treasure_chests.copper
-    let silver = chosenQuest.tokenPlacement.treasure_chests.silver
-    let gold = chosenQuest.tokenPlacement.treasure_chests.gold
+    let glyphs = chosenQuest.tokenPlacement.glyphs
+
     const keyPress = event => {
       if ((heroToken.x === chosenQuest.tokenPlacement.start_area.x &&
         heroToken.y === chosenQuest.tokenPlacement.start_area.y)
@@ -432,9 +452,12 @@ function Player({ chosenHero, chosenQuest }) {
         if (inRange === true) {
           setShowCTButton(true)
           setTreasureChestType('copper')
+          setPickedUpChest(box)
+          console.log(pickedUpChest)
           break;
         } else {
           setShowCTButton(false)
+
         }
       }
       for (let box in silver) {
@@ -442,9 +465,11 @@ function Player({ chosenHero, chosenQuest }) {
         if (inRange === true) {
           setShowSTButton(true)
           setTreasureChestType('silver')
+          setPickedUpChest(box)
           break;
         } else {
           setShowSTButton(false)
+
         }
       }
       for (let box in gold) {
@@ -452,9 +477,19 @@ function Player({ chosenHero, chosenQuest }) {
         if (inRange === true) {
           setShowGTButton(true)
           setTreasureChestType('gold')
+          setPickedUpChest(box)
           break;
         } else {
           setShowGTButton(false)
+
+        }
+      }
+      for (let glyph in glyphs) {
+        if (heroToken.x === glyphs[glyph].x && heroToken.y === glyphs[glyph].y) {
+          alert('Glyph Activated! you gain 3 Conquest Tokens!')
+          setLevelConquestTokens(levelConquestTokens => levelConquestTokens + 3)
+          chosenQuest.tokenPlacement.activated_glyphs[glyph] = glyphs[glyph]
+          delete glyphs[glyph]
         }
       }
     }
@@ -471,7 +506,7 @@ function Player({ chosenHero, chosenQuest }) {
           <img className='heroCard' src={heroData[chosenHero].hero_card_img_path} alt={heroData.steelhorns.name} />
           <p>Name: {heroData[chosenHero].name}</p>
           <p>Gold: {money} </p>
-          <p>conquest tokens:{currentConquestTokens}/{maxConquestTokens}</p>
+          <p>Conquest Tokens: {levelConquestTokens}</p>
 
           <div>
             {showReturnToTown ?
