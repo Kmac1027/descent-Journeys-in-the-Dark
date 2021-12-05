@@ -1,7 +1,14 @@
 import '../styles/bag.css'
 import { useEffect, useState } from 'react'
 import { potionsArray } from './Potions';
-// import SwapScreen from './SwapScreen'
+import {
+  health_potion,
+  vitality_potion,
+  copperTreasureArray,
+  silverTreasureArray,
+  goldTreasureArray
+} from './Shop';
+
 
 export let bagArray = [];
 
@@ -21,7 +28,11 @@ function Bag({
   setOther1,
   other2,
   setOther2,
-  setEquipRunes
+  setEquipRunes,
+  money,
+  setMoney,
+  setShowTreasureDiv,
+  setRandomTreasure
 }) {
 
   const [bag, setBag] = useState(bagArray);
@@ -185,6 +196,28 @@ function Bag({
 
   }, [bagCheck, sell])
 
+  function treasureCache(item) {
+    setMoney(money => money + item.gold)
+    if (item.health_potion === true) {
+      potionsArray.push(health_potion)
+    }
+    if (item.vitality_potion === true) {
+      potionsArray.push(vitality_potion)
+    }
+    bagArray.splice(bagArray.indexOf(item), 1)
+    let pickRandomItem = Math.floor(Math.random() * (copperTreasureArray.length - 1))
+    let randomItem = copperTreasureArray[pickRandomItem]
+    bagArray.push(randomItem)
+    setRandomTreasure(randomItem)
+    copperTreasureArray.splice(copperTreasureArray.indexOf(randomItem), 1);
+    setShowTreasureDiv(true)
+    if (bagCheck === true) {
+      setBagCheck(false)
+    } else {
+      setBagCheck(true)
+    }
+  }
+
   useEffect(() => {
     dragElement(document.getElementById("storageBag"));
 
@@ -230,7 +263,7 @@ function Bag({
 
       <div style={{ display: 'flex', flexdirection: 'row' }}>
         {bag.map((item, i) =>
-          item.type !== 'potion' ?
+          item.type !== 'potion' && item.type !== 'treasure_cache' ?
             <div key={i} id={i} style={{ padding: '10px' }}>
               <input className='card' type='image' src={item.img_path} alt={item.name}
                 onClick={() => swap(item)}></input>
@@ -239,18 +272,25 @@ function Bag({
                 sell(item);
                 bagArray.splice(bagArray.indexOf(item), 1)
               }}>Sell</button> : null}
-
               {discardButton ? <button onClick={() => { discardItem(item) }}>Discard Item</button> : null}
             </div>
             :
-            <div key={i} id={i} style={{ padding: '10px' }}>
-              <input height='50px' width='50px' type='image' src={item.img_path} alt={item.name}
-                onClick={() => addPotionToPotionBag(item)}
-              ></input>
-              <br />
-              {showShop ? <button onClick={() => { sell(item); bagArray.splice(bagArray.indexOf(item), 1) }}>Sell</button> : null}
-              {discardButton ? <button onClick={() => { discardItem(item) }}>Discard Item</button> : null}
-            </div>
+            item.type !== 'treasure_cache' ?
+              <div key={i} id={i} style={{ padding: '10px' }}>
+                <input height='50px' width='50px' type='image' src={item.img_path} alt={item.name}
+                  onClick={() => addPotionToPotionBag(item)}
+                ></input>
+                <br />
+                {showShop ? <button onClick={() => { sell(item); bagArray.splice(bagArray.indexOf(item), 1) }}>Sell</button> : null}
+                {discardButton ? <button onClick={() => { discardItem(item) }}>Discard Item</button> : null}
+              </div>
+              :
+              item.type === 'treasure_cache' &&
+              <div key={i} id={i} style={{ padding: '10px' }}>
+                <input className='card' type='image' src={item.img_path} alt={item.name}
+                  onClick={() => treasureCache(item)}></input>
+              </div>
+
         )}
       </div>
       {/* {swapScreen ? <SwapScreen

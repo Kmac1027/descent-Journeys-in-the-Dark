@@ -1,3 +1,5 @@
+import { health_potion } from "../../components/Shop";
+
 export const copperTreasures =
 //weapons
 {
@@ -462,7 +464,10 @@ export const copperTreasures =
     treasure: 'copper',
     name: 'Treasure Cache',
     type: 'treasure_cache',
-    effect: 'Receive 50 coins and draw another card from this deck',
+    text: 'Receive 50 coins and draw another card from this deck',
+    gold: 50,
+    health_potion: 0,
+    vitality_potion: 0,
     cost: 250,
     img_path: 'images/items/copperTreasures/treasure_cache_gold.jpg'
   },
@@ -470,7 +475,10 @@ export const copperTreasures =
     treasure: 'copper',
     name: 'Treasure Cache',
     type: 'treasure_cache',
-    effect: 'Receive 50 coins and draw another card from this deck',
+    text: 'Receive 50 coins and draw another card from this deck',
+    gold: 50,
+    health_potion: false,
+    vitality_potion: false,
     cost: 250,
     img_path: 'images/items/copperTreasures/treasure_cache_gold.jpg'
   },
@@ -478,7 +486,10 @@ export const copperTreasures =
     treasure: 'copper',
     name: 'Treasure Cache',
     type: 'treasure_cache',
-    effect: 'Receive 1 healing potion and draw another card from this deck',
+    text: 'Receive 1 healing potion and draw another card from this deck',
+    gold: 0,
+    health_potion: true,
+    vitality_potion: false,
     cost: 250,
     img_path: 'images/items/copperTreasures/treasure_cache_healing_potion.jpg'
   },
@@ -486,7 +497,10 @@ export const copperTreasures =
     treasure: 'copper',
     name: 'Treasure Cache',
     type: 'treasure_cache',
-    effect: 'Receive 1 vitality potion and draw another card from this deck',
+    text: 'Receive 1 vitality potion and draw another card from this deck',
+    gold: 0,
+    health_potion: false,
+    vitality_potion: true,
     cost: 250,
     img_path: 'images/items/copperTreasures/treasure_cache_vitality_potion.jpg'
   },

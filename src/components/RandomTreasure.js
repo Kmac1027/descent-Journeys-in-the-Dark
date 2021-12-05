@@ -1,8 +1,42 @@
 import '../styles/randomTreasure.css';
 import { useEffect, useState } from 'react'
+import { health_potion, vitality_potion } from './Shop'
+import { bagArray } from './Bag';
 
-function RandomTreasure({ showTreasurediv, setShowTreasureDiv, randomTreasure }) {
+function RandomTreasure({
+  showTreasureDiv,
+  setShowTreasureDiv,
+  randomTreasure,
+  setRandomTreasure,
+  potionsArray,
+  money,
+  setMoney,
+  copperTreasureArray,
+  silverTreasureArray,
+  goldTreasureArray
+}) {
   const [bgColor, setBgColor] = useState()
+
+  // useEffect(() => {
+  //   if (randomTreasure.name === 'Treasure Cache') {
+  //     // setRandomTreasure()
+  //     setMoney(money => money + randomTreasure.gold)
+  //     if (randomTreasure.health_potion === true) {
+  //       potionsArray.push(health_potion)
+  //     }
+  //     if (randomTreasure.vitality_potion === true) {
+  //       potionsArray.push(vitality_potion)
+  //     }
+  //     let pickRandomItem = Math.floor(Math.random() * (copperTreasureArray.length - 1))
+  //     let randomItem = copperTreasureArray[pickRandomItem]
+  //     setRandomTreasure(randomItem)
+  //     copperTreasureArray.splice(copperTreasureArray.indexOf(randomItem), 1);
+  //   } else if (randomTreasure.name !== 'Treasure Cache') {
+  //     bagArray.push(randomTreasure)
+  //   }
+
+  // }, [collect])
+
 
   useEffect(() => {
     if (randomTreasure.treasure === 'copper') {
@@ -61,6 +95,7 @@ function RandomTreasure({ showTreasurediv, setShowTreasureDiv, randomTreasure })
       <h2>YOU GOT A {randomTreasure.name}!</h2>
       <h5>It has been added to your bag</h5>
       <img src={randomTreasure.img_path} alt={'Treasure'} />
+      <br />
       <button onClick={() => closeTreasure()}>Close</button>
     </div>
   );

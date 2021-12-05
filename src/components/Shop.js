@@ -139,7 +139,6 @@ function Shop({ chosenHero,
             let newMoney = Math.floor(money - 250);
             setMoney(newMoney);
             let pickRandomItem = Math.floor(Math.random() * (copperTreasureArray.length - 1))
-            console.log(copperTreasureArray[pickRandomItem])
             let randomItem = copperTreasureArray[pickRandomItem]
             bagArray.push(randomItem)
             setRandomTreasure(randomItem)
@@ -521,6 +520,13 @@ function Shop({ chosenHero,
           showTreasureDiv={showTreasureDiv}
           setShowTreasureDiv={setShowTreasureDiv}
           randomTreasure={randomTreasure}
+          setRandomTreasure={setRandomTreasure}
+          potionsArray={potionsArray}
+          money={money}
+          setMoney={setMoney}
+          copperTreasureArray={copperTreasureArray}
+          silverTreasureArray={silverTreasureArray}
+          goldTreasureArray={goldTreasureArray}
         /> : null}
 
     </div >

@@ -62,7 +62,7 @@ function Player({ chosenHero, chosenQuest }) {
   const [showPotions, setShowPotions] = useState(false)
   const [showBag, setShowBag] = useState(false)
 
-  const [foundCopperTreasure, setFoundCopperTreasure] = useState(false)
+  const [foundCopperTreasure, setFoundCopperTreasure] = useState(true)
   const [foundSilverTreasure, setFoundSilverTreasure] = useState(false)
   const [foundGoldTreasure, setFoundGoldTreasure] = useState(false)
 
@@ -783,6 +783,10 @@ function Player({ chosenHero, chosenQuest }) {
         other2={other2}
         setOther2={setOther2}
         setEquipRunes={setEquipRunes}
+        money={money}
+        setMoney={setMoney}
+        setRandomTreasure={setRandomTreasure}
+        setShowTreasureDiv={setShowTreasureDiv}
       /> : null}
 
       {showTreasureDiv ?
@@ -790,6 +794,13 @@ function Player({ chosenHero, chosenQuest }) {
           showTreasureDiv={showTreasureDiv}
           setShowTreasureDiv={setShowTreasureDiv}
           randomTreasure={randomTreasure}
+          setRandomTreasure={setRandomTreasure}
+          potionsArray={potionsArray}
+          money={money}
+          setMoney={setMoney}
+          copperTreasureArray={copperTreasureArray}
+          silverTreasureArray={silverTreasureArray}
+          goldTreasureArray={goldTreasureArray}
         />
         : null}
       {showTeleport ? <Teleport
