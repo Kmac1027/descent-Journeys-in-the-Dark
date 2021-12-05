@@ -40,6 +40,19 @@ function TilesAndTokens({ chosenHero }) {
       <div>
         <img id='town' src={'images/map_tiles/town.png'} alt={'town'} />
       </div>
+      {/* doors */}
+      <div>
+        {/* horizontal */}
+        <img id='normal_door' src={'images/map_tiles/doors/door_normal.png'} alt={'door'} />
+        <img id='red_door' src={'images/map_tiles/doors/door_red.png'} alt={'door'} />
+        <img id='yellow_door' src={'images/map_tiles/doors/door_yellow.png'} alt={'door'} />
+        <img id='blue_door' src={'images/map_tiles/doors/door_blue.png'} alt={'door'} />
+        {/* vertical */}
+        <img id='normal_door_vert' src={'images/map_tiles/doors/door_normal_vert.png'} alt={'door'} />
+        <img id='red_door_vert' src={'images/map_tiles/doors/door_red_vert.png'} alt={'door'} />
+        <img id='yellow_door_vert' src={'images/map_tiles/doors/door_yellow_vert.png'} alt={'door'} />
+        <img id='blue_door_vert' src={'images/map_tiles/doors/door_blue_vert.png'} alt={'door'} />
+      </div>
 
     </div>
   );

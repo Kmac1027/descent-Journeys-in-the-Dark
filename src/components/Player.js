@@ -308,6 +308,9 @@ function Player({ chosenHero, chosenQuest }) {
   const [randomTreasure, setRandomTreasure] = useState({})
   const [pickedUpChest, setPickedUpChest] = useState()
   const [showTeleport, setShowTeleport] = useState(false)
+  const [showOpenVertDoorButton, setShowOpenVertDoorButton] = useState(false)
+  const [showOpenHorzDoorButton, setShowOpenHorzDoorButton] = useState(false)
+  const [openThisDoor, setOpenThisDoor] = useState()
 
   function pickUpPotion() {
     if (potionsArray.length >= 3) {
@@ -437,6 +440,15 @@ function Player({ chosenHero, chosenQuest }) {
     }
 
   }
+
+  function openVertDoor() {
+    delete chosenQuest.tokenPlacement.doors.vertical[openThisDoor[0]][openThisDoor[1]]
+  }
+  function openHorzDoor() {
+    // console.log(openThisDoor)
+    delete chosenQuest.tokenPlacement.doors.horizontal[openThisDoor[0]][openThisDoor[1]]
+  }
+
   let teleportArray = [chosenQuest.tokenPlacement.start_area,]
   const [port, setPort] = useState(teleportArray)
   useEffect(() => {
@@ -530,6 +542,41 @@ function Player({ chosenHero, chosenQuest }) {
           setTimeout(() => { alert('Glyph Activated! you gain 3 Conquest Tokens!') }, 200)
         }
       }
+
+
+      let doorHorz = chosenQuest.tokenPlacement.doors.horizontal
+      let doorVert = chosenQuest.tokenPlacement.doors.vertical
+      for (let doorType in doorVert) {
+        for (let door in doorVert[doorType]) {
+          if ((heroToken.x === doorVert[doorType][door].x && heroToken.y === doorVert[doorType][door].y + 50)
+            || (heroToken.x === doorVert[doorType][door].x && heroToken.y === doorVert[doorType][door].y + 100)
+            || (heroToken.x === doorVert[doorType][door].x + 50 && heroToken.y === doorVert[doorType][door].y + 50)
+            || (heroToken.x === doorVert[doorType][door].x + 50 && heroToken.y === doorVert[doorType][door].y + 100)
+          ) {
+            setShowOpenVertDoorButton(true)
+            setOpenThisDoor([doorType, door])
+            break;
+          } else {
+            setShowOpenVertDoorButton(false)
+          }
+        }
+      }
+      for (let doorType in doorHorz) {
+        for (let door in doorHorz[doorType]) {
+          if (
+            (heroToken.x === doorHorz[doorType][door].x + 50 && heroToken.y === doorHorz[doorType][door].y + 50)
+            || (heroToken.x === doorHorz[doorType][door].x + 100 && heroToken.y === doorHorz[doorType][door].y + 50)
+            || (heroToken.x === doorHorz[doorType][door].x + 50 && heroToken.y === doorHorz[doorType][door].y)
+            || (heroToken.x === doorHorz[doorType][door].x + 100 && heroToken.y === doorHorz[doorType][door].y)) {
+            console.log(showOpenHorzDoorButton)
+            setShowOpenHorzDoorButton(true)
+            setOpenThisDoor([doorType, door])
+            break;
+          } else {
+            setShowOpenHorzDoorButton(false)
+          }
+        }
+      }
     }
     window.addEventListener("keydown", keyPress);
     return () => {
@@ -562,6 +609,10 @@ function Player({ chosenHero, chosenQuest }) {
               onClick={pickUpPotion}>Pick Up Potion</button> : null}
             {showCTbutton || showSTbutton || showGTbutton ? <button height='100px' width='100px'
               onClick={() => openTreasureChest(treasureChestType)}>Open Treasure Chest</button> : null}
+            {showOpenVertDoorButton ? <button height='100px' width='100px'
+              onClick={() => openVertDoor()}>Open Door</button> : null}
+            {showOpenHorzDoorButton ? <button height='100px' width='100px'
+              onClick={() => openHorzDoor()}>Open Door</button> : null}
 
           </div>
 

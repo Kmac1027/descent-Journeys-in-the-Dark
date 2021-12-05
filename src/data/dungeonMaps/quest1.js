@@ -28,10 +28,24 @@ export const quest1 = {
       area: 'Start Area'
     },
     doors: {
-      normal: {},
-      yellow: {},
-      blue: {},
-      red: {}
+      horizontal: {
+        normal: {
+          1: { x: 550, y: 800, type: 'normal' },
+        },
+        yellow: {},
+        blue: {},
+        red: { 1: { x: 550, y: 400, type: 'red' } }
+      },
+      vertical: {
+        normal: {
+          1: { x: 100, y: 950, type: 'normal' },
+          2: { x: 750, y: 550, type: 'normal' },
+          3: { x: 800, y: 950, type: 'normal' },
+        },
+        yellow: {},
+        blue: {},
+        red: {}
+      }
     },
     rune_keys: {
       yellow: {},
@@ -1244,6 +1258,40 @@ export function quest1CollisionDetection(runLoopX, runLoopY) {
         disableMovment.upLeft = true
       }
     }
+    runLoop.x = heroToken.x;
+    runLoop.y = heroToken.y
+  }
+
+  //door collision detection
+  if (heroToken.x !== runLoopX || heroToken.y !== runLoopY) {
+    let doorHorz = quest1.tokenPlacement.doors.horizontal
+    let doorVert = quest1.tokenPlacement.doors.vertical
+
+    for (let doorType in doorVert) {
+      for (let door in doorVert[doorType]) {
+        if ((heroToken.x === doorVert[doorType][door].x && heroToken.y === doorVert[doorType][door].y + 50)
+          || (heroToken.x === doorVert[doorType][door].x && heroToken.y === doorVert[doorType][door].y + 100)) {
+          disableMovment.right = true;
+        }
+        if ((heroToken.x === doorVert[doorType][door].x + 50 && heroToken.y === doorVert[doorType][door].y + 50)
+          || (heroToken.x === doorVert[doorType][door].x + 50 && heroToken.y === doorVert[doorType][door].y + 100)) {
+          disableMovment.left = true;
+        }
+      }
+    }
+    for (let doorType in doorHorz) {
+      for (let door in doorHorz[doorType]) {
+        if ((heroToken.x === doorHorz[doorType][door].x + 50 && heroToken.y === doorHorz[doorType][door].y + 50)
+          || (heroToken.x === doorHorz[doorType][door].x + 100 && heroToken.y === doorHorz[doorType][door].y + 50)) {
+          disableMovment.up = true;
+        }
+        if ((heroToken.x === doorHorz[doorType][door].x + 50 && heroToken.y === doorHorz[doorType][door].y)
+          || (heroToken.x === doorHorz[doorType][door].x + 100 && heroToken.y === doorHorz[doorType][door].y)) {
+          disableMovment.down = true;
+        }
+      }
+    }
+
     runLoop.x = heroToken.x;
     runLoop.y = heroToken.y
   }

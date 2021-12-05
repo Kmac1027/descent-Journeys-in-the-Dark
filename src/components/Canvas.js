@@ -27,6 +27,14 @@ function Canvas({ chosenQuest, collisionDetection }) {
     let copperChestId = document.getElementById('copperChest');
     let goldChestId = document.getElementById('goldChest');
     let silverChestId = document.getElementById('silverChest');
+    let normalDoor = document.getElementById('normal_door');
+    let redDoor = document.getElementById('red_door');
+    let yellowDoor = document.getElementById('yellow_door');
+    let blueDoor = document.getElementById('blue_door');
+    let normalDoorVert = document.getElementById('normal_door_vert');
+    let redDoorVert = document.getElementById('red_door_vert');
+    let yellowDoorVert = document.getElementById('yellow_door_vert');
+    let blueDoorVert = document.getElementById('blue_door_vert');
 
     function drawTown() {
       ctx.drawImage(town, chosenQuest.town.x, chosenQuest.town.y, chosenQuest.town.h, chosenQuest.town.w);
@@ -35,62 +43,97 @@ function Canvas({ chosenQuest, collisionDetection }) {
       //floor tiles
       let tiles = chosenQuest.floor.floor_tiles;
       for (let tile in tiles) {
-        ctx.drawImage(mapTileTokenId, tiles[tile].x, tiles[tile].y, chosenQuest.floor.tile_size.height, chosenQuest.floor.tile_size.width);
+        ctx.drawImage(mapTileTokenId, tiles[tile].x, tiles[tile].y, chosenQuest.floor.tile_size.width, chosenQuest.floor.tile_size.height);
         ctx.strokeStyle = '#ffffff';
-        ctx.strokeRect(tiles[tile].x, tiles[tile].y, chosenQuest.floor.tile_size.height, chosenQuest.floor.tile_size.width);
+        ctx.strokeRect(tiles[tile].x, tiles[tile].y, chosenQuest.floor.tile_size.width, chosenQuest.floor.tile_size.height);
       }
       //glyphs
-      ctx.drawImage(startAreaGlyphId, chosenQuest.tokenPlacement.start_area.x, chosenQuest.tokenPlacement.start_area.y, chosenQuest.floor.tile_size.height, chosenQuest.floor.tile_size.width);
+      ctx.drawImage(startAreaGlyphId, chosenQuest.tokenPlacement.start_area.x, chosenQuest.tokenPlacement.start_area.y, chosenQuest.floor.tile_size.width, chosenQuest.floor.tile_size.height);
       ctx.strokeStyle = '#ffffff';
-      ctx.strokeRect(chosenQuest.tokenPlacement.start_area.x, chosenQuest.tokenPlacement.start_area.y, chosenQuest.floor.tile_size.height, chosenQuest.floor.tile_size.width);
+      ctx.strokeRect(chosenQuest.tokenPlacement.start_area.x, chosenQuest.tokenPlacement.start_area.y, chosenQuest.floor.tile_size.width, chosenQuest.floor.tile_size.height);
 
       let glyphs = chosenQuest.tokenPlacement.glyphs;
       for (let glyph in glyphs) {
-        ctx.drawImage(redGlyphId, glyphs[glyph].x, glyphs[glyph].y, chosenQuest.floor.tile_size.height, chosenQuest.floor.tile_size.width)
+        ctx.drawImage(redGlyphId, glyphs[glyph].x, glyphs[glyph].y, chosenQuest.floor.tile_size.width, chosenQuest.floor.tile_size.height)
         ctx.strokeStyle = 'red';
-        ctx.strokeRect(glyphs[glyph].x, glyphs[glyph].y, chosenQuest.floor.tile_size.height, chosenQuest.floor.tile_size.width);
+        ctx.strokeRect(glyphs[glyph].x, glyphs[glyph].y, chosenQuest.floor.tile_size.width, chosenQuest.floor.tile_size.height);
       }
 
       let activatedGlyphs = chosenQuest.tokenPlacement.activated_glyphs;
       for (let glyph in activatedGlyphs) {
-        ctx.drawImage(startAreaGlyphId, activatedGlyphs[glyph].x, activatedGlyphs[glyph].y, chosenQuest.floor.tile_size.height, chosenQuest.floor.tile_size.width)
+        ctx.drawImage(startAreaGlyphId, activatedGlyphs[glyph].x, activatedGlyphs[glyph].y, chosenQuest.floor.tile_size.width, chosenQuest.floor.tile_size.height)
         ctx.strokeStyle = '#ffffff';
-        ctx.strokeRect(activatedGlyphs[glyph].x, activatedGlyphs[glyph].y, chosenQuest.floor.tile_size.height, chosenQuest.floor.tile_size.width);
+        ctx.strokeRect(activatedGlyphs[glyph].x, activatedGlyphs[glyph].y, chosenQuest.floor.tile_size.width, chosenQuest.floor.tile_size.height);
       }
 
       // potions and items
       let hps = chosenQuest.tokenPlacement.items.health_potions
       let vps = chosenQuest.tokenPlacement.items.vitality_potions
       for (let hp in hps) {
-        ctx.drawImage(healthPotionId, hps[hp].x, hps[hp].y, chosenQuest.floor.tile_size.height, chosenQuest.floor.tile_size.width)
+        ctx.drawImage(healthPotionId, hps[hp].x, hps[hp].y, chosenQuest.floor.tile_size.width, chosenQuest.floor.tile_size.height)
         ctx.strokeStyle = '#ffffff';
-        ctx.strokeRect(hps[hp].x, hps[hp].y, chosenQuest.floor.tile_size.height, chosenQuest.floor.tile_size.width);
+        ctx.strokeRect(hps[hp].x, hps[hp].y, chosenQuest.floor.tile_size.width, chosenQuest.floor.tile_size.height);
       }
       for (let vp in vps) {
-        ctx.drawImage(vitalityPotionId, vps[vp].x, vps[vp].y, chosenQuest.floor.tile_size.height, chosenQuest.floor.tile_size.width)
+        ctx.drawImage(vitalityPotionId, vps[vp].x, vps[vp].y, chosenQuest.floor.tile_size.width, chosenQuest.floor.tile_size.height)
         ctx.strokeStyle = '#ffffff';
-        ctx.strokeRect(vps[vp].x, vps[vp].y, chosenQuest.floor.tile_size.height, chosenQuest.floor.tile_size.width);
+        ctx.strokeRect(vps[vp].x, vps[vp].y, chosenQuest.floor.tile_size.width, chosenQuest.floor.tile_size.height);
       }
       //treasurechests
       let copperChest = chosenQuest.tokenPlacement.treasure_chests.copper
       let silverChest = chosenQuest.tokenPlacement.treasure_chests.silver
       let goldChest = chosenQuest.tokenPlacement.treasure_chests.gold
       for (let chest in copperChest) {
-        ctx.drawImage(copperChestId, copperChest[chest].x, copperChest[chest].y, chosenQuest.floor.tile_size.height, chosenQuest.floor.tile_size.width)
+        ctx.drawImage(copperChestId, copperChest[chest].x, copperChest[chest].y, chosenQuest.floor.tile_size.width, chosenQuest.floor.tile_size.height)
         ctx.strokeStyle = '#b87333';
-        ctx.strokeRect(copperChest[chest].x, copperChest[chest].y, chosenQuest.floor.tile_size.height, chosenQuest.floor.tile_size.width);
+        ctx.strokeRect(copperChest[chest].x, copperChest[chest].y, chosenQuest.floor.tile_size.width, chosenQuest.floor.tile_size.height);
       }
       for (let chest in silverChest) {
-        ctx.drawImage(silverChestId, silverChest[chest].x, silverChest[chest].y, chosenQuest.floor.tile_size.height, chosenQuest.floor.tile_size.width)
+        ctx.drawImage(silverChestId, silverChest[chest].x, silverChest[chest].y, chosenQuest.floor.tile_size.width, chosenQuest.floor.tile_size.height)
         ctx.strokeStyle = '#c0c0c0';
-        ctx.strokeRect(silverChest[chest].x, silverChest[chest].y, chosenQuest.floor.tile_size.height, chosenQuest.floor.tile_size.width);
+        ctx.strokeRect(silverChest[chest].x, silverChest[chest].y, chosenQuest.floor.tile_size.width, chosenQuest.floor.tile_size.height);
       }
       for (let chest in goldChest) {
-        ctx.drawImage(goldChestId, goldChest[chest].x, goldChest[chest].y, chosenQuest.floor.tile_size.height, chosenQuest.floor.tile_size.width)
+        ctx.drawImage(goldChestId, goldChest[chest].x, goldChest[chest].y, chosenQuest.floor.tile_size.width, chosenQuest.floor.tile_size.height)
         ctx.strokeStyle = '#ffd700';
-        ctx.strokeRect(goldChest[chest].x, goldChest[chest].y, chosenQuest.floor.tile_size.height, chosenQuest.floor.tile_size.width);
+        ctx.strokeRect(goldChest[chest].x, goldChest[chest].y, chosenQuest.floor.tile_size.width, chosenQuest.floor.tile_size.height);
       }
 
+      let doors = chosenQuest.tokenPlacement.doors.horizontal.normal
+      let redDoors = chosenQuest.tokenPlacement.doors.horizontal.red
+      let yellowDoors = chosenQuest.tokenPlacement.doors.horizontal.yellow
+      let blueDoors = chosenQuest.tokenPlacement.doors.horizontal.blue
+
+      let vertDoors = chosenQuest.tokenPlacement.doors.vertical.normal
+      let vertRedDoors = chosenQuest.tokenPlacement.doors.vertical.red
+      let vertYellowDoors = chosenQuest.tokenPlacement.doors.vertical.yellow
+      let vertBlueDoors = chosenQuest.tokenPlacement.doors.vertical.blue
+      //horizontal doors
+      for (let door in doors) {
+        ctx.drawImage(normalDoor, doors[door].x, doors[door].y, chosenQuest.floor.tile_size.width * 4, chosenQuest.floor.tile_size.height * 2)
+      }
+      for (let door in redDoors) {
+        ctx.drawImage(redDoor, redDoors[door].x, redDoors[door].y, chosenQuest.floor.tile_size.width * 4, chosenQuest.floor.tile_size.height * 2)
+      }
+      for (let door in yellowDoors) {
+        ctx.drawImage(yellowDoor, yellowDoors[door].x, yellowDoors[door].y, chosenQuest.floor.tile_size.width * 4, chosenQuest.floor.tile_size.height * 2)
+      }
+      for (let door in blueDoors) {
+        ctx.drawImage(blueDoor, blueDoors[door].x, blueDoors[door].y, chosenQuest.floor.tile_size.width * 4, chosenQuest.floor.tile_size.height * 2)
+      }
+      //vertical doors
+      for (let door in vertDoors) {
+        ctx.drawImage(normalDoorVert, vertDoors[door].x, vertDoors[door].y, chosenQuest.floor.tile_size.width * 2, chosenQuest.floor.tile_size.height * 4)
+      }
+      for (let door in vertRedDoors) {
+        ctx.drawImage(redDoorVert, vertRedDoors[door].x, vertRedDoors[door].y, chosenQuest.floor.tile_size.width * 2, chosenQuest.floor.tile_size.height * 4)
+      }
+      for (let door in vertYellowDoors) {
+        ctx.drawImage(yellowDoorVert, vertYellowDoors[door].x, vertYellowDoors[door].y, chosenQuest.floor.tile_size.width * 2, chosenQuest.floor.tile_size.height * 4)
+      }
+      for (let door in vertBlueDoors) {
+        ctx.drawImage(blueDoorVert, vertBlueDoors[door].x, vertBlueDoors[door].y, chosenQuest.floor.tile_size.width * 2, chosenQuest.floor.tile_size.height * 4)
+      }
     }
 
 

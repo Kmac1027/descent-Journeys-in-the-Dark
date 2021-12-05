@@ -17,7 +17,7 @@ function App() {
 
 
   return (
-    <div className="App">
+    <div className="App" style={{ backgroundImage: `url("images/background.png")` }}>
       <header>
         <TilesAndTokens chosenHero={chosenHero} />
 
