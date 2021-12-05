@@ -197,6 +197,7 @@ function Bag({
   }, [bagCheck, sell])
 
   function treasureCache(item) {
+    let randomItem
     setMoney(money => money + item.gold)
     if (item.health_potion === true) {
       potionsArray.push(health_potion)
@@ -205,11 +206,21 @@ function Bag({
       potionsArray.push(vitality_potion)
     }
     bagArray.splice(bagArray.indexOf(item), 1)
-    let pickRandomItem = Math.floor(Math.random() * (copperTreasureArray.length - 1))
-    let randomItem = copperTreasureArray[pickRandomItem]
+    if (item.treasure === 'copper') {
+      let pickRandomItem = Math.floor(Math.random() * (copperTreasureArray.length - 1))
+      randomItem = copperTreasureArray[pickRandomItem]
+      copperTreasureArray.splice(copperTreasureArray.indexOf(randomItem), 1);
+    } else if (item.treasure === 'silver') {
+      let pickRandomItem = Math.floor(Math.random() * (silverTreasureArray.length - 1))
+      randomItem = silverTreasureArray[pickRandomItem]
+      silverTreasureArray.splice(silverTreasureArray.indexOf(randomItem), 1);
+    } else if (item.treasure === 'gold') {
+      let pickRandomItem = Math.floor(Math.random() * (goldTreasureArray.length - 1))
+      randomItem = goldTreasureArray[pickRandomItem]
+      goldTreasureArray.splice(goldTreasureArray.indexOf(randomItem), 1);
+    }
     bagArray.push(randomItem)
     setRandomTreasure(randomItem)
-    copperTreasureArray.splice(copperTreasureArray.indexOf(randomItem), 1);
     setShowTreasureDiv(true)
     if (bagCheck === true) {
       setBagCheck(false)
