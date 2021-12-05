@@ -1,0 +1,10 @@
+#teleport {
+  background-color: rgb(255, 255, 255);
+  position: absolute;
+  justify-content: center;
+  align-self: center;
+  color: black;
+  max-height: 600px;
+  max-width: 800px;
+  overflow-y: auto;
+}

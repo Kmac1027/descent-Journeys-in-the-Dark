@@ -24,7 +24,8 @@ export const quest1 = {
     },
     start_area: {
       x: 0,
-      y: 1050
+      y: 1050,
+      area: 'Start Area'
     },
     doors: {
       normal: {},
@@ -38,9 +39,9 @@ export const quest1 = {
       red: {}
     },
     glyphs: {
-      1: { x: 600, y: 1150 },
-      2: { x: 1000, y: 700 },
-      3: { x: 650, y: 450 },
+      1: { x: 600, y: 1150, area: 'Area 1' },
+      2: { x: 1000, y: 700, area: 'Area 2' },
+      3: { x: 650, y: 450, area: 'Area 3' },
     },
     activated_glyphs: {},
     treasure_chests: {

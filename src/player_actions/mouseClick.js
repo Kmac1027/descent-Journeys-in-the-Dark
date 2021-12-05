@@ -4,6 +4,8 @@ import { attackType, disableAttack } from './attack';
 import { heroToken } from './movement';
 
 
+export let returnGlyph = { x: null, y: null }
+
 export let selectedTarget = {
   id: null,
   name: null
@@ -34,6 +36,27 @@ export function targetClicked() {
   }
   console.log('X: ', correctedPosition.x, 'Y: ', correctedPosition.y)
 }
+
+// export function glyphTargetClicked() {
+
+//   for (let x = 0; x <= quest1.mapSize.width; x += 50) {
+//     if (mousePos.x > x) {
+//       correctedPosition.x = x;
+//     }
+//   }
+//   for (let y = 0; y <= quest1.mapSize.height; y += 50) {
+//     if (mousePos.y > y) {
+//       correctedPosition.y = y;
+//     }
+//   }
+//   for (let activeGlyph in quest1.tokenPlacement.activated_glyphs) {
+//     if (correctedPosition.x === quest1.tokenPlacement.activated_glyphs[activeGlyph].x
+//       && correctedPosition.y === quest1.tokenPlacement.activated_glyphs[activeGlyph].y) {
+//       returnGlyph.x = quest1.tokenPlacement.activated_glyphs[activeGlyph].x
+//       returnGlyph.y = quest1.tokenPlacement.activated_glyphs[activeGlyph].y
+//     }
+//   }
+// }
 
 export function attackTargetClicked() {
 

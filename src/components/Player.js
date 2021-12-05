@@ -11,6 +11,8 @@ import { copperTreasures } from '../data/items/copperTreasures';
 import DiceRoll from './Dice';
 import Potions, { potionsArray } from './Potions';
 import Bag, { bagArray } from './Bag'
+import Teleport from './Teleport';
+import Conditions from './Conditions';
 import RandomTreasure from './RandomTreasure'
 import { useState, useEffect } from 'react';
 import { heroData } from '../data/heroData.js';
@@ -111,7 +113,6 @@ function Player({ chosenHero, chosenQuest }) {
     } else if (attackActive === true) {
       canvasClick.removeEventListener('click', targetClicked)
       canvasClick.addEventListener('click', attackTargetClicked);
-
     }
   }, [attackActive]);
 
@@ -212,36 +213,36 @@ function Player({ chosenHero, chosenQuest }) {
   const [showReturnToTown, setShowReturnToTown] = useState(false)
   const [showShop, setShowShop] = useState(false);
 
-  useEffect(() => {
-    if (heroToken.x === chosenQuest.tokenPlacement.start_area.x && heroToken.y === chosenQuest.tokenPlacement.start_area.y) {
-      setShowReturnToTown(true)
-    } else {
-      setShowReturnToTown(false)
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (heroToken.x === chosenQuest.tokenPlacement.start_area.x && heroToken.y === chosenQuest.tokenPlacement.start_area.y) {
+  //     setShowReturnToTown(true)
+  //   } else {
+  //     setShowReturnToTown(false)
+  //   }
+  // }, [])
 
-  function returnToTown() {
-    if (heroToken.x === chosenQuest.town.x + 50 && heroToken.y === chosenQuest.town.y + 50) {
-      heroToken.x = chosenQuest.tokenPlacement.start_area.x
-      heroToken.y = chosenQuest.tokenPlacement.start_area.y
-      setShowReturnToTown(true)
-      disableMovment.up = false;
-      disableMovment.left = false;
-      disableMovment.right = false;
-      disableMovment.down = false;
-      disableMovment.downRight = false
-      disableMovment.upLeft = false;
-      disableMovment.upRight = false;
-      disableMovment.downLeft = false;
-    } else if (heroToken.x === chosenQuest.tokenPlacement.start_area.x && heroToken.y === chosenQuest.tokenPlacement.start_area.y) {
-      heroToken.x = chosenQuest.town.x + 50;
-      heroToken.y = chosenQuest.town.y + 50;
-      setShowReturnToTown(false)
-    } else {
-      alert('you are not at a glyph of teleportation')
-    }
+  // function returnToTown() {
+  //   if (heroToken.x === chosenQuest.town.x + 50 && heroToken.y === chosenQuest.town.y + 50) {
+  //     heroToken.x = chosenQuest.tokenPlacement.start_area.x
+  //     heroToken.y = chosenQuest.tokenPlacement.start_area.y
+  //     setShowReturnToTown(true)
+  //     disableMovment.up = false;
+  //     disableMovment.left = false;
+  //     disableMovment.right = false;
+  //     disableMovment.down = false;
+  //     disableMovment.downRight = false
+  //     disableMovment.upLeft = false;
+  //     disableMovment.upRight = false;
+  //     disableMovment.downLeft = false;
+  //   } else if (heroToken.x === chosenQuest.tokenPlacement.start_area.x && heroToken.y === chosenQuest.tokenPlacement.start_area.y) {
+  //     heroToken.x = chosenQuest.town.x + 50;
+  //     heroToken.y = chosenQuest.town.y + 50;
+  //     setShowReturnToTown(false)
+  //   } else {
+  //     alert('you are not at a glyph of teleportation')
+  //   }
 
-  }
+  // }
 
   function showShopItems() {
     if (showShop === false) {
@@ -306,6 +307,7 @@ function Player({ chosenHero, chosenQuest }) {
   const [showTreasureDiv, setShowTreasureDiv] = useState(false)
   const [randomTreasure, setRandomTreasure] = useState({})
   const [pickedUpChest, setPickedUpChest] = useState()
+  const [showTeleport, setShowTeleport] = useState(false)
 
   function pickUpPotion() {
     if (potionsArray.length >= 3) {
@@ -409,20 +411,57 @@ function Player({ chosenHero, chosenQuest }) {
     // setTreasureChestType()
   }
 
+  function returnToTown() {
+    if (heroToken.x === chosenQuest.town.x + 50 && heroToken.y === chosenQuest.town.y + 50) {
+      setShowTeleport(true)
+      // setShowReturnToTown(true)
+      // disableMovment.up = false;
+      // disableMovment.left = false;
+      // disableMovment.right = false;
+      // disableMovment.down = false;
+      // disableMovment.downRight = false
+      // disableMovment.upLeft = false;
+      // disableMovment.upRight = false;
+      // disableMovment.downLeft = false;
+
+    } else {
+      heroToken.x = chosenQuest.town.x + 50
+      heroToken.y = chosenQuest.town.y + 50
+      setShowReturnToTown(false)
+      setIsOnGlyph(true)
+      setShowCTButton(false)
+      setShowSTButton(false)
+      setShowGTButton(false)
+      setShowPickUpHPButton(false)
+      setShowPickUpVPButton(false)
+    }
+
+  }
+  let teleportArray = [chosenQuest.tokenPlacement.start_area,]
+  const [port, setPort] = useState(teleportArray)
   useEffect(() => {
     let hps = chosenQuest.tokenPlacement.items.health_potions
     let vps = chosenQuest.tokenPlacement.items.vitality_potions
     let glyphs = chosenQuest.tokenPlacement.glyphs
+    let activeGlyphs = chosenQuest.tokenPlacement.activated_glyphs
 
     const keyPress = event => {
-      if ((heroToken.x === chosenQuest.tokenPlacement.start_area.x &&
-        heroToken.y === chosenQuest.tokenPlacement.start_area.y)
-        || (heroToken.x === chosenQuest.town.x + 50 &&
-          heroToken.y === chosenQuest.town.y + 50)) {
-        setIsOnGlyph(true)
-      } else {
-        setIsOnGlyph(false)
+      for (let active in activeGlyphs) {
+        if (teleportArray.includes(activeGlyphs[active]) === false) {
+          teleportArray.push(activeGlyphs[active])
+        }
+
       }
+      setPort(teleportArray)
+      for (let i = 0; i < teleportArray.length; i++) {
+        if ((heroToken.x === teleportArray[i].x && heroToken.y === teleportArray[i].y) || (heroToken.x === chosenQuest.town.x + 50 && heroToken.y === chosenQuest.town.y + 50)) {
+          setIsOnGlyph(true)
+          break;
+        } else {
+          setIsOnGlyph(false)
+        }
+      }
+
 
       for (let hp in hps) {
         if (heroToken.x === hps[hp].x && heroToken.y === hps[hp].y) {
@@ -446,7 +485,6 @@ function Player({ chosenHero, chosenQuest }) {
           setShowPickUpVPButton(false)
         }
       }
-
       for (let box in copper) {
         let inRange = chestInRange(heroToken, copper[box])
         if (inRange === true) {
@@ -457,7 +495,6 @@ function Player({ chosenHero, chosenQuest }) {
           break;
         } else {
           setShowCTButton(false)
-
         }
       }
       for (let box in silver) {
@@ -469,7 +506,6 @@ function Player({ chosenHero, chosenQuest }) {
           break;
         } else {
           setShowSTButton(false)
-
         }
       }
       for (let box in gold) {
@@ -486,10 +522,12 @@ function Player({ chosenHero, chosenQuest }) {
       }
       for (let glyph in glyphs) {
         if (heroToken.x === glyphs[glyph].x && heroToken.y === glyphs[glyph].y) {
-          alert('Glyph Activated! you gain 3 Conquest Tokens!')
           setLevelConquestTokens(levelConquestTokens => levelConquestTokens + 3)
           chosenQuest.tokenPlacement.activated_glyphs[glyph] = glyphs[glyph]
+          teleportArray.push(glyphs[glyph])
           delete glyphs[glyph]
+          setIsOnGlyph(true)
+          setTimeout(() => { alert('Glyph Activated! you gain 3 Conquest Tokens!') }, 200)
         }
       }
     }
@@ -754,6 +792,14 @@ function Player({ chosenHero, chosenQuest }) {
           randomTreasure={randomTreasure}
         />
         : null}
+      {showTeleport ? <Teleport
+        port={port}
+        chosenQuest={chosenQuest}
+        herotoken={heroToken}
+        setShowTeleport={setShowTeleport}
+        setShowReturnToTown={setShowReturnToTown}
+      /> : null}
+      <Conditions />
     </div >
 
   );
