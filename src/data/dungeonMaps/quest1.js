@@ -50,7 +50,7 @@ export const quest1 = {
     rune_keys: {
       yellow: {},
       blue: {},
-      red: {}
+      red: { x: 850, y: 600 }
     },
     glyphs: {
       1: { x: 600, y: 1150, area: 'Area 1' },

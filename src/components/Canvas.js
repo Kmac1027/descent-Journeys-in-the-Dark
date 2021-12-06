@@ -35,6 +35,10 @@ function Canvas({ chosenQuest, collisionDetection }) {
     let redDoorVert = document.getElementById('red_door_vert');
     let yellowDoorVert = document.getElementById('yellow_door_vert');
     let blueDoorVert = document.getElementById('blue_door_vert');
+    let redRuneKeyId = document.getElementById('red_rune_key');
+    let yellowRuneKeyId = document.getElementById('yellow_rune_key');
+    let blueRuneKeyId = document.getElementById('blue_rune_key');
+
 
     function drawTown() {
       ctx.drawImage(town, chosenQuest.town.x, chosenQuest.town.y, chosenQuest.town.h, chosenQuest.town.w);
@@ -98,6 +102,11 @@ function Canvas({ chosenQuest, collisionDetection }) {
         ctx.strokeStyle = '#ffd700';
         ctx.strokeRect(goldChest[chest].x, goldChest[chest].y, chosenQuest.floor.tile_size.width, chosenQuest.floor.tile_size.height);
       }
+      if (chosenQuest.tokenPlacement.rune_keys.red) {
+        ctx.drawImage(redRuneKeyId, chosenQuest.tokenPlacement.rune_keys.red.x, chosenQuest.tokenPlacement.rune_keys.red.y, chosenQuest.floor.tile_size.width, chosenQuest.floor.tile_size.height)
+      }
+
+
 
       let doors = chosenQuest.tokenPlacement.doors.horizontal.normal
       let redDoors = chosenQuest.tokenPlacement.doors.horizontal.red

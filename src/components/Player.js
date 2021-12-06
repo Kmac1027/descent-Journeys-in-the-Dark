@@ -53,6 +53,9 @@ function Player({ chosenHero, chosenQuest }) {
   const [currentArmor, setCurrentArmor] = useState(heroData[chosenHero].base_armor);
   const [baseSpeed, setBaseSpeed] = useState(heroData[chosenHero].speed);
   const [speed, setSpeed] = useState(heroData[chosenHero].speed)
+  const [hasRedRuneKey, setHasRedRuneKey] = useState(false)
+  const [hasYellowRuneKey, setHasYellowRuneKey] = useState(false)
+  const [hasBlueRuneKey, setHasBlueRuneKey] = useState(false)
   const [condition, setCondition] = useState('Normal')
 
   // const [money, setMoney] = useState(chosenQuest.startingMoney.amount);
@@ -311,6 +314,9 @@ function Player({ chosenHero, chosenQuest }) {
   const [showOpenVertDoorButton, setShowOpenVertDoorButton] = useState(false)
   const [showOpenHorzDoorButton, setShowOpenHorzDoorButton] = useState(false)
   const [openThisDoor, setOpenThisDoor] = useState()
+  const [showPickUpKeyButton, setShowPickUpKeyButton] = useState(false)
+  const [pickUpThisKey, setPickUpThisKey] = useState()
+
 
   function pickUpPotion() {
     if (potionsArray.length >= 3) {
@@ -442,11 +448,92 @@ function Player({ chosenHero, chosenQuest }) {
   }
 
   function openVertDoor() {
-    delete chosenQuest.tokenPlacement.doors.vertical[openThisDoor[0]][openThisDoor[1]]
+    if (openThisDoor[0] === 'normal') {
+      delete chosenQuest.tokenPlacement.doors.vertical[openThisDoor[0]][openThisDoor[1]]
+      setShowOpenVertDoorButton(false)
+      disableMovment.right = false
+      disableMovment.left = false
+    } else if (openThisDoor[0] === 'red') {
+      if (hasRedRuneKey === true) {
+        delete chosenQuest.tokenPlacement.doors.horizontal[openThisDoor[0]][openThisDoor[1]]
+        setShowOpenHorzDoorButton(false)
+        disableMovment.right = false
+        disableMovment.left = false
+      } else {
+        alert('You do not have the correct Rune Key to open this door')
+      }
+    } else if (openThisDoor[0] === 'yellow') {
+      if (hasYellowRuneKey === true) {
+        delete chosenQuest.tokenPlacement.doors.horizontal[openThisDoor[0]][openThisDoor[1]]
+        setShowOpenHorzDoorButton(false)
+        disableMovment.right = false
+        disableMovment.left = false
+      } else {
+        alert('You do not have the correct Rune Key to open this door')
+      }
+    } else if (openThisDoor[0] === 'blue') {
+      if (hasBlueRuneKey === true) {
+        delete chosenQuest.tokenPlacement.doors.horizontal[openThisDoor[0]][openThisDoor[1]]
+        setShowOpenHorzDoorButton(false)
+        disableMovment.right = false
+        disableMovment.left = false
+      } else {
+        alert('You do not have the correct Rune Key to open this door')
+      }
+    }
   }
+
   function openHorzDoor() {
-    // console.log(openThisDoor)
-    delete chosenQuest.tokenPlacement.doors.horizontal[openThisDoor[0]][openThisDoor[1]]
+    // console.log(openThisDoor[0])
+    if (openThisDoor[0] === 'normal') {
+      delete chosenQuest.tokenPlacement.doors.horizontal[openThisDoor[0]][openThisDoor[1]]
+      setShowOpenHorzDoorButton(false)
+      disableMovment.up = false
+      disableMovment.down = false
+    } else if (openThisDoor[0] === 'red') {
+      console.log('Red Door')
+      console.log(hasRedRuneKey)
+      if (hasRedRuneKey === true) {
+        delete chosenQuest.tokenPlacement.doors.horizontal[openThisDoor[0]][openThisDoor[1]]
+        setShowOpenHorzDoorButton(false)
+        disableMovment.up = false
+        disableMovment.down = false
+      } else {
+        alert('You do not have the correct Rune Key to open this door')
+      }
+    } else if (openThisDoor[0] === 'yellow') {
+      if (hasYellowRuneKey === true) {
+        delete chosenQuest.tokenPlacement.doors.horizontal[openThisDoor[0]][openThisDoor[1]]
+        setShowOpenHorzDoorButton(false)
+        disableMovment.up = false
+        disableMovment.down = false
+      } else {
+        alert('You do not have the correct Rune Key to open this door')
+      }
+    } else if (openThisDoor[0] === 'blue') {
+      if (hasBlueRuneKey === true) {
+        delete chosenQuest.tokenPlacement.doors.horizontal[openThisDoor[0]][openThisDoor[1]]
+        setShowOpenHorzDoorButton(false)
+        disableMovment.up = false
+        disableMovment.down = false
+      } else {
+        alert('You do not have the correct Rune Key to open this door')
+      }
+    }
+  }
+
+  function pickUpRuneKey() {
+    console.log(pickUpThisKey)
+    if (pickUpThisKey === 'red') {
+      setHasRedRuneKey(true)
+      delete chosenQuest.tokenPlacement.rune_keys.red
+    } else if (pickUpThisKey === 'yellow') {
+      setHasYellowRuneKey(true)
+      delete chosenQuest.tokenPlacement.rune_keys.yellow
+    } else if (pickUpThisKey === 'blue') {
+      setHasBlueRuneKey(true)
+      delete chosenQuest.tokenPlacement.rune_keys.blue
+    }
   }
 
   let teleportArray = [chosenQuest.tokenPlacement.start_area,]
@@ -456,13 +543,14 @@ function Player({ chosenHero, chosenQuest }) {
     let vps = chosenQuest.tokenPlacement.items.vitality_potions
     let glyphs = chosenQuest.tokenPlacement.glyphs
     let activeGlyphs = chosenQuest.tokenPlacement.activated_glyphs
+    let doorHorz = chosenQuest.tokenPlacement.doors.horizontal
+    let doorVert = chosenQuest.tokenPlacement.doors.vertical
 
     const keyPress = event => {
       for (let active in activeGlyphs) {
         if (teleportArray.includes(activeGlyphs[active]) === false) {
           teleportArray.push(activeGlyphs[active])
         }
-
       }
       setPort(teleportArray)
       for (let i = 0; i < teleportArray.length; i++) {
@@ -473,8 +561,6 @@ function Player({ chosenHero, chosenQuest }) {
           setIsOnGlyph(false)
         }
       }
-
-
       for (let hp in hps) {
         if (heroToken.x === hps[hp].x && heroToken.y === hps[hp].y) {
           setShowPickUpHPButton(true)
@@ -486,7 +572,6 @@ function Player({ chosenHero, chosenQuest }) {
           setShowPickUpHPButton(false)
         }
       }
-
       for (let vp in vps) {
         if (heroToken.x === vps[vp].x && heroToken.y === vps[vp].y) {
           setShowPickUpVPButton(true)
@@ -529,7 +614,6 @@ function Player({ chosenHero, chosenQuest }) {
           break;
         } else {
           setShowGTButton(false)
-
         }
       }
       for (let glyph in glyphs) {
@@ -542,10 +626,7 @@ function Player({ chosenHero, chosenQuest }) {
           setTimeout(() => { alert('Glyph Activated! you gain 3 Conquest Tokens!') }, 200)
         }
       }
-
-
-      let doorHorz = chosenQuest.tokenPlacement.doors.horizontal
-      let doorVert = chosenQuest.tokenPlacement.doors.vertical
+      outerLoop:
       for (let doorType in doorVert) {
         for (let door in doorVert[doorType]) {
           if ((heroToken.x === doorVert[doorType][door].x && heroToken.y === doorVert[doorType][door].y + 50)
@@ -555,26 +636,36 @@ function Player({ chosenHero, chosenQuest }) {
           ) {
             setShowOpenVertDoorButton(true)
             setOpenThisDoor([doorType, door])
-            break;
+            break outerLoop;
           } else {
             setShowOpenVertDoorButton(false)
           }
         }
       }
+      outerLoop:
       for (let doorType in doorHorz) {
         for (let door in doorHorz[doorType]) {
-          if (
-            (heroToken.x === doorHorz[doorType][door].x + 50 && heroToken.y === doorHorz[doorType][door].y + 50)
+          if ((heroToken.x === doorHorz[doorType][door].x + 50 && heroToken.y === doorHorz[doorType][door].y + 50)
             || (heroToken.x === doorHorz[doorType][door].x + 100 && heroToken.y === doorHorz[doorType][door].y + 50)
             || (heroToken.x === doorHorz[doorType][door].x + 50 && heroToken.y === doorHorz[doorType][door].y)
-            || (heroToken.x === doorHorz[doorType][door].x + 100 && heroToken.y === doorHorz[doorType][door].y)) {
-            console.log(showOpenHorzDoorButton)
+            || (heroToken.x === doorHorz[doorType][door].x + 100 && heroToken.y === doorHorz[doorType][door].y)
+          ) {
             setShowOpenHorzDoorButton(true)
             setOpenThisDoor([doorType, door])
-            break;
+            break outerLoop;
           } else {
             setShowOpenHorzDoorButton(false)
           }
+        }
+      }
+      let runeKeys = chosenQuest.tokenPlacement.rune_keys
+      for (let key in runeKeys) {
+        if (heroToken.x === runeKeys[key].x && heroToken.y === runeKeys[key].y) {
+          setShowPickUpKeyButton(true)
+          setPickUpThisKey(key)
+          break;
+        } else {
+          setShowPickUpKeyButton(false)
         }
       }
     }
@@ -592,7 +683,6 @@ function Player({ chosenHero, chosenQuest }) {
           <p>Name: {heroData[chosenHero].name}</p>
           <p>Gold: {money} </p>
           <p>Conquest Tokens: {levelConquestTokens}</p>
-
           <div>
             {showReturnToTown ?
               <div>
@@ -613,6 +703,8 @@ function Player({ chosenHero, chosenQuest }) {
               onClick={() => openVertDoor()}>Open Door</button> : null}
             {showOpenHorzDoorButton ? <button height='100px' width='100px'
               onClick={() => openHorzDoor()}>Open Door</button> : null}
+            {showPickUpKeyButton ? <button height='100px' width='100px'
+              onClick={() => pickUpRuneKey()}>Pick up Rune Key</button> : null}
 
           </div>
 
@@ -838,6 +930,9 @@ function Player({ chosenHero, chosenQuest }) {
         setMoney={setMoney}
         setRandomTreasure={setRandomTreasure}
         setShowTreasureDiv={setShowTreasureDiv}
+        hasRedRuneKey={hasRedRuneKey}
+        hasYellowRuneKey={hasYellowRuneKey}
+        hasBlueRuneKey={hasBlueRuneKey}
       /> : null}
 
       {showTreasureDiv ?

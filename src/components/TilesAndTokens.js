@@ -53,7 +53,12 @@ function TilesAndTokens({ chosenHero }) {
         <img id='yellow_door_vert' src={'images/map_tiles/doors/door_yellow_vert.png'} alt={'door'} />
         <img id='blue_door_vert' src={'images/map_tiles/doors/door_blue_vert.png'} alt={'door'} />
       </div>
-
+      <div>
+        {/* rune keys */}
+        <img id='red_rune_key' src={'images/map_tiles/item_icons/red_rune.png'} alt={'Red Rune Key'} />
+        <img id='yellow_rune_key' src={'images/map_tiles/item_icons/yellow_rune.png'} alt={'Yellow Rune Key'} />
+        <img id='blue_rune_key' src={'images/map_tiles/item_icons/blue_rune.png'} alt={'Blue Rune Key'} />
+      </div>
     </div>
   );
 }

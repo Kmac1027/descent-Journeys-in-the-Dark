@@ -12,6 +12,7 @@ import {
 
 export let bagArray = [];
 
+
 function Bag({
   showBag,
   setShowBag,
@@ -32,7 +33,10 @@ function Bag({
   money,
   setMoney,
   setShowTreasureDiv,
-  setRandomTreasure
+  setRandomTreasure,
+  hasRedRuneKey,
+  hasYellowRuneKey,
+  hasBlueRuneKey,
 }) {
 
   const [bag, setBag] = useState(bagArray);
@@ -274,7 +278,10 @@ function Bag({
 
       <div style={{ display: 'flex', flexdirection: 'row' }}>
         {bag.map((item, i) =>
-          item.type !== 'potion' && item.type !== 'treasure_cache' ?
+          item.type !== 'potion'
+            && item.type !== 'treasure_cache'
+            && item.type !== 'rune_key'
+            ?
             <div key={i} id={i} style={{ padding: '10px' }}>
               <input className='card' type='image' src={item.img_path} alt={item.name}
                 onClick={() => swap(item)}></input>
@@ -286,7 +293,7 @@ function Bag({
               {discardButton ? <button onClick={() => { discardItem(item) }}>Discard Item</button> : null}
             </div>
             :
-            item.type !== 'treasure_cache' ?
+            item.type === 'potion' ?
               <div key={i} id={i} style={{ padding: '10px' }}>
                 <input height='50px' width='50px' type='image' src={item.img_path} alt={item.name}
                   onClick={() => addPotionToPotionBag(item)}
@@ -301,18 +308,23 @@ function Bag({
                 <input className='card' type='image' src={item.img_path} alt={item.name}
                   onClick={() => treasureCache(item)}></input>
               </div>
-
         )}
       </div>
-      {/* {swapScreen ? <SwapScreen
-        setSwapScreen={setSwapScreen}
-        weapon1={weapon1}
-        setWeapon1={setWeapon1}
-        weapon2={weapon2}
-        setWeapon2={setWeapon2}
-      /> : null} */}
+      <br />
       {discardButton ? <button onClick={discardItemButton}>Keep Items</button> :
         <button onClick={discardItemButton}>Discard an Item</button>}
+      <br />
+      <div>
+        <h4>Rune Keys</h4>
+      </div>
+      <div id='runeKeys' style={{ display: 'flex', flexdirection: 'row' }}>
+        {hasRedRuneKey ? <img src='images/map_tiles/item_icons/red_rune.png' alt='Red Rune Key' />
+          : <img src='images/map_tiles/item_icons/inactive_rune.png' alt='No Rune' />}
+        {hasYellowRuneKey ? <img src='images/map_tiles/item_icons/yellow_rune.png' alt='Yellow Rune Key' />
+          : <img src='images/map_tiles/item_icons/inactive_rune.png' alt='No Rune' />}
+        {hasBlueRuneKey ? <img src='images/map_tiles/item_icons/blue_rune.png' alt='Blue Rune Key' />
+          : <img src='images/map_tiles/item_icons/inactive_rune.png' alt='No Rune' />}
+      </div>
     </div>
   );
 }
