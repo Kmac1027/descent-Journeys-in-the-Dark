@@ -38,6 +38,11 @@ function Canvas({ chosenQuest, collisionDetection }) {
     let redRuneKeyId = document.getElementById('red_rune_key');
     let yellowRuneKeyId = document.getElementById('yellow_rune_key');
     let blueRuneKeyId = document.getElementById('blue_rune_key');
+    let goldPileId = document.getElementById('gold_pile');
+    let rubbleId = document.getElementById('rubble');
+    let pitId = document.getElementById('pit');
+    let waterId = document.getElementById('water');
+
 
 
     function drawTown() {
@@ -51,6 +56,20 @@ function Canvas({ chosenQuest, collisionDetection }) {
         ctx.strokeStyle = '#ffffff';
         ctx.strokeRect(tiles[tile].x, tiles[tile].y, chosenQuest.floor.tile_size.width, chosenQuest.floor.tile_size.height);
       }
+      //Obstacles
+      let rubble = chosenQuest.tokenPlacement.obstacles.rubble
+      let pits = chosenQuest.tokenPlacement.obstacles.pits
+      let water = chosenQuest.tokenPlacement.obstacles.water
+      for (let rock in rubble) {
+        ctx.drawImage(rubbleId, rubble[rock].x, rubble[rock].y, chosenQuest.floor.tile_size.width, chosenQuest.floor.tile_size.height);
+      }
+      for (let pit in pits) {
+        ctx.drawImage(pitId, pits[pit].x, pits[pit].y, chosenQuest.floor.tile_size.width, chosenQuest.floor.tile_size.height);
+      }
+      for (let pool in water) {
+        ctx.drawImage(waterId, water[pool].x, water[pool].y, chosenQuest.floor.tile_size.width, chosenQuest.floor.tile_size.height);
+      }
+
       //glyphs
       ctx.drawImage(startAreaGlyphId, chosenQuest.tokenPlacement.start_area.x, chosenQuest.tokenPlacement.start_area.y, chosenQuest.floor.tile_size.width, chosenQuest.floor.tile_size.height);
       ctx.strokeStyle = '#ffffff';
@@ -102,9 +121,22 @@ function Canvas({ chosenQuest, collisionDetection }) {
         ctx.strokeStyle = '#ffd700';
         ctx.strokeRect(goldChest[chest].x, goldChest[chest].y, chosenQuest.floor.tile_size.width, chosenQuest.floor.tile_size.height);
       }
+
+      let goldPile = chosenQuest.tokenPlacement.gold_pile
+      for (let pile in goldPile) {
+        ctx.drawImage(goldPileId, goldPile[pile].x, goldPile[pile].y, chosenQuest.floor.tile_size.width, chosenQuest.floor.tile_size.height)
+      }
+
       if (chosenQuest.tokenPlacement.rune_keys.red) {
         ctx.drawImage(redRuneKeyId, chosenQuest.tokenPlacement.rune_keys.red.x, chosenQuest.tokenPlacement.rune_keys.red.y, chosenQuest.floor.tile_size.width, chosenQuest.floor.tile_size.height)
       }
+      if (chosenQuest.tokenPlacement.rune_keys.yellow) {
+        ctx.drawImage(yellowRuneKeyId, chosenQuest.tokenPlacement.rune_keys.yellow.x, chosenQuest.tokenPlacement.rune_keys.yellow.y, chosenQuest.floor.tile_size.width, chosenQuest.floor.tile_size.height)
+      }
+      if (chosenQuest.tokenPlacement.rune_keys.blue) {
+        ctx.drawImage(blueRuneKeyId, chosenQuest.tokenPlacement.rune_keys.blue.x, chosenQuest.tokenPlacement.rune_keys.blue.y, chosenQuest.floor.tile_size.width, chosenQuest.floor.tile_size.height)
+      }
+
 
 
 

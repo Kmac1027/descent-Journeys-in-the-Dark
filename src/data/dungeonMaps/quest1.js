@@ -19,8 +19,20 @@ export const quest1 = {
     clue_token: {},
     obstacles: {
       water: {},
-      rubble: {},
-      pit: {}
+      rubble: {
+        1: { x: 250, y: 1000 },
+        2: { x: 300, y: 1000 },
+        3: { x: 650, y: 650 },
+        4: { x: 600, y: 650 },
+        5: { x: 550, y: 650 },
+      },
+      pits: {
+        1: { x: 300, y: 1050 },
+        2: { x: 550, y: 250 },
+        3: { x: 600, y: 250 },
+        4: { x: 650, y: 250 },
+        5: { x: 700, y: 250 },
+      }
     },
     start_area: {
       x: 0,
@@ -83,7 +95,12 @@ export const quest1 = {
         3: { x: 800, y: 150 },
         4: { x: 450, y: 200 },
       },
-      gold_pile: {}
+    },
+    gold_pile: {
+      1: { x: 300, y: 800 },
+      2: { x: 850, y: 1100 },
+      3: { x: 850, y: 700 },
+      4: { x: 300, y: 650 },
     },
     stairs: {},
     marker: {
@@ -1223,7 +1240,74 @@ export function quest1CollisionDetection(runLoopX, runLoopY) {
 
 
   //obstacle collision detection
+  if (heroToken.x !== runLoopX || heroToken.y !== runLoopY) {
+    let rubble = quest1.tokenPlacement.obstacles.rubble
+    // console.log('for loop ran')
+    for (let rock in rubble) {
+      if (heroToken.x - 50 === rubble[rock].x && heroToken.y === rubble[rock].y) {
+        disableMovment.left = true;
+      }
+      else if (heroToken.x + 50 === rubble[rock].x && heroToken.y === rubble[rock].y) {
+        disableMovment.right = true;
+      }
+      else if ((heroToken.y - 50) === rubble[rock].y && heroToken.x === rubble[rock].x) {
+        disableMovment.up = true;
+      }
+      else if ((heroToken.y + 50) === rubble[rock].y && heroToken.x === rubble[rock].x) {
+        disableMovment.down = true;
 
+      }
+      else if (heroToken.x + 50 === rubble[rock].x && heroToken.y + 50 === rubble[rock].y) {
+        disableMovment.downRight = true
+      }
+      else if (heroToken.x + 50 === rubble[rock].x && heroToken.y - 50 === rubble[rock].y) {
+        disableMovment.upRight = true
+
+      }
+      else if (heroToken.x - 50 === rubble[rock].x && heroToken.y + 50 === rubble[rock].y) {
+        disableMovment.downLeft = true
+      }
+      else if (heroToken.x - 50 === rubble[rock].x && heroToken.y - 50 === rubble[rock].y) {
+        disableMovment.upLeft = true
+      }
+    }
+    runLoop.x = heroToken.x;
+    runLoop.y = heroToken.y
+  }
+  if (heroToken.x !== runLoopX || heroToken.y !== runLoopY) {
+    let water = quest1.tokenPlacement.obstacles.water
+    // console.log('for loop ran')
+    for (let pool in water) {
+      if (heroToken.x - 50 === water[pool].x && heroToken.y === water[pool].y) {
+        disableMovment.left = true;
+      }
+      else if (heroToken.x + 50 === water[pool].x && heroToken.y === water[pool].y) {
+        disableMovment.right = true;
+      }
+      else if ((heroToken.y - 50) === water[pool].y && heroToken.x === water[pool].x) {
+        disableMovment.up = true;
+      }
+      else if ((heroToken.y + 50) === water[pool].y && heroToken.x === water[pool].x) {
+        disableMovment.down = true;
+
+      }
+      else if (heroToken.x + 50 === water[pool].x && heroToken.y + 50 === water[pool].y) {
+        disableMovment.downRight = true
+      }
+      else if (heroToken.x + 50 === water[pool].x && heroToken.y - 50 === water[pool].y) {
+        disableMovment.upRight = true
+
+      }
+      else if (heroToken.x - 50 === water[pool].x && heroToken.y + 50 === water[pool].y) {
+        disableMovment.downLeft = true
+      }
+      else if (heroToken.x - 50 === water[pool].x && heroToken.y - 50 === water[pool].y) {
+        disableMovment.upLeft = true
+      }
+    }
+    runLoop.x = heroToken.x;
+    runLoop.y = heroToken.y
+  }
 
 
   //monsters collision detection

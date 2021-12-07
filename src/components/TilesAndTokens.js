@@ -20,6 +20,9 @@ function TilesAndTokens({ chosenHero }) {
       <div>
         <img id='mapTileToken' src={'images/map_tiles/floors/corridor_2x2.png'} alt={'map tile'} />
         <img id='marker' src={'images/map_tiles/marker.png'} alt={'target marker'} />
+        <img id='rubble' src={'images/map_tiles/floors/rubble_1x1.png'} alt={'Rubble'} />
+        <img id='pit' src={'images/map_tiles/floors/pit_1x1.png'} alt={'Pit'} />
+        <img id='water' src={'images/map_tiles/floors/water_1x1.png'} alt={'Water'} />
       </div >
       <div>
         {/* monster tokens */}
@@ -58,6 +61,10 @@ function TilesAndTokens({ chosenHero }) {
         <img id='red_rune_key' src={'images/map_tiles/item_icons/red_rune.png'} alt={'Red Rune Key'} />
         <img id='yellow_rune_key' src={'images/map_tiles/item_icons/yellow_rune.png'} alt={'Yellow Rune Key'} />
         <img id='blue_rune_key' src={'images/map_tiles/item_icons/blue_rune.png'} alt={'Blue Rune Key'} />
+      </div>
+      <div>
+        {/* gold pile*/}
+        <img id='gold_pile' src={'images/map_tiles/item_icons/gold_pile.png'} alt={'Gold Pile'} />
       </div>
     </div>
   );

@@ -1,0 +1,10 @@
+#jumpScreen {
+  background-color: rgb(32, 109, 6);
+  position: absolute;
+  justify-content: space-around;
+  align-self: center;
+  color: black;
+  max-height: 800px;
+  max-width: 900px;
+  overflow-y: auto;
+}

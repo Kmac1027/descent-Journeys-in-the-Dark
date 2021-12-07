@@ -14,6 +14,7 @@ import Bag, { bagArray } from './Bag'
 import Teleport from './Teleport';
 import Conditions from './Conditions';
 import RandomTreasure from './RandomTreasure'
+import JumpScreen from './JumpScreen'
 import { useState, useEffect } from 'react';
 import { heroData } from '../data/heroData.js';
 // import { monsterData } from '../data/monsterData.js';
@@ -24,7 +25,7 @@ import { attack, attackType, } from '../player_actions/attack';
 import { targetClicked, mousePos, correctedPosition, attackTargetClicked, selectedTarget } from '../player_actions/mouseClick';
 
 
-function chestInRange(playerPos, chest) {
+function inRange(playerPos, chest) {
   if ((playerPos.x === chest.x && playerPos.y === chest.y) ||
     (playerPos.x - 50 === chest.x && playerPos.y === chest.y) ||
     (playerPos.x + 50 === chest.x && playerPos.y === chest.y) ||
@@ -316,6 +317,10 @@ function Player({ chosenHero, chosenQuest }) {
   const [openThisDoor, setOpenThisDoor] = useState()
   const [showPickUpKeyButton, setShowPickUpKeyButton] = useState(false)
   const [pickUpThisKey, setPickUpThisKey] = useState()
+  const [showPickUpGoldPileButton, setShowPickUpGoldPileButton] = useState(false)
+  const [pickUpThisGoldPile, setPickUpThisGoldPile] = useState()
+  const [showJumpScreenButton, setShowJumpScreenButton] = useState(false)
+  const [showJumpScreen, setShowJumpScreen] = useState(false)
 
 
   function pickUpPotion() {
@@ -523,7 +528,7 @@ function Player({ chosenHero, chosenQuest }) {
   }
 
   function pickUpRuneKey() {
-    console.log(pickUpThisKey)
+    // console.log(pickUpThisKey)
     if (pickUpThisKey === 'red') {
       setHasRedRuneKey(true)
       delete chosenQuest.tokenPlacement.rune_keys.red
@@ -535,6 +540,19 @@ function Player({ chosenHero, chosenQuest }) {
       delete chosenQuest.tokenPlacement.rune_keys.blue
     }
   }
+
+  function pickUpGoldPile() {
+    alert('YOU FOUND 100 GOLD')
+    setMoney(money => money + 100)
+    delete chosenQuest.tokenPlacement.gold_pile[pickUpThisGoldPile]
+    setShowPickUpGoldPileButton(false)
+  }
+
+  function jumpScreen() {
+    setShowJumpScreen(true)
+  }
+
+
 
   let teleportArray = [chosenQuest.tokenPlacement.start_area,]
   const [port, setPort] = useState(teleportArray)
@@ -583,8 +601,8 @@ function Player({ chosenHero, chosenQuest }) {
         }
       }
       for (let box in copper) {
-        let inRange = chestInRange(heroToken, copper[box])
-        if (inRange === true) {
+        let chestInRange = inRange(heroToken, copper[box])
+        if (chestInRange === true) {
           setShowCTButton(true)
           setTreasureChestType('copper')
           setPickedUpChest(box)
@@ -595,8 +613,8 @@ function Player({ chosenHero, chosenQuest }) {
         }
       }
       for (let box in silver) {
-        let inRange = chestInRange(heroToken, silver[box])
-        if (inRange === true) {
+        let chestInRange = inRange(heroToken, silver[box])
+        if (chestInRange === true) {
           setShowSTButton(true)
           setTreasureChestType('silver')
           setPickedUpChest(box)
@@ -606,8 +624,8 @@ function Player({ chosenHero, chosenQuest }) {
         }
       }
       for (let box in gold) {
-        let inRange = chestInRange(heroToken, gold[box])
-        if (inRange === true) {
+        let chestInRange = inRange(heroToken, gold[box])
+        if (chestInRange === true) {
           setShowGTButton(true)
           setTreasureChestType('gold')
           setPickedUpChest(box)
@@ -668,6 +686,58 @@ function Player({ chosenHero, chosenQuest }) {
           setShowPickUpKeyButton(false)
         }
       }
+
+      let goldPile = chosenQuest.tokenPlacement.gold_pile
+      for (let pile in goldPile) {
+        if (heroToken.x === goldPile[pile].x && heroToken.y === goldPile[pile].y) {
+          setShowPickUpGoldPileButton(true)
+          setPickUpThisGoldPile(pile)
+          break;
+        } else {
+          setShowPickUpGoldPileButton(false)
+        }
+      }
+
+      let pits = chosenQuest.tokenPlacement.obstacles.pits
+
+      for (let pit in pits) {
+        let nextToPit = inRange(heroToken, pits[pit])
+        if (nextToPit === true) {
+          setShowJumpScreenButton(true)
+          break;
+        }
+        else if (heroToken.x === pits[pit].x && heroToken.y === pits[pit].y) {
+          setShowJumpScreenButton(false)
+          disableMovment.up = true;
+          disableMovment.left = true;
+          disableMovment.right = true;
+          disableMovment.down = true;
+          disableMovment.downRight = true
+          disableMovment.upLeft = true;
+          disableMovment.upRight = true;
+          disableMovment.downLeft = true;
+          setCurrentHealth(currentHealth => currentHealth - 1)
+          heroToken.w = 30
+          heroToken.h = 30
+          setTimeout(() => { alert('You have fallen into a pit and take 1 wound') }, 200)
+          setTimeout(() => {
+            disableMovment.up = false;
+            disableMovment.left = false;
+            disableMovment.right = false;
+            disableMovment.down = false;
+            disableMovment.downRight = false
+            disableMovment.upLeft = false;
+            disableMovment.upRight = false;
+            disableMovment.downLeft = false;
+          }, 300)
+          break;
+        }
+        else {
+          heroToken.w = 50
+          heroToken.h = 50
+          setShowJumpScreenButton(false)
+        }
+      }
     }
     window.addEventListener("keydown", keyPress);
     return () => {
@@ -705,6 +775,10 @@ function Player({ chosenHero, chosenQuest }) {
               onClick={() => openHorzDoor()}>Open Door</button> : null}
             {showPickUpKeyButton ? <button height='100px' width='100px'
               onClick={() => pickUpRuneKey()}>Pick up Rune Key</button> : null}
+            {showPickUpGoldPileButton ? <button height='100px' width='100px'
+              onClick={() => pickUpGoldPile()}>Pick up Gold Pile</button> : null}
+            {showJumpScreenButton ? <button height='100px' width='100px'
+              onClick={() => jumpScreen()}>Jump</button> : null}
 
           </div>
 
@@ -949,13 +1023,19 @@ function Player({ chosenHero, chosenQuest }) {
           goldTreasureArray={goldTreasureArray}
         />
         : null}
-      {showTeleport ? <Teleport
-        port={port}
-        chosenQuest={chosenQuest}
-        herotoken={heroToken}
-        setShowTeleport={setShowTeleport}
-        setShowReturnToTown={setShowReturnToTown}
-      /> : null}
+      {showTeleport ?
+        <Teleport
+          port={port}
+          chosenQuest={chosenQuest}
+          herotoken={heroToken}
+          setShowTeleport={setShowTeleport}
+          setShowReturnToTown={setShowReturnToTown}
+        /> : null}
+      {showJumpScreen ?
+        <JumpScreen
+          heroToken={heroToken}
+          setShowJumpScreen={setShowJumpScreen}
+        /> : null}
       <Conditions />
     </div >
 
