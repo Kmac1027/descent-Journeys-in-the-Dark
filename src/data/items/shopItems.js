@@ -268,6 +268,7 @@ export const shopItemData =
     special_abilities: {
       speedReduce: 4,
       equipRunes: false,
+      immune: false,
       text: 'your base speed is reduced to 4. You may not equip runes',
     },
     cost: 100,

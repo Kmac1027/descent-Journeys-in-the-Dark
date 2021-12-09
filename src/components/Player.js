@@ -8,6 +8,8 @@ import Shop, {
   goldTreasureArray
 } from './Shop';
 import { copperTreasures } from '../data/items/copperTreasures';
+import { silverTreasures } from '../data/items/silverTreasures';
+import { goldTreasures } from '../data/items/goldTreasures';
 import DiceRoll from './Dice';
 import Potions, { potionsArray } from './Potions';
 import Bag, { bagArray } from './Bag'
@@ -25,16 +27,16 @@ import { attack, attackType, } from '../player_actions/attack';
 import { targetClicked, mousePos, correctedPosition, attackTargetClicked, selectedTarget } from '../player_actions/mouseClick';
 
 
-function inRange(playerPos, chest) {
-  if ((playerPos.x === chest.x && playerPos.y === chest.y) ||
-    (playerPos.x - 50 === chest.x && playerPos.y === chest.y) ||
-    (playerPos.x + 50 === chest.x && playerPos.y === chest.y) ||
-    (playerPos.y - 50 === chest.y && playerPos.x === chest.x) ||
-    (playerPos.y + 50 === chest.y && playerPos.x === chest.x) ||
-    (playerPos.x + 50 === chest.x && playerPos.y + 50 === chest.y) ||
-    (playerPos.x + 50 === chest.x && playerPos.y - 50 === chest.y) ||
-    (playerPos.x - 50 === chest.x && playerPos.y + 50 === chest.y) || (
-      playerPos.x - 50 === chest.x && playerPos.y - 50 === chest.y)) {
+function inRange(token, checkPoint) {
+  if (
+    (token.x - 50 === checkPoint.x && token.y === checkPoint.y) ||
+    (token.x + 50 === checkPoint.x && token.y === checkPoint.y) ||
+    (token.y - 50 === checkPoint.y && token.x === checkPoint.x) ||
+    (token.y + 50 === checkPoint.y && token.x === checkPoint.x) ||
+    (token.x + 50 === checkPoint.x && token.y + 50 === checkPoint.y) ||
+    (token.x + 50 === checkPoint.x && token.y - 50 === checkPoint.y) ||
+    (token.x - 50 === checkPoint.x && token.y + 50 === checkPoint.y) || (
+      token.x - 50 === checkPoint.x && token.y - 50 === checkPoint.y)) {
     return true
   } else {
     return false
@@ -45,6 +47,7 @@ function Player({ chosenHero, chosenQuest }) {
   let silver = chosenQuest.tokenPlacement.treasure_chests.silver
   let gold = chosenQuest.tokenPlacement.treasure_chests.gold
 
+  const [threatTokens, setThreatTokens] = useState(10)
   const [currentHealth, setCurrentHealth] = useState(heroData[chosenHero].max_wounds);
   const [maxHealth, setMaxHealth] = useState(heroData[chosenHero].max_wounds);
   const [currentFatigue, setCurrentFatigue] = useState(heroData[chosenHero].max_fatigue);
@@ -160,8 +163,8 @@ function Player({ chosenHero, chosenQuest }) {
   //weapons and items
   // const [weapon1, setWeapon1] = useState(shopItemData.sword);
   // const [weapon2, setWeapon2] = useState(shopItemData.crossbow);
-  const [weapon1, setWeapon1] = useState(shopItemData.sword);
-  const [weapon2, setWeapon2] = useState(shopItemData.sword);
+  const [weapon1, setWeapon1] = useState(goldTreasures.frost_axe);
+  const [weapon2, setWeapon2] = useState();
   const [armor, setArmor] = useState(shopItemData.leather_armor);
   const [other1, setOther1] = useState()
   const [other2, setOther2] = useState()
@@ -210,43 +213,24 @@ function Player({ chosenHero, chosenQuest }) {
       setCurrentFatigue(maxFatigue)
       setOther2()
     }
+    if (other1 && other1.name === 'Amulet of Healing') {
+      alert(`Amulet of Healing Equipt! ${other1.special_abilities.other[1].text}`)
+      setCurrentHealth(maxHealth)
+      setCurrentFatigue(maxFatigue)
+      setOther1()
+    }
+    if (other2 && other2.name === 'Amulet of Healing') {
+      alert(`Amulet of Healing Equipt! ${other1.special_abilities.other[1].text}`)
+      setCurrentHealth(maxHealth)
+      setCurrentFatigue(maxFatigue)
+      setOther2()
+    }
   }, [other1, other2])
 
 
   //shop and town
   const [showReturnToTown, setShowReturnToTown] = useState(false)
   const [showShop, setShowShop] = useState(false);
-
-  // useEffect(() => {
-  //   if (heroToken.x === chosenQuest.tokenPlacement.start_area.x && heroToken.y === chosenQuest.tokenPlacement.start_area.y) {
-  //     setShowReturnToTown(true)
-  //   } else {
-  //     setShowReturnToTown(false)
-  //   }
-  // }, [])
-
-  // function returnToTown() {
-  //   if (heroToken.x === chosenQuest.town.x + 50 && heroToken.y === chosenQuest.town.y + 50) {
-  //     heroToken.x = chosenQuest.tokenPlacement.start_area.x
-  //     heroToken.y = chosenQuest.tokenPlacement.start_area.y
-  //     setShowReturnToTown(true)
-  //     disableMovment.up = false;
-  //     disableMovment.left = false;
-  //     disableMovment.right = false;
-  //     disableMovment.down = false;
-  //     disableMovment.downRight = false
-  //     disableMovment.upLeft = false;
-  //     disableMovment.upRight = false;
-  //     disableMovment.downLeft = false;
-  //   } else if (heroToken.x === chosenQuest.tokenPlacement.start_area.x && heroToken.y === chosenQuest.tokenPlacement.start_area.y) {
-  //     heroToken.x = chosenQuest.town.x + 50;
-  //     heroToken.y = chosenQuest.town.y + 50;
-  //     setShowReturnToTown(false)
-  //   } else {
-  //     alert('you are not at a glyph of teleportation')
-  //   }
-
-  // }
 
   function showShopItems() {
     if (showShop === false) {
@@ -428,15 +412,6 @@ function Player({ chosenHero, chosenQuest }) {
   function returnToTown() {
     if (heroToken.x === chosenQuest.town.x + 50 && heroToken.y === chosenQuest.town.y + 50) {
       setShowTeleport(true)
-      // setShowReturnToTown(true)
-      // disableMovment.up = false;
-      // disableMovment.left = false;
-      // disableMovment.right = false;
-      // disableMovment.down = false;
-      // disableMovment.downRight = false
-      // disableMovment.upLeft = false;
-      // disableMovment.upRight = false;
-      // disableMovment.downLeft = false;
 
     } else {
       heroToken.x = chosenQuest.town.x + 50
@@ -528,7 +503,6 @@ function Player({ chosenHero, chosenQuest }) {
   }
 
   function pickUpRuneKey() {
-    // console.log(pickUpThisKey)
     if (pickUpThisKey === 'red') {
       setHasRedRuneKey(true)
       delete chosenQuest.tokenPlacement.rune_keys.red
@@ -601,8 +575,8 @@ function Player({ chosenHero, chosenQuest }) {
         }
       }
       for (let box in copper) {
-        let chestInRange = inRange(heroToken, copper[box])
-        if (chestInRange === true) {
+        // let chestInRange = inRange(heroToken, copper[box])
+        if (heroToken.x === copper[box].x && heroToken.y === copper[box].y) {
           setShowCTButton(true)
           setTreasureChestType('copper')
           setPickedUpChest(box)
@@ -613,8 +587,8 @@ function Player({ chosenHero, chosenQuest }) {
         }
       }
       for (let box in silver) {
-        let chestInRange = inRange(heroToken, silver[box])
-        if (chestInRange === true) {
+        // let chestInRange = inRange(heroToken, silver[box])
+        if (heroToken.x === silver[box].x && heroToken.y === silver[box].y) {
           setShowSTButton(true)
           setTreasureChestType('silver')
           setPickedUpChest(box)
@@ -624,8 +598,8 @@ function Player({ chosenHero, chosenQuest }) {
         }
       }
       for (let box in gold) {
-        let chestInRange = inRange(heroToken, gold[box])
-        if (chestInRange === true) {
+        // let chestInRange = inRange(heroToken, gold[box])
+        if (heroToken.x === gold[box].x && heroToken.y === gold[box].y) {
           setShowGTButton(true)
           setTreasureChestType('gold')
           setPickedUpChest(box)
@@ -699,14 +673,19 @@ function Player({ chosenHero, chosenQuest }) {
       }
 
       let pits = chosenQuest.tokenPlacement.obstacles.pits
-
       for (let pit in pits) {
         let nextToPit = inRange(heroToken, pits[pit])
         if (nextToPit === true) {
+          heroToken.w = 50
+          heroToken.h = 50
           setShowJumpScreenButton(true)
           break;
+        } else {
+          setShowJumpScreenButton(false)
         }
-        else if (heroToken.x === pits[pit].x && heroToken.y === pits[pit].y) {
+      }
+      for (let pit in pits) {
+        if (heroToken.x === pits[pit].x && heroToken.y === pits[pit].y) {
           setShowJumpScreenButton(false)
           disableMovment.up = true;
           disableMovment.left = true;
@@ -731,11 +710,10 @@ function Player({ chosenHero, chosenQuest }) {
             disableMovment.downLeft = false;
           }, 300)
           break;
-        }
-        else {
+        } else {
           heroToken.w = 50
           heroToken.h = 50
-          setShowJumpScreenButton(false)
+
         }
       }
     }
@@ -968,6 +946,8 @@ function Player({ chosenHero, chosenQuest }) {
         other1={other1}
         other2={other2}
         attackType={attackType}
+        threatTokens={threatTokens}
+        setThreatTokens={setThreatTokens}
       /> : null}
 
       {showPotions ? <Potions

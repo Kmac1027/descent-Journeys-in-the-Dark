@@ -40,7 +40,9 @@ function DiceRoll({
   correctedPosition,
   other1,
   other2,
-  attackType
+  attackType,
+  threatTokens,
+  setThreatTokens
 }) {
   const [checkSelectedTarget, setCheckSelectedTarget] = useState(selectedTarget)
   const [turnDiceOff, setTurnDiceOff] = useState(true);
@@ -180,11 +182,11 @@ function DiceRoll({
       weaponImg.className = 'card';
       weaponPicDiv.appendChild(weaponImg);
       // console.log(selectedWeapon.img_path)
-      if (selectedWeapon.type === 'ranged' || selectedWeapon.type === 'magic') {
+      if (selectedWeapon.type === 'ranged' || (selectedWeapon.type === 'magic' && selectedWeapon.name !== 'Word of Vaal')) {
         let selectedMonster = map1.tokenPlacement.monsters[selectedTarget.name + selectedTarget.id.toString()]
         let x = Math.abs(heroToken.x - selectedMonster.x) / 50
         let y = Math.abs(heroToken.y - selectedMonster.y) / 50
-        console.log(x, y)
+        // console.log(x, y)
         if (x >= y) {
           setRangeNeeded(x)
         } else {
@@ -281,6 +283,13 @@ function DiceRoll({
         }
         if (specialAbility[key].type === 'addBlast') {
           setBlast(blast => blast + specialAbility[key].amount)
+        }
+        if (specialAbility[key].type === 'addDamagePierce') {
+          setDamage(damage => damage + specialAbility[key].damageAmount)
+          setPierce(pierce => pierce + specialAbility[key].pierceAmount)
+        }
+        if (specialAbility[key].type === 'removeThreat') {
+          setThreatTokens(threatTokens => threatTokens - specialAbility[key].amount)
         }
       }
     }
@@ -439,7 +448,7 @@ function DiceRoll({
   }, [])
 
   return (
-    <div id='dicePool' style={{ position: 'absolute', left: '-80%', top: '30%', }}>
+    <div id='dicePool' style={{ position: 'absolute', left: '40%', top: '30%', }}>
       <div id='attackPannel'>
 
         <div id='weaponCard'>
@@ -635,7 +644,7 @@ function DiceRoll({
         setPowerDieRolled={setPowerDieRolled}
         blast={blast}
         setBlast={setBlast}
-
+        setThreatTokens={setThreatTokens}
       /> : null}
     </div >
   );

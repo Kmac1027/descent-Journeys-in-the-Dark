@@ -17,7 +17,8 @@ function SurgePurchase({
   powerDieRolled,
   setPowerDieRolled,
   blast,
-  setBlast
+  setBlast,
+  setThreatTokens
 }) {
 
   let surgeAbilityArray = [];
@@ -54,7 +55,7 @@ function SurgePurchase({
       if (surgeAbility.cost > surge) {
         alert('You do not have enough surges to spend on this')
       } else {
-        setRange(pierce => pierce + surgeAbility.amount)
+        setPierce(pierce => pierce + surgeAbility.amount)
         setSurge(surge => surge - surgeAbility.cost)
       }
     }
@@ -65,6 +66,15 @@ function SurgePurchase({
         setBlast(blast => blast + surgeAbility.amount)
         setSurge(surge => surge - surgeAbility.cost)
       }
+    }
+    if (surgeAbility.type === 'addDamagePierce') {
+      setDamage(damage => damage + surgeAbility.damageAmount)
+      setPierce(pierce => pierce + surgeAbility.pierceAmount)
+      setSurge(surge => surge - surgeAbility.cost)
+    }
+    if (surgeAbility.type === 'removeThreat') {
+      setThreatTokens(threatTokens => threatTokens - surgeAbility.amount)
+      setSurge(surge => surge - surgeAbility.cost)
     }
   }
 

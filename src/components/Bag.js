@@ -210,22 +210,44 @@ function Bag({
       potionsArray.push(vitality_potion)
     }
     bagArray.splice(bagArray.indexOf(item), 1)
+
     if (item.treasure === 'copper') {
-      let pickRandomItem = Math.floor(Math.random() * (copperTreasureArray.length - 1))
-      randomItem = copperTreasureArray[pickRandomItem]
-      copperTreasureArray.splice(copperTreasureArray.indexOf(randomItem), 1);
+      if (copperTreasureArray.length <= 0) {
+        alert('There are no more copper treasures, instead you gain 250 gold')
+        setMoney(money => money + 250)
+      } else {
+        let pickRandomItem = Math.floor(Math.random() * (copperTreasureArray.length - 1))
+        randomItem = copperTreasureArray[pickRandomItem]
+        copperTreasureArray.splice(copperTreasureArray.indexOf(randomItem), 1);
+        bagArray.push(randomItem)
+        setRandomTreasure(randomItem)
+        setShowTreasureDiv(true)
+      }
     } else if (item.treasure === 'silver') {
-      let pickRandomItem = Math.floor(Math.random() * (silverTreasureArray.length - 1))
-      randomItem = silverTreasureArray[pickRandomItem]
-      silverTreasureArray.splice(silverTreasureArray.indexOf(randomItem), 1);
+      if (silverTreasureArray.length <= 0) {
+        alert('There are no more silver treasures, instead you gain 500 gold')
+        setMoney(money => money + 500)
+      } else {
+        let pickRandomItem = Math.floor(Math.random() * (silverTreasureArray.length - 1))
+        randomItem = silverTreasureArray[pickRandomItem]
+        silverTreasureArray.splice(silverTreasureArray.indexOf(randomItem), 1);
+        bagArray.push(randomItem)
+        setRandomTreasure(randomItem)
+        setShowTreasureDiv(true)
+      }
     } else if (item.treasure === 'gold') {
-      let pickRandomItem = Math.floor(Math.random() * (goldTreasureArray.length - 1))
-      randomItem = goldTreasureArray[pickRandomItem]
-      goldTreasureArray.splice(goldTreasureArray.indexOf(randomItem), 1);
+      if (goldTreasureArray.length <= 0) {
+        alert('There are no more gold treasures, instead you gain 750 gold')
+        setMoney(money => money + 750)
+      } else {
+        let pickRandomItem = Math.floor(Math.random() * (goldTreasureArray.length - 1))
+        randomItem = goldTreasureArray[pickRandomItem]
+        goldTreasureArray.splice(goldTreasureArray.indexOf(randomItem), 1);
+        bagArray.push(randomItem)
+        setRandomTreasure(randomItem)
+        setShowTreasureDiv(true)
+      }
     }
-    bagArray.push(randomItem)
-    setRandomTreasure(randomItem)
-    setShowTreasureDiv(true)
     if (bagCheck === true) {
       setBagCheck(false)
     } else {

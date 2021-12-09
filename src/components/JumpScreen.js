@@ -1,7 +1,7 @@
 import '../styles/jumpScreen.css'
 import { useEffect } from 'react'
 
-function JumpScreen(heroToken, setShowJumpScreen) {
+function JumpScreen({ heroToken, setShowJumpScreen }) {
 
   function close() {
     setShowJumpScreen(false)
@@ -46,7 +46,7 @@ function JumpScreen(heroToken, setShowJumpScreen) {
   return (
     <div id='jumpScreen' >
       <div >
-        <button onClick={() => close}>Close</button>
+        <button onClick={() => close()}>Close</button>
         <br />
         <button>Jump Up</button>
         <div style={{ display: 'flex', flexDirection: 'row' }}>

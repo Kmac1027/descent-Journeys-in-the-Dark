@@ -264,6 +264,7 @@ export const copperTreasures =
     special_abilities: {
       speedReduce: 3,
       equipRunes: false,
+      immune: false,
       text: 'your base speed is reduced to 3. You cannot equip runes',
     },
     cost: 250,
@@ -278,6 +279,7 @@ export const copperTreasures =
     special_abilities: {
       speedReduce: false,
       equipRunes: true,
+      immune: false,
       text: 'When you suffer 1 or more wounds, roll 1 power die for each wound suffered. Cancel 1 wound for each blank you roll.',
     },
     cost: 250,
