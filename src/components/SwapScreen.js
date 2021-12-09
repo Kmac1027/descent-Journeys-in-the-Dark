@@ -63,7 +63,7 @@ function SwapScreen({
   }, [])
 
   return (
-    <div id='swapScreen' style={{ left: '30%', top: '30%', }}>
+    <div id='swapScreen' style={{ left: '-80%', top: '80%', }}>
       <h1>Which item do you wish to swap out?</h1>
       <div>
         <input className='card' type='image' src={weapon1.img_path} alt={weapon1.name}

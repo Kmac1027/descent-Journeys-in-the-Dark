@@ -76,6 +76,14 @@ function SurgePurchase({
       setThreatTokens(threatTokens => threatTokens - surgeAbility.amount)
       setSurge(surge => surge - surgeAbility.cost)
     }
+    if (surgeAbility.type === 'doulbeDamage') {
+      setDamage(damage => damage * 2)
+      setSurge(surge => surge - surgeAbility.cost)
+    }
+    if (surgeAbility.type === 'instaKill') {
+      setDamage(damage => damage * 1000)
+      setSurge(surge => surge - surgeAbility.cost)
+    }
   }
 
 

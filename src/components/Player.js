@@ -10,6 +10,8 @@ import Shop, {
 import { copperTreasures } from '../data/items/copperTreasures';
 import { silverTreasures } from '../data/items/silverTreasures';
 import { goldTreasures } from '../data/items/goldTreasures';
+import { relics } from '../data/items/relics';
+import SkillFunctions from './SkillFunctions';
 import DiceRoll from './Dice';
 import Potions, { potionsArray } from './Potions';
 import Bag, { bagArray } from './Bag'
@@ -163,7 +165,7 @@ function Player({ chosenHero, chosenQuest }) {
   //weapons and items
   // const [weapon1, setWeapon1] = useState(shopItemData.sword);
   // const [weapon2, setWeapon2] = useState(shopItemData.crossbow);
-  const [weapon1, setWeapon1] = useState(goldTreasures.frost_axe);
+  const [weapon1, setWeapon1] = useState(relics.touch_of_death);
   const [weapon2, setWeapon2] = useState();
   const [armor, setArmor] = useState(shopItemData.leather_armor);
   const [other1, setOther1] = useState()
@@ -243,7 +245,10 @@ function Player({ chosenHero, chosenQuest }) {
   function sell(item) {
     if (!item) {
       alert('you have no item to sell')
-    } else {
+    }
+    if (item.treasure === 'relic') {
+      alert('This item is a relic and cannot be sold')
+    } else if (item.treasure !== 'relic') {
       if (item.type === 'armor') {
         // console.log(item.special_abilities.equipRunes)
         if (item.special_abilities.equipRunes === false) {
@@ -262,6 +267,7 @@ function Player({ chosenHero, chosenQuest }) {
       }
     }
   }
+
 
   function turnOnPotionScreen() {
     if (showPotions === false) {
@@ -1016,6 +1022,7 @@ function Player({ chosenHero, chosenQuest }) {
           heroToken={heroToken}
           setShowJumpScreen={setShowJumpScreen}
         /> : null}
+      <SkillFunctions />
       <Conditions />
     </div >
 

@@ -110,7 +110,7 @@ function Potions({
   }, [])
 
   return (
-    <div id='potions' style={{ left: '30%', top: '30%', }}>
+    <div id='potions' style={{ left: '-80%', top: '80%', }}>
       <button onClick={() => setShowPotions(false)}>Close</button>
       <h1>Potions</h1>
       <div style={{ display: 'flex', flexdirection: 'row' }}>

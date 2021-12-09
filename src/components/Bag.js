@@ -294,7 +294,7 @@ function Bag({
   }, [])
 
   return (
-    <div id='storageBag' style={{ left: '30%', top: '30%', }}>
+    <div id='storageBag' style={{ left: '-80%', top: '80%', }}>
       <button onClick={closeBag}>Close</button>
       <h1>Item Bag</h1>
 

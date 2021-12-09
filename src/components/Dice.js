@@ -183,7 +183,7 @@ function DiceRoll({
       weaponPicDiv.appendChild(weaponImg);
       // console.log(selectedWeapon.img_path)
       if (selectedWeapon.type === 'ranged' || (selectedWeapon.type === 'magic' && selectedWeapon.name !== 'Word of Vaal')) {
-        let selectedMonster = map1.tokenPlacement.monsters[selectedTarget.name + selectedTarget.id.toString()]
+        let selectedMonster = chosenQuest.tokenPlacement.monsters[selectedTarget.name + selectedTarget.id.toString()]
         let x = Math.abs(heroToken.x - selectedMonster.x) / 50
         let y = Math.abs(heroToken.y - selectedMonster.y) / 50
         // console.log(x, y)
@@ -448,7 +448,7 @@ function DiceRoll({
   }, [])
 
   return (
-    <div id='dicePool' style={{ position: 'absolute', left: '40%', top: '30%', }}>
+    <div id='dicePool' style={{ position: 'absolute', left: '-80%', top: '80%', }}>
       <div id='attackPannel'>
 
         <div id='weaponCard'>
