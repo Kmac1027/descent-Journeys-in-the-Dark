@@ -128,7 +128,7 @@ function SurgePurchase({
   }, [])
 
   return (
-    <div id='surgePurchase' >
+    <div id='surgePurchase' style={{ left: '40%', top: '70%', }}>
       <button onClick={() => setPurchaseSurgeAbilities(false)}>Close</button>
       <h2>Spend Surges </h2>
       <div id='surgeItems'>

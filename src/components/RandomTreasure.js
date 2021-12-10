@@ -91,7 +91,7 @@ function RandomTreasure({
     }
   }, [])
   return (
-    <div id='randomTreasure' style={{ left: '-80%', top: '80%', backgroundColor: `${bgColor}` }}>
+    <div id='randomTreasure' style={{ left: '40%', top: '70%', backgroundColor: `${bgColor}` }}>
       <h2>YOU GOT A {randomTreasure.name}!</h2>
       <h5>It has been added to your bag</h5>
       <img className='card' src={randomTreasure.img_path} alt={'Treasure'} />

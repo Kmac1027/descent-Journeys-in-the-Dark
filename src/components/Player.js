@@ -27,6 +27,7 @@ import { heroToken, disableMovment } from '../player_actions/movement';
 // import { map1 } from '../data/dungeonMaps/map1';
 import { attack, attackType, } from '../player_actions/attack';
 import { targetClicked, mousePos, correctedPosition, attackTargetClicked, selectedTarget } from '../player_actions/mouseClick';
+import { revealAreas } from '../data/dungeonMaps/quest1';
 
 
 function inRange(token, checkPoint) {
@@ -44,10 +45,35 @@ function inRange(token, checkPoint) {
     return false
   }
 }
-function Player({ chosenHero, chosenQuest }) {
+function Player({ chosenHero, chosenQuest, revealAreas, turn }) {
   let copper = chosenQuest.tokenPlacement.treasure_chests.copper
   let silver = chosenQuest.tokenPlacement.treasure_chests.silver
   let gold = chosenQuest.tokenPlacement.treasure_chests.gold
+
+  const [playerOptions, setPlayerOptions] = useState(true)
+  useEffect(() => {
+    if (turn === 'overlord') {
+      disableMovment.up = true;
+      disableMovment.left = true;
+      disableMovment.right = true;
+      disableMovment.down = true;
+      disableMovment.downRight = true
+      disableMovment.upLeft = true;
+      disableMovment.upRight = true;
+      disableMovment.downLeft = true;
+      setPlayerOptions(false)
+    } else if (turn === 'player') {
+      disableMovment.up = false;
+      disableMovment.left = false;
+      disableMovment.right = false;
+      disableMovment.down = false;
+      disableMovment.downRight = false
+      disableMovment.upLeft = false;
+      disableMovment.upRight = false;
+      disableMovment.downLeft = false;
+      setPlayerOptions(true)
+    }
+  }, [turn])
 
   const [threatTokens, setThreatTokens] = useState(10)
   const [currentHealth, setCurrentHealth] = useState(heroData[chosenHero].max_wounds);
@@ -84,6 +110,11 @@ function Player({ chosenHero, chosenQuest }) {
   const [attackActive, setAttackActive] = useState(false);
   const [weaponCardsActive, setWeaponCardsActive] = useState(false);
 
+  //reveal areas
+  const [openDoor, setOpenDoor] = useState(false)
+  if (heroToken.x === chosenQuest.tokenPlacement.start_area.x && heroToken.y === chosenQuest.tokenPlacement.start_area.y) {
+    delete chosenQuest.unexplored.start_area
+  }
 
   function attackCardsActive() {
     if (weaponCardsActive === false) {
@@ -97,7 +128,6 @@ function Player({ chosenHero, chosenQuest }) {
         chosenQuest.tokenPlacement.marker.y = -100
         selectedTarget.id = null
       }
-
     }
   }
   function attackOn() {
@@ -163,10 +193,10 @@ function Player({ chosenHero, chosenQuest }) {
   }
 
   //weapons and items
-  // const [weapon1, setWeapon1] = useState(shopItemData.sword);
-  // const [weapon2, setWeapon2] = useState(shopItemData.crossbow);
-  const [weapon1, setWeapon1] = useState(relics.touch_of_death);
-  const [weapon2, setWeapon2] = useState();
+  const [weapon1, setWeapon1] = useState(shopItemData.sword);
+  const [weapon2, setWeapon2] = useState(shopItemData.crossbow);
+  // const [weapon1, setWeapon1] = useState(relics.touch_of_death);
+  // const [weapon2, setWeapon2] = useState();
   const [armor, setArmor] = useState(shopItemData.leather_armor);
   const [other1, setOther1] = useState()
   const [other2, setOther2] = useState()
@@ -380,7 +410,7 @@ function Player({ chosenHero, chosenQuest }) {
           setShowSTButton(false)
         } else {
           let pickRandomItem = Math.floor(Math.random() * (silverTreasureArray.length - 1))
-          console.log(silverTreasureArray[pickRandomItem])
+          // console.log(silverTreasureArray[pickRandomItem])
           let randomItem = silverTreasureArray[pickRandomItem]
           setRandomTreasure(randomItem)
           bagArray.push(randomItem)
@@ -400,7 +430,7 @@ function Player({ chosenHero, chosenQuest }) {
           setShowGTButton(false)
         } else {
           let pickRandomItem = Math.floor(Math.random() * (goldTreasureArray.length - 1))
-          console.log(goldTreasureArray[pickRandomItem])
+          // console.log(goldTreasureArray[pickRandomItem])
           let randomItem = goldTreasureArray[pickRandomItem]
           setRandomTreasure(randomItem)
           bagArray.push(randomItem)
@@ -418,7 +448,6 @@ function Player({ chosenHero, chosenQuest }) {
   function returnToTown() {
     if (heroToken.x === chosenQuest.town.x + 50 && heroToken.y === chosenQuest.town.y + 50) {
       setShowTeleport(true)
-
     } else {
       heroToken.x = chosenQuest.town.x + 50
       heroToken.y = chosenQuest.town.y + 50
@@ -467,6 +496,7 @@ function Player({ chosenHero, chosenQuest }) {
         alert('You do not have the correct Rune Key to open this door')
       }
     }
+    revealAreas()
   }
 
   function openHorzDoor() {
@@ -506,6 +536,7 @@ function Player({ chosenHero, chosenQuest }) {
         alert('You do not have the correct Rune Key to open this door')
       }
     }
+    revealAreas()
   }
 
   function pickUpRuneKey() {
@@ -519,6 +550,7 @@ function Player({ chosenHero, chosenQuest }) {
       setHasBlueRuneKey(true)
       delete chosenQuest.tokenPlacement.rune_keys.blue
     }
+    setShowPickUpKeyButton(false)
   }
 
   function pickUpGoldPile() {
@@ -738,32 +770,35 @@ function Player({ chosenHero, chosenQuest }) {
           <p>Gold: {money} </p>
           <p>Conquest Tokens: {levelConquestTokens}</p>
           <div>
-            {showReturnToTown ?
+            {playerOptions ?
               <div>
-                {showReturnToTown ? <button height='100px' width='100px' onClick={attackCardsActive}>{weaponCardsActive ? 'Stop Attack' : 'Attack'}</button> : null}
+                {showReturnToTown ?
+                  <div>
+                    {showReturnToTown ? <button height='100px' width='100px' onClick={attackCardsActive}>{weaponCardsActive ? 'Stop Attack' : 'Attack'}</button> : null}
 
-                {weaponCardsActive ? <p>Select the Weapon you want to use, then your target</p> : null}
+                    {weaponCardsActive ? <p>Select the Weapon you want to use, then your target</p> : null}
+                  </div>
+                  :
+                  <div>
+                    <button height='100px' width='100px' onClick={showShopItems}>shop</button>
+                  </div>}
+                {isOnGlyph ? <button height='100px' width='100px' onClick={returnToTown}>{showReturnToTown ? 'Go to Town' : 'Go to Dungeon'}</button> : null}
+                {showPickUpHPButton || showPickUpVPButton ? <button height='100px' width='100px'
+                  onClick={pickUpPotion}>Pick Up Potion</button> : null}
+                {showCTbutton || showSTbutton || showGTbutton ? <button height='100px' width='100px'
+                  onClick={() => openTreasureChest(treasureChestType)}>Open Treasure Chest</button> : null}
+                {showOpenVertDoorButton ? <button height='100px' width='100px'
+                  onClick={() => openVertDoor()}>Open Door</button> : null}
+                {showOpenHorzDoorButton ? <button height='100px' width='100px'
+                  onClick={() => openHorzDoor()}>Open Door</button> : null}
+                {showPickUpKeyButton ? <button height='100px' width='100px'
+                  onClick={() => pickUpRuneKey()}>Pick up Rune Key</button> : null}
+                {showPickUpGoldPileButton ? <button height='100px' width='100px'
+                  onClick={() => pickUpGoldPile()}>Pick up Gold Pile</button> : null}
+                {showJumpScreenButton ? <button height='100px' width='100px'
+                  onClick={() => jumpScreen()}>Jump</button> : null}
               </div>
-              :
-              <div>
-                <button height='100px' width='100px' onClick={showShopItems}>shop</button>
-              </div>}
-            {isOnGlyph ? <button height='100px' width='100px' onClick={returnToTown}>{showReturnToTown ? 'Go to Town' : 'Go to Dungeon'}</button> : null}
-            {showPickUpHPButton || showPickUpVPButton ? <button height='100px' width='100px'
-              onClick={pickUpPotion}>Pick Up Potion</button> : null}
-            {showCTbutton || showSTbutton || showGTbutton ? <button height='100px' width='100px'
-              onClick={() => openTreasureChest(treasureChestType)}>Open Treasure Chest</button> : null}
-            {showOpenVertDoorButton ? <button height='100px' width='100px'
-              onClick={() => openVertDoor()}>Open Door</button> : null}
-            {showOpenHorzDoorButton ? <button height='100px' width='100px'
-              onClick={() => openHorzDoor()}>Open Door</button> : null}
-            {showPickUpKeyButton ? <button height='100px' width='100px'
-              onClick={() => pickUpRuneKey()}>Pick up Rune Key</button> : null}
-            {showPickUpGoldPileButton ? <button height='100px' width='100px'
-              onClick={() => pickUpGoldPile()}>Pick up Gold Pile</button> : null}
-            {showJumpScreenButton ? <button height='100px' width='100px'
-              onClick={() => jumpScreen()}>Jump</button> : null}
-
+              : null}
           </div>
 
         </div>
@@ -805,7 +840,7 @@ function Player({ chosenHero, chosenQuest }) {
                 {weapon1 ? <img id='weapon1' className='card' src={weapon1.img_path} alt='Weapon 1' /> : null}
               </div>}
             <div>
-              {showShop ? <button onClick={() => { sell(weapon1); setWeapon1(); }}>Sell</button> : null}
+              {showShop ? <button onClick={() => { sell(weapon1); weapon1.treasure !== 'relic' && setWeapon1() }}>Sell</button> : null}
               {showBag ? <button onClick={() => { bagArray.push(weapon1); setWeapon1() }}>Store in Bag</button> : null}
             </div>
           </div>
@@ -826,7 +861,7 @@ function Player({ chosenHero, chosenQuest }) {
               </div>}
 
             <div>
-              {showShop ? <button onClick={() => { sell(weapon2); setWeapon2(); }}>Sell</button> : null}
+              {showShop ? <button onClick={() => { sell(weapon2); weapon2.treasure !== 'relic' && setWeapon2(); }}>Sell</button> : null}
               {showBag ? <button onClick={() => { bagArray.push(weapon2); setWeapon2() }}>Store in Bag</button> : null}
             </div>
           </div>
@@ -836,7 +871,7 @@ function Player({ chosenHero, chosenQuest }) {
             <p style={{ padding: '5px' }}>Armor</p>
             {armor ? <img className='card' src={armor.img_path} alt={armor.name}></img> : null}
             <div>
-              {showShop ? <button onClick={() => { sell(armor); setArmor(); }}>Sell</button> : null}
+              {showShop ? <button onClick={() => { sell(armor); armor.treasure !== 'relic' && setArmor(); }}>Sell</button> : null}
               {showBag ? <button onClick={() => { bagArray.push(armor); setArmor() }}>Store in Bag</button> : null}
             </div>
           </div>
@@ -851,7 +886,7 @@ function Player({ chosenHero, chosenQuest }) {
                 : <img className='card' src={other1.img_path} alt={other1.name}></img>
               : null}
             <div>
-              {showShop ? <button onClick={() => { sell(other1); setOther1() }}>Sell</button> : null}
+              {showShop ? <button onClick={() => { sell(other1); other1.treasure !== 'relic' && setOther1() }}>Sell</button> : null}
               {showBag ? <button onClick={() => { bagArray.push(other1); setOther1() }}>Store in Bag</button> : null}
             </div>
           </div>
@@ -865,7 +900,7 @@ function Player({ chosenHero, chosenQuest }) {
               : null}
 
             <div>
-              {showShop ? <button onClick={() => { sell(other2); setOther2() }}>Sell</button> : null}
+              {showShop ? <button onClick={() => { sell(other2); other1.treasure !== 'relic' && setOther1() }}>Sell</button> : null}
               {showBag ? <button onClick={() => { bagArray.push(other2); setOther2() }}>Store in Bag</button> : null}
             </div>
           </div>

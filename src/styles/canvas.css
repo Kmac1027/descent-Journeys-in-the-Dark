@@ -4,15 +4,15 @@
 
 #canvasDivId {
   color: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-family: Arial, Helvetica, sans-serif;
-  max-width: 100vw;
+  /* display: flex;
+  flex-direction: column; */
+  /* align-items: center;
+  justify-content: center; */
+  max-width: 80vw;
   max-height: 100vh;
-  margin: 0;
-overflow-y: auto;
-overflow-x: auto;
+  /* margin: 0; */
+  overflow-y: scroll;
+  overflow-x: scroll;
 }
 
 

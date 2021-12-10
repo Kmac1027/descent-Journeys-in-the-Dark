@@ -12,6 +12,22 @@ function TilesAndTokens({ chosenHero }) {
 
   return (
     <div className='hidden'>
+      {/* labels */}
+      <div>
+        <img id='startLabel' src='images/labels/start_area.png' alt='startLabel' />
+        <img id='area1Label' src='images/labels/area1.png' alt='area1Label' />
+        <img id='area2Label' src='images/labels/area2.png' alt='area2Label' />
+        <img id='area3Label' src='images/labels/area3.png' alt='area3Label' />
+        <img id='area4Label' src='images/labels/area4.png' alt='area4Label' />
+        <img id='area5Label' src='images/labels/area5.png' alt='area5Label' />
+        <img id='area6Label' src='images/labels/area6.png' alt='area6Label' />
+        <img id='area7Label' src='images/labels/area7.png' alt='area7Label' />
+        <img id='area8Label' src='images/labels/area8.png' alt='area8Label' />
+      </div >
+      {/* blackout */}
+      <div>
+        <img id='blackout' src='images/blackout.png' alt='blackout' />
+      </div >
       {/* hero tokens */}
       <div>
         <img id='heroToken' src={heroData[chosenHero].token_path} alt={heroData[chosenHero].name} />

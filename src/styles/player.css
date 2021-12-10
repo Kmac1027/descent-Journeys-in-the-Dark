@@ -1,12 +1,12 @@
 
-#playerScreen{
+/* #playerScreen{
   position: fixed;
   bottom: 30;
   right: 0;
   left: 20;
   max-height: 41vh;
   max-width: 41vw;
-}
+} */
 #playerContainer{
   /* max-height: 600px; */
   display: grid;

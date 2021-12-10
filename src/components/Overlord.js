@@ -1,11 +1,12 @@
-function Overlord() {
+import { heroToken } from '../player_actions/movement'
+
+function Overlord({ chosenHero, chosenQuest, turn }) {
 
 
 
   return (
-    <div className='hidden'>
-      <p>hi</p>
-    </div >
+    <>
+    </>
   );
 }
 

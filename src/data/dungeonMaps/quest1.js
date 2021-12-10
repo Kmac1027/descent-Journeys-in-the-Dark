@@ -116,8 +116,8 @@ export const quest1 = {
   },
 
   mapSize: {
-    width: 1100,
-    height: 1300
+    width: 1150,
+    height: 1350
   },
 
   floor: {
@@ -334,10 +334,69 @@ export const quest1 = {
       198: { x: 950, y: 1150 },
     }
   },
-
+  unexplored: {
+    start_area: {
+      1: { x: 0, y: 1000, height: 100, width: 150 }
+    },
+    area1: {
+      1: { x: 150, y: 950, height: 200, width: 300 },
+      2: { x: 250, y: 800, height: 200, width: 100 },
+      3: { x: 250, y: 1100, height: 200, width: 100 },
+      4: { x: 600, y: 850, height: 350, width: 100 },
+      5: { x: 400, y: 1000, height: 100, width: 450 },
+      6: { x: 550, y: 950, height: 200, width: 200 },
+    },
+    area2: {
+      1: { x: 900, y: 500, height: 700, width: 100 },
+      2: { x: 850, y: 950, height: 200, width: 200 },
+      3: { x: 1000, y: 1000, height: 100, width: 100 },
+      4: { x: 800, y: 600, height: 100, width: 300 },
+      5: { x: 850, y: 550, height: 200, width: 200 },
+    },
+    area3: {
+      1: { x: 300, y: 600, height: 100, width: 500 },
+      2: { x: 600, y: 450, height: 400, width: 100 },
+      3: { x: 550, y: 550, height: 200, width: 200 },
+    },
+    area4: {
+      1: { x: 500, y: 50, height: 300, width: 300 },
+      2: { x: 600, y: 0, height: 450, width: 100 },
+      3: { x: 450, y: 150, height: 100, width: 400 },
+    }
+  },
+  labels: {
+    start_area: { x: 0, y: 1110, height: 20, width: 100 },
+    area1: { x: 600, y: 1210, height: 20, width: 90 },
+    area2: { x: 1010, y: 760, height: 20, width: 90 },
+    area3: { x: 710, y: 480, height: 20, width: 90 },
+    area4: { x: 810, y: 260, height: 20, width: 90 },
+  },
   startingMoney: { amount: 300 },
   startingConquestTokens: 5,
 }
+
+export function revealAreas() {
+  if ((heroToken.x === 100 && heroToken.y === 1050) || (heroToken.x === 100 && heroToken.y === 1000)) {
+    delete quest1.unexplored.area1
+  }
+  if (((heroToken.x === 650 && heroToken.y === 850) || (heroToken.x === 600 && heroToken.y === 850)) && quest1.unexplored.area3) {
+    delete quest1.unexplored.area3
+  }
+  if (((heroToken.x === 800 && heroToken.y === 600) || (heroToken.x === 800 && heroToken.y === 650)) && quest1.unexplored.area3) {
+    delete quest1.unexplored.area3
+  }
+  if (((heroToken.x === 800 && heroToken.y === 1000) || (heroToken.x === 800 && heroToken.y === 1050)) && quest1.unexplored.area2) {
+    delete quest1.unexplored.area2
+  }
+  if (((heroToken.x === 750 && heroToken.y === 600) || (heroToken.x === 750 && heroToken.y === 650)) && quest1.unexplored.area2) {
+    delete quest1.unexplored.area2
+  }
+  if ((heroToken.x === 600 && heroToken.y === 450) || (heroToken.x === 650 && heroToken.y === 400)) {
+    delete quest1.unexplored.area4
+  }
+
+}
+
 
 export function quest1CollisionDetection(runLoopX, runLoopY) {
 
