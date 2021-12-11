@@ -32,7 +32,7 @@ function App() {
         <Canvas chosenHero={chosenHero} chosenQuest={chosenQuest}
           collisionDetection={quest1CollisionDetection} />
         <Player chosenHero={chosenHero} chosenQuest={chosenQuest} revealAreas={revealAreas} turn={turn} />
-        <Overlord chosenHero={chosenHero} chosenQuest={chosenQuest} turn={turn} />
+        <Overlord chosenHero={chosenHero} chosenQuest={chosenQuest} turn={turn} setTurn={setTurn} />
 
       </header>
 

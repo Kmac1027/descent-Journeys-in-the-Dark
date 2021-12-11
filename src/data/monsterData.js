@@ -9,14 +9,26 @@ export class Skeleton {
     this.max_wounds = 4;
     this.base_armor = 0;
     this.speed = 5;
-    this.class = 'Ranged';
+    this.class = 'ranged';
     this.dice = {
+      red: 0,
       blue: 1,
-      green: 1
+      white: 0,
+      green: 1,
+      yellow: 0,
+      black: 0
     };
     this.special_abilities = {
-      1: 'pierce',
-      2: '+1 range'
+      1: {
+        type: 'addPierce',
+        amount: 1,
+        text: 'Pierce 1'
+      },
+      2: {
+        type: 'addRange',
+        amount: 1,
+        text: '+1 Range'
+      },
     };
     this.monster_card_img_path = 'images/monster_card/skeleton.jpg';
     this.token_path = 'images/monster_token/skeleton.png';
@@ -40,16 +52,27 @@ export class MasterSkeleton {
     this.max_wounds = 5;
     this.base_armor = 1;
     this.speed = 5;
-    this.class = 'Ranged';
+    this.class = 'ranged';
     this.dice = {
+      red: 0,
       blue: 1,
+      white: 0,
       green: 1,
+      yellow: 0,
       black: 1
     };
     this.special_abilities = {
-      1: 'pierce 2',
-      2: '+2 range',
-      3: 'undying'
+      1: {
+        type: 'addPierce',
+        amount: 2,
+        text: 'Pierce 2'
+      },
+      2: {
+        type: 'addRange',
+        amount: 2,
+        text: '+2 Range'
+      },
+      3: { type: 'undying' }
     };
     this.monster_card_img_path = 'images/monster_card/skeleton.jpg';
     this.token_path = 'images/monster_token/skeleton_master.png';

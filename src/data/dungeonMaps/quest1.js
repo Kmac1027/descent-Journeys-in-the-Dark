@@ -10,6 +10,8 @@ let skeleton3 = new Skeleton(3, 900, 1050);
 
 export const quest1 = {
   name: 'Quest 1: Into the Dark',
+  startingMoney: 300,
+  startingConquestTokens: 5,
   tokenPlacement: {
     monsters: {
       skeleton1,
@@ -371,8 +373,6 @@ export const quest1 = {
     area3: { x: 710, y: 480, height: 20, width: 90 },
     area4: { x: 810, y: 260, height: 20, width: 90 },
   },
-  startingMoney: { amount: 300 },
-  startingConquestTokens: 5,
 }
 
 export function revealAreas() {
@@ -391,12 +391,10 @@ export function revealAreas() {
   if (((heroToken.x === 750 && heroToken.y === 600) || (heroToken.x === 750 && heroToken.y === 650)) && quest1.unexplored.area2) {
     delete quest1.unexplored.area2
   }
-  if ((heroToken.x === 600 && heroToken.y === 450) || (heroToken.x === 650 && heroToken.y === 400)) {
+  if ((heroToken.x === 600 && heroToken.y === 450) || (heroToken.x === 650 && heroToken.y === 450)) {
     delete quest1.unexplored.area4
   }
-
 }
-
 
 export function quest1CollisionDetection(runLoopX, runLoopY) {
 

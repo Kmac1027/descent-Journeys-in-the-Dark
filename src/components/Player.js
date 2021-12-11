@@ -24,7 +24,6 @@ import { heroData } from '../data/heroData.js';
 // import { monsterData } from '../data/monsterData.js';
 import { shopItemData } from '../data/items/shopItems';
 import { heroToken, disableMovment } from '../player_actions/movement';
-// import { map1 } from '../data/dungeonMaps/map1';
 import { attack, attackType, } from '../player_actions/attack';
 import { targetClicked, mousePos, correctedPosition, attackTargetClicked, selectedTarget } from '../player_actions/mouseClick';
 import { revealAreas } from '../data/dungeonMaps/quest1';
@@ -458,6 +457,8 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn }) {
       setShowGTButton(false)
       setShowPickUpHPButton(false)
       setShowPickUpVPButton(false)
+      setShowOpenVertDoorButton(false)
+      setShowOpenHorzDoorButton(false)
     }
 
   }
