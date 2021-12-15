@@ -29,7 +29,7 @@ import { targetClicked, mousePos, correctedPosition, attackTargetClicked, select
 import { revealAreas } from '../data/dungeonMaps/quest1';
 
 
-function inRange(token, checkPoint) {
+export function inRange(token, checkPoint) {
   if (
     (token.x - 50 === checkPoint.x && token.y === checkPoint.y) ||
     (token.x + 50 === checkPoint.x && token.y === checkPoint.y) ||
@@ -44,10 +44,19 @@ function inRange(token, checkPoint) {
     return false
   }
 }
-function Player({ chosenHero, chosenQuest, revealAreas, turn }) {
+function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn }) {
   let copper = chosenQuest.tokenPlacement.treasure_chests.copper
   let silver = chosenQuest.tokenPlacement.treasure_chests.silver
   let gold = chosenQuest.tokenPlacement.treasure_chests.gold
+
+  function endTurn() {
+    if (turn === 'player') {
+      setTurn('overlord')
+    } else {
+      setTurn('player')
+    }
+    // console.log(turn)
+  }
 
   const [playerOptions, setPlayerOptions] = useState(true)
   useEffect(() => {
@@ -766,6 +775,8 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn }) {
     <div id='playerScreen'>
       <div id='playerContainer'>
         <div id='heroCardDiv'>
+          <button style={{ height: '20px', width: '100px' }} onClick={() => endTurn()}>End Turn</button>
+          <br />
           <img className='heroCard' src={heroData[chosenHero].hero_card_img_path} alt={heroData.steelhorns.name} />
           <p>Name: {heroData[chosenHero].name}</p>
           <p>Gold: {money} </p>

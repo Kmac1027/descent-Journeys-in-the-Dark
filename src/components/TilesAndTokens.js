@@ -44,6 +44,8 @@ function TilesAndTokens({ chosenHero }) {
         {/* monster tokens */}
         <img id='skeleton' src={'images/monster_token/skeleton.png'} alt={'Skeleton token'} />
         <img id='masterSkeleton' src={'images/monster_token/skeleton_master.png'} alt={'Master Skeleton token'} />
+        <img id='beastman' src={'images/monster_token/beastman.png'} alt={'beastman token'} />
+        <img id='masterBeastman' src={'images/monster_token/beastman_master.png'} alt={'Master Beastman token'} />
       </div>
       {/* items and icons */}
       <div>

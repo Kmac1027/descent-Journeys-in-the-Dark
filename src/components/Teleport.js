@@ -65,7 +65,7 @@ function Teleport({ port, herotoken, setShowTeleport, setShowReturnToTown }) {
     }
   }, [])
   return (
-    <div id='teleport' style={{ left: '40%', top: '70%', }}>
+    <div id='teleport' style={{ left: '30%', top: '50%', }}>
       <button onClick={() => close()}>Close</button>
       <h2>Select the Glyph you would like to return to</h2>
       {port.map((glyph, i) =>

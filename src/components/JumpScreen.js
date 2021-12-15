@@ -44,7 +44,7 @@ function JumpScreen({ heroToken, setShowJumpScreen }) {
     }
   }, [])
   return (
-    <div id='jumpScreen' style={{ left: '40%', top: '70%', }}>
+    <div id='jumpScreen' style={{ left: '30%', top: '50%', }}>
       <div >
         <button onClick={() => close()}>Close</button>
         <br />

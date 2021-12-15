@@ -448,7 +448,7 @@ function DiceRoll({
   }, [])
 
   return (
-    <div id='dicePool' style={{ left: '40%', top: '70%', }}>
+    <div id='dicePool' style={{ left: '30%', top: '50%', }}>
       <div id='attackPannel'>
 
         <div id='weaponCard'>
@@ -478,7 +478,7 @@ function DiceRoll({
 
       </div>
 
-      <div id='diceRow'>
+      <div id='diceRow' style={{ left: '30%', top: '50%', }}>
         {redDice.map((die, i) =>
           <div key={i} id={i} className='singleDie'>
             <Dice size={100} onRoll={(roll => addDiceRoll(roll, 'red', i))}

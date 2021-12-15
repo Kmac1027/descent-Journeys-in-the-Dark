@@ -15,25 +15,18 @@ function App() {
   let chosenQuest = quest1;
 
   const [turn, setTurn] = useState('player')
-  function endTurn() {
-    if (turn === 'player') {
-      setTurn('overlord')
-    } else {
-      setTurn('player')
-    }
-    console.log(turn)
-  }
+
 
   return (
     <div className="App" style={{ backgroundImage: `url("images/background.png")` }}>
       <header>
-        <button style={{ height: '100px', width: '300px' }} onClick={() => endTurn()}>End Turn</button>
+
         <TilesAndTokens chosenHero={chosenHero} />
         <Canvas chosenHero={chosenHero} chosenQuest={chosenQuest}
           collisionDetection={quest1CollisionDetection} />
-        <Player chosenHero={chosenHero} chosenQuest={chosenQuest} revealAreas={revealAreas} turn={turn} />
+        <Player chosenHero={chosenHero} chosenQuest={chosenQuest} revealAreas={revealAreas} turn={turn} setTurn={setTurn} />
         <Overlord chosenHero={chosenHero} chosenQuest={chosenQuest} turn={turn} setTurn={setTurn} />
-
+        {/* <button style={{ height: '100px', width: '300px' }} onClick={() => endTurn()}>End Turn</button> */}
       </header>
 
     </div >

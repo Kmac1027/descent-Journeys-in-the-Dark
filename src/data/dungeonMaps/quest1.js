@@ -1,12 +1,21 @@
 import { heroToken, previousPosition } from '../../player_actions/movement';
 // import { monsterData } from '../../data/monsterData';
 import { disableMovment } from '../../player_actions/movement';
-import { Skeleton, MasterSkeleton } from '../monsterData';
+import { Skeleton, MasterSkeleton, Beastman, MasterBeastman } from '../monsterData';
 import { runLoop } from '../../components/Canvas'
 
-let skeleton1 = new Skeleton(1, 450, 1050);
-let skeleton2 = new Skeleton(2, 900, 1000);
-let skeleton3 = new Skeleton(3, 900, 1050);
+let skeleton1 = new Skeleton(1, 450, 1050, 'area1');
+let skeleton2 = new Skeleton(2, 900, 1000, 'area2');
+let skeleton3 = new Skeleton(3, 900, 1050, 'area2');
+
+let beastman1 = new Beastman(1, 250, 850, 'area1')
+let beastman2 = new Beastman(2, 250, 1200, 'area1')
+let beastman3 = new Beastman(3, 550, 1000, 'area1')
+let beastman4 = new Beastman(4, 650, 1100, 'area1')
+let beastman5 = new Beastman(5, 600, 750, 'area3')
+let beastman6 = new Beastman(6, 600, 350, 'area4')
+let beastman7 = new Beastman(7, 650, 350, 'area4')
+let masterBeastman1 = new MasterBeastman(1, 350, 1050, 'area1')
 
 export const quest1 = {
   name: 'Quest 1: Into the Dark',
@@ -16,7 +25,15 @@ export const quest1 = {
     monsters: {
       skeleton1,
       skeleton2,
-      skeleton3
+      skeleton3,
+      beastman1,
+      beastman2,
+      beastman3,
+      beastman4,
+      beastman5,
+      beastman6,
+      beastman7,
+      masterBeastman1,
     },
     clue_token: {},
     obstacles: {
@@ -366,6 +383,12 @@ export const quest1 = {
       3: { x: 450, y: 150, height: 100, width: 400 },
     }
   },
+  area_descriptions: {
+    area1: 'At the center of this room is a large, covered well. The wooden covering is rotted in places, and you see that the well itself is full of mud and slime. A pale green mist rises from the well and clings to the floor. You hear the shuffling of several creatures approaching from the shadows...',
+    area2: '',
+    area3: '',
+    area4: ''
+  },
   labels: {
     start_area: { x: 0, y: 1110, height: 20, width: 100 },
     area1: { x: 600, y: 1210, height: 20, width: 90 },
@@ -376,23 +399,61 @@ export const quest1 = {
 }
 
 export function revealAreas() {
+  let monsters = quest1.tokenPlacement.monsters
   if ((heroToken.x === 100 && heroToken.y === 1050) || (heroToken.x === 100 && heroToken.y === 1000)) {
     delete quest1.unexplored.area1
+    setTimeout(() => { alert(quest1.area_descriptions.area1) }, 200)
+    for (let monster in monsters) {
+      if (monsters[monster].area === 'area1') {
+        monsters[monster].active = true;
+      }
+    }
+
   }
   if (((heroToken.x === 650 && heroToken.y === 850) || (heroToken.x === 600 && heroToken.y === 850)) && quest1.unexplored.area3) {
     delete quest1.unexplored.area3
+    setTimeout(() => { alert(quest1.area_descriptions.area3) }, 200)
+    for (let monster in monsters) {
+      if (monsters[monster].area === 'area3') {
+        monsters[monster].active = true;
+      }
+    }
   }
   if (((heroToken.x === 800 && heroToken.y === 600) || (heroToken.x === 800 && heroToken.y === 650)) && quest1.unexplored.area3) {
     delete quest1.unexplored.area3
+    setTimeout(() => { alert(quest1.area_descriptions.area3) }, 200)
+    for (let monster in monsters) {
+      if (monsters[monster].area === 'area3') {
+        monsters[monster].active = true;
+      }
+    }
   }
   if (((heroToken.x === 800 && heroToken.y === 1000) || (heroToken.x === 800 && heroToken.y === 1050)) && quest1.unexplored.area2) {
     delete quest1.unexplored.area2
+    setTimeout(() => { alert(quest1.area_descriptions.area2) }, 200)
+    for (let monster in monsters) {
+      if (monsters[monster].area === 'area2') {
+        monsters[monster].active = true;
+      }
+    }
   }
   if (((heroToken.x === 750 && heroToken.y === 600) || (heroToken.x === 750 && heroToken.y === 650)) && quest1.unexplored.area2) {
     delete quest1.unexplored.area2
+    setTimeout(() => { alert(quest1.area_descriptions.area2) }, 200)
+    for (let monster in monsters) {
+      if (monsters[monster].area === 'area2') {
+        monsters[monster].active = true;
+      }
+    }
   }
   if ((heroToken.x === 600 && heroToken.y === 450) || (heroToken.x === 650 && heroToken.y === 450)) {
     delete quest1.unexplored.area4
+    setTimeout(() => { alert(quest1.area_descriptions.area4) }, 200)
+    for (let monster in monsters) {
+      if (monsters[monster].area === 'area4') {
+        monsters[monster].active = true;
+      }
+    }
   }
 }
 
