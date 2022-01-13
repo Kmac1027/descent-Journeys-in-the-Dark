@@ -5,21 +5,24 @@ import { inRange } from './Player'
 let obstacleArray
 let mapFloorArray;
 let openSquareArray
+let activeMonsterArray = []
 
 
-function Overlord({ chosenHero, chosenQuest, turn, setTurn }) {
+function Overlord({ chosenHero, chosenQuest, turn, setTurn, currentArmor, currentHealth, setCurrentHealth }) {
   const [runObstacle, setRunObstacle] = useState(true)
+  // const [nextMonsterInArray, setNextMonsterInArray] = useState(true)
 
   function obstacleArrayFillCheck() {
-    console.log('array check ran')
+    // console.log('array check ran')
     if (runObstacle === true) {
       setRunObstacle(false)
     } else {
       setRunObstacle(true)
     }
   }
+
   useEffect(() => {
-    console.log('Fill Array Use Effect Ran')
+    // console.log('Filled openSquare Array')
     obstacleArray = []
     mapFloorArray = []
     openSquareArray = []
@@ -47,7 +50,6 @@ function Overlord({ chosenHero, chosenQuest, turn, setTurn }) {
     if (pits !== {}) {
       for (let key in pits) {
         obstacleArray.push(pits[key])
-
       }
     }
     if (monsters !== {}) {
@@ -76,27 +78,41 @@ function Overlord({ chosenHero, chosenQuest, turn, setTurn }) {
 
   useEffect(() => {
     let monsters = chosenQuest.tokenPlacement.monsters
+
     if (turn === 'overlord') {
+      activeMonsterArray = [];
       alert('overlords turn')
-      // setTimeout(() => { setTurn('player') }, 2000)
-      //overlord gains threat tokens
-      //overlord draws cards
-      //overlord plays cards
-      //overlord attacks
+
       for (let monster in monsters) {
         if (monsters[monster].active === true) {
-          let monsterMovement = monsters[monster].speed
-          monsterAttack(monsters[monster], monsterMovement)
+          if (monsters[monster].numberOfAttacks <= 0) {
+            monsters[monster].numberOfAttacks = 1
+          }
+          activeMonsterArray.push(monsters[monster])
+          // let monsterMovement = monsters[monster].speed
+          // monsterAttack(monsters[monster], monsterMovement)
+        }
+      }
+
+      for (let i = 0; i < activeMonsterArray.length; i++) {
+        monsterAttack(activeMonsterArray[i], activeMonsterArray[i].speed)
+        if (i >= activeMonsterArray.length - 1) {
+          setTimeout(() => { setTurn('player') }, (activeMonsterArray.length - 1) * 1000)
+
         }
       }
 
     }
-  }, [turn])
+  }, [])
 
+  // console.log(turn)
+
+  // console.log(activeMonsterArray)
 
   //Attack function for Overlord Monsters
   function monsterAttack(monster, monsterMovement) {
     let distance
+    let attackAmount
     let heroInMeleeRange = inRange(monster, heroToken)
 
     let Xdist = Math.abs(monster.x - heroToken.x) / 50
@@ -106,24 +122,64 @@ function Overlord({ chosenHero, chosenQuest, turn, setTurn }) {
     } else {
       distance = Ydist
     }
-
-
-
+    // console.log(distance)
     //melee attack
     if (monster.class === 'melee') {
       if (heroInMeleeRange === false) {
         getInMeleeRange(monster, monsterMovement)
+
       } else {
-        console.log(`${monster.name} Attacks with a Melee Attack`)
+        if (monster.numberOfAttacks > 0) {
+          if (monster.type = "normal") {
+            attackAmount = Math.abs(Math.floor(Math.random() * 7));
+          } else if (monster.type = "master") {
+            attackAmount = Math.abs(Math.floor(Math.random() * 7) + Math.floor(Math.random() * 2))
+          }
+          let hitAmount = attackAmount - currentArmor
+          if (hitAmount <= 0) {
+            hitAmount = 0;
+          }
+          setCurrentHealth(currentHealth => currentHealth - hitAmount)
+          monster.numberOfAttacks -= 1
+          alert(`${monster.name}${monster.id} attacks you for ${hitAmount}`)
+        } else {
+          console.log(`${monster.name}${monster.id} out of attacks`)
+        }
       }
     }
 
-    // if (monster.class === 'ranged') {
-    //   console.log(`${monster.class}`)
-    // }
+    if (monster.class === 'ranged' || monster.class === 'magic') {
+      if (heroInMeleeRange === true) {
+        getInRange(monster, monsterMovement)
+      } else {
+        let range = Math.abs(Math.floor(Math.random() * 10));
+        if (range >= distance) {
+          if (monster.numberOfAttacks > 0) {
+            if (monster.type = "normal") {
+              attackAmount = Math.abs(Math.floor(Math.random() * 7));
+            } else if (monster.type = "master") {
+              attackAmount = Math.abs(Math.floor(Math.random() * 7) + Math.floor(Math.random() * 2))
+            }
+            let hitAmount = attackAmount - currentArmor
+            if (hitAmount <= 0) {
+              hitAmount = 0;
+            }
+            setCurrentHealth(currentHealth => currentHealth - hitAmount)
+            monster.numberOfAttacks -= 1
+            alert(`${monster.name}${monster.id} attacks you for ${hitAmount}`)
+          } else {
+            console.log(`${monster.name}${monster.id} out of attacks`)
+          }
+        } else {
+          alert(`${monster.name}${monster.id} did not have enough range`)
+        }
+      }
+
+    }
 
     // if (monster.class === 'magic') {
-    //   console.log(`${monster.class}`)
+    //   // console.log(`${monster.class}`)
+
     // }
 
   }
@@ -132,70 +188,81 @@ function Overlord({ chosenHero, chosenQuest, turn, setTurn }) {
     obstacleArrayFillCheck()
     let heroInMeleeRange = inRange(monster, heroToken)
     if (heroInMeleeRange === true) {
-      monsterAttack(monster)
-    } else if (heroInMeleeRange === false && monsterMovement !== 0) {
+      monsterAttack(monster, monsterMovement)
+    } else if (heroInMeleeRange === false && !monsterMovement <= 0) {
 
       if (monster.x > heroToken.x + 50) {
         for (let i = 0; i < openSquareArray.length; i++) {
           if (monster.x - 50 === openSquareArray[i].x && monster.y === openSquareArray[i].y) {
             monster.x -= 50
             monsterMovement -= 1
-            getInMeleeRange(monster, monsterMovement)
+            obstacleArrayFillCheck()
+            setTimeout(() => { getInMeleeRange(monster, monsterMovement) }, 1000)
+            break
+          }
+          else if (monster.x - 50 === openSquareArray[i].x && monster.y - 50 === openSquareArray[i].y) {
+            monster.x -= 50
+            monster.y -= 50
+            monsterMovement -= 1
+            obstacleArrayFillCheck()
+            setTimeout(() => { getInMeleeRange(monster, monsterMovement) }, 1000)
             break
           } else if (monster.x - 50 === openSquareArray[i].x && monster.y + 50 === openSquareArray[i].y) {
             monster.x -= 50
             monster.y += 50
             monsterMovement -= 1
-            getInMeleeRange(monster, monsterMovement)
-            break
-          } else if (monster.x - 50 === openSquareArray[i].x && monster.y - 50 === openSquareArray[i].y) {
-            monster.x -= 50
-            monster.y -= 50
-            monsterMovement -= 1
-            getInMeleeRange(monster, monsterMovement)
-            break
-          }
-        }
-      } else if (monster.x < heroToken.x - 50) {
-        for (let i = 0; i < openSquareArray.length; i++) {
-          if (monster.x + 50 === openSquareArray[i].x && monster.y === openSquareArray[i].y) {
-            monster.x += 50
-            monsterMovement -= 1
-            getInMeleeRange(monster, monsterMovement)
-            break
-          } if (monster.x + 50 === openSquareArray[i].x && monster.y + 50 === openSquareArray[i].y) {
-            monster.x += 50
-            monster.y += 50
-            monsterMovement -= 1
-            getInMeleeRange(monster, monsterMovement)
-            break
-          } if (monster.x + 50 === openSquareArray[i].x && monster.y - 50 === openSquareArray[i].y) {
-            monster.x -= 50
-            monster.y -= 50
-            monsterMovement -= 1
-            getInMeleeRange(monster, monsterMovement)
+            obstacleArrayFillCheck()
+            setTimeout(() => { getInMeleeRange(monster, monsterMovement) }, 1000)
             break
           }
         }
       }
-      if (monster.y > heroToken.y + 50) {
+      else if (monster.x < heroToken.x - 50) {
+        for (let i = 0; i < openSquareArray.length; i++) {
+          if (monster.x + 50 === openSquareArray[i].x && monster.y === openSquareArray[i].y) {
+            monster.x += 50
+            monsterMovement -= 1
+            obstacleArrayFillCheck()
+            setTimeout(() => { getInMeleeRange(monster, monsterMovement) }, 1000)
+            break
+          } else if (monster.x + 50 === openSquareArray[i].x && monster.y + 50 === openSquareArray[i].y) {
+            monster.x += 50
+            monster.y += 50
+            monsterMovement -= 1
+            obstacleArrayFillCheck()
+            setTimeout(() => { getInMeleeRange(monster, monsterMovement) }, 1000)
+            break
+          } else if (monster.x + 50 === openSquareArray[i].x && monster.y - 50 === openSquareArray[i].y) {
+            monster.x += 50
+            monster.y -= 50
+            monsterMovement -= 1
+            obstacleArrayFillCheck()
+            setTimeout(() => { getInMeleeRange(monster, monsterMovement) }, 1000)
+            break
+          }
+        }
+      }
+      else if (monster.y > heroToken.y + 50) {
         for (let i = 0; i < openSquareArray.length; i++) {
           if (monster.y - 50 === openSquareArray[i].y && monster.x === openSquareArray[i].x) {
             monster.y -= 50
             monsterMovement -= 1
-            getInMeleeRange(monster, monsterMovement)
+            obstacleArrayFillCheck()
+            setTimeout(() => { getInMeleeRange(monster, monsterMovement) }, 1000)
             break
           } else if (monster.y - 50 === openSquareArray[i].y && monster.x + 50 === openSquareArray[i].x) {
             monster.y -= 50
             monster.x += 50
             monsterMovement -= 1
-            getInMeleeRange(monster, monsterMovement)
+            obstacleArrayFillCheck()
+            setTimeout(() => { getInMeleeRange(monster, monsterMovement) }, 1000)
             break
           } else if (monster.y - 50 === openSquareArray[i].y && monster.x - 50 === openSquareArray[i].x) {
             monster.y -= 50
             monster.x -= 50
             monsterMovement -= 1
-            getInMeleeRange(monster, monsterMovement)
+            obstacleArrayFillCheck()
+            setTimeout(() => { getInMeleeRange(monster, monsterMovement) }, 1000)
             break
           }
         }
@@ -205,26 +272,78 @@ function Overlord({ chosenHero, chosenQuest, turn, setTurn }) {
           if (monster.y + 50 === openSquareArray[i].y && monster.x === openSquareArray[i].x) {
             monster.y += 50
             monsterMovement -= 1
-            getInMeleeRange(monster, monsterMovement)
+            obstacleArrayFillCheck()
+            setTimeout(() => { getInMeleeRange(monster, monsterMovement) }, 1000)
             break
           } else if (monster.y + 50 === openSquareArray[i].y && monster.x + 50 === openSquareArray[i].x) {
             monster.y += 50
             monster.x += 50
             monsterMovement -= 1
-            getInMeleeRange(monster, monsterMovement)
+            obstacleArrayFillCheck()
+            setTimeout(() => { getInMeleeRange(monster, monsterMovement) }, 1000)
             break
-          } else if (monster.y - 50 === openSquareArray[i].y && monster.x - 50 === openSquareArray[i].x) {
-            monster.y -= 50
+          } else if (monster.y + 50 === openSquareArray[i].y && monster.x - 50 === openSquareArray[i].x) {
+            monster.y += 50
             monster.x -= 50
             monsterMovement -= 1
-            getInMeleeRange(monster, monsterMovement)
+            obstacleArrayFillCheck()
+            setTimeout(() => { getInMeleeRange(monster, monsterMovement) }, 1000)
             break
           }
         }
       }
 
-    } if (monsterMovement <= 0) {
-      console.log(`${monster} out of movement`)
+    }
+    else if (monsterMovement <= 0) {
+      console.log(`${monster.name}${monster.id} out of movement`)
+    }
+  }
+
+
+  //makes magic and ranged monsters move away from hero if they are right next to them
+  function getInRange(monster, monsterMovement) {
+    obstacleArrayFillCheck()
+    let heroInMeleeRange = inRange(monster, heroToken)
+    if (heroInMeleeRange === false) {
+      monsterAttack(monster)
+    } else {
+      if (monster.x > heroToken.x && !monsterMovement <= 0) {
+        for (let i = 0; i < openSquareArray.length; i++) {
+          if (monster.x + 50 === openSquareArray[i].x && monster.y === openSquareArray[i].y) {
+            monster.x += 50
+            monsterMovement -= 1
+            getInRange(monster, monsterMovement)
+            break;
+          }
+        }
+      } else if (monster.x < heroToken.x && !monsterMovement <= 0) {
+        for (let i = 0; i < openSquareArray.length; i++) {
+          if (monster.x - 50 === openSquareArray[i].x && monster.y === openSquareArray[i].y) {
+            monster.x -= 50
+            monsterMovement -= 1
+            getInRange(monster, monsterMovement)
+            break;
+          }
+        }
+      } else if (monster.y > heroToken.y && !monsterMovement <= 0) {
+        for (let i = 0; i < openSquareArray.length; i++) {
+          if (monster.y + 50 === openSquareArray[i].y && monster.x === openSquareArray[i].x) {
+            monster.y += 50
+            monsterMovement -= 1
+            getInRange(monster, monsterMovement)
+            break;
+          }
+        }
+      } else if (monster.y < heroToken.y && !monsterMovement <= 0) {
+        for (let i = 0; i < openSquareArray.length; i++) {
+          if (monster.y - 50 === openSquareArray[i].y && monster.x === openSquareArray[i].x) {
+            monster.y -= 50
+            monsterMovement -= 1
+            getInRange(monster, monsterMovement)
+            break;
+          }
+        }
+      }
     }
   }
 

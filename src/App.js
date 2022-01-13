@@ -25,7 +25,7 @@ function App() {
         <Canvas chosenHero={chosenHero} chosenQuest={chosenQuest}
           collisionDetection={quest1CollisionDetection} />
         <Player chosenHero={chosenHero} chosenQuest={chosenQuest} revealAreas={revealAreas} turn={turn} setTurn={setTurn} />
-        <Overlord chosenHero={chosenHero} chosenQuest={chosenQuest} turn={turn} setTurn={setTurn} />
+        {/* <Overlord chosenHero={chosenHero} chosenQuest={chosenQuest} turn={turn} setTurn={setTurn} /> */}
         {/* <button style={{ height: '100px', width: '300px' }} onClick={() => endTurn()}>End Turn</button> */}
       </header>
 

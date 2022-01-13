@@ -104,7 +104,7 @@ export function attackTargetClicked() {
 
       let monsters = quest1.tokenPlacement.monsters
       for (let monster in monsters) {
-        console.log(monsters[monster])
+        // console.log(monsters[monster])
         if (correctedPosition.x === monsters[monster].x && correctedPosition.y === monsters[monster].y) {
           console.log(monster, ' Selected to attack')
           quest1.tokenPlacement.marker.x = monsters[monster].x

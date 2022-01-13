@@ -514,7 +514,7 @@ function Shop({ chosenHero,
           <p>Cost: 1000 Gold</p>
         </div>
       </div>
-
+      {/* 
       {showTreasureDiv ?
         <RandomTreasure
           showTreasureDiv={showTreasureDiv}
@@ -527,7 +527,7 @@ function Shop({ chosenHero,
           copperTreasureArray={copperTreasureArray}
           silverTreasureArray={silverTreasureArray}
           goldTreasureArray={goldTreasureArray}
-        /> : null}
+        /> : null} */}
 
     </div >
 

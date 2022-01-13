@@ -11,6 +11,7 @@ export class Beastman {
     this.base_armor = 2;
     this.speed = 4;
     this.class = 'melee';
+    this.numberOfAttacks = 1;
     this.dice = {
       red: 1,
       blue: 0,
@@ -52,6 +53,7 @@ export class MasterBeastman {
     this.base_armor = 3;
     this.speed = 4;
     this.class = 'melee';
+    this.numberOfAttacks = 1;
     this.dice = {
       red: 1,
       blue: 0,
@@ -96,6 +98,7 @@ export class Skeleton {
     this.base_armor = 0;
     this.speed = 5;
     this.class = 'ranged';
+    this.numberOfAttacks = 1;
     this.dice = {
       red: 0,
       blue: 1,
@@ -141,6 +144,7 @@ export class MasterSkeleton {
     this.base_armor = 1;
     this.speed = 5;
     this.class = 'ranged';
+    this.numberOfAttacks = 1;
     this.dice = {
       red: 0,
       blue: 1,

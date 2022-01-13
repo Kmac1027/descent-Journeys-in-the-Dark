@@ -11,6 +11,7 @@ import { copperTreasures } from '../data/items/copperTreasures';
 import { silverTreasures } from '../data/items/silverTreasures';
 import { goldTreasures } from '../data/items/goldTreasures';
 import { relics } from '../data/items/relics';
+import Overlord from './Overlord'
 import SkillFunctions from './SkillFunctions';
 import DiceRoll from './Dice';
 import Potions, { potionsArray } from './Potions';
@@ -26,7 +27,6 @@ import { shopItemData } from '../data/items/shopItems';
 import { heroToken, disableMovment } from '../player_actions/movement';
 import { attack, attackType, } from '../player_actions/attack';
 import { targetClicked, mousePos, correctedPosition, attackTargetClicked, selectedTarget } from '../player_actions/mouseClick';
-import { revealAreas } from '../data/dungeonMaps/quest1';
 
 
 export function inRange(token, checkPoint) {
@@ -786,7 +786,7 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn }) {
               <div>
                 {showReturnToTown ?
                   <div>
-                    {showReturnToTown ? <button height='100px' width='100px' onClick={attackCardsActive}>{weaponCardsActive ? 'Stop Attack' : 'Attack'}</button> : null}
+                    {showReturnToTown ? <button height='100px' width='100px' onClick={attackCardsActive}>{turn === 'player' ? weaponCardsActive ? 'Stop Attack' : 'Attack' : null}</button> : null}
 
                     {weaponCardsActive ? <p>Select the Weapon you want to use, then your target</p> : null}
                   </div>
@@ -1071,6 +1071,15 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn }) {
         /> : null}
       <SkillFunctions />
       <Conditions />
+      {turn === 'overlord' ? <Overlord
+        chosenHero={chosenHero}
+        chosenQuest={chosenQuest}
+        turn={turn}
+        setTurn={setTurn}
+        currentArmor={currentArmor}
+        currentHealth={currentHealth}
+        setCurrentHealth={setCurrentHealth}
+      /> : null}
     </div >
 
   );
