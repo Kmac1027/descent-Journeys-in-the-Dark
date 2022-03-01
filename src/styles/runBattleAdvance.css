@@ -1,0 +1,10 @@
+#runBattleAdvance {
+    background-color: rgb(241, 167, 87);
+    position: absolute;
+    justify-content: center;
+    align-self: center;
+    color: black;
+    height: 300px;
+    width: 500px;
+    overflow-y: auto;
+  }
