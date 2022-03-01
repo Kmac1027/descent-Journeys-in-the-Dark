@@ -12,19 +12,19 @@ import RandomTreasure from './RandomTreasure';
 
 export let shopItemsArray = [];
 for (let key in shopItemData) {
-  shopItemsArray.push(shopItemData[key])
+  shopItemsArray.push(shopItemData[key]);
 }
-export let copperTreasureArray = []
+export let copperTreasureArray = [];
 for (let key in copperTreasures) {
-  copperTreasureArray.push(copperTreasures[key])
+  copperTreasureArray.push(copperTreasures[key]);
 }
-export let silverTreasureArray = []
+export let silverTreasureArray = [];
 for (let key in silverTreasures) {
-  silverTreasureArray.push(silverTreasures[key])
+  silverTreasureArray.push(silverTreasures[key]);
 }
-export let goldTreasureArray = []
+export let goldTreasureArray = [];
 for (let key in goldTreasures) {
-  goldTreasureArray.push(goldTreasures[key])
+  goldTreasureArray.push(goldTreasures[key]);
 }
 //potions
 export let health_potion = {
@@ -33,14 +33,14 @@ export let health_potion = {
   restore: 3,
   cost: 50,
   img_path: 'images/items/shop/health_potion.png'
-}
+};
 export let vitality_potion = {
   name: 'Vitality Potion',
   type: 'potion',
   restore: 'max fatigue',
   cost: 50,
   img_path: 'images/items/shop/vitality_potion.png'
-}
+};
 
 function Shop({ chosenHero,
   weapon1,
@@ -75,120 +75,127 @@ function Shop({ chosenHero,
   const [availableItems, setAvailableItems] = useState(shopItemsArray);
 
   function addPotion(type) {
-    if (potionsArray.length >= 3) {
-      let result = window.confirm('You have no more room for potions, would you like to add it to your bag?');
-      if (result === true) {
-        if (bagArray.length >= 3) {
-          alert('Your Bag is Full!')
-        } else {
-          if (type === 'health') {
-            bagArray.push(health_potion)
-          } else if (type === 'vitality') {
-            bagArray.push(vitality_potion)
-          }
-          let newMoney = Math.floor(money - health_potion.cost);
-          setMoney(newMoney);
-        }
-      }
+    if (money < health_potion.cost) {
+      alert(`you dont have enough money for this Potion`);
     } else {
-      if (type === 'health') {
-        potionsArray.push(health_potion)
-      } else if (type === 'vitality') {
-        potionsArray.push(vitality_potion)
+      if (potionsArray.length >= 3) {
+        let result = window.confirm('You have no more room for potions, would you like to add it to your bag?');
+        if (result === true) {
+          if (bagArray.length >= 3) {
+            alert('Your Bag is Full!');
+          } else {
+            if (type === 'health') {
+              bagArray.push(health_potion);
+            } else if (type === 'vitality') {
+              bagArray.push(vitality_potion);
+            }
+            let newMoney = Math.floor(money - health_potion.cost);
+            setMoney(newMoney);
+          }
+        }
+      } else {
+        if (type === 'health') {
+          potionsArray.push(health_potion);
+        } else if (type === 'vitality') {
+          potionsArray.push(vitality_potion);
+        }
+        let newMoney = Math.floor(money - health_potion.cost);
+        setMoney(newMoney);
+        alert('potion purchased and placed in potions bag');
       }
-      let newMoney = Math.floor(money - health_potion.cost);
-      setMoney(newMoney);
     }
   }
 
   function addPowerDice(type) {
-    if (type === 'melee') {
-      if (meleePowerDie >= 5) {
-        alert('You already have the maximum of 5 Power dice for this Trait')
-      } else {
-        setMeleePowerDie(meleePowerDie => meleePowerDie + 1);
+    if (money < 500) {
+      alert(`you dont have enough money for this Power Dice`);
+    } else {
+      if (type === 'melee') {
+        if (meleePowerDie >= 5) {
+          alert('You already have the maximum of 5 Power dice for this Trait');
+        } else {
+          setMeleePowerDie(meleePowerDie => meleePowerDie + 1);
+        }
+      } else if (type === 'ranged') {
+        if (rangedPowerDie >= 5) {
+          alert('You already have the maximum of 5 Power dice for this Trait');
+        } else {
+          setRangedPowerDie(rangedPowerDie => rangedPowerDie + 1);
+        }
+      } else if (type === 'magic') {
+        if (magicPowerDie >= 5) {
+          alert('You already have the maximum of 5 Power dice for this Trait');
+        } else {
+          setMagicPowerDie(magicPowerDie => magicPowerDie + 1);
+        }
       }
-    } else if (type === 'ranged') {
-      if (rangedPowerDie >= 5) {
-        alert('You already have the maximum of 5 Power dice for this Trait')
-      } else {
-        setRangedPowerDie(rangedPowerDie => rangedPowerDie + 1);
-      }
-    } else if (type === 'magic') {
-      if (magicPowerDie >= 5) {
-        alert('You already have the maximum of 5 Power dice for this Trait')
-      } else {
-        setMagicPowerDie(magicPowerDie => magicPowerDie + 1);
-      }
+      let newMoney = Math.floor(money - 500);
+      setMoney(newMoney);
     }
-    let newMoney = Math.floor(money - 500);
-    setMoney(newMoney);
   }
 
   function getRandomTreasure(type) {
     if (bagArray.length >= 3) {
-      alert('You have no room in your bag for a Treasure!')
+      alert('You have no room in your bag for a Treasure!');
     } else {
       if (type === 'copper') {
         if (money < 250) {
-          alert('You do not have enough money to purchawe a Copper treasure')
+          alert('You do not have enough money to purchawe a Copper treasure');
         } else {
           if (copperTreasureArray.length <= 0) {
-            alert('All the Copper Treasures are Gone')
+            alert('All the Copper Treasures are Gone');
           } else {
             let newMoney = Math.floor(money - 250);
             setMoney(newMoney);
-            let pickRandomItem = Math.floor(Math.random() * (copperTreasureArray.length - 1))
-            let randomItem = copperTreasureArray[pickRandomItem]
-            bagArray.push(randomItem)
-            setRandomTreasure(randomItem)
+            let pickRandomItem = Math.floor(Math.random() * (copperTreasureArray.length - 1));
+            let randomItem = copperTreasureArray[pickRandomItem];
+            bagArray.push(randomItem);
+            setRandomTreasure(randomItem);
             copperTreasureArray.splice(copperTreasureArray.indexOf(randomItem), 1);
-            setShowTreasureDiv(true)
+            setShowTreasureDiv(true);
           }
         }
       }
       if (type === 'silver') {
         if (money < 500) {
-          alert('You do not have enough money to purchase a Silver treasure')
+          alert('You do not have enough money to purchase a Silver treasure');
         } else {
           if (silverTreasureArray.length <= 0) {
-            alert('All the Silver Treasures are Gone')
+            alert('All the Silver Treasures are Gone');
           } else {
             let newMoney = Math.floor(money - 500);
             setMoney(newMoney);
-            let pickRandomItem = Math.floor(Math.random() * (silverTreasureArray.length - 1))
-            console.log(silverTreasureArray[pickRandomItem])
-            let randomItem = silverTreasureArray[pickRandomItem]
-            bagArray.push(randomItem)
-            setRandomTreasure(randomItem)
+            let pickRandomItem = Math.floor(Math.random() * (silverTreasureArray.length - 1));
+            console.log(silverTreasureArray[pickRandomItem]);
+            let randomItem = silverTreasureArray[pickRandomItem];
+            bagArray.push(randomItem);
+            setRandomTreasure(randomItem);
             silverTreasureArray.splice(silverTreasureArray.indexOf(randomItem), 1);
-            setShowTreasureDiv(true)
+            setShowTreasureDiv(true);
           }
         }
       }
       if (type === 'gold') {
         if (money < 750) {
-          alert('You do not have enough money to purchase a Gold treasure')
+          alert('You do not have enough money to purchase a Gold treasure');
         } else {
           if (goldTreasureArray.length <= 0) {
-            alert('All the Gold Treasures are Gone')
+            alert('All the Gold Treasures are Gone');
           } else {
             let newMoney = Math.floor(money - 750);
             setMoney(newMoney);
-            let pickRandomItem = Math.floor(Math.random() * (goldTreasureArray.length - 1))
-            console.log(goldTreasureArray[pickRandomItem])
-            let randomItem = goldTreasureArray[pickRandomItem]
-            bagArray.push(randomItem)
-            setRandomTreasure(randomItem)
+            let pickRandomItem = Math.floor(Math.random() * (goldTreasureArray.length - 1));
+            console.log(goldTreasureArray[pickRandomItem]);
+            let randomItem = goldTreasureArray[pickRandomItem];
+            bagArray.push(randomItem);
+            setRandomTreasure(randomItem);
             goldTreasureArray.splice(goldTreasureArray.indexOf(randomItem), 1);
-            setShowTreasureDiv(true)
+            setShowTreasureDiv(true);
           }
         }
       }
     }
-
   }
-
 
   function buy(item) {
     if (money < item.cost) {
@@ -196,16 +203,16 @@ function Shop({ chosenHero,
     } else {
       if (item.type === 'melee' || item.type === 'ranged' || item.type === 'magic' || item.type === 'shield') {
         if (item.rune === true && equipRunes === false) {
-          let result = window.confirm(`Your Armor Prevents you from Equiping this ${item.name}, would you like to add it to your Bag?`)
+          let result = window.confirm(`Your Armor Prevents you from Equiping this ${item.name}, would you like to add it to your Bag?`);
           if (result === true) {
             if (bagArray.length >= 3) {
-              alert('Your Bag is Full!')
+              alert('Your Bag is Full!');
             } else {
-              bagArray.push(item)
+              bagArray.push(item);
               let newMoney = Math.floor(money - item.cost);
               setMoney(newMoney);
               if (item.number_available > 1) {
-                item.number_available -= 1
+                item.number_available -= 1;
               } else {
                 shopItemsArray.splice(shopItemsArray.indexOf(item), 1);
               }
@@ -214,16 +221,16 @@ function Shop({ chosenHero,
           }
         } else {
           if ((weapon1 && weapon2) || (weapon1 && item.hands === 2) || (weapon2 && item.hands === 2) || (weapon1 && weapon1.hands === 2) || (weapon2 && weapon2.hands === 2)) {
-            let result = window.confirm(`You have no space for this ${item.name}, would you like to add it to your Bag?`)
+            let result = window.confirm(`You have no space for this ${item.name}, would you like to add it to your Bag?`);
             if (result === true) {
               if (bagArray.length >= 3) {
-                alert('Your Bag is Full!')
+                alert('Your Bag is Full!');
               } else {
-                bagArray.push(item)
+                bagArray.push(item);
                 let newMoney = Math.floor(money - item.cost);
                 setMoney(newMoney);
                 if (item.number_available > 1) {
-                  item.number_available -= 1
+                  item.number_available -= 1;
                 } else {
                   shopItemsArray.splice(shopItemsArray.indexOf(item), 1);
                 }
@@ -234,7 +241,7 @@ function Shop({ chosenHero,
             let newMoney = Math.floor(money - item.cost);
             setMoney(newMoney);
             if (item.number_available > 1) {
-              item.number_available -= 1
+              item.number_available -= 1;
             } else {
               shopItemsArray.splice(shopItemsArray.indexOf(item), 1);
             }
@@ -244,23 +251,23 @@ function Shop({ chosenHero,
             } else if (weapon1 && !weapon2) {
               setWeapon2(item);
             } else if (!weapon1 && weapon2) {
-              setWeapon1(item)
+              setWeapon1(item);
             }
 
           }
         }
       } else if (item.type === 'armor') {
         if (armor) {
-          let result = window.confirm(`You have no space for this ${item.name}, would you like to add it to your Bag?`)
+          let result = window.confirm(`You have no space for this ${item.name}, would you like to add it to your Bag?`);
           if (result === true) {
             if (bagArray.length >= 3) {
-              alert('Your Bag is Full!')
+              alert('Your Bag is Full!');
             } else {
-              bagArray.push(item)
+              bagArray.push(item);
               let newMoney = Math.floor(money - item.cost);
               setMoney(newMoney);
               if (item.number_available > 1) {
-                item.number_available -= 1
+                item.number_available -= 1;
               } else {
                 shopItemsArray.splice(shopItemsArray.indexOf(item), 1);
               }
@@ -273,43 +280,43 @@ function Shop({ chosenHero,
             || ((other1 && other1.rune === true) && item.special_abilities.equipRunes === false)
             || ((other2 && other2.rune === true) && item.special_abilities.equipRunes === false)
           ) {
-            let result = window.confirm(`Your Equipt Runes prevent you from weaing this type of Armor, would you like to add it to your Bag?`)
+            let result = window.confirm(`Your Equipt Runes prevent you from weaing this type of Armor, would you like to add it to your Bag?`);
             if (result === true) {
               if (bagArray.length >= 3) {
-                alert('Your Bag is Full!')
+                alert('Your Bag is Full!');
               } else {
-                bagArray.push(item)
+                bagArray.push(item);
               }
             }
           } else {
             if (item.special_abilities.equipRunes === false) {
-              setEquipRunes(false)
+              setEquipRunes(false);
             }
             let newMoney = Math.floor(money - item.cost);
             setMoney(newMoney);
             if (item.number_available > 1) {
-              item.number_available -= 1
+              item.number_available -= 1;
             } else {
               shopItemsArray.splice(shopItemsArray.indexOf(item), 1);
             }
             setAvailableItems(shopItemsArray);
-            setArmor(item)
+            setArmor(item);
           }
         }
 
 
       } else if (item.type === 'other') {
         if (item.rune === true && equipRunes === false) {
-          let result = window.confirm(`Your Armor Prevents you from Equiping this ${item.name}, would you like to add it to your Bag?`)
+          let result = window.confirm(`Your Armor Prevents you from Equiping this ${item.name}, would you like to add it to your Bag?`);
           if (result === true) {
             if (bagArray.length >= 3) {
-              alert('Your Bag is Full!')
+              alert('Your Bag is Full!');
             } else {
-              bagArray.push(item)
+              bagArray.push(item);
               let newMoney = Math.floor(money - item.cost);
               setMoney(newMoney);
               if (item.number_available > 1) {
-                item.number_available -= 1
+                item.number_available -= 1;
               } else {
                 shopItemsArray.splice(shopItemsArray.indexOf(item), 1);
               }
@@ -318,16 +325,16 @@ function Shop({ chosenHero,
           }
         }
         else if (other1 && other2) {
-          let result = window.confirm(`You have no space for this ${item.name}, would you like to add it to your Bag?`)
+          let result = window.confirm(`You have no space for this ${item.name}, would you like to add it to your Bag?`);
           if (result === true) {
             if (bagArray.length >= 3) {
-              alert('Your Bag is Full!')
+              alert('Your Bag is Full!');
             } else {
-              bagArray.push(item)
+              bagArray.push(item);
               let newMoney = Math.floor(money - item.cost);
               setMoney(newMoney);
               if (item.number_available > 1) {
-                item.number_available -= 1
+                item.number_available -= 1;
               } else {
                 shopItemsArray.splice(shopItemsArray.indexOf(item), 1);
               }
@@ -338,7 +345,7 @@ function Shop({ chosenHero,
           let newMoney = Math.floor(money - item.cost);
           setMoney(newMoney);
           if (item.number_available > 1) {
-            item.number_available -= 1
+            item.number_available -= 1;
           } else {
             shopItemsArray.splice(shopItemsArray.indexOf(item), 1);
           }
@@ -348,7 +355,7 @@ function Shop({ chosenHero,
           } else if (other1 && !other2) {
             setOther2(item);
           } else if (!other1 && other2) {
-            setOther1(item)
+            setOther1(item);
           }
         }
       }
@@ -392,12 +399,14 @@ function Shop({ chosenHero,
         document.onmousemove = null;
       }
     }
-  }, [])
+  }, []);
 
   return (
     <div id='shop' style={{ left: '30%', top: '50%', }}>
       <h2>Shop</h2>
       <button onClick={() => showShopItems()}>Close Shop</button>
+      <br />
+      <br />
       <div id='shopItems' >
         {availableItems.map((item, i) =>
           <div key={i} style={{ border: 'outset' }}>
@@ -514,6 +523,8 @@ function Shop({ chosenHero,
           <p>Cost: 1000 Gold</p>
         </div>
       </div>
+      <br />
+      <button onClick={() => showShopItems()}>Close Shop</button>
       {/* 
       {showTreasureDiv ?
         <RandomTreasure
@@ -528,9 +539,7 @@ function Shop({ chosenHero,
           silverTreasureArray={silverTreasureArray}
           goldTreasureArray={goldTreasureArray}
         /> : null} */}
-
     </div >
-
   );
 }
 

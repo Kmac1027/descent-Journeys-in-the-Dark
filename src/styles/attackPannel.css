@@ -19,17 +19,21 @@
 }
 
 #attackPannel{
+  border: solid;
+  border-color: rgb(29, 22, 22);
   grid-area: attackPannel;
   position:absolute;
   width: 700px;
   height: 450px;
-  background-color: gray;
+  background-color: rgb(49, 46, 46);
   display: grid;
   grid-template-columns: 25% 50% 25%;
   grid-template-rows: 40% 20% 40%;
 }
  #weaponCard{
-  background-color: rgba(134, 130, 70, 0.897);
+  /* background-color: rgba(134, 130, 70, 0.897); */
+  border: solid;
+  border-color: rgb(29, 22, 22);
   justify-content: center;
   grid-column-start: 1;
   grid-column-end: 1;
@@ -38,7 +42,9 @@
 }
 
 #abilities{
-  background-color: rgb(162, 0, 255);
+  /* background-color: rgb(162, 0, 255); */
+  border: solid;
+  border-color: rgb(29, 22, 22);
   justify-content: center;
   grid-column-start: 1;
   grid-column-end: 2;
@@ -47,7 +53,9 @@
  
 }
 #roll{
-  background-color: red;
+  /* background-color: red; */
+  border: solid;
+  border-color: rgb(29, 22, 22);
   justify-content: center;
   grid-column-start: 2;
   grid-column-end: 3;
@@ -60,7 +68,9 @@
   justify-content: center;
   display:flex;
   flex-wrap: wrap;
-  background-color: blue;
+  /* background-color: blue; */
+  border: solid;
+  border-color: rgb(29, 22, 22);
 
   grid-column-start: 2;
   grid-column-end: 3;
@@ -78,7 +88,9 @@
 }
 
 #enemyPic{
-  background-color: rgb(49, 6, 78);
+  /* background-color: rgb(49, 6, 78); */
+  border: solid;
+  border-color: rgb(29, 22, 22);
   justify-content: center;
   grid-column-start: 3;
   grid-column-end: 4;
@@ -88,7 +100,9 @@
 }
 
 #enemyCard{
-  background-color: rgb(65, 8, 8);
+  /* background-color: rgb(65, 8, 8); */
+  border: solid;
+  border-color: rgb(29, 22, 22);
   justify-content: center;
   grid-column-start: 3;
   grid-column-end: 4;

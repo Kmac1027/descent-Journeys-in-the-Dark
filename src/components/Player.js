@@ -87,13 +87,29 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn }) {
       disableMovment.upRight = false;
       disableMovment.downLeft = false;
       setPlayerOptions(true);
+      setSpeed(0);
+      setNumberOfAttacks(0);
+      setShowRunBattleAdvance(true);
+      alert('Players Turn');
     }
   }, [turn]);
 
+  const [showRunBattleAdvance, setShowRunBattleAdvance] = useState(true);
   const [threatTokens, setThreatTokens] = useState(10);
   const [currentHealth, setCurrentHealth] = useState(
     heroData[chosenHero].max_wounds
   );
+
+  useEffect(() => {
+    if (currentHealth <= 0) {
+      alert('You Have Died');
+      setLevelConquestTokens(levelConquestTokens - heroConquestValue);
+      heroToken.x = chosenQuest.town.x + 50;
+      heroToken.y = chosenQuest.town.y + 50;
+      setCurrentHealth(heroData[chosenHero].max_wounds);
+    }
+  }, [currentHealth]);
+
   const [maxHealth, setMaxHealth] = useState(heroData[chosenHero].max_wounds);
   const [currentFatigue, setCurrentFatigue] = useState(
     heroData[chosenHero].max_fatigue
@@ -117,14 +133,32 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn }) {
   const [hasBlueRuneKey, setHasBlueRuneKey] = useState(false);
   const [condition, setCondition] = useState("Normal");
 
-  // const [money, setMoney] = useState(chosenQuest.startingMoney.amount);
-  const [money, setMoney] = useState(10000);
+  useEffect(() => {
+    if (speed <= 0) {
+      disableMovment.up = true;
+      disableMovment.left = true;
+      disableMovment.right = true;
+      disableMovment.down = true;
+      disableMovment.downRight = true;
+      disableMovment.upLeft = true;
+      disableMovment.upRight = true;
+      disableMovment.downLeft = true;
+    }
+  }, [speed]);
+
+  const [money, setMoney] = useState(chosenQuest.startingMoney);
+  // const [money, setMoney] = useState(10000);
+  useEffect(() => {
+    if (money < 0) {
+      setMoney(0);
+    }
+  }, [money]);
 
   const [equipRunes, setEquipRunes] = useState(true);
   const [showPotions, setShowPotions] = useState(false);
   const [showBag, setShowBag] = useState(false);
 
-  const [foundCopperTreasure, setFoundCopperTreasure] = useState(true);
+  const [foundCopperTreasure, setFoundCopperTreasure] = useState(false);
   const [foundSilverTreasure, setFoundSilverTreasure] = useState(false);
   const [foundGoldTreasure, setFoundGoldTreasure] = useState(false);
 
@@ -250,17 +284,23 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn }) {
         if (heroData[chosenHero].speed > armor.special_abilities.speedReduce) {
           setBaseSpeed(armor.special_abilities.speedReduce);
           if (armor.special_abilities.equipRunes === false) {
-            console.log("Equiped Runes set to false");
+            // console.log("Equiped Runes set to false");
             setEquipRunes(false);
           }
         }
+      } else if (armor.special_abilities === false) {
+        setCurrentArmor(heroData[chosenHero].base_armor);
+        setBaseSpeed(heroData[chosenHero].speed);
+        setEquipRunes(true);
       }
       setCurrentArmor(heroData[chosenHero].base_armor + armor.armor);
+
+    } else if (!armor) {
       setCurrentArmor(heroData[chosenHero].base_armor);
       setBaseSpeed(heroData[chosenHero].speed);
       setEquipRunes(true);
     }
-  }, [armor, baseSpeed, speed, other1, other2, chosenHero]);
+  }, [armor, currentArmor, baseSpeed, speed, other1, other2, chosenHero]);
 
   useEffect(() => {
     if (other1 && other1.name === "Crystal of Tival") {
@@ -653,6 +693,23 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn }) {
   function jumpScreen() {
     setShowJumpScreen(true);
   }
+  useEffect(() => {
+    let currentPositionX = heroToken.x;
+    let currentPositionY = heroToken.y;
+    const keyPressMovement = (event) => {
+      if (currentPositionX !== heroToken.x || currentPositionY !== heroToken.y) {
+        setSpeed(speed => speed - 1);
+        currentPositionX = heroToken.x;
+        currentPositionY = heroToken.y;
+      }
+    };
+    window.addEventListener("keydown", keyPressMovement);
+    return () => {
+      window.removeEventListener("keydown", keyPressMovement);
+    };
+  }, []);
+
+
 
   let teleportArray = [chosenQuest.tokenPlacement.start_area];
   const [port, setPort] = useState(teleportArray);
@@ -880,12 +937,13 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn }) {
     <div id="playerScreen">
       <div id="playerContainer">
         <div id="heroCardDiv">
-          <button
-            style={{ height: "20px", width: "100px" }}
-            onClick={() => endTurn()}
-          >
-            End Turn
-          </button>
+          {turn === "player" ?
+            <button
+              style={{ height: "20px", width: "100px" }}
+              onClick={() => endTurn()}
+            >
+              End Turn
+            </button> : null}
           <br />
           <img
             className="heroCard"
@@ -1448,10 +1506,17 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn }) {
           setCurrentHealth={setCurrentHealth}
         />
       ) : null}
-      <RunBattleadvance
-        setNumberOfAttacks={setNumberOfAttacks}
-        baseSpeed={baseSpeed}
-        setSpeed={setSpeed} />
+      {showRunBattleAdvance ?
+        <RunBattleadvance
+          numberOfAttacks={numberOfAttacks}
+          setNumberOfAttacks={setNumberOfAttacks}
+          baseSpeed={baseSpeed}
+          setSpeed={setSpeed}
+          speed={speed}
+          showRunBattleAdvance={showRunBattleAdvance}
+          setShowRunBattleAdvance={setShowRunBattleAdvance} />
+        : null}
+
     </div>
   );
 }

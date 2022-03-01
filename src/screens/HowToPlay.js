@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 function HowToPlay({ showHowToPlay, setShowHowToPlay }) {
 
     function closeHowTOPlayScreen() {
+        window.scrollBy(0, -700);
         setShowHowToPlay(false);
     }
 

@@ -8,14 +8,18 @@ function HomeScreen({ playGame, setPlayGame, chosenHero, setChosenHero }) {
     const [choseHero, setChoseHero] = useState(false);
 
     function startGame() {
+
         setShowHowToPlay(false);
         setChoseHero(true);
+        window.scrollBy(0, 700);
 
     }
     function rules() {
         if (showHowToPlay === false) {
+            window.scrollBy(0, 700);
             setShowHowToPlay(true);
         } else {
+            window.scrollBy(0, -700);
             setShowHowToPlay(false);
         }
 

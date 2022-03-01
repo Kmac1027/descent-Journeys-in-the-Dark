@@ -1,12 +1,9 @@
 function SkillFunctions() {
 
-
-
-
   return (
     <>
 
-    </ >
+    </>
   );
 }
 

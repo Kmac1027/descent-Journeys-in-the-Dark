@@ -49,14 +49,19 @@
 #heroCardDiv {
   grid-area: heroCardDiv;
   justify-content: center;
-  background: rgb(51, 49, 32);
+  /* background: rgb(51, 49, 32); */
+  /* background-image: 'images/iceBG.png;' */
+  border: solid;
+  border-color: gray;
 }
 
 #statBlock{
 grid-area: stats;
 display: flex;
 flex-direction: column;
-background: rgb(2, 37, 27);
+/* background: rgb(2, 37, 27); */
+border: solid;
+border-color: gray;
 justify-content: center;
 display: grid;
 grid-template-columns: auto auto;
@@ -83,7 +88,9 @@ grid-template-areas:
   justify-content: center;
   display: flex;
   flex-direction: row; 
-  background: red;
+  /* background: red; */
+  border: solid;
+  border-color: gray;
 }
 
 #other {
@@ -91,7 +98,9 @@ grid-template-areas:
   justify-content: center;
   display: flex;
   flex-direction: row;
-  background: blue;
+  /* background: blue; */
+  border: solid;
+  border-color: gray;
 }
 
 #bag{
@@ -99,7 +108,9 @@ grid-template-areas:
   justify-content: center;
   display: flex;
   flex-direction: row;
-  background: rgb(133, 125, 19);
+  /* background: rgb(133, 125, 19); */
+  border: solid;
+  border-color: gray;
 }
 
 #skills{
@@ -107,6 +118,8 @@ grid-template-areas:
   justify-content: center;
   display: flex;
   flex-direction: row;
-  background: green;
+  /* background: green; */
+  border: solid;
+  border-color: gray;
 
 }

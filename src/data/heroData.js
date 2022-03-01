@@ -43,5 +43,26 @@ export const heroData = {
     hero_card_img_path: 'images/hero_card/battlemage_jaes.jpg',
     token_path: 'images/hero_tokens/battlemage_jaes.jpg',
   },
+  silhouette: {
+    name: 'Silhouette',
+    max_wounds: 12,
+    max_fatigue: 5,
+    base_armor: 1,
+    speed: 5,
+    traits: {
+      melee_trait: 0,
+      ranged_trait: 3,
+      magic_trait: 0
+    },
+    hero_ability: 'While Silhouette has a readied order, she may spend 2 fatigue to exchange it for a different order at any time',
+    starting_skills: {
+      fighting_skill: 0,
+      subterfuge_skill: 3,
+      spellcasting_skill: 0
+    },
+    conquest_value: 3,
+    hero_card_img_path: 'images/hero_card/silhouette.jpg',
+    token_path: 'images/hero_tokens/silhouette.jpg',
+  },
 
-}
+};

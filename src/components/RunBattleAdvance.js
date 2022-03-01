@@ -5,22 +5,28 @@ import { useState, useEffect } from "react";
 
 
 
-function RunBattleadvance({ setNumberOfAttacks, baseSpeed, setSpeed }) {
-
+function RunBattleadvance({ numberOfAttacks, setNumberOfAttacks, speed, baseSpeed, setSpeed, showRunBattleAdvance, setShowRunBattleAdvance }) {
+    const [chosenAction, setChosenaction] = useState("");
 
     function battle() {
         setNumberOfAttacks(3);
         setSpeed(0);
+        setChosenaction("BATTLE");
     }
     function run() {
         setNumberOfAttacks(0);
         setSpeed(baseSpeed * 3);
+        setChosenaction("RUN");
     }
     function advance() {
         setNumberOfAttacks(2);
         setSpeed(baseSpeed);
+        setChosenaction("ADVANCE");
     }
 
+    function selectAction() {
+        setShowRunBattleAdvance(false);
+    }
 
     useEffect(() => {
         dragElement(document.getElementById("runBattleAdvance"));
@@ -62,12 +68,34 @@ function RunBattleadvance({ setNumberOfAttacks, baseSpeed, setSpeed }) {
 
     return (
         <div id='runBattleAdvance' style={{ left: '30%', top: '50%', }}>
-            <div>
-                <button onClick={run}>Run</button>
-                <button onClick={battle}>Battle</button>
-                <button onClick={advance}>Advance</button>
+            <h2>Select wich Action you would like to take this turn</h2>
+            <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+                <div style={{ border: "dotted", height: "200px", width: "200px" }}>
+                    <button style={{ height: "50px", width: "70px" }} onClick={run}>Run</button>
+                    <p>The "RUN" action allows you to move your base speed up to three times</p>
+                </div>
+                <div style={{ border: "dotted", height: "200px", width: "200px" }}>
+                    <button style={{ height: "50px", width: "70px" }} onClick={battle}>Battle</button>
+                    <p>The "BATTLE" action allows you to make three attacks</p>
+                </div>
+                <div style={{ border: "dotted", height: "200px", width: "200px" }}>
+                    <button style={{ height: "50px", width: "70px" }} onClick={advance}>Advance</button>
+                    <p>The "ADVANCE" action allows you to move your base speed and make two attacks</p>
+                </div>
             </div>
-            <button>Select</button>
+            <br />
+            Movement: {speed}
+            <br />
+            Attacks: {numberOfAttacks}
+            <br />
+            <br />
+            {chosenAction !== "" ?
+                <button style={{
+                    height: "100px", width: "200px"
+                }} onClick={() => selectAction()}>Choose the "{chosenAction}" action</button>
+                : null
+            }
+
         </div >
     );
 }
