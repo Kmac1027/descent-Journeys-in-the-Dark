@@ -59,8 +59,10 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn }) {
   function endTurn() {
     if (turn === "player") {
       setTurn("overlord");
+      console.log(disableMovment);
     } else {
       setTurn("player");
+      console.log(disableMovment);
     }
     // console.log(turn)
   }
@@ -68,24 +70,26 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn }) {
   const [playerOptions, setPlayerOptions] = useState(true);
   useEffect(() => {
     if (turn === "overlord") {
-      disableMovment.up = true;
-      disableMovment.left = true;
-      disableMovment.right = true;
-      disableMovment.down = true;
-      disableMovment.downRight = true;
-      disableMovment.upLeft = true;
-      disableMovment.upRight = true;
-      disableMovment.downLeft = true;
+      // disableMovment.up = true;
+      // disableMovment.left = true;
+      // disableMovment.right = true;
+      // disableMovment.down = true;
+      // disableMovment.downRight = true;
+      // disableMovment.upLeft = true;
+      // disableMovment.upRight = true;
+      // disableMovment.downLeft = true;
       setPlayerOptions(false);
+      setSpeed(0);
+      setNumberOfAttacks(0);
     } else if (turn === "player") {
-      disableMovment.up = false;
-      disableMovment.left = false;
-      disableMovment.right = false;
-      disableMovment.down = false;
-      disableMovment.downRight = false;
-      disableMovment.upLeft = false;
-      disableMovment.upRight = false;
-      disableMovment.downLeft = false;
+      // disableMovment.up = false;
+      // disableMovment.left = false;
+      // disableMovment.right = false;
+      // disableMovment.down = false;
+      // disableMovment.downRight = false;
+      // disableMovment.upLeft = false;
+      // disableMovment.upRight = false;
+      // disableMovment.downLeft = false;
       setPlayerOptions(true);
       setSpeed(0);
       setNumberOfAttacks(0);
@@ -106,7 +110,10 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn }) {
       setLevelConquestTokens(levelConquestTokens - heroConquestValue);
       heroToken.x = chosenQuest.town.x + 50;
       heroToken.y = chosenQuest.town.y + 50;
+      setShowReturnToTown(false);
+      setIsOnGlyph(true);
       setCurrentHealth(heroData[chosenHero].max_wounds);
+
     }
   }, [currentHealth]);
 
@@ -143,6 +150,15 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn }) {
       disableMovment.upLeft = true;
       disableMovment.upRight = true;
       disableMovment.downLeft = true;
+    } else {
+      disableMovment.up = false;
+      disableMovment.left = false;
+      disableMovment.right = false;
+      disableMovment.down = false;
+      disableMovment.downRight = false;
+      disableMovment.upLeft = false;
+      disableMovment.upRight = false;
+      disableMovment.downLeft = false;
     }
   }, [speed]);
 
