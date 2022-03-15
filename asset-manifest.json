@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/descent-Journeys-in-the-dark/static/css/main.a4218aa7.chunk.css",
+    "main.js": "/descent-Journeys-in-the-dark/static/js/main.782fc8a7.chunk.js",
+    "main.js.map": "/descent-Journeys-in-the-dark/static/js/main.782fc8a7.chunk.js.map",
+    "runtime-main.js": "/descent-Journeys-in-the-dark/static/js/runtime-main.d9354ab9.js",
+    "runtime-main.js.map": "/descent-Journeys-in-the-dark/static/js/runtime-main.d9354ab9.js.map",
+    "static/js/2.2a91c204.chunk.js": "/descent-Journeys-in-the-dark/static/js/2.2a91c204.chunk.js",
+    "static/js/2.2a91c204.chunk.js.map": "/descent-Journeys-in-the-dark/static/js/2.2a91c204.chunk.js.map",
+    "static/js/3.deb60562.chunk.js": "/descent-Journeys-in-the-dark/static/js/3.deb60562.chunk.js",
+    "static/js/3.deb60562.chunk.js.map": "/descent-Journeys-in-the-dark/static/js/3.deb60562.chunk.js.map",
+    "index.html": "/descent-Journeys-in-the-dark/index.html",
+    "static/css/main.a4218aa7.chunk.css.map": "/descent-Journeys-in-the-dark/static/css/main.a4218aa7.chunk.css.map",
+    "static/js/2.2a91c204.chunk.js.LICENSE.txt": "/descent-Journeys-in-the-dark/static/js/2.2a91c204.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d9354ab9.js",
+    "static/js/2.2a91c204.chunk.js",
+    "static/css/main.a4218aa7.chunk.css",
+    "static/js/main.782fc8a7.chunk.js"
+  ]
+}
