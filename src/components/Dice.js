@@ -213,6 +213,7 @@ function DiceRoll({
   function addDiceRoll(roll, color, id) {
     if (diceSideData[color].sides[`side${roll}`].miss === true) {
       alert("Attack Missed");
+      setNumberOfAttacks(numberOfAttacks - 1);
       selectedTarget.name = null;
       selectedTarget.id = null;
       attackOn();
