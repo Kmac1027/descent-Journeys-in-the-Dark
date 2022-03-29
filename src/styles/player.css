@@ -50,7 +50,7 @@
   grid-area: heroCardDiv;
   justify-content: center;
   /* background: rgb(51, 49, 32); */
-  /* background-image: 'images/iceBG.png;' */
+  /* background-image: '../images/iceBG.png;' */
   border: solid;
   border-color: gray;
 }
