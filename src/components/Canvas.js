@@ -388,6 +388,7 @@ function Canvas({ chosenQuest, collisionDetection }) {
           monsters[monster].w,
           monsters[monster].h
         );
+        collisionDetection(runLoop.x, runLoop.y);
         // } else {
         // let imgId = document.getElementById(monsters[monster].name);
         // ctx.drawImage(

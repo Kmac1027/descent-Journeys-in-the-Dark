@@ -101,6 +101,7 @@ function Player({ chosenHero, chosenQuest, revealAreas, collisionDetection, turn
       setSpeed(0);
       setNumberOfAttacks(0);
       setShowRunBattleAdvance(true);
+      collisionDetection();
       alert('Players Turn');
       // console.log(chosenQuest);
     }
