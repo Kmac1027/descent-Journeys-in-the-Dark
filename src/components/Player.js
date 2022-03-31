@@ -1,4 +1,5 @@
 import "../styles/player.css";
+import runLoop from "./Canvas.js";
 import Shop, {
   shopItemsArray,
   health_potion,
@@ -7,10 +8,10 @@ import Shop, {
   silverTreasureArray,
   goldTreasureArray,
 } from "./Shop";
-import { copperTreasures } from "../data/items/copperTreasures";
-import { silverTreasures } from "../data/items/silverTreasures";
-import { goldTreasures } from "../data/items/goldTreasures";
-import { relics } from "../data/items/relics";
+// import { copperTreasures } from "../data/items/copperTreasures";
+// import { silverTreasures } from "../data/items/silverTreasures";
+// import { goldTreasures } from "../data/items/goldTreasures";
+// import { relics } from "../data/items/relics";
 import Overlord from "./Overlord";
 import SkillFunctions from "./SkillFunctions";
 import DiceRoll from "./Dice";
@@ -19,7 +20,7 @@ import Bag, { bagArray } from "./Bag";
 import Teleport from "./Teleport";
 import Conditions from "./Conditions";
 import RandomTreasure from "./RandomTreasure";
-import JumpScreen from "./JumpScreen";
+// import JumpScreen from "./JumpScreen";
 import { useState, useEffect } from "react";
 import { heroData } from "../data/heroData.js";
 // import { monsterData } from '../data/monsterData.js';
@@ -34,6 +35,8 @@ import {
   selectedTarget,
 } from "../player_actions/mouseClick";
 import RunBattleadvance from "./RunBattleAdvance";
+import GameOverScreen from "../screens/GameOverScreen";
+import Canvas from "./Canvas";
 
 export function inRange(token, checkPoint) {
   if (
@@ -51,7 +54,9 @@ export function inRange(token, checkPoint) {
     return false;
   }
 }
-function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn }) {
+
+
+function Player({ chosenHero, chosenQuest, revealAreas, collisionDetection, turn, setTurn, playgame, setPlayGame }) {
   let copper = chosenQuest.tokenPlacement.treasure_chests.copper;
   let silver = chosenQuest.tokenPlacement.treasure_chests.silver;
   let gold = chosenQuest.tokenPlacement.treasure_chests.gold;
@@ -66,6 +71,8 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn }) {
     }
     // console.log(turn)
   }
+
+  const [gameOver, setGameOver] = useState(false);
 
   const [playerOptions, setPlayerOptions] = useState(true);
   useEffect(() => {
@@ -95,6 +102,7 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn }) {
       setNumberOfAttacks(0);
       setShowRunBattleAdvance(true);
       alert('Players Turn');
+      // console.log(chosenQuest);
     }
   }, [turn]);
 
@@ -108,6 +116,7 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn }) {
     if (currentHealth <= 0) {
       alert('You Have Died');
       setLevelConquestTokens(levelConquestTokens - heroConquestValue);
+
       heroToken.x = chosenQuest.town.x + 50;
       heroToken.y = chosenQuest.town.y + 50;
       setShowReturnToTown(false);
@@ -116,6 +125,8 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn }) {
 
     }
   }, [currentHealth]);
+
+
 
   const [maxHealth, setMaxHealth] = useState(heroData[chosenHero].max_wounds);
   const [currentFatigue, setCurrentFatigue] = useState(
@@ -127,9 +138,17 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn }) {
   const [heroConquestValue, setHeroConquestValue] = useState(
     heroData[chosenHero].conquest_value
   );
-  const [levelConquestTokens, setLevelConquestTokens] = useState(
-    chosenQuest.startingConquestTokens
-  );
+  const [levelConquestTokens, setLevelConquestTokens] = useState(chosenQuest.startingConquestTokens);
+  useEffect(() => {
+    if (levelConquestTokens <= 0) {
+      alert("Game Over");
+      document.location.reload(true);
+      // setPlayGame(false);
+      // setGameOver(true);
+    }
+  }, [levelConquestTokens]);
+
+
   const [currentArmor, setCurrentArmor] = useState(
     heroData[chosenHero].base_armor
   );
@@ -440,8 +459,8 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn }) {
   const [showPickUpGoldPileButton, setShowPickUpGoldPileButton] =
     useState(false);
   const [pickUpThisGoldPile, setPickUpThisGoldPile] = useState();
-  const [showJumpScreenButton, setShowJumpScreenButton] = useState(false);
-  const [showJumpScreen, setShowJumpScreen] = useState(false);
+  // const [showJumpScreenButton, setShowJumpScreenButton] = useState(false);
+  // const [showJumpScreen, setShowJumpScreen] = useState(false);
 
   function pickUpPotion() {
     if (potionsArray.length >= 3) {
@@ -706,9 +725,9 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn }) {
     setShowPickUpGoldPileButton(false);
   }
 
-  function jumpScreen() {
-    setShowJumpScreen(true);
-  }
+  // function jumpScreen() {
+  //   setShowJumpScreen(true);
+  // }
   useEffect(() => {
     let currentPositionX = heroToken.x;
     let currentPositionY = heroToken.y;
@@ -903,15 +922,15 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn }) {
         if (nextToPit === true) {
           heroToken.w = 50;
           heroToken.h = 50;
-          setShowJumpScreenButton(true);
+          // setShowJumpScreenButton(true);
           break;
         } else {
-          setShowJumpScreenButton(false);
+          // setShowJumpScreenButton(false);
         }
       }
       for (let pit in pits) {
         if (heroToken.x === pits[pit].x && heroToken.y === pits[pit].y) {
-          setShowJumpScreenButton(false);
+          // setShowJumpScreenButton(false);
           disableMovment.up = true;
           disableMovment.left = true;
           disableMovment.right = true;
@@ -1058,7 +1077,7 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn }) {
                     Pick up Gold Pile
                   </button>
                 ) : null}
-                {showJumpScreenButton ? (
+                {/* {showJumpScreenButton ? (
                   <button
                     height="100px"
                     width="100px"
@@ -1066,7 +1085,7 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn }) {
                   >
                     Jump
                   </button>
-                ) : null}
+                ) : null} */}
               </div>
             ) : null}
           </div>
@@ -1503,12 +1522,12 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn }) {
           setShowReturnToTown={setShowReturnToTown}
         />
       ) : null}
-      {showJumpScreen ? (
+      {/* {showJumpScreen ? (
         <JumpScreen
           heroToken={heroToken}
           setShowJumpScreen={setShowJumpScreen}
         />
-      ) : null}
+      ) : null} */}
       <SkillFunctions />
       <Conditions />
       {turn === "overlord" ? (
@@ -1532,6 +1551,7 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn }) {
           showRunBattleAdvance={showRunBattleAdvance}
           setShowRunBattleAdvance={setShowRunBattleAdvance} />
         : null}
+      {gameOver ? <GameOverScreen /> : null}
 
     </div>
   );

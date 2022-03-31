@@ -5,11 +5,7 @@ import Player from "./components/Player";
 import Canvas from "./components/Canvas";
 import TilesAndTokens from "./components/TilesAndTokens";
 import HomeScreen from "./screens/HomeScreen";
-import {
-  quest1,
-  quest1CollisionDetection,
-  revealAreas,
-} from "./data/dungeonMaps/quest1";
+import { quest1 } from "./data/dungeonMaps/quest1";
 
 function App() {
   let chosenQuest = quest1;
@@ -32,14 +28,17 @@ function App() {
           <Canvas
             chosenHero={chosenHero}
             chosenQuest={chosenQuest}
-            collisionDetection={quest1CollisionDetection}
+            collisionDetection={chosenQuest.collisionDetection}
           />
           <Player
             chosenHero={chosenHero}
             chosenQuest={chosenQuest}
-            revealAreas={revealAreas}
+            revealAreas={chosenQuest.revealAreas}
+            collisionDetection={chosenQuest.collisionDetection}
             turn={turn}
             setTurn={setTurn}
+            playGame={playGame}
+            setPlayGame={setPlayGame}
           />
           {/* <Overlord chosenHero={chosenHero} chosenQuest={chosenQuest} turn={turn} setTurn={setTurn} /> */}
           {/* <button style={{ height: '100px', width: '300px' }} onClick={() => endTurn()}>End Turn</button> */}

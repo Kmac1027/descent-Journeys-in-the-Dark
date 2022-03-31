@@ -176,3 +176,50 @@ export class MasterSkeleton {
     this.dy = 0;
   }
 }
+
+export class MasterGiant {
+  constructor(id, x, y, area) {
+    this.id = id;
+    this.type = "master";
+    this.name = "masterGiant";
+    this.area = area;
+    this.active = false;
+    this.number_of_players = 5;
+    this.max_wounds = 12;
+    this.base_armor = 6;
+    this.speed = 3;
+    this.class = "melee";
+    this.numberOfAttacks = 1;
+    this.dice = {
+      red: 1,
+      blue: 0,
+      white: 0,
+      green: 2,
+      yellow: 1,
+      black: 1,
+    };
+    this.special_abilities = {
+      // 1: {
+      //   type: "addPierce",
+      //   amount: 2,
+      //   text: "Pierce 2",
+      // },
+      // 2: {
+      //   type: "addRange",
+      //   amount: 2,
+      //   text: "+2 Range",
+      // },
+      // 3: { type: "undying" },
+    };
+    this.monster_card_img_path = "../images/monster_card/giant.jpg";
+    this.token_path = "../images/monster_token/giant_master.png";
+    this.money_value = 500;
+    this.w = 100;
+    this.h = 100;
+    this.x = x;
+    this.y = y;
+    this.canvasSpeed = 5;
+    this.dx = 0;
+    this.dy = 0;
+  }
+}

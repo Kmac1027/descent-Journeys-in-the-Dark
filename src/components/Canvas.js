@@ -1,12 +1,12 @@
 import '../styles/canvas.css';
 import React, { useEffect, useRef } from "react";
-import { heroToken, keyDown, keyUp, detectWalls } from '../player_actions/movement'
+import { heroToken, keyDown, keyUp, detectWalls } from '../player_actions/movement';
 
 
 export let runLoop = {
   x: 0,
   y: 0
-}
+};
 
 function Canvas({ chosenQuest, collisionDetection }) {
   const canvas = useRef(null);
@@ -379,25 +379,25 @@ function Canvas({ chosenQuest, collisionDetection }) {
     function drawMonsterToken() {
       let monsters = chosenQuest.tokenPlacement.monsters;
       for (let monster in monsters) {
-        if (monsters[monster].type === "normal") {
-          let imgId = document.getElementById(monsters[monster].name);
-          ctx.drawImage(
-            imgId,
-            monsters[monster].x,
-            monsters[monster].y,
-            monsters[monster].w,
-            monsters[monster].h
-          );
-        } else {
-          let imgId = document.getElementById(monsters[monster].name);
-          ctx.drawImage(
-            imgId,
-            monsters[monster].x,
-            monsters[monster].y,
-            monsters[monster].w,
-            monsters[monster].h
-          );
-        }
+        // if (monsters[monster].type === "normal") {
+        let imgId = document.getElementById(monsters[monster].name);
+        ctx.drawImage(
+          imgId,
+          monsters[monster].x,
+          monsters[monster].y,
+          monsters[monster].w,
+          monsters[monster].h
+        );
+        // } else {
+        // let imgId = document.getElementById(monsters[monster].name);
+        // ctx.drawImage(
+        //   imgId,
+        //   monsters[monster].x,
+        //   monsters[monster].y,
+        //   monsters[monster].w,
+        //   monsters[monster].h
+        // );
+        // }
       }
       //marker
       ctx.drawImage(
@@ -539,6 +539,7 @@ function Canvas({ chosenQuest, collisionDetection }) {
       drawTown();
       drawHeroToken();
       newPosition();
+      // collisionDetection(runLoop.x, runLoop.y);
       requestAnimationFrame(update);
     }
     update();

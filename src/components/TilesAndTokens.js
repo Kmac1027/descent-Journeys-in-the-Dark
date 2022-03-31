@@ -6,7 +6,7 @@ import { monsterData } from '../data/monsterData.js';
 function TilesAndTokens({ chosenHero }) {
   let monsterArray = [];
   for (let key in map1.monsters) {
-    monsterArray.push(map1.monsters[key])
+    monsterArray.push(map1.monsters[key]);
   }
   // console.log(monsterArray)
 
@@ -85,6 +85,11 @@ function TilesAndTokens({ chosenHero }) {
           id="masterBeastman"
           src={"images/monster_token/beastman_master.png"}
           alt={"Master Beastman token"}
+        />
+        <img
+          id="masterGiant"
+          src={"../images/monster_token/giant_master.png"}
+          alt={"Master Giant Token"}
         />
       </div>
       {/* items and icons */}

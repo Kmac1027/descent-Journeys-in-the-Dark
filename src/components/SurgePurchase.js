@@ -1,5 +1,5 @@
-import '../styles/surgePurchase.css'
-import { useEffect } from 'react'
+import '../styles/surgePurchase.css';
+import { useEffect } from 'react';
 
 
 
@@ -24,65 +24,65 @@ function SurgePurchase({
   let surgeAbilityArray = [];
 
   for (let key in selectedWeapon.surge) {
-    surgeAbilityArray.push(selectedWeapon.surge[key])
+    surgeAbilityArray.push(selectedWeapon.surge[key]);
   }
 
   useEffect(() => {
     if (surge <= 0) {
-      setPurchaseSurgeAbilities(false)
+      setPurchaseSurgeAbilities(false);
     }
-  }, [surge])
+  }, [surge]);
 
   function addSurgeHandler(surgeAbility) {
     // console.log(surgeAbility.type)
     if (surgeAbility.type === 'addDamage') {
       if (surgeAbility.cost > surge) {
-        alert('You do not have enough surges to spend on this')
+        alert('You do not have enough surges to spend on this');
       } else {
-        setDamage(damage => damage + surgeAbility.amount)
-        setSurge(surge => surge - surgeAbility.cost)
+        setDamage(damage => damage + surgeAbility.amount);
+        setSurge(surge => surge - surgeAbility.cost);
       }
     }
     if (surgeAbility.type === 'addRange') {
       if (surgeAbility.cost > surge) {
-        alert('You do not have enough surges to spend on this')
+        alert('You do not have enough surges to spend on this');
       } else {
-        setRange(range => range + surgeAbility.amount)
-        setSurge(surge => surge - surgeAbility.cost)
+        setRange(range => range + surgeAbility.amount);
+        setSurge(surge => surge - surgeAbility.cost);
       }
     }
     if (surgeAbility.type === 'addPierce') {
       if (surgeAbility.cost > surge) {
-        alert('You do not have enough surges to spend on this')
+        alert('You do not have enough surges to spend on this');
       } else {
-        setPierce(pierce => pierce + surgeAbility.amount)
-        setSurge(surge => surge - surgeAbility.cost)
+        setPierce(pierce => pierce + surgeAbility.amount);
+        setSurge(surge => surge - surgeAbility.cost);
       }
     }
     if (surgeAbility.type === 'addBlast') {
       if (surgeAbility.cost > surge) {
-        alert('You do not have enough surges to spend on this')
+        alert('You do not have enough surges to spend on this');
       } else {
-        setBlast(blast => blast + surgeAbility.amount)
-        setSurge(surge => surge - surgeAbility.cost)
+        setBlast(blast => blast + surgeAbility.amount);
+        setSurge(surge => surge - surgeAbility.cost);
       }
     }
     if (surgeAbility.type === 'addDamagePierce') {
-      setDamage(damage => damage + surgeAbility.damageAmount)
-      setPierce(pierce => pierce + surgeAbility.pierceAmount)
-      setSurge(surge => surge - surgeAbility.cost)
+      setDamage(damage => damage + surgeAbility.damageAmount);
+      setPierce(pierce => pierce + surgeAbility.pierceAmount);
+      setSurge(surge => surge - surgeAbility.cost);
     }
     if (surgeAbility.type === 'removeThreat') {
-      setThreatTokens(threatTokens => threatTokens - surgeAbility.amount)
-      setSurge(surge => surge - surgeAbility.cost)
+      setThreatTokens(threatTokens => threatTokens - surgeAbility.amount);
+      setSurge(surge => surge - surgeAbility.cost);
     }
     if (surgeAbility.type === 'doulbeDamage') {
-      setDamage(damage => damage * 2)
-      setSurge(surge => surge - surgeAbility.cost)
+      setDamage(damage => damage * 2);
+      setSurge(surge => surge - surgeAbility.cost);
     }
     if (surgeAbility.type === 'instaKill') {
-      setDamage(damage => damage * 1000)
-      setSurge(surge => surge - surgeAbility.cost)
+      setDamage(damage => damage * 1000);
+      setSurge(surge => surge - surgeAbility.cost);
     }
   }
 
@@ -125,12 +125,14 @@ function SurgePurchase({
         document.onmousemove = null;
       }
     }
-  }, [])
+  }, []);
 
   return (
     <div id='surgePurchase'>
       <button onClick={() => setPurchaseSurgeAbilities(false)}>Close</button>
       <h2>Spend Surges </h2>
+      <p>Surges Left: {surge}</p>
+      <br />
       <div id='surgeItems'>
         {surgeAbilityArray.map((surgeAbility, i) =>
           <div key={i}>
