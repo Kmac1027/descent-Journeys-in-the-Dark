@@ -32,14 +32,14 @@ export let health_potion = {
   type: "potion",
   restore: 3,
   cost: 50,
-  img_path: "../images/items/shop/health_potion.png",
+  img_path: "images/items/shop/health_potion.png",
 };
 export let vitality_potion = {
   name: "Vitality Potion",
   type: "potion",
   restore: "max fatigue",
   cost: 50,
-  img_path: "../images/items/shop/vitality_potion.png",
+  img_path: "images/items/shop/vitality_potion.png",
 };
 
 function Shop({
@@ -522,7 +522,7 @@ function Shop({
             type="image"
             height="50"
             width="50"
-            src="../images/melee_black_dice_purchase.jpg"
+            src="images/melee_black_dice_purchase.jpg"
             alt="Purchase 1 Melee Power Dice"
             onClick={() => addPowerDice("melee")}
           ></input>
@@ -537,7 +537,7 @@ function Shop({
             type="image"
             height="50"
             width="50"
-            src="../images/ranged_black_dice_purchase.jpg"
+            src="images/ranged_black_dice_purchase.jpg"
             alt="Purchase 1 Ranged Power Dice"
             onClick={() => addPowerDice("ranged")}
           ></input>
@@ -552,7 +552,7 @@ function Shop({
             type="image"
             height="50"
             width="50"
-            src="../images/magic_black_dice_purchase.jpg"
+            src="images/magic_black_dice_purchase.jpg"
             alt="Purchase 1 Magic Power Dice"
             onClick={() => addPowerDice("magic")}
           ></input>
@@ -579,7 +579,7 @@ function Shop({
             <input
               type="image"
               className="card"
-              src="../images/copper_treasure_back.png"
+              src="images/copper_treasure_back.png"
               alt="Copper Treasure"
               onClick={() => getRandomTreasure("copper")}
             ></input>
@@ -592,7 +592,7 @@ function Shop({
             style={{ border: "outset", padding: "10px" }}
           >
             <img
-              src="../images/copper_treasure_back.png"
+              src="images/copper_treasure_back.png"
               alt="Copper Treasure"
             ></img>
             <p>Not Available</p>
@@ -607,7 +607,7 @@ function Shop({
             <input
               type="image"
               className="card"
-              src="../images/silver_treasure_back.png"
+              src="images/silver_treasure_back.png"
               alt="Silver Treasure"
               onClick={() => getRandomTreasure("silver")}
             ></input>
@@ -620,7 +620,7 @@ function Shop({
             style={{ border: "outset", padding: "10px" }}
           >
             <img
-              src="../images/silver_treasure_back.png"
+              src="images/silver_treasure_back.png"
               alt="Silver Treasure"
             ></img>
             <p>Not Available</p>
@@ -632,7 +632,7 @@ function Shop({
             <input
               type="image"
               className="card"
-              src="../images/gold_treasure_back.png"
+              src="images/gold_treasure_back.png"
               alt="Gold Treasure"
               onClick={() => getRandomTreasure("gold")}
             ></input>
@@ -641,10 +641,7 @@ function Shop({
           </div>
         ) : (
           <div id="goldtreasure" style={{ border: "outset", padding: "10px" }}>
-            <img
-              src="../images/gold_treasure_back.png"
-              alt="Gold Treasure"
-            ></img>
+            <img src="images/gold_treasure_back.png" alt="Gold Treasure"></img>
             <p>Not Available</p>
           </div>
         )}
@@ -663,7 +660,7 @@ function Shop({
           <input
             type="image"
             className="card"
-            src="../images/melee_skill_back.png"
+            src="images/melee_skill_back.png"
             alt="Melee Skill"
             onClick={() => console.log("purchased Melee Skill")}
           ></input>
@@ -677,7 +674,7 @@ function Shop({
           <input
             type="image"
             className="card"
-            src="../images/subterfuge_skill_back.png"
+            src="images/subterfuge_skill_back.png"
             alt="Subterfuge Skill"
             onClick={() => console.log("purchased Subterfuge Skill")}
           ></input>
@@ -691,7 +688,7 @@ function Shop({
           <input
             type="image"
             className="card"
-            src="../images/wizardry_skill_back.png"
+            src="images/wizardry_skill_back.png"
             alt="Wizardry Skill"
             onClick={() => console.log("purchased Wizardry Skill")}
           ></input>

@@ -33,7 +33,7 @@ export const shopItemData =
       },
       hands: 1,
       cost: 75,
-      img_path: "../images/items/shop/sword.png",
+      img_path: "images/items/shop/sword.png",
       number_available: 3,
     },
     crossbow: {
@@ -68,7 +68,7 @@ export const shopItemData =
       },
       hands: 1,
       cost: 150,
-      img_path: "../images/items/shop/crossbow.png",
+      img_path: "images/items/shop/crossbow.png",
       number_available: 2,
     },
     axe: {
@@ -97,7 +97,7 @@ export const shopItemData =
       },
       hands: 2,
       cost: 100,
-      img_path: "../images/items/shop/axe.png",
+      img_path: "images/items/shop/axe.png",
       number_available: 2,
     },
     bow: {
@@ -138,7 +138,7 @@ export const shopItemData =
       },
       hands: 2,
       cost: 75,
-      img_path: "../images/items/shop/bow.png",
+      img_path: "images/items/shop/bow.png",
       number_available: 2,
     },
     dagger: {
@@ -173,7 +173,7 @@ export const shopItemData =
       },
       hands: 1,
       cost: 25,
-      img_path: "../images/items/shop/dagger.png",
+      img_path: "images/items/shop/dagger.png",
       number_available: 2,
     },
     immolation: {
@@ -208,7 +208,7 @@ export const shopItemData =
       },
       hands: 2,
       cost: 200,
-      img_path: "../images/items/shop/immolation.png",
+      img_path: "images/items/shop/immolation.png",
       number_available: 2,
     },
     mage_staff: {
@@ -243,7 +243,7 @@ export const shopItemData =
       },
       hands: 2,
       cost: 150,
-      img_path: "../images/items/shop/mage_staff.png",
+      img_path: "images/items/shop/mage_staff.png",
       number_available: 3,
     },
 
@@ -256,7 +256,7 @@ export const shopItemData =
       surge: false,
       special_abilities: false,
       cost: 50,
-      img_path: "../images/items/shop/leather_armor.png",
+      img_path: "images/items/shop/leather_armor.png",
       number_available: 2,
     },
     chain_mail: {
@@ -272,7 +272,7 @@ export const shopItemData =
         text: "your base speed is reduced to 4. You may not equip runes",
       },
       cost: 100,
-      img_path: "../images/items/shop/chain_mail.png",
+      img_path: "images/items/shop/chain_mail.png",
       number_available: 2,
     },
     //Shields
@@ -290,7 +290,7 @@ export const shopItemData =
       combat_dice: false,
       hands: 1,
       cost: 25,
-      img_path: "../images/items/shop/iron_shield.png",
+      img_path: "images/items/shop/iron_shield.png",
       number_available: 2,
     },
     //Others
@@ -313,7 +313,7 @@ export const shopItemData =
       combat_dice: false,
       hands: 0,
       cost: 150,
-      img_path: "../images/items/shop/ghost_armor.png",
+      img_path: "images/items/shop/ghost_armor.png",
       number_available: 1,
     },
   };

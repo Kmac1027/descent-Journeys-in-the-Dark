@@ -31,7 +31,7 @@ export const silverTreasures = {
     },
     hands: 1,
     cost: 500,
-    img_path: "../images/items/silverTreasures/serpent_blade.jpg",
+    img_path: "images/items/silverTreasures/serpent_blade.jpg",
   },
   flying_death: {
     treasure: "silver",
@@ -71,7 +71,7 @@ export const silverTreasures = {
     },
     hands: 1,
     cost: 500,
-    img_path: "../images/items/silverTreasures/flying_death.jpg",
+    img_path: "images/items/silverTreasures/flying_death.jpg",
   },
   bow_of_bone: {
     treasure: "silver",
@@ -111,7 +111,7 @@ export const silverTreasures = {
     },
     hands: 2,
     cost: 500,
-    img_path: "../images/items/silverTreasures/bow_of_bone.jpg",
+    img_path: "images/items/silverTreasures/bow_of_bone.jpg",
   },
   staff_of_fire: {
     treasure: "silver",
@@ -151,7 +151,7 @@ export const silverTreasures = {
     },
     hands: 2,
     cost: 500,
-    img_path: "../images/items/silverTreasures/staff_of_fire.jpg",
+    img_path: "images/items/silverTreasures/staff_of_fire.jpg",
   },
   petrify: {
     treasure: "silver",
@@ -191,7 +191,7 @@ export const silverTreasures = {
     },
     hands: 2,
     cost: 500,
-    img_path: "../images/items/silverTreasures/petrify.jpg",
+    img_path: "images/items/silverTreasures/petrify.jpg",
   },
   ice_storm: {
     treasure: "silver",
@@ -225,7 +225,7 @@ export const silverTreasures = {
     },
     hands: 2,
     cost: 500,
-    img_path: "../images/items/silverTreasures/ice_storm.jpg",
+    img_path: "images/items/silverTreasures/ice_storm.jpg",
   },
   drain_life: {
     treasure: "silver",
@@ -259,7 +259,7 @@ export const silverTreasures = {
     },
     hands: 2,
     cost: 500,
-    img_path: "../images/items/silverTreasures/drain_life.jpg",
+    img_path: "images/items/silverTreasures/drain_life.jpg",
   },
   //Armor
   golden_armor: {
@@ -278,7 +278,7 @@ export const silverTreasures = {
       },
     },
     cost: 500,
-    img_path: "../images/items/silverTreasures/golden_armor.jpg",
+    img_path: "images/items/silverTreasures/golden_armor.jpg",
   },
   cloak_of_mists: {
     treasure: "silver",
@@ -293,7 +293,7 @@ export const silverTreasures = {
       text: "When you suffer 1 or more wounds, roll 1 power die for each wound suffered. Cancel 1 wound for each surge you roll.",
     },
     cost: 500,
-    img_path: "../images/items/silverTreasures/cloak_of_mists.jpg",
+    img_path: "images/items/silverTreasures/cloak_of_mists.jpg",
   },
 
   //Shields
@@ -316,7 +316,7 @@ export const silverTreasures = {
     combat_dice: false,
     hands: 1,
     cost: 500,
-    img_path: "../images/items/silverTreasures/shield_of_light.jpg",
+    img_path: "images/items/silverTreasures/shield_of_light.jpg",
   },
 
   //Others
@@ -346,7 +346,7 @@ export const silverTreasures = {
     combat_dice: false,
     hands: 0,
     cost: 500,
-    img_path: "../images/items/silverTreasures/scorpion_helmet.jpg",
+    img_path: "images/items/silverTreasures/scorpion_helmet.jpg",
   },
   greater_healing: {
     activate: true,
@@ -367,7 +367,7 @@ export const silverTreasures = {
     combat_dice: false,
     hands: 0,
     cost: 500,
-    img_path: "../images/items/silverTreasures/greater_healing.jpg",
+    img_path: "images/items/silverTreasures/greater_healing.jpg",
   },
   amulet_of_healing: {
     activate: false,
@@ -388,7 +388,7 @@ export const silverTreasures = {
     combat_dice: false,
     hands: 0,
     cost: 500,
-    img_path: "../images/items/silverTreasures/amulet_of_healing.jpg",
+    img_path: "images/items/silverTreasures/amulet_of_healing.jpg",
   },
   flute_of_repose: {
     activate: true,
@@ -409,7 +409,7 @@ export const silverTreasures = {
     combat_dice: false,
     hands: 0,
     cost: 500,
-    img_path: "../images/items/silverTreasures/flute_of_repose.jpg",
+    img_path: "images/items/silverTreasures/flute_of_repose.jpg",
   },
 
   //treasure cache
@@ -422,7 +422,7 @@ export const silverTreasures = {
     health_potion: false,
     vitality_potion: false,
     cost: 500,
-    img_path: "../images/items/silverTreasures/treasure_cache_100_coins.jpg",
+    img_path: "images/items/silverTreasures/treasure_cache_100_coins.jpg",
   },
   treasure_cache_healing_potion: {
     treasure: "silver",
@@ -434,7 +434,7 @@ export const silverTreasures = {
     vitality_potion: false,
     cost: 500,
     img_path:
-      "../images/items/silverTreasures/treasure_cache_50_coins_healing.jpg",
+      "images/items/silverTreasures/treasure_cache_50_coins_healing.jpg",
   },
   treasure_cache_vitality_potion: {
     treasure: "silver",
@@ -446,6 +446,6 @@ export const silverTreasures = {
     vitality_potion: true,
     cost: 500,
     img_path:
-      "../images/items/silverTreasures/treasure_cache_50_coins_vitality.jpg",
+      "images/items/silverTreasures/treasure_cache_50_coins_vitality.jpg",
   },
 };
