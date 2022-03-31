@@ -77,7 +77,7 @@ function Overlord({ chosenHero, chosenQuest, turn, setTurn, currentArmor, curren
   useEffect(() => {
     if (heroToken.x === chosenQuest.town.x + 50 &&
       heroToken.y === chosenQuest.town.y + 50) {
-      console.log('Player in town');
+      // console.log('Player in town');
       setTurn("player");
     } else {
       overLordsTurn().then(setTurn("player"));
