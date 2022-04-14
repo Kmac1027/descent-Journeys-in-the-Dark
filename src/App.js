@@ -34,11 +34,11 @@ function App() {
             chosenHero={chosenHero}
             chosenQuest={chosenQuest}
             revealAreas={chosenQuest.revealAreas}
-            collisionDetection={chosenQuest.collisionDetection}
             turn={turn}
             setTurn={setTurn}
             playGame={playGame}
             setPlayGame={setPlayGame}
+            collisionDetection={chosenQuest.collisionDetection}
           />
           {/* <Overlord chosenHero={chosenHero} chosenQuest={chosenQuest} turn={turn} setTurn={setTurn} /> */}
           {/* <button style={{ height: '100px', width: '300px' }} onClick={() => endTurn()}>End Turn</button> */}

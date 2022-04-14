@@ -1,5 +1,5 @@
 // import { map1 } from '../data/dungeonMaps/map1'
-import { quest1, positionArray } from '../data/dungeonMaps/quest1'
+import { quest1, positionArray } from '../data/dungeonMaps/quest1';
 
 export const heroToken = {
   w: 50,
@@ -9,7 +9,7 @@ export const heroToken = {
   speed: 5,
   dx: 0,
   dy: 0
-}
+};
 
 export const disableMovment = {
   right: false,
@@ -20,7 +20,7 @@ export const disableMovment = {
   downRight: false,
   upLeft: false,
   downLeft: false
-}
+};
 export function keyDown(event) {
   event.preventDefault();
   if (
@@ -38,7 +38,7 @@ export function keyDown(event) {
     moveDown();
 
   } else if (event.key === 'e' && disableMovment.upRight === false) {
-    moveUpRight()
+    moveUpRight();
 
   } else if (event.key === 'c' && disableMovment.downRight === false) {
     moveDownRight();
@@ -73,17 +73,17 @@ export function keyUp(event) {
 export let previousPosition = {
   x: 0,
   y: 0
-}
+};
 function moveUp() {
   // heroToken.dy = -heroToken.speed
   heroToken.y -= 50;
   previousPosition.y = heroToken.y + 50;
   previousPosition.x = heroToken.x;
 
-  disableMovment.right = false;
-  disableMovment.left = false;
-  disableMovment.up = false;
-  disableMovment.down = false;
+  // disableMovment.right = false;
+  // disableMovment.left = false;
+  // disableMovment.up = false;
+  // disableMovment.down = false;
 }
 function moveDown() {
   // heroToken.dy = heroToken.speed
@@ -91,30 +91,30 @@ function moveDown() {
   previousPosition.y = heroToken.y - 50;
   previousPosition.x = heroToken.x;
 
-  disableMovment.right = false;
-  disableMovment.left = false;
-  disableMovment.up = false;
-  disableMovment.down = false;
-  disableMovment.upRight = false;
-  disableMovment.downRight = false;
-  disableMovment.upLeft = false;
-  disableMovment.downLeft = false;
+  // disableMovment.right = false;
+  // disableMovment.left = false;
+  // disableMovment.up = false;
+  // disableMovment.down = false;
+  // disableMovment.upRight = false;
+  // disableMovment.downRight = false;
+  // disableMovment.upLeft = false;
+  // disableMovment.downLeft = false;
 
 }
 function moveLeft() {
   // heroToken.dx = -heroToken.speed
-  heroToken.x -= 50
+  heroToken.x -= 50;
   previousPosition.x = heroToken.x + 50;
   previousPosition.y = heroToken.y;
 
-  disableMovment.right = false;
-  disableMovment.left = false;
-  disableMovment.up = false;
-  disableMovment.down = false;
-  disableMovment.upRight = false;
-  disableMovment.downRight = false;
-  disableMovment.upLeft = false;
-  disableMovment.downLeft = false;
+  // disableMovment.right = false;
+  // disableMovment.left = false;
+  // disableMovment.up = false;
+  // disableMovment.down = false;
+  // disableMovment.upRight = false;
+  // disableMovment.downRight = false;
+  // disableMovment.upLeft = false;
+  // disableMovment.downLeft = false;
 }
 function moveRight() {
   // heroToken.dx = heroToken.speed
@@ -122,80 +122,80 @@ function moveRight() {
   previousPosition.x = heroToken.x - 50;
   previousPosition.y = heroToken.y;
 
-  disableMovment.right = false;
-  disableMovment.left = false;
-  disableMovment.up = false;
-  disableMovment.down = false;
-  disableMovment.upRight = false;
-  disableMovment.downRight = false;
-  disableMovment.upLeft = false;
-  disableMovment.downLeft = false;
+  // disableMovment.right = false;
+  // disableMovment.left = false;
+  // disableMovment.up = false;
+  // disableMovment.down = false;
+  // disableMovment.upRight = false;
+  // disableMovment.downRight = false;
+  // disableMovment.upLeft = false;
+  // disableMovment.downLeft = false;
 }
 function moveUpRight() {
   // heroToken.dx = heroToken.speed
   heroToken.x += 50;
-  heroToken.y -= 50
+  heroToken.y -= 50;
   previousPosition.x = heroToken.x - 50;
   previousPosition.y = heroToken.y + 50;
 
-  disableMovment.right = false;
-  disableMovment.left = false;
-  disableMovment.up = false;
-  disableMovment.down = false;
-  disableMovment.upRight = false;
-  disableMovment.downRight = false;
-  disableMovment.upLeft = false;
-  disableMovment.downLeft = false;
+  // disableMovment.right = false;
+  // disableMovment.left = false;
+  // disableMovment.up = false;
+  // disableMovment.down = false;
+  // disableMovment.upRight = false;
+  // disableMovment.downRight = false;
+  // disableMovment.upLeft = false;
+  // disableMovment.downLeft = false;
 }
 
 function moveDownRight() {
   // heroToken.dx = heroToken.speed
   heroToken.x += 50;
-  heroToken.y += 50
+  heroToken.y += 50;
   previousPosition.x = heroToken.x - 50;
   previousPosition.y = heroToken.y - 50;
 
-  disableMovment.right = false;
-  disableMovment.left = false;
-  disableMovment.up = false;
-  disableMovment.down = false;
-  disableMovment.upRight = false;
-  disableMovment.downRight = false;
-  disableMovment.upLeft = false;
-  disableMovment.downLeft = false;
+  // disableMovment.right = false;
+  // disableMovment.left = false;
+  // disableMovment.up = false;
+  // disableMovment.down = false;
+  // disableMovment.upRight = false;
+  // disableMovment.downRight = false;
+  // disableMovment.upLeft = false;
+  // disableMovment.downLeft = false;
 }
 function moveUpLeft() {
   // heroToken.dx = heroToken.speed
   heroToken.x -= 50;
-  heroToken.y -= 50
+  heroToken.y -= 50;
   previousPosition.x = heroToken.x + 50;
   previousPosition.y = heroToken.y + 50;
 
-  disableMovment.right = false;
-  disableMovment.left = false;
-  disableMovment.up = false;
-  disableMovment.down = false;
-  disableMovment.upRight = false;
-  disableMovment.downRight = false;
-  disableMovment.upLeft = false;
-  disableMovment.downLeft = false;
+  // disableMovment.right = false;
+  // disableMovment.left = false;
+  // disableMovment.up = false;
+  // disableMovment.down = false;
+  // disableMovment.upRight = false;
+  // disableMovment.downRight = false;
+  // disableMovment.upLeft = false;
+  // disableMovment.downLeft = false;
 }
 
 function moveDownLeft() {
   // heroToken.dx = heroToken.speed
   heroToken.x -= 50;
-  heroToken.y += 50
+  heroToken.y += 50;
   previousPosition.x = heroToken.x + 50;
   previousPosition.y = heroToken.y - 50;
 
-  disableMovment.right = false;
-  disableMovment.left = false;
-  disableMovment.up = false;
-  disableMovment.down = false;
-  disableMovment.upRight = false;
-  disableMovment.downRight = false;
-  disableMovment.upLeft = false;
-  disableMovment.downLeft = false;
+  // disableMovment.right = false;
+  // disableMovment.left = false;
+  // disableMovment.up = false;
+  // disableMovment.down = false;
+  // disableMovment.upRight = false;
+  // disableMovment.downRight = false;
+  // disableMovment.upLeft = false;
+  // disableMovment.downLeft = false;
 }
 
 

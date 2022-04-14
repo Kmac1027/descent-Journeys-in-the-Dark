@@ -17,7 +17,8 @@ let beastman6 = new Beastman(6, 600, 350, 'area4');
 let beastman7 = new Beastman(7, 650, 350, 'area4');
 let masterBeastman1 = new MasterBeastman(1, 350, 1050, 'area1');
 
-let boss = new MasterGiant(1, 600, 0, "area4");
+// let boss = new MasterGiant(1, 600, 0, "area4");
+let boss = new MasterGiant(1, 50, 1000, "area1");
 
 export const quest1 = {
   name: 'Quest 1: Into the Dark',
@@ -463,9 +464,22 @@ function revealAreas() {
 }
 
 function quest1CollisionDetection(runLoopX, runLoopY) {
-
-  //outer walls
-
+  // if (
+  //   heroToken.x !== runLoopX ||
+  //   heroToken.y !== runLoopY ||
+  //   previousPosition === { x: 0, y: 0 }
+  // ) {
+  //   console.log(disableMovment);
+  //   //if new position allow movement
+  //   disableMovment.right = false;
+  //   disableMovment.left = false;
+  //   disableMovment.up = false;
+  //   disableMovment.down = false;
+  //   disableMovment.upRight = false;
+  //   disableMovment.downRight = false;
+  //   disableMovment.upLeft = false;
+  //   disableMovment.downLeft = false;
+  //   //outer walls
   //square 1
   if (heroToken.x === 600 && heroToken.y === 0) {
     disableMovment.up = true;
@@ -996,6 +1010,7 @@ function quest1CollisionDetection(runLoopX, runLoopY) {
     disableMovment.left = true;
     disableMovment.downLeft = true;
     disableMovment.down = true;
+    disableMovment.downRight = true;
   }
   //square 119
   if (heroToken.x === 50 && heroToken.y === 1050) {
@@ -1432,7 +1447,6 @@ function quest1CollisionDetection(runLoopX, runLoopY) {
     runLoop.y = heroToken.y;
   }
 
-
   //monsters collision detection
 
   if (heroToken.x !== runLoopX || heroToken.y !== runLoopY) {
@@ -1466,35 +1480,7 @@ function quest1CollisionDetection(runLoopX, runLoopY) {
         else if (heroToken.x - 50 === monsters[monster].x && heroToken.y - 50 === monsters[monster].y) {
           disableMovment.upLeft = true;
         }
-      } else if (monsters[monster].w === 100 && monsters[monster].h === 100) {
-        if (heroToken.x - 100 === monsters[monster].x && heroToken.y === monsters[monster].y) {
-          disableMovment.left = true;
-        }
-        else if (heroToken.x + 100 === monsters[monster].x && heroToken.y === monsters[monster].y) {
-          disableMovment.right = true;
-        }
-        else if ((heroToken.y - 100) === monsters[monster].y && heroToken.x === monsters[monster].x) {
-          disableMovment.up = true;
-        }
-        else if ((heroToken.y + 100) === monsters[monster].y && heroToken.x === monsters[monster].x) {
-          disableMovment.down = true;
-
-        }
-        else if (heroToken.x + 100 === monsters[monster].x && heroToken.y + 100 === monsters[monster].y) {
-          disableMovment.downRight = true;
-        }
-        else if (heroToken.x + 100 === monsters[monster].x && heroToken.y - 100 === monsters[monster].y) {
-          disableMovment.upRight = true;
-
-        }
-        else if (heroToken.x - 100 === monsters[monster].x && heroToken.y + 100 === monsters[monster].y) {
-          disableMovment.downLeft = true;
-        }
-        else if (heroToken.x - 100 === monsters[monster].x && heroToken.y - 100 === monsters[monster].y) {
-          disableMovment.upLeft = true;
-        }
       }
-
     }
     runLoop.x = heroToken.x;
     runLoop.y = heroToken.y;
@@ -1546,5 +1532,7 @@ function quest1CollisionDetection(runLoopX, runLoopY) {
     disableMovment.upRight = true;
     disableMovment.downLeft = true;
   }
+  runLoop.x = heroToken.x;
+  runLoop.y = heroToken.y;
 }
 

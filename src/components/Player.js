@@ -56,7 +56,7 @@ export function inRange(token, checkPoint) {
 }
 
 
-function Player({ chosenHero, chosenQuest, revealAreas, collisionDetection, turn, setTurn, playgame, setPlayGame }) {
+function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame, setPlayGame, collisionDetection }) {
   let copper = chosenQuest.tokenPlacement.treasure_chests.copper;
   let silver = chosenQuest.tokenPlacement.treasure_chests.silver;
   let gold = chosenQuest.tokenPlacement.treasure_chests.gold;
@@ -64,10 +64,10 @@ function Player({ chosenHero, chosenQuest, revealAreas, collisionDetection, turn
   function endTurn() {
     if (turn === "player") {
       setTurn("overlord");
-      console.log(disableMovment);
+      // console.log(disableMovment);
     } else {
       setTurn("player");
-      console.log(disableMovment);
+      // console.log(disableMovment);
     }
     // console.log(turn)
   }
@@ -77,33 +77,18 @@ function Player({ chosenHero, chosenQuest, revealAreas, collisionDetection, turn
   const [playerOptions, setPlayerOptions] = useState(true);
   useEffect(() => {
     if (turn === "overlord") {
-      // disableMovment.up = true;
-      // disableMovment.left = true;
-      // disableMovment.right = true;
-      // disableMovment.down = true;
-      // disableMovment.downRight = true;
-      // disableMovment.upLeft = true;
-      // disableMovment.upRight = true;
-      // disableMovment.downLeft = true;
+      // runLoop.x -= 50;
       setPlayerOptions(false);
       setSpeed(0);
       setNumberOfAttacks(0);
     } else if (turn === "player") {
-      // disableMovment.up = false;
-      // disableMovment.left = false;
-      // disableMovment.right = false;
-      // disableMovment.down = false;
-      // disableMovment.downRight = false;
-      // disableMovment.upLeft = false;
-      // disableMovment.upRight = false;
-      // disableMovment.downLeft = false;
+      console.log(disableMovment);
+      // runLoop.x -= 50;
       setPlayerOptions(true);
       setSpeed(0);
       setNumberOfAttacks(0);
       setShowRunBattleAdvance(true);
-      collisionDetection();
       alert('Players Turn');
-      // console.log(chosenQuest);
     }
   }, [turn]);
 
@@ -179,6 +164,7 @@ function Player({ chosenHero, chosenQuest, revealAreas, collisionDetection, turn
       disableMovment.upLeft = false;
       disableMovment.upRight = false;
       disableMovment.downLeft = false;
+      collisionDetection();
     }
   }, [speed]);
 
@@ -947,14 +933,15 @@ function Player({ chosenHero, chosenQuest, revealAreas, collisionDetection, turn
             alert("You have fallen into a pit and take 1 wound");
           }, 200);
           setTimeout(() => {
-            disableMovment.up = false;
-            disableMovment.left = false;
-            disableMovment.right = false;
-            disableMovment.down = false;
-            disableMovment.downRight = false;
-            disableMovment.upLeft = false;
-            disableMovment.upRight = false;
-            disableMovment.downLeft = false;
+            runLoop.x -= 50;
+            // disableMovment.up = false;
+            // disableMovment.left = false;
+            // disableMovment.right = false;
+            // disableMovment.down = false;
+            // disableMovment.downRight = false;
+            // disableMovment.upLeft = false;
+            // disableMovment.upRight = false;
+            // disableMovment.downLeft = false;
           }, 300);
           break;
         } else {

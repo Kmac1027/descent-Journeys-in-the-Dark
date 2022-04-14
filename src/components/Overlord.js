@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { heroToken } from '../player_actions/movement';
+import runLoop from './Canvas.js';
 import { inRange } from './Player';
+import Canvas from './Canvas';
 // import { monsterData } from '../data/monsterData.js';
 let obstacleArray;
 let mapFloorArray;

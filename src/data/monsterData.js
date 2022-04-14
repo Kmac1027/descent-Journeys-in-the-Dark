@@ -214,8 +214,8 @@ export class MasterGiant {
     this.monster_card_img_path = "../images/monster_card/giant.jpg";
     this.token_path = "../images/monster_token/giant_master.png";
     this.money_value = 500;
-    this.w = 100;
-    this.h = 100;
+    this.w = 50;
+    this.h = 50;
     this.x = x;
     this.y = y;
     this.canvasSpeed = 5;

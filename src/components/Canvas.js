@@ -379,7 +379,6 @@ function Canvas({ chosenQuest, collisionDetection }) {
     function drawMonsterToken() {
       let monsters = chosenQuest.tokenPlacement.monsters;
       for (let monster in monsters) {
-        // if (monsters[monster].type === "normal") {
         let imgId = document.getElementById(monsters[monster].name);
         ctx.drawImage(
           imgId,
@@ -388,18 +387,8 @@ function Canvas({ chosenQuest, collisionDetection }) {
           monsters[monster].w,
           monsters[monster].h
         );
-        collisionDetection(runLoop.x, runLoop.y);
-        // } else {
-        // let imgId = document.getElementById(monsters[monster].name);
-        // ctx.drawImage(
-        //   imgId,
-        //   monsters[monster].x,
-        //   monsters[monster].y,
-        //   monsters[monster].w,
-        //   monsters[monster].h
-        // );
-        // }
       }
+
       //marker
       ctx.drawImage(
         markerId,
@@ -540,7 +529,6 @@ function Canvas({ chosenQuest, collisionDetection }) {
       drawTown();
       drawHeroToken();
       newPosition();
-      // collisionDetection(runLoop.x, runLoop.y);
       requestAnimationFrame(update);
     }
     update();
