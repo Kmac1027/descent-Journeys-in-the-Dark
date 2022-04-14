@@ -1,14 +1,22 @@
 import { useEffect, useState } from 'react';
 import { heroToken } from '../player_actions/movement';
-import { inRange } from './Player';
+import { runLoop } from "./Canvas";
+import { inRange } from "./Player";
 // import { monsterData } from '../data/monsterData.js';
 let obstacleArray;
 let mapFloorArray;
 let openSquareArray;
 let activeMonsterArray = [];
 
-
-function Overlord({ chosenHero, chosenQuest, turn, setTurn, currentArmor, currentHealth, setCurrentHealth }) {
+function Overlord({
+  chosenHero,
+  chosenQuest,
+  turn,
+  setTurn,
+  currentArmor,
+  currentHealth,
+  setCurrentHealth,
+}) {
   const [runObstacle, setRunObstacle] = useState(true);
   // const [nextMonsterInArray, setNextMonsterInArray] = useState(true)
 
@@ -23,6 +31,10 @@ function Overlord({ chosenHero, chosenQuest, turn, setTurn, currentArmor, curren
 
   useEffect(() => {
     // console.log('Filled openSquare Array')
+    console.log(
+      turn +
+        " where is turn first declared? Need to make sure it gets set first"
+    );
     obstacleArray = [];
     mapFloorArray = [];
     openSquareArray = [];
@@ -52,6 +64,7 @@ function Overlord({ chosenHero, chosenQuest, turn, setTurn, currentArmor, curren
         obstacleArray.push(pits[key]);
       }
     }
+    //adding monster positions
     if (monsters !== {}) {
       for (let key in monsters) {
         let monsterPositionObj = { x: monsters[key].x, y: monsters[key].y };
@@ -62,10 +75,12 @@ function Overlord({ chosenHero, chosenQuest, turn, setTurn, currentArmor, curren
     // console.log('obstaclearray ', obstacleArray)
     for (let i = 0; i < obstacleArray.length; i++) {
       for (let j = 0; j < mapFloorArray.length; j++) {
-        if (obstacleArray[i].x === mapFloorArray[j].x && obstacleArray[i].y === mapFloorArray[j].y) {
+        if (
+          obstacleArray[i].x === mapFloorArray[j].x &&
+          obstacleArray[i].y === mapFloorArray[j].y
+        ) {
           mapFloorArray.splice(mapFloorArray.indexOf(mapFloorArray[j]), 1);
         }
-
       }
     }
     openSquareArray = mapFloorArray;
@@ -73,26 +88,27 @@ function Overlord({ chosenHero, chosenQuest, turn, setTurn, currentArmor, curren
     // console.log('mapfloorarray ', mapFloorArray)
   }, [turn, runObstacle]);
 
-
   useEffect(() => {
-    if (heroToken.x === chosenQuest.town.x + 50 &&
-      heroToken.y === chosenQuest.town.y + 50) {
+    if (
+      heroToken.x === chosenQuest.town.x + 50 &&
+      heroToken.y === chosenQuest.town.y + 50
+    ) {
       // console.log('Player in town');
       setTurn("player");
+      console.log("we are changing turns here to: " + turn);
     } else {
       overLordsTurn().then(setTurn("player"));
+      console.log("we are changing turns here to: " + turn);
+      runLoop.x -= 50;
     }
-
   }, []);
-
-
 
   async function overLordsTurn() {
     let monsters = chosenQuest.tokenPlacement.monsters;
 
-    if (turn === 'overlord') {
+    if (turn === "overlord") {
       activeMonsterArray = [];
-      alert('overlords turn');
+      alert("overlords turn");
 
       for (let monster in monsters) {
         if (monsters[monster].active === true) {
@@ -105,7 +121,6 @@ function Overlord({ chosenHero, chosenQuest, turn, setTurn, currentArmor, curren
       for (let i = 0; i < activeMonsterArray.length; i++) {
         monsterAttack(activeMonsterArray[i], activeMonsterArray[i].speed);
       }
-
     }
   }
 
@@ -124,22 +139,23 @@ function Overlord({ chosenHero, chosenQuest, turn, setTurn, currentArmor, curren
     }
     // console.log(distance)
     //melee attack
-    if (monster.class === 'melee') {
+    if (monster.class === "melee") {
       if (heroInMeleeRange === false) {
         getInMeleeRange(monster, monsterMovement);
-
       } else {
         if (monster.numberOfAttacks > 0) {
-          if (monster.type = "normal") {
+          if ((monster.type = "normal")) {
             attackAmount = Math.abs(Math.floor(Math.random() * 7));
-          } else if (monster.type = "master") {
-            attackAmount = Math.abs(Math.floor(Math.random() * 7) + Math.floor(Math.random() * 2));
+          } else if ((monster.type = "master")) {
+            attackAmount = Math.abs(
+              Math.floor(Math.random() * 7) + Math.floor(Math.random() * 2)
+            );
           }
           let hitAmount = attackAmount - currentArmor;
           if (hitAmount <= 0) {
             hitAmount = 0;
           }
-          setCurrentHealth(currentHealth => currentHealth - hitAmount);
+          setCurrentHealth((currentHealth) => currentHealth - hitAmount);
           monster.numberOfAttacks -= 1;
           alert(`${monster.name}${monster.id} attacks you for ${hitAmount}`);
         } else {
@@ -148,23 +164,25 @@ function Overlord({ chosenHero, chosenQuest, turn, setTurn, currentArmor, curren
       }
     }
 
-    if (monster.class === 'ranged' || monster.class === 'magic') {
+    if (monster.class === "ranged" || monster.class === "magic") {
       if (heroInMeleeRange === true) {
         getInRange(monster, monsterMovement);
       } else {
         let range = Math.abs(Math.floor(Math.random() * 10));
         if (range >= distance) {
           if (monster.numberOfAttacks > 0) {
-            if (monster.type = "normal") {
+            if ((monster.type = "normal")) {
               attackAmount = Math.abs(Math.floor(Math.random() * 7));
-            } else if (monster.type = "master") {
-              attackAmount = Math.abs(Math.floor(Math.random() * 7) + Math.floor(Math.random() * 2));
+            } else if ((monster.type = "master")) {
+              attackAmount = Math.abs(
+                Math.floor(Math.random() * 7) + Math.floor(Math.random() * 2)
+              );
             }
             let hitAmount = attackAmount - currentArmor;
             if (hitAmount <= 0) {
               hitAmount = 0;
             }
-            setCurrentHealth(currentHealth => currentHealth - hitAmount);
+            setCurrentHealth((currentHealth) => currentHealth - hitAmount);
             monster.numberOfAttacks -= 1;
             alert(`${monster.name}${monster.id} attacks you for ${hitAmount}`);
           } else {
@@ -174,14 +192,12 @@ function Overlord({ chosenHero, chosenQuest, turn, setTurn, currentArmor, curren
           alert(`${monster.name}${monster.id} did not have enough range`);
         }
       }
-
     }
 
     // if (monster.class === 'magic') {
     //   // console.log(`${monster.class}`)
 
     // }
-
   }
 
   async function getInMeleeRange(monster, monsterMovement) {
@@ -190,18 +206,22 @@ function Overlord({ chosenHero, chosenQuest, turn, setTurn, currentArmor, curren
     if (heroInMeleeRange === true) {
       monsterAttack(monster, monsterMovement);
     } else if (heroInMeleeRange === false && monsterMovement > 0) {
-
       if (monster.x > heroToken.x + 50) {
         for (let i = 0; i < openSquareArray.length; i++) {
-          if (monster.x - 50 === openSquareArray[i].x && monster.y === openSquareArray[i].y) {
+          if (
+            monster.x - 50 === openSquareArray[i].x &&
+            monster.y === openSquareArray[i].y
+          ) {
             monster.x -= 50;
             monsterMovement -= 1;
             obstacleArrayFillCheck();
             // setTimeout(() => { getInMeleeRange(monster, monsterMovement); }, 1000);
             getInMeleeRange(monster, monsterMovement);
             break;
-          }
-          else if (monster.x - 50 === openSquareArray[i].x && monster.y - 50 === openSquareArray[i].y) {
+          } else if (
+            monster.x - 50 === openSquareArray[i].x &&
+            monster.y - 50 === openSquareArray[i].y
+          ) {
             monster.x -= 50;
             monster.y -= 50;
             monsterMovement -= 1;
@@ -209,7 +229,10 @@ function Overlord({ chosenHero, chosenQuest, turn, setTurn, currentArmor, curren
             // setTimeout(() => { getInMeleeRange(monster, monsterMovement); }, 1000);
             getInMeleeRange(monster, monsterMovement);
             break;
-          } else if (monster.x - 50 === openSquareArray[i].x && monster.y + 50 === openSquareArray[i].y) {
+          } else if (
+            monster.x - 50 === openSquareArray[i].x &&
+            monster.y + 50 === openSquareArray[i].y
+          ) {
             monster.x -= 50;
             monster.y += 50;
             monsterMovement -= 1;
@@ -219,17 +242,22 @@ function Overlord({ chosenHero, chosenQuest, turn, setTurn, currentArmor, curren
             break;
           }
         }
-      }
-      else if (monster.x < heroToken.x - 50) {
+      } else if (monster.x < heroToken.x - 50) {
         for (let i = 0; i < openSquareArray.length; i++) {
-          if (monster.x + 50 === openSquareArray[i].x && monster.y === openSquareArray[i].y) {
+          if (
+            monster.x + 50 === openSquareArray[i].x &&
+            monster.y === openSquareArray[i].y
+          ) {
             monster.x += 50;
             monsterMovement -= 1;
             obstacleArrayFillCheck();
             // setTimeout(() => { getInMeleeRange(monster, monsterMovement); }, 1000);
             getInMeleeRange(monster, monsterMovement);
             break;
-          } else if (monster.x + 50 === openSquareArray[i].x && monster.y + 50 === openSquareArray[i].y) {
+          } else if (
+            monster.x + 50 === openSquareArray[i].x &&
+            monster.y + 50 === openSquareArray[i].y
+          ) {
             monster.x += 50;
             monster.y += 50;
             monsterMovement -= 1;
@@ -237,7 +265,10 @@ function Overlord({ chosenHero, chosenQuest, turn, setTurn, currentArmor, curren
             // setTimeout(() => { getInMeleeRange(monster, monsterMovement); }, 1000);
             getInMeleeRange(monster, monsterMovement);
             break;
-          } else if (monster.x + 50 === openSquareArray[i].x && monster.y - 50 === openSquareArray[i].y) {
+          } else if (
+            monster.x + 50 === openSquareArray[i].x &&
+            monster.y - 50 === openSquareArray[i].y
+          ) {
             monster.x += 50;
             monster.y -= 50;
             monsterMovement -= 1;
@@ -247,17 +278,22 @@ function Overlord({ chosenHero, chosenQuest, turn, setTurn, currentArmor, curren
             break;
           }
         }
-      }
-      else if (monster.y > heroToken.y + 50) {
+      } else if (monster.y > heroToken.y + 50) {
         for (let i = 0; i < openSquareArray.length; i++) {
-          if (monster.y - 50 === openSquareArray[i].y && monster.x === openSquareArray[i].x) {
+          if (
+            monster.y - 50 === openSquareArray[i].y &&
+            monster.x === openSquareArray[i].x
+          ) {
             monster.y -= 50;
             monsterMovement -= 1;
             obstacleArrayFillCheck();
             // setTimeout(() => { getInMeleeRange(monster, monsterMovement); }, 1000);
             getInMeleeRange(monster, monsterMovement);
             break;
-          } else if (monster.y - 50 === openSquareArray[i].y && monster.x + 50 === openSquareArray[i].x) {
+          } else if (
+            monster.y - 50 === openSquareArray[i].y &&
+            monster.x + 50 === openSquareArray[i].x
+          ) {
             monster.y -= 50;
             monster.x += 50;
             monsterMovement -= 1;
@@ -265,7 +301,10 @@ function Overlord({ chosenHero, chosenQuest, turn, setTurn, currentArmor, curren
             // setTimeout(() => { getInMeleeRange(monster, monsterMovement); }, 1000);
             getInMeleeRange(monster, monsterMovement);
             break;
-          } else if (monster.y - 50 === openSquareArray[i].y && monster.x - 50 === openSquareArray[i].x) {
+          } else if (
+            monster.y - 50 === openSquareArray[i].y &&
+            monster.x - 50 === openSquareArray[i].x
+          ) {
             monster.y -= 50;
             monster.x -= 50;
             monsterMovement -= 1;
@@ -275,17 +314,22 @@ function Overlord({ chosenHero, chosenQuest, turn, setTurn, currentArmor, curren
             break;
           }
         }
-      }
-      else if (monster.y < heroToken.y - 50) {
+      } else if (monster.y < heroToken.y - 50) {
         for (let i = 0; i < openSquareArray.length; i++) {
-          if (monster.y + 50 === openSquareArray[i].y && monster.x === openSquareArray[i].x) {
+          if (
+            monster.y + 50 === openSquareArray[i].y &&
+            monster.x === openSquareArray[i].x
+          ) {
             monster.y += 50;
             monsterMovement -= 1;
             obstacleArrayFillCheck();
             // setTimeout(() => { getInMeleeRange(monster, monsterMovement); }, 1000);
             getInMeleeRange(monster, monsterMovement);
             break;
-          } else if (monster.y + 50 === openSquareArray[i].y && monster.x + 50 === openSquareArray[i].x) {
+          } else if (
+            monster.y + 50 === openSquareArray[i].y &&
+            monster.x + 50 === openSquareArray[i].x
+          ) {
             monster.y += 50;
             monster.x += 50;
             monsterMovement -= 1;
@@ -293,7 +337,10 @@ function Overlord({ chosenHero, chosenQuest, turn, setTurn, currentArmor, curren
             // setTimeout(() => { getInMeleeRange(monster, monsterMovement); }, 1000);
             getInMeleeRange(monster, monsterMovement);
             break;
-          } else if (monster.y + 50 === openSquareArray[i].y && monster.x - 50 === openSquareArray[i].x) {
+          } else if (
+            monster.y + 50 === openSquareArray[i].y &&
+            monster.x - 50 === openSquareArray[i].x
+          ) {
             monster.y += 50;
             monster.x -= 50;
             monsterMovement -= 1;
@@ -304,13 +351,10 @@ function Overlord({ chosenHero, chosenQuest, turn, setTurn, currentArmor, curren
           }
         }
       }
-
-    }
-    else if (monsterMovement <= 0) {
+    } else if (monsterMovement <= 0) {
       console.log(`${monster.name}${monster.id} out of movement`);
     }
   }
-
 
   //makes magic and ranged monsters move away from hero if they are right next to them
   function getInRange(monster, monsterMovement) {
@@ -321,7 +365,10 @@ function Overlord({ chosenHero, chosenQuest, turn, setTurn, currentArmor, curren
     } else {
       if (monster.x > heroToken.x && !monsterMovement <= 0) {
         for (let i = 0; i < openSquareArray.length; i++) {
-          if (monster.x + 50 === openSquareArray[i].x && monster.y === openSquareArray[i].y) {
+          if (
+            monster.x + 50 === openSquareArray[i].x &&
+            monster.y === openSquareArray[i].y
+          ) {
             monster.x += 50;
             monsterMovement -= 1;
             getInRange(monster, monsterMovement);
@@ -330,7 +377,10 @@ function Overlord({ chosenHero, chosenQuest, turn, setTurn, currentArmor, curren
         }
       } else if (monster.x < heroToken.x && !monsterMovement <= 0) {
         for (let i = 0; i < openSquareArray.length; i++) {
-          if (monster.x - 50 === openSquareArray[i].x && monster.y === openSquareArray[i].y) {
+          if (
+            monster.x - 50 === openSquareArray[i].x &&
+            monster.y === openSquareArray[i].y
+          ) {
             monster.x -= 50;
             monsterMovement -= 1;
             getInRange(monster, monsterMovement);
@@ -339,7 +389,10 @@ function Overlord({ chosenHero, chosenQuest, turn, setTurn, currentArmor, curren
         }
       } else if (monster.y > heroToken.y && !monsterMovement <= 0) {
         for (let i = 0; i < openSquareArray.length; i++) {
-          if (monster.y + 50 === openSquareArray[i].y && monster.x === openSquareArray[i].x) {
+          if (
+            monster.y + 50 === openSquareArray[i].y &&
+            monster.x === openSquareArray[i].x
+          ) {
             monster.y += 50;
             monsterMovement -= 1;
             getInRange(monster, monsterMovement);
@@ -348,7 +401,10 @@ function Overlord({ chosenHero, chosenQuest, turn, setTurn, currentArmor, curren
         }
       } else if (monster.y < heroToken.y && !monsterMovement <= 0) {
         for (let i = 0; i < openSquareArray.length; i++) {
-          if (monster.y - 50 === openSquareArray[i].y && monster.x === openSquareArray[i].x) {
+          if (
+            monster.y - 50 === openSquareArray[i].y &&
+            monster.x === openSquareArray[i].x
+          ) {
             monster.y -= 50;
             monsterMovement -= 1;
             getInRange(monster, monsterMovement);
@@ -359,10 +415,7 @@ function Overlord({ chosenHero, chosenQuest, turn, setTurn, currentArmor, curren
     }
   }
 
-  return (
-    <>
-    </>
-  );
+  return <></>;
 }
 
 export default Overlord;

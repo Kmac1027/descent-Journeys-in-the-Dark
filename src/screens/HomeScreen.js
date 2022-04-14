@@ -25,23 +25,47 @@ function HomeScreen({ playGame, setPlayGame, chosenHero, setChosenHero }) {
 
 
     return (
-        <div >
-            <h1>Beta</h1>
-            <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-                <img src="images/box_front.jpg"></img>
-                <br />
-                <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
-                    <button style={{ height: "100px", width: "200px" }} onClick={startGame}>Play Game</button>
-                    <br />
-                    <br />
-                    <button style={{ height: "100px", width: "200px" }} onClick={rules}>How To Play</button>
-                </div>
-            </div>
+      <div>
+        <h1>Beta</h1>
+        <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+          <img src="./images/box_front.jpg"></img>
+          <br />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+            }}
+          >
+            <button
+              style={{ height: "100px", width: "200px" }}
+              onClick={startGame}
+            >
+              Play Game
+            </button>
             <br />
-            {showHowToPlay ? <HowToPlay showHowToPlay={showHowToPlay} setShowHowToPlay={setShowHowToPlay} /> : null}
-            {choseHero ? <ChoseHero playGame={playGame} setPlayGame={setPlayGame} chosenHero={chosenHero} setChosenHero={setChosenHero} /> : null}
-
-        </div >
+            <br />
+            <button style={{ height: "100px", width: "200px" }} onClick={rules}>
+              How To Play
+            </button>
+          </div>
+        </div>
+        <br />
+        {showHowToPlay ? (
+          <HowToPlay
+            showHowToPlay={showHowToPlay}
+            setShowHowToPlay={setShowHowToPlay}
+          />
+        ) : null}
+        {choseHero ? (
+          <ChoseHero
+            playGame={playGame}
+            setPlayGame={setPlayGame}
+            chosenHero={chosenHero}
+            setChosenHero={setChosenHero}
+          />
+        ) : null}
+      </div>
     );
 }
 

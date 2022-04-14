@@ -391,34 +391,34 @@ function Bag({
       <div id="runeKeys" style={{ display: "flex", flexdirection: "row" }}>
         {hasRedRuneKey ? (
           <img
-            src="images/map_tiles/item_icons/red_rune.png"
+            src="./images/map_tiles/item_icons/red_rune.png"
             alt="Red Rune Key"
           />
         ) : (
           <img
-            src="images/map_tiles/item_icons/inactive_rune.png"
+            src="./images/map_tiles/item_icons/inactive_rune.png"
             alt="No Rune"
           />
         )}
         {hasYellowRuneKey ? (
           <img
-            src="images/map_tiles/item_icons/yellow_rune.png"
+            src="./images/map_tiles/item_icons/yellow_rune.png"
             alt="Yellow Rune Key"
           />
         ) : (
           <img
-            src="images/map_tiles/item_icons/inactive_rune.png"
+            src="./images/map_tiles/item_icons/inactive_rune.png"
             alt="No Rune"
           />
         )}
         {hasBlueRuneKey ? (
           <img
-            src="images/map_tiles/item_icons/blue_rune.png"
+            src="./images/map_tiles/item_icons/blue_rune.png"
             alt="Blue Rune Key"
           />
         ) : (
           <img
-            src="images/map_tiles/item_icons/inactive_rune.png"
+            src="./images/map_tiles/item_icons/inactive_rune.png"
             alt="No Rune"
           />
         )}

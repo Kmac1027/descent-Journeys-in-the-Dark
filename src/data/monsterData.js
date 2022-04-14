@@ -27,8 +27,8 @@ export class Beastman {
         text: "+1 Damage",
       },
     };
-    this.monster_card_img_path = "images/monster_card/beastman.jpg";
-    this.token_path = "images/monster_token/beastman.png";
+    this.monster_card_img_path = "./images/monster_card/beastman.jpg";
+    this.token_path = "./images/monster_token/beastman.png";
     this.money_value = 25;
     this.w = 50;
     this.h = 50;
@@ -71,8 +71,8 @@ export class MasterBeastman {
         type: "Command",
       },
     };
-    this.monster_card_img_path = "images/monster_card/beastman.jpg";
-    this.token_path = "images/monster_token/beastman_master.png";
+    this.monster_card_img_path = "./images/monster_card/beastman.jpg";
+    this.token_path = "./images/monster_token/beastman_master.png";
     this.money_value = 50;
     this.w = 50;
     this.h = 50;
@@ -117,8 +117,8 @@ export class Skeleton {
         text: "+1 Range",
       },
     };
-    this.monster_card_img_path = "images/monster_card/skeleton.jpg";
-    this.token_path = "images/monster_token/skeleton.png";
+    this.monster_card_img_path = "./images/monster_card/skeleton.jpg";
+    this.token_path = "./images/monster_token/skeleton.png";
     this.money_value = 25;
     this.w = 50;
     this.h = 50;
@@ -164,8 +164,8 @@ export class MasterSkeleton {
       },
       3: { type: "undying" },
     };
-    this.monster_card_img_path = "images/monster_card/skeleton.jpg";
-    this.token_path = "images/monster_token/skeleton_master.png";
+    this.monster_card_img_path = "./images/monster_card/skeleton.jpg";
+    this.token_path = "./images/monster_token/skeleton_master.png";
     this.money_value = 50;
     this.w = 50;
     this.h = 50;
@@ -211,8 +211,8 @@ export class MasterGiant {
       // },
       // 3: { type: "undying" },
     };
-    this.monster_card_img_path = "../images/monster_card/giant.jpg";
-    this.token_path = "../images/monster_token/giant_master.png";
+    this.monster_card_img_path = "./images/monster_card/giant.jpg";
+    this.token_path = "./images/monster_token/giant_master.png";
     this.money_value = 500;
     this.w = 100;
     this.h = 100;

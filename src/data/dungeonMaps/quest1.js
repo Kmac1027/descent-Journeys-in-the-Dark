@@ -463,1088 +463,1163 @@ function revealAreas() {
 }
 
 function quest1CollisionDetection(runLoopX, runLoopY) {
+  //we need to only run collision detection on a new square
+  if (
+    heroToken.x !== runLoopX ||
+    heroToken.y !== runLoopY ||
+    previousPosition === { x: 0, y: 0 }
+  ) {
+    console.log(disableMovment);
+    //if new position allow movement
+    disableMovment.right = false;
+    disableMovment.left = false;
+    disableMovment.up = false;
+    disableMovment.down = false;
+    disableMovment.upRight = false;
+    disableMovment.downRight = false;
+    disableMovment.upLeft = false;
+    disableMovment.downLeft = false;
 
-  //outer walls
+    //outer walls
+    //square 1
 
-  //square 1
-  if (heroToken.x === 600 && heroToken.y === 0) {
-    disableMovment.up = true;
-    disableMovment.upRight = true;
-    disableMovment.upLeft = true;
-    disableMovment.left = true;
-  }
+    if (heroToken.x === 600 && heroToken.y === 0) {
+      disableMovment.up = true;
+      disableMovment.upRight = true;
+      disableMovment.upLeft = true;
+      disableMovment.left = true;
+    }
 
-  //square 2
-  if (heroToken.x === 650 && heroToken.y === 0) {
-    disableMovment.up = true;
-    disableMovment.upRight = true;
-    disableMovment.upLeft = true;
-    disableMovment.right = true;
-  }
-  //square 2.2
-  if (heroToken.x === 500 && heroToken.y === 50) {
-    disableMovment.up = true;
-    disableMovment.upRight = true;
-    disableMovment.upLeft = true;
-    disableMovment.left = true;
-    disableMovment.downLeft = true;
+    //square 2
+    if (heroToken.x === 650 && heroToken.y === 0) {
+      disableMovment.up = true;
+      disableMovment.upRight = true;
+      disableMovment.upLeft = true;
+      disableMovment.right = true;
+    }
+    //square 2.2
+    if (heroToken.x === 500 && heroToken.y === 50) {
+      disableMovment.up = true;
+      disableMovment.upRight = true;
+      disableMovment.upLeft = true;
+      disableMovment.left = true;
+      disableMovment.downLeft = true;
+    }
 
-  }
+    //square 2.3
+    if (heroToken.x === 550 && heroToken.y === 50) {
+      disableMovment.up = true;
+      disableMovment.upLeft = true;
+    }
+    //square 2.4
+    if (heroToken.x === 600 && heroToken.y === 50) {
+      disableMovment.upLeft = true;
+    }
+    //square 2.5
+    if (heroToken.x === 650 && heroToken.y === 50) {
+      disableMovment.upRight = true;
+    }
+    //square 2.6
+    if (heroToken.x === 700 && heroToken.y === 50) {
+      disableMovment.up = true;
+      disableMovment.upRight = true;
+    }
+    //square 2.7
+    if (heroToken.x === 750 && heroToken.y === 50) {
+      disableMovment.up = true;
+      disableMovment.upRight = true;
+      disableMovment.upLeft = true;
+      disableMovment.downRight = true;
+      disableMovment.right = true;
+    }
 
-  //square 2.3
-  if (heroToken.x === 550 && heroToken.y === 50) {
-    disableMovment.up = true;
-    disableMovment.upLeft = true;
-  }
-  //square 2.4
-  if (heroToken.x === 600 && heroToken.y === 50) {
-    disableMovment.upLeft = true;
-  }
-  //square 2.5
-  if (heroToken.x === 650 && heroToken.y === 50) {
-    disableMovment.upRight = true;
-  }
-  //square 2.6
-  if (heroToken.x === 700 && heroToken.y === 50) {
-    disableMovment.up = true;
-    disableMovment.upRight = true;
-  }
-  //square 2.7
-  if (heroToken.x === 750 && heroToken.y === 50) {
-    disableMovment.up = true;
-    disableMovment.upRight = true;
-    disableMovment.upLeft = true;
-    disableMovment.downRight = true;
-    disableMovment.right = true;
-  }
+    //square 3
+    if (heroToken.x === 500 && heroToken.y === 100) {
+      disableMovment.upLeft = true;
+      disableMovment.left = true;
+    }
+    //square 8
+    if (heroToken.x === 750 && heroToken.y === 100) {
+      disableMovment.upRight = true;
+      disableMovment.right = true;
+    }
+    //square 9
+    if (heroToken.x === 450 && heroToken.y === 150) {
+      disableMovment.up = true;
+      disableMovment.left = true;
+      disableMovment.downLeft = true;
+      disableMovment.upLeft = true;
+    }
+    //square 10
+    if (heroToken.x === 500 && heroToken.y === 150) {
+      disableMovment.upLeft = true;
+    }
+    //square 15
+    if (heroToken.x === 750 && heroToken.y === 150) {
+      disableMovment.upRight = true;
+    }
+    //square 16
+    if (heroToken.x === 800 && heroToken.y === 150) {
+      disableMovment.up = true;
+      disableMovment.upRight = true;
+      disableMovment.right = true;
+      disableMovment.downRight = true;
+    }
+    //square 17
+    if (heroToken.x === 450 && heroToken.y === 200) {
+      disableMovment.upLeft = true;
+      disableMovment.left = true;
+      disableMovment.downLeft = true;
+      disableMovment.down = true;
+    }
 
-  //square 3
-  if (heroToken.x === 500 && heroToken.y === 100) {
-    disableMovment.upLeft = true;
-    disableMovment.left = true;
-  }
-  //square 8
-  if (heroToken.x === 750 && heroToken.y === 100) {
-    disableMovment.upRight = true;
-    disableMovment.right = true;
-  }
-  //square 9
-  if (heroToken.x === 450 && heroToken.y === 150) {
-    disableMovment.up = true;
-    disableMovment.left = true;
-    disableMovment.downLeft = true;
-    disableMovment.upLeft = true;
-  }
-  //square 10
-  if (heroToken.x === 500 && heroToken.y === 150) {
-    disableMovment.upLeft = true;
-  }
-  //square 15
-  if (heroToken.x === 750 && heroToken.y === 150) {
-    disableMovment.upRight = true;
-  }
-  //square 16
-  if (heroToken.x === 800 && heroToken.y === 150) {
-    disableMovment.up = true;
-    disableMovment.upRight = true;
-    disableMovment.right = true;
-    disableMovment.downRight = true;
-  }
-  //square 17
-  if (heroToken.x === 450 && heroToken.y === 200) {
-    disableMovment.upLeft = true;
-    disableMovment.left = true;
-    disableMovment.downLeft = true;
-    disableMovment.down = true;
-  }
+    //square 18
+    if (heroToken.x === 500 && heroToken.y === 200) {
+      disableMovment.downLeft = true;
+    }
+    //square 23
+    if (heroToken.x === 750 && heroToken.y === 200) {
+      disableMovment.downRight = true;
+    }
+    //square 24
+    if (heroToken.x === 800 && heroToken.y === 200) {
+      disableMovment.down = true;
+      disableMovment.downRight = true;
+      disableMovment.right = true;
+      disableMovment.upRight = true;
+    }
+    //square 25
+    if (heroToken.x === 500 && heroToken.y === 250) {
+      disableMovment.left = true;
+      disableMovment.downLeft = true;
+    }
+    //square 30
+    if (heroToken.x === 750 && heroToken.y === 250) {
+      disableMovment.right = true;
+      disableMovment.downRight = true;
+    }
+    //square 31
+    if (heroToken.x === 500 && heroToken.y === 300) {
+      disableMovment.left = true;
+      disableMovment.upLeft = true;
+      disableMovment.downLeft = true;
+      disableMovment.downRight = true;
+      disableMovment.down = true;
+    }
+    //square 32
+    if (heroToken.x === 550 && heroToken.y === 300) {
+      disableMovment.down = true;
+      disableMovment.downLeft = true;
+    }
+    //square 33
+    if (heroToken.x === 600 && heroToken.y === 300) {
+      disableMovment.downLeft = true;
+    }
+    //square 34
+    if (heroToken.x === 650 && heroToken.y === 300) {
+      disableMovment.downRight = true;
+    }
+    //square 35
+    if (heroToken.x === 700 && heroToken.y === 300) {
+      disableMovment.down = true;
+      disableMovment.downRight = true;
+    }
+    //square 36
+    if (heroToken.x === 750 && heroToken.y === 300) {
+      disableMovment.down = true;
+      disableMovment.downRight = true;
+      disableMovment.downLeft = true;
+      disableMovment.right = true;
+      disableMovment.upRight = true;
+    }
+    //square 37
+    if (heroToken.x === 600 && heroToken.y === 350) {
+      disableMovment.left = true;
+      disableMovment.downLeft = true;
+    }
+    //square 38
+    if (heroToken.x === 650 && heroToken.y === 350) {
+      disableMovment.right = true;
+      disableMovment.downRight = true;
+    }
+    //square 39
+    if (heroToken.x === 600 && heroToken.y === 400) {
+      disableMovment.left = true;
+      disableMovment.downLeft = true;
+      disableMovment.upLeft = true;
+    }
+    //square 40
+    if (heroToken.x === 650 && heroToken.y === 400) {
+      disableMovment.right = true;
+      disableMovment.downRight = true;
+      disableMovment.upRight = true;
+    }
+    //square 41
+    if (heroToken.x === 600 && heroToken.y === 450) {
+      disableMovment.left = true;
+      disableMovment.downLeft = true;
+      disableMovment.upLeft = true;
+    }
+    //square 42
+    if (heroToken.x === 650 && heroToken.y === 450) {
+      disableMovment.right = true;
+      disableMovment.downRight = true;
+      disableMovment.upRight = true;
+    }
+    //square 43
+    if (heroToken.x === 600 && heroToken.y === 500) {
+      disableMovment.left = true;
+      disableMovment.upLeft = true;
+    }
+    //square 44
+    if (heroToken.x === 650 && heroToken.y === 500) {
+      disableMovment.right = true;
+      disableMovment.upRight = true;
+    }
+    //square 45
+    if (heroToken.x === 550 && heroToken.y === 550) {
+      disableMovment.left = true;
+      disableMovment.upLeft = true;
+      disableMovment.up = true;
+    }
+    //square 46
+    if (heroToken.x === 600 && heroToken.y === 550) {
+      disableMovment.upLeft = true;
+    }
+    //square 47
+    if (heroToken.x === 600 && heroToken.y === 550) {
+      disableMovment.upRight = true;
+    }
+    //square 48
+    if (heroToken.x === 300 && heroToken.y === 600) {
+      disableMovment.up = true;
+      disableMovment.upRight = true;
+      disableMovment.upLeft = true;
+      disableMovment.left = true;
+      disableMovment.downLeft = true;
+    }
+    //square 49
+    if (heroToken.x === 350 && heroToken.y === 600) {
+      disableMovment.upRight = true;
+      disableMovment.upLeft = true;
+      disableMovment.up = true;
+    }
+    //square 50
+    if (heroToken.x === 400 && heroToken.y === 600) {
+      disableMovment.upRight = true;
+      disableMovment.upLeft = true;
+      disableMovment.up = true;
+    }
+    //square 51
+    if (heroToken.x === 450 && heroToken.y === 600) {
+      disableMovment.upRight = true;
+      disableMovment.upLeft = true;
+      disableMovment.up = true;
+    }
+    //square 52
+    if (heroToken.x === 500 && heroToken.y === 600) {
+      disableMovment.upLeft = true;
+      disableMovment.up = true;
+    }
+    //square 53
+    if (heroToken.x === 550 && heroToken.y === 600) {
+      disableMovment.upLeft = true;
+    }
 
-  //square 18
-  if (heroToken.x === 500 && heroToken.y === 200) {
-    disableMovment.downLeft = true;
-  }
-  //square 23
-  if (heroToken.x === 750 && heroToken.y === 200) {
-    disableMovment.downRight = true;
-  }
-  //square 24
-  if (heroToken.x === 800 && heroToken.y === 200) {
-    disableMovment.down = true;
-    disableMovment.downRight = true;
-    disableMovment.right = true;
-    disableMovment.upRight = true;
-  }
-  //square 25
-  if (heroToken.x === 500 && heroToken.y === 250) {
-    disableMovment.left = true;
-    disableMovment.downLeft = true;
-  }
-  //square 30
-  if (heroToken.x === 750 && heroToken.y === 250) {
-    disableMovment.right = true;
-    disableMovment.downRight = true;
-  }
-  //square 31
-  if (heroToken.x === 500 && heroToken.y === 300) {
-    disableMovment.left = true;
-    disableMovment.upLeft = true;
-    disableMovment.downLeft = true;
-    disableMovment.downRight = true;
-    disableMovment.down = true;
-  }
-  //square 32
-  if (heroToken.x === 550 && heroToken.y === 300) {
-    disableMovment.down = true;
-    disableMovment.downLeft = true;
-  }
-  //square 33
-  if (heroToken.x === 600 && heroToken.y === 300) {
-    disableMovment.downLeft = true;
-  }
-  //square 34
-  if (heroToken.x === 650 && heroToken.y === 300) {
-    disableMovment.downRight = true;
-  }
-  //square 35
-  if (heroToken.x === 700 && heroToken.y === 300) {
-    disableMovment.down = true;
-    disableMovment.downRight = true;
-  }
-  //square 36
-  if (heroToken.x === 750 && heroToken.y === 300) {
-    disableMovment.down = true;
-    disableMovment.downRight = true;
-    disableMovment.downLeft = true;
-    disableMovment.right = true;
-    disableMovment.upRight = true;
-  }
-  //square 37
-  if (heroToken.x === 600 && heroToken.y === 350) {
-    disableMovment.left = true;
-    disableMovment.downLeft = true;
-  }
-  //square 38
-  if (heroToken.x === 650 && heroToken.y === 350) {
-    disableMovment.right = true;
-    disableMovment.downRight = true;
-  }
-  //square 39
-  if (heroToken.x === 600 && heroToken.y === 400) {
-    disableMovment.left = true;
-    disableMovment.downLeft = true;
-    disableMovment.upLeft = true;
-  }
-  //square 40
-  if (heroToken.x === 650 && heroToken.y === 400) {
-    disableMovment.right = true;
-    disableMovment.downRight = true;
-    disableMovment.upRight = true;
-  }
-  //square 41
-  if (heroToken.x === 600 && heroToken.y === 450) {
-    disableMovment.left = true;
-    disableMovment.downLeft = true;
-    disableMovment.upLeft = true;
-  }
-  //square 42
-  if (heroToken.x === 650 && heroToken.y === 450) {
-    disableMovment.right = true;
-    disableMovment.downRight = true;
-    disableMovment.upRight = true;
-  }
-  //square 43
-  if (heroToken.x === 600 && heroToken.y === 500) {
-    disableMovment.left = true;
-    disableMovment.upLeft = true;
-  }
-  //square 44
-  if (heroToken.x === 650 && heroToken.y === 500) {
-    disableMovment.right = true;
-    disableMovment.upRight = true;
-  }
-  //square 45
-  if (heroToken.x === 550 && heroToken.y === 550) {
-    disableMovment.left = true;
-    disableMovment.upLeft = true;
-    disableMovment.up = true;
-  }
-  //square 46
-  if (heroToken.x === 600 && heroToken.y === 550) {
-    disableMovment.upLeft = true;
-  }
-  //square 47
-  if (heroToken.x === 600 && heroToken.y === 550) {
-    disableMovment.upRight = true;
-  }
-  //square 48
-  if (heroToken.x === 300 && heroToken.y === 600) {
-    disableMovment.up = true;
-    disableMovment.upRight = true;
-    disableMovment.upLeft = true;
-    disableMovment.left = true;
-    disableMovment.downLeft = true;
-  }
-  //square 49
-  if (heroToken.x === 350 && heroToken.y === 600) {
-    disableMovment.upRight = true;
-    disableMovment.upLeft = true;
-    disableMovment.up = true;
-  }
-  //square 50
-  if (heroToken.x === 400 && heroToken.y === 600) {
-    disableMovment.upRight = true;
-    disableMovment.upLeft = true;
-    disableMovment.up = true;
-  }
-  //square 51
-  if (heroToken.x === 450 && heroToken.y === 600) {
-    disableMovment.upRight = true;
-    disableMovment.upLeft = true;
-    disableMovment.up = true;
-  }
-  //square 52
-  if (heroToken.x === 500 && heroToken.y === 600) {
-    disableMovment.upLeft = true;
-    disableMovment.up = true;
-  }
-  //square 53
-  if (heroToken.x === 550 && heroToken.y === 600) {
-    disableMovment.upLeft = true;
-  }
+    //square 56
+    if (heroToken.x === 300 && heroToken.y === 650) {
+      disableMovment.upLeft = true;
+      disableMovment.left = true;
+      disableMovment.downLeft = true;
+      disableMovment.down = true;
+      disableMovment.downRight = true;
+    }
 
-  //square 56
-  if (heroToken.x === 300 && heroToken.y === 650) {
-    disableMovment.upLeft = true;
-    disableMovment.left = true;
-    disableMovment.downLeft = true;
-    disableMovment.down = true;
-    disableMovment.downRight = true;
-  }
+    //square 57
+    if (heroToken.x === 350 && heroToken.y === 650) {
+      disableMovment.downLeft = true;
+      disableMovment.down = true;
+      disableMovment.downRight = true;
+    }
 
-  //square 57
-  if (heroToken.x === 350 && heroToken.y === 650) {
-    disableMovment.downLeft = true;
-    disableMovment.down = true;
-    disableMovment.downRight = true;
-  }
+    //square 58
+    if (heroToken.x === 400 && heroToken.y === 650) {
+      disableMovment.downLeft = true;
+      disableMovment.down = true;
+      disableMovment.downRight = true;
+    }
 
-  //square 58
-  if (heroToken.x === 400 && heroToken.y === 650) {
-    disableMovment.downLeft = true;
-    disableMovment.down = true;
-    disableMovment.downRight = true;
-  }
+    //square 59
+    if (heroToken.x === 450 && heroToken.y === 650) {
+      disableMovment.downLeft = true;
+      disableMovment.down = true;
+      disableMovment.downRight = true;
+    }
+    //square 60
+    if (heroToken.x === 500 && heroToken.y === 650) {
+      disableMovment.downLeft = true;
+      disableMovment.down = true;
+    }
+    //square 61
+    if (heroToken.x === 550 && heroToken.y === 650) {
+      disableMovment.downLeft = true;
+    }
+    //square 64
+    if (heroToken.x === 550 && heroToken.y === 700) {
+      disableMovment.left = true;
+      disableMovment.downLeft = true;
+      disableMovment.down = true;
+    }
+    //square 65
+    if (heroToken.x === 600 && heroToken.y === 700) {
+      disableMovment.downLeft = true;
+    }
 
-  //square 59
-  if (heroToken.x === 450 && heroToken.y === 650) {
-    disableMovment.downLeft = true;
-    disableMovment.down = true;
-    disableMovment.downRight = true;
-  }
-  //square 60
-  if (heroToken.x === 500 && heroToken.y === 650) {
-    disableMovment.downLeft = true;
-    disableMovment.down = true;
-  }
-  //square 61
-  if (heroToken.x === 550 && heroToken.y === 650) {
-    disableMovment.downLeft = true;
-  }
-  //square 64
-  if (heroToken.x === 550 && heroToken.y === 700) {
-    disableMovment.left = true;
-    disableMovment.downLeft = true;
-    disableMovment.down = true;
-  }
-  //square 65
-  if (heroToken.x === 600 && heroToken.y === 700) {
-    disableMovment.downLeft = true;
-  }
+    //square 67
+    if (heroToken.x === 600 && heroToken.y === 750) {
+      disableMovment.left = true;
+      disableMovment.downLeft = true;
+    }
+    //square 68
+    if (heroToken.x === 650 && heroToken.y === 750) {
+      disableMovment.right = true;
+      disableMovment.downRight = true;
+    }
+    //square 69
+    if (heroToken.x === 600 && heroToken.y === 800) {
+      disableMovment.left = true;
+      disableMovment.upLeft = true;
+      disableMovment.downLeft = true;
+    }
+    //square 70
+    if (heroToken.x === 650 && heroToken.y === 800) {
+      disableMovment.right = true;
+      disableMovment.upRight = true;
+      disableMovment.downRight = true;
+    }
+    //square 71
+    if (heroToken.x === 600 && heroToken.y === 850) {
+      disableMovment.left = true;
+      disableMovment.upLeft = true;
+      disableMovment.downLeft = true;
+    }
+    //square 72
+    if (heroToken.x === 650 && heroToken.y === 850) {
+      disableMovment.right = true;
+      disableMovment.upRight = true;
+      disableMovment.downRight = true;
+    }
+    //square 73
+    if (heroToken.x === 600 && heroToken.y === 900) {
+      disableMovment.left = true;
+      disableMovment.upLeft = true;
+    }
+    //square 74
+    if (heroToken.x === 650 && heroToken.y === 900) {
+      disableMovment.right = true;
+      disableMovment.upRight = true;
+    }
 
-  //square 67
-  if (heroToken.x === 600 && heroToken.y === 750) {
-    disableMovment.left = true;
-    disableMovment.downLeft = true;
-  }
-  //square 68
-  if (heroToken.x === 650 && heroToken.y === 750) {
-    disableMovment.right = true;
-    disableMovment.downRight = true;
-  }
-  //square 69
-  if (heroToken.x === 600 && heroToken.y === 800) {
-    disableMovment.left = true;
-    disableMovment.upLeft = true;
-    disableMovment.downLeft = true;
-  }
-  //square 70
-  if (heroToken.x === 650 && heroToken.y === 800) {
-    disableMovment.right = true;
-    disableMovment.upRight = true;
-    disableMovment.downRight = true;
-  }
-  //square 71
-  if (heroToken.x === 600 && heroToken.y === 850) {
-    disableMovment.left = true;
-    disableMovment.upLeft = true;
-    disableMovment.downLeft = true;
-  }
-  //square 72
-  if (heroToken.x === 650 && heroToken.y === 850) {
-    disableMovment.right = true;
-    disableMovment.upRight = true;
-    disableMovment.downRight = true;
-  }
-  //square 73
-  if (heroToken.x === 600 && heroToken.y === 900) {
-    disableMovment.left = true;
-    disableMovment.upLeft = true;
-  }
-  //square 74
-  if (heroToken.x === 650 && heroToken.y === 900) {
-    disableMovment.right = true;
-    disableMovment.upRight = true;
-  }
+    //square 75
+    if (heroToken.x === 350 && heroToken.y === 950) {
+      disableMovment.up = true;
+      disableMovment.upRight = true;
+    }
+    //square 76
+    if (heroToken.x === 400 && heroToken.y === 950) {
+      disableMovment.up = true;
+      disableMovment.upRight = true;
+      disableMovment.right = true;
+    }
+    //square 77
+    if (heroToken.x === 550 && heroToken.y === 950) {
+      disableMovment.up = true;
+      disableMovment.upLeft = true;
+      disableMovment.left = true;
+    }
+    //square 78
+    if (heroToken.x === 600 && heroToken.y === 950) {
+      disableMovment.upLeft = true;
+    }
+    //square 79
+    if (heroToken.x === 600 && heroToken.y === 950) {
+      disableMovment.upRight = true;
+    }
+    //square 81
+    if (heroToken.x === 400 && heroToken.y === 1000) {
+      disableMovment.upRight = true;
+    }
+    //square 82
+    if (heroToken.x === 450 && heroToken.y === 1000) {
+      disableMovment.up = true;
+      disableMovment.upRight = true;
+    }
+    //square 83
+    if (heroToken.x === 500 && heroToken.y === 1000) {
+      disableMovment.up = true;
+      disableMovment.upLeft = true;
+    }
+    //square 84
+    if (heroToken.x === 550 && heroToken.y === 1000) {
+      disableMovment.upLeft = true;
+    }
+    //square 88
+    if (heroToken.x === 400 && heroToken.y === 1050) {
+      disableMovment.downRight = true;
+    }
+    //square 89
+    if (heroToken.x === 450 && heroToken.y === 1500) {
+      disableMovment.downRight = true;
+      disableMovment.down = true;
+    }
+    //square 90
+    if (heroToken.x === 500 && heroToken.y === 1050) {
+      disableMovment.downLeft = true;
+      disableMovment.down = true;
+    }
+    //square 91
+    if (heroToken.x === 550 && heroToken.y === 1050) {
+      disableMovment.downRight = true;
+    }
+    //square 94
+    if (heroToken.x === 350 && heroToken.y === 1100) {
+      disableMovment.down = true;
+      disableMovment.downRight = true;
+    }
+    //square 95
+    if (heroToken.x === 400 && heroToken.y === 1100) {
+      disableMovment.down = true;
+      disableMovment.downLeft = true;
+      disableMovment.downRight = true;
+      disableMovment.right = true;
+    }
+    //square 96
+    if (heroToken.x === 550 && heroToken.y === 1100) {
+      disableMovment.down = true;
+      disableMovment.downLeft = true;
+      disableMovment.left = true;
+    }
+    //square 97
+    if (heroToken.x === 600 && heroToken.y === 1100) {
+      disableMovment.downLeft = true;
+    }
+    //square 98
+    if (heroToken.x === 650 && heroToken.y === 1100) {
+      disableMovment.downRight = true;
+    }
+    //square 99
+    if (heroToken.x === 600 && heroToken.y === 1150) {
+      disableMovment.left = true;
+      disableMovment.downLeft = true;
+      disableMovment.down = true;
+      disableMovment.downRight = true;
+    }
+    //square 100
+    if (heroToken.x === 650 && heroToken.y === 1150) {
+      disableMovment.right = true;
+      disableMovment.downLeft = true;
+      disableMovment.down = true;
+      disableMovment.downRight = true;
+    }
+    //square 101
+    if (heroToken.x === 250 && heroToken.y === 800) {
+      disableMovment.left = true;
+      disableMovment.upLeft = true;
+      disableMovment.downLeft = true;
+      disableMovment.up = true;
+      disableMovment.upRight = true;
+    }
+    //square 102
+    if (heroToken.x === 300 && heroToken.y === 800) {
+      disableMovment.right = true;
+      disableMovment.upLeft = true;
+      disableMovment.downRight = true;
+      disableMovment.up = true;
+      disableMovment.upRight = true;
+    }
+    //square 103
+    if (heroToken.x === 250 && heroToken.y === 850) {
+      disableMovment.left = true;
+      disableMovment.upLeft = true;
+      disableMovment.downLeft = true;
+    }
+    //square 104
+    if (heroToken.x === 300 && heroToken.y === 850) {
+      disableMovment.upRight = true;
+      disableMovment.right = true;
+      disableMovment.downRight = true;
+    }
+    //square 105
+    if (heroToken.x === 250 && heroToken.y === 900) {
+      disableMovment.left = true;
+      disableMovment.upLeft = true;
+    }
+    //square 106
+    if (heroToken.x === 300 && heroToken.y === 900) {
+      disableMovment.right = true;
+      disableMovment.upRight = true;
+    }
 
-  //square 75
-  if (heroToken.x === 350 && heroToken.y === 950) {
-    disableMovment.up = true;
-    disableMovment.upRight = true;
-  }
-  //square 76
-  if (heroToken.x === 400 && heroToken.y === 950) {
-    disableMovment.up = true;
-    disableMovment.upRight = true;
-    disableMovment.right = true;
-  }
-  //square 77
-  if (heroToken.x === 550 && heroToken.y === 950) {
-    disableMovment.up = true;
-    disableMovment.upLeft = true;
-    disableMovment.left = true;
-  }
-  //square 78
-  if (heroToken.x === 600 && heroToken.y === 950) {
-    disableMovment.upLeft = true;
-  }
-  //square 79
-  if (heroToken.x === 600 && heroToken.y === 950) {
-    disableMovment.upRight = true;
-  }
-  //square 81
-  if (heroToken.x === 400 && heroToken.y === 1000) {
-    disableMovment.upRight = true;
-  }
-  //square 82
-  if (heroToken.x === 450 && heroToken.y === 1000) {
-    disableMovment.up = true;
-    disableMovment.upRight = true;
-  }
-  //square 83
-  if (heroToken.x === 500 && heroToken.y === 1000) {
-    disableMovment.up = true;
-    disableMovment.upLeft = true;
-  }
-  //square 84
-  if (heroToken.x === 550 && heroToken.y === 1000) {
-    disableMovment.upLeft = true;
-  }
-  //square 88
-  if (heroToken.x === 400 && heroToken.y === 1050) {
-    disableMovment.downRight = true;
-  }
-  //square 89
-  if (heroToken.x === 450 && heroToken.y === 1500) {
-    disableMovment.downRight = true;
-    disableMovment.down = true;
-  }
-  //square 90
-  if (heroToken.x === 500 && heroToken.y === 1050) {
-    disableMovment.downLeft = true;
-    disableMovment.down = true;
-  }
-  //square 91
-  if (heroToken.x === 550 && heroToken.y === 1050) {
+    //square 107
+    if (heroToken.x === 150 && heroToken.y === 950) {
+      disableMovment.left = true;
+      disableMovment.upLeft = true;
+      disableMovment.up = true;
+      disableMovment.upRight = true;
+    }
+    //square 108
+    if (heroToken.x === 200 && heroToken.y === 950) {
+      disableMovment.up = true;
+      disableMovment.upLeft = true;
+    }
+    //square 109
+    if (heroToken.x === 250 && heroToken.y === 950) {
+      disableMovment.upLeft = true;
+    }
+    //square 110
+    if (heroToken.x === 250 && heroToken.y === 950) {
+      disableMovment.upRight = true;
+    }
 
-    disableMovment.downRight = true;
-  }
-  //square 94
-  if (heroToken.x === 350 && heroToken.y === 1100) {
-    disableMovment.down = true;
-    disableMovment.downRight = true;
-  }
-  //square 95
-  if (heroToken.x === 400 && heroToken.y === 1100) {
-    disableMovment.down = true;
-    disableMovment.downLeft = true;
-    disableMovment.downRight = true;
-    disableMovment.right = true;
-  }
-  //square 96
-  if (heroToken.x === 550 && heroToken.y === 1100) {
-    disableMovment.down = true;
-    disableMovment.downLeft = true;
-    disableMovment.left = true;
-  }
-  //square 97
-  if (heroToken.x === 600 && heroToken.y === 1100) {
-    disableMovment.downLeft = true;
-  }
-  //square 98
-  if (heroToken.x === 650 && heroToken.y === 1100) {
-    disableMovment.downRight = true;
-  }
-  //square 99
-  if (heroToken.x === 600 && heroToken.y === 1150) {
-    disableMovment.left = true;
-    disableMovment.downLeft = true;
-    disableMovment.down = true;
-    disableMovment.downRight = true;
-  }
-  //square 100
-  if (heroToken.x === 650 && heroToken.y === 1150) {
-    disableMovment.right = true;
-    disableMovment.downLeft = true;
-    disableMovment.down = true;
-    disableMovment.downRight = true;
-  }
-  //square 101
-  if (heroToken.x === 250 && heroToken.y === 800) {
-    disableMovment.left = true;
-    disableMovment.upLeft = true;
-    disableMovment.downLeft = true;
-    disableMovment.up = true;
-    disableMovment.upRight = true;
-  }
-  //square 102
-  if (heroToken.x === 300 && heroToken.y === 800) {
-    disableMovment.right = true;
-    disableMovment.upLeft = true;
-    disableMovment.downRight = true;
-    disableMovment.up = true;
-    disableMovment.upRight = true;
-  }
-  //square 103
-  if (heroToken.x === 250 && heroToken.y === 850) {
-    disableMovment.left = true;
-    disableMovment.upLeft = true;
-    disableMovment.downLeft = true;
-  }
-  //square 104
-  if (heroToken.x === 300 && heroToken.y === 850) {
-    disableMovment.upRight = true;
-    disableMovment.right = true;
-    disableMovment.downRight = true;
-  }
-  //square 105
-  if (heroToken.x === 250 && heroToken.y === 900) {
-    disableMovment.left = true;
-    disableMovment.upLeft = true;
-  }
-  //square 106
-  if (heroToken.x === 300 && heroToken.y === 900) {
-    disableMovment.right = true;
-    disableMovment.upRight = true;
-  }
+    //square 111
+    if (heroToken.x === 0 && heroToken.y === 1000) {
+      disableMovment.up = true;
+      disableMovment.upRight = true;
+      disableMovment.upLeft = true;
+      disableMovment.left = true;
+      disableMovment.downLeft = true;
+    }
+    //square 112
+    if (heroToken.x === 50 && heroToken.y === 1000) {
+      disableMovment.up = true;
+      disableMovment.upRight = true;
+      disableMovment.upLeft = true;
+    }
+    //square 113
+    if (heroToken.x === 100 && heroToken.y === 1000) {
+      disableMovment.up = true;
+      disableMovment.upLeft = true;
+    }
+    //square 114
+    if (heroToken.x === 150 && heroToken.y === 1000) {
+      disableMovment.upLeft = true;
+    }
+    //square 118
+    if (heroToken.x === 0 && heroToken.y === 1050) {
+      disableMovment.upLeft = true;
+      disableMovment.left = true;
+      disableMovment.downLeft = true;
+      disableMovment.downRight = true;
+      disableMovment.down = true;
+    }
+    //square 119
+    if (heroToken.x === 50 && heroToken.y === 1050) {
+      disableMovment.downRight = true;
+      disableMovment.downLeft = true;
+      disableMovment.down = true;
+    }
+    //square 120
+    if (heroToken.x === 100 && heroToken.y === 1050) {
+      disableMovment.downLeft = true;
+      disableMovment.down = true;
+    }
+    //square 121
+    if (heroToken.x === 150 && heroToken.y === 1050) {
+      disableMovment.downLeft = true;
+    }
+    //square 125
+    if (heroToken.x === 150 && heroToken.y === 1100) {
+      disableMovment.down = true;
+      disableMovment.downLeft = true;
+      disableMovment.left = true;
+      disableMovment.downRight = true;
+    }
+    //square 126
+    if (heroToken.x === 200 && heroToken.y === 1100) {
+      disableMovment.downLeft = true;
+      disableMovment.down = true;
+    }
+    //square 127
+    if (heroToken.x === 250 && heroToken.y === 1100) {
+      disableMovment.downLeft = true;
+    }
+    //square 129
+    if (heroToken.x === 250 && heroToken.y === 1150) {
+      disableMovment.downLeft = true;
+      disableMovment.left = true;
+    }
+    //square 130
+    if (heroToken.x === 300 && heroToken.y === 1150) {
+      disableMovment.downRight = true;
+      disableMovment.right = true;
+    }
+    //square 131
+    if (heroToken.x === 250 && heroToken.y === 1200) {
+      disableMovment.downLeft = true;
+      disableMovment.left = true;
+      disableMovment.upLeft = true;
+    }
+    //square 132
+    if (heroToken.x === 300 && heroToken.y === 1200) {
+      disableMovment.downRight = true;
+      disableMovment.right = true;
+      disableMovment.upRight = true;
+    }
+    //square 133
+    if (heroToken.x === 250 && heroToken.y === 1250) {
+      disableMovment.downLeft = true;
+      disableMovment.left = true;
+      disableMovment.upLeft = true;
+      disableMovment.down = true;
+      disableMovment.downRight = true;
+    }
+    //square 134
+    if (heroToken.x === 300 && heroToken.y === 1250) {
+      disableMovment.downLeft = true;
+      disableMovment.down = true;
+      disableMovment.downRight = true;
+      disableMovment.right = true;
+      disableMovment.upRight = true;
+    }
+    //square 135
+    if (heroToken.x === 900 && heroToken.y === 500) {
+      disableMovment.up = true;
+      disableMovment.upRight = true;
+      disableMovment.upLeft = true;
+      disableMovment.left = true;
+    }
 
-  //square 107
-  if (heroToken.x === 150 && heroToken.y === 950) {
-    disableMovment.left = true;
-    disableMovment.upLeft = true;
-    disableMovment.up = true;
-    disableMovment.upRight = true;
-  }
-  //square 108
-  if (heroToken.x === 200 && heroToken.y === 950) {
-    disableMovment.up = true;
-    disableMovment.upLeft = true;
-  }
-  //square 109
-  if (heroToken.x === 250 && heroToken.y === 950) {
-    disableMovment.upLeft = true;
-  }
-  //square 110
-  if (heroToken.x === 250 && heroToken.y === 950) {
-    disableMovment.upRight = true;
-  }
+    //square 136
+    if (heroToken.x === 950 && heroToken.y === 500) {
+      disableMovment.up = true;
+      disableMovment.upRight = true;
+      disableMovment.upLeft = true;
+      disableMovment.right = true;
+    }
+    //square 137
+    if (heroToken.x === 700 && heroToken.y === 550) {
+      disableMovment.up = true;
+      disableMovment.upRight = true;
+      disableMovment.right = true;
+    }
+    //square 138
+    if (heroToken.x === 850 && heroToken.y === 550) {
+      disableMovment.up = true;
+      disableMovment.upLeft = true;
+      disableMovment.left = true;
+    }
+    //square 139
+    if (heroToken.x === 900 && heroToken.y === 550) {
+      disableMovment.upLeft = true;
+    }
+    //square 140
+    if (heroToken.x === 950 && heroToken.y === 550) {
+      disableMovment.upRight = true;
+    }
+    //square 141
+    if (heroToken.x === 1000 && heroToken.y === 550) {
+      disableMovment.up = true;
+      disableMovment.upRight = true;
+      disableMovment.right = true;
+    }
+    //square 142
+    if (heroToken.x === 700 && heroToken.y === 600) {
+      disableMovment.upRight = true;
+    }
+    //square 143
+    if (heroToken.x === 750 && heroToken.y === 600) {
+      disableMovment.up = true;
+      disableMovment.upRight = true;
+    }
+    //square 144
+    if (heroToken.x === 800 && heroToken.y === 600) {
+      disableMovment.up = true;
+      disableMovment.upLeft = true;
+    }
+    //square 145
+    if (heroToken.x === 850 && heroToken.y === 600) {
+      disableMovment.upLeft = true;
+    }
+    //square 148
+    if (heroToken.x === 1000 && heroToken.y === 600) {
+      disableMovment.upRight = true;
+    }
+    //square 149
+    if (heroToken.x === 1050 && heroToken.y === 600) {
+      disableMovment.up = true;
+      disableMovment.upRight = true;
+      disableMovment.right = true;
+      disableMovment.downRight = true;
+    }
+    //square 150
+    if (heroToken.x === 700 && heroToken.y === 650) {
+      disableMovment.downRight = true;
+    }
+    //square 151
+    if (heroToken.x === 750 && heroToken.y === 650) {
+      disableMovment.downRight = true;
+      disableMovment.down = true;
+    }
+    //square 152
+    if (heroToken.x === 800 && heroToken.y === 650) {
+      disableMovment.downLeft = true;
+      disableMovment.down = true;
+    }
+    //square 153
+    if (heroToken.x === 850 && heroToken.y === 650) {
+      disableMovment.downLeft = true;
+    }
+    //square 156
+    if (heroToken.x === 1000 && heroToken.y === 650) {
+      disableMovment.downRight = true;
+    }
+    //square 157
+    if (heroToken.x === 1050 && heroToken.y === 650) {
+      disableMovment.down = true;
+      disableMovment.downRight = true;
+      disableMovment.right = true;
+      disableMovment.upRight = true;
+    }
+    //square 158
+    if (heroToken.x === 700 && heroToken.y === 700) {
+      disableMovment.right = true;
+      disableMovment.downRight = true;
+      disableMovment.down = true;
+    }
+    //square 159
+    if (heroToken.x === 850 && heroToken.y === 700) {
+      disableMovment.left = true;
+      disableMovment.downLeft = true;
+      disableMovment.down = true;
+    }
+    //square 160
+    if (heroToken.x === 900 && heroToken.y === 700) {
+      disableMovment.downLeft = true;
+    }
+    //square 161
+    if (heroToken.x === 950 && heroToken.y === 700) {
+      disableMovment.downRight = true;
+    }
+    //162
+    if (heroToken.x === 1000 && heroToken.y === 700) {
+      disableMovment.right = true;
+      disableMovment.downRight = true;
+      disableMovment.down = true;
+    }
+    //163
+    if (heroToken.x === 900 && heroToken.y === 750) {
+      disableMovment.downLeft = true;
+      disableMovment.left = true;
+    }
+    //square 164
+    if (heroToken.x === 950 && heroToken.y === 750) {
+      disableMovment.downRight = true;
+      disableMovment.right = true;
+    }
+    //square 165
+    if (heroToken.x === 900 && heroToken.y === 800) {
+      disableMovment.downLeft = true;
+      disableMovment.left = true;
+      disableMovment.upLeft = true;
+    }
+    //square 166
+    if (heroToken.x === 950 && heroToken.y === 800) {
+      disableMovment.downRight = true;
+      disableMovment.right = true;
+      disableMovment.upRight = true;
+    }
+    //square 167
+    if (heroToken.x === 900 && heroToken.y === 850) {
+      disableMovment.downLeft = true;
+      disableMovment.left = true;
+      disableMovment.upLeft = true;
+    }
+    //square 168
+    if (heroToken.x === 950 && heroToken.y === 850) {
+      disableMovment.downRight = true;
+      disableMovment.right = true;
+      disableMovment.upRight = true;
+    }
+    //square 169
+    if (heroToken.x === 900 && heroToken.y === 900) {
+      disableMovment.left = true;
+      disableMovment.upLeft = true;
+    }
+    //square 170
+    if (heroToken.x === 950 && heroToken.y === 900) {
+      disableMovment.right = true;
+      disableMovment.upRight = true;
+    }
+    //square 171
+    if (heroToken.x === 850 && heroToken.y === 950) {
+      disableMovment.up = true;
+      disableMovment.upLeft = true;
+      disableMovment.left = true;
+    }
+    //square 172
+    if (heroToken.x === 900 && heroToken.y === 950) {
+      disableMovment.upLeft = true;
+    }
+    //square 173
+    if (heroToken.x === 950 && heroToken.y === 950) {
+      disableMovment.upRight = true;
+    }
+    //square 174
+    if (heroToken.x === 1000 && heroToken.y === 950) {
+      disableMovment.right = true;
+      disableMovment.up = true;
+      disableMovment.upRight = true;
+    }
+    //square 175
+    if (heroToken.x === 700 && heroToken.y === 950) {
+      disableMovment.upRight = true;
+      disableMovment.up = true;
+      disableMovment.right = true;
+    }
+    //square 176
+    if (heroToken.x === 700 && heroToken.y === 1000) {
+      disableMovment.upRight = true;
+    }
+    //square 177
+    if (heroToken.x === 750 && heroToken.y === 1000) {
+      disableMovment.upRight = true;
+      disableMovment.up = true;
+    }
+    //square 178
+    if (heroToken.x === 800 && heroToken.y === 1000) {
+      disableMovment.upLeft = true;
+      disableMovment.up = true;
+    }
+    //square 179
+    if (heroToken.x === 850 && heroToken.y === 1000) {
+      disableMovment.upLeft = true;
+    }
+    //square 182
+    if (heroToken.x === 1000 && heroToken.y === 1000) {
+      disableMovment.upRight = true;
+    }
+    //square 183
+    if (heroToken.x === 1050 && heroToken.y === 1000) {
+      disableMovment.up = true;
+      disableMovment.upRight = true;
+      disableMovment.right = true;
+      disableMovment.downRight = true;
+    }
+    //square 184
+    if (heroToken.x === 700 && heroToken.y === 1050) {
+      disableMovment.downRight = true;
+    }
+    //square 185
+    if (heroToken.x === 750 && heroToken.y === 1050) {
+      disableMovment.downRight = true;
+      disableMovment.down = true;
+    }
+    //square 186
+    if (heroToken.x === 800 && heroToken.y === 1050) {
+      disableMovment.downLeft = true;
+      disableMovment.down = true;
+    }
+    //square 187
+    if (heroToken.x === 850 && heroToken.y === 1050) {
+      disableMovment.downLeft = true;
+    }
+    //square 190
+    if (heroToken.x === 1000 && heroToken.y === 1050) {
+      disableMovment.downRight = true;
+    }
+    //square 191
+    if (heroToken.x === 1050 && heroToken.y === 1050) {
+      disableMovment.downRight = true;
+      disableMovment.down = true;
+      disableMovment.right = true;
+      disableMovment.upRight = true;
+    }
+    //square 192
+    if (heroToken.x === 700 && heroToken.y === 1100) {
+      disableMovment.downRight = true;
+      disableMovment.down = true;
+      disableMovment.right = true;
+    }
+    //square 193
+    if (heroToken.x === 850 && heroToken.y === 1100) {
+      disableMovment.downLeft = true;
+      disableMovment.down = true;
+      disableMovment.left = true;
+    }
+    //square 194
+    if (heroToken.x === 900 && heroToken.y === 1100) {
+      disableMovment.downLeft = true;
+    }
+    //square 195
+    if (heroToken.x === 950 && heroToken.y === 1100) {
+      disableMovment.downRight = true;
+    }
+    //square 196
+    if (heroToken.x === 1000 && heroToken.y === 1100) {
+      disableMovment.downRight = true;
+      disableMovment.down = true;
+      disableMovment.right = true;
+    }
+    //square 197
+    if (heroToken.x === 900 && heroToken.y === 1150) {
+      disableMovment.downRight = true;
+      disableMovment.down = true;
+      disableMovment.left = true;
+      disableMovment.downLeft = true;
+    }
+    //square 198
+    if (heroToken.x === 950 && heroToken.y === 1150) {
+      disableMovment.downRight = true;
+      disableMovment.down = true;
+      disableMovment.downLeft = true;
+      disableMovment.right = true;
+    }
 
-  //square 111
-  if (heroToken.x === 0 && heroToken.y === 1000) {
-    disableMovment.up = true;
-    disableMovment.upRight = true;
-    disableMovment.upLeft = true;
-    disableMovment.left = true;
-    disableMovment.downLeft = true;
-  }
-  //square 112
-  if (heroToken.x === 50 && heroToken.y === 1000) {
-    disableMovment.up = true;
-    disableMovment.upRight = true;
-    disableMovment.upLeft = true;
-  }
-  //square 113
-  if (heroToken.x === 100 && heroToken.y === 1000) {
-    disableMovment.up = true;
-    disableMovment.upLeft = true;
-  }
-  //square 114
-  if (heroToken.x === 150 && heroToken.y === 1000) {
-    disableMovment.upLeft = true;
-  }
-  //square 118
-  if (heroToken.x === 0 && heroToken.y === 1050) {
-    disableMovment.upLeft = true;
-    disableMovment.left = true;
-    disableMovment.downLeft = true;
-    disableMovment.down = true;
-  }
-  //square 119
-  if (heroToken.x === 50 && heroToken.y === 1050) {
-    disableMovment.downRight = true;
-    disableMovment.downLeft = true;
-    disableMovment.down = true;
-  }
-  //square 120
-  if (heroToken.x === 100 && heroToken.y === 1050) {
-    disableMovment.downLeft = true;
-    disableMovment.down = true;
-  }
-  //square 121
-  if (heroToken.x === 150 && heroToken.y === 1050) {
-    disableMovment.downLeft = true;
-  }
-  //square 125
-  if (heroToken.x === 150 && heroToken.y === 1100) {
-    disableMovment.down = true;
-    disableMovment.downLeft = true;
-    disableMovment.left = true;
-    disableMovment.downRight = true;
-  }
-  //square 126
-  if (heroToken.x === 200 && heroToken.y === 1100) {
-    disableMovment.downLeft = true;
-    disableMovment.down = true;
-  }
-  //square 127
-  if (heroToken.x === 250 && heroToken.y === 1100) {
-    disableMovment.downLeft = true;
-  }
-  //square 129
-  if (heroToken.x === 250 && heroToken.y === 1150) {
-    disableMovment.downLeft = true;
-    disableMovment.left = true;
-  }
-  //square 130
-  if (heroToken.x === 300 && heroToken.y === 1150) {
-    disableMovment.downRight = true;
-    disableMovment.right = true;
-  }
-  //square 131
-  if (heroToken.x === 250 && heroToken.y === 1200) {
-    disableMovment.downLeft = true;
-    disableMovment.left = true;
-    disableMovment.upLeft = true;
-  }
-  //square 132
-  if (heroToken.x === 300 && heroToken.y === 1200) {
-    disableMovment.downRight = true;
-    disableMovment.right = true;
-    disableMovment.upRight = true;
-  }
-  //square 133
-  if (heroToken.x === 250 && heroToken.y === 1250) {
-    disableMovment.downLeft = true;
-    disableMovment.left = true;
-    disableMovment.upLeft = true;
-    disableMovment.down = true;
-    disableMovment.downRight = true;
-  }
-  //square 134
-  if (heroToken.x === 300 && heroToken.y === 1250) {
-    disableMovment.downLeft = true;
-    disableMovment.down = true;
-    disableMovment.downRight = true;
-    disableMovment.right = true;
-    disableMovment.upRight = true;
-  }
-  //square 135
-  if (heroToken.x === 900 && heroToken.y === 500) {
-    disableMovment.up = true;
-    disableMovment.upRight = true;
-    disableMovment.upLeft = true;
-    disableMovment.left = true;
-  }
-
-  //square 136
-  if (heroToken.x === 950 && heroToken.y === 500) {
-    disableMovment.up = true;
-    disableMovment.upRight = true;
-    disableMovment.upLeft = true;
-    disableMovment.right = true;
-  }
-  //square 137
-  if (heroToken.x === 700 && heroToken.y === 550) {
-    disableMovment.up = true;
-    disableMovment.upRight = true;
-    disableMovment.right = true;
-  }
-  //square 138
-  if (heroToken.x === 850 && heroToken.y === 550) {
-    disableMovment.up = true;
-    disableMovment.upLeft = true;
-    disableMovment.left = true;
-  }
-  //square 139
-  if (heroToken.x === 900 && heroToken.y === 550) {
-    disableMovment.upLeft = true;
-  }
-  //square 140
-  if (heroToken.x === 950 && heroToken.y === 550) {
-    disableMovment.upRight = true;
-  }
-  //square 141
-  if (heroToken.x === 1000 && heroToken.y === 550) {
-    disableMovment.up = true;
-    disableMovment.upRight = true;
-    disableMovment.right = true;
-  }
-  //square 142
-  if (heroToken.x === 700 && heroToken.y === 600) {
-    disableMovment.upRight = true;
-  }
-  //square 143
-  if (heroToken.x === 750 && heroToken.y === 600) {
-    disableMovment.up = true;
-    disableMovment.upRight = true;
-  }
-  //square 144
-  if (heroToken.x === 800 && heroToken.y === 600) {
-    disableMovment.up = true;
-    disableMovment.upLeft = true;
-  }
-  //square 145
-  if (heroToken.x === 850 && heroToken.y === 600) {
-    disableMovment.upLeft = true;
-  }
-  //square 148
-  if (heroToken.x === 1000 && heroToken.y === 600) {
-    disableMovment.upRight = true;
-  }
-  //square 149
-  if (heroToken.x === 1050 && heroToken.y === 600) {
-    disableMovment.up = true;
-    disableMovment.upRight = true;
-    disableMovment.right = true;
-    disableMovment.downRight = true;
-  }
-  //square 150
-  if (heroToken.x === 700 && heroToken.y === 650) {
-    disableMovment.downRight = true;
-  }
-  //square 151
-  if (heroToken.x === 750 && heroToken.y === 650) {
-    disableMovment.downRight = true;
-    disableMovment.down = true;
-  }
-  //square 152
-  if (heroToken.x === 800 && heroToken.y === 650) {
-    disableMovment.downLeft = true;
-    disableMovment.down = true;
-  }
-  //square 153
-  if (heroToken.x === 850 && heroToken.y === 650) {
-    disableMovment.downLeft = true;
-  }
-  //square 156
-  if (heroToken.x === 1000 && heroToken.y === 650) {
-    disableMovment.downRight = true;
-  }
-  //square 157
-  if (heroToken.x === 1050 && heroToken.y === 650) {
-    disableMovment.down = true;
-    disableMovment.downRight = true;
-    disableMovment.right = true;
-    disableMovment.upRight = true;
-  }
-  //square 158
-  if (heroToken.x === 700 && heroToken.y === 700) {
-    disableMovment.right = true;
-    disableMovment.downRight = true;
-    disableMovment.down = true;
-  }
-  //square 159
-  if (heroToken.x === 850 && heroToken.y === 700) {
-    disableMovment.left = true;
-    disableMovment.downLeft = true;
-    disableMovment.down = true;
-  }
-  //square 160
-  if (heroToken.x === 900 && heroToken.y === 700) {
-    disableMovment.downLeft = true;
-  }
-  //square 161
-  if (heroToken.x === 950 && heroToken.y === 700) {
-    disableMovment.downRight = true;
-  }
-  //162
-  if (heroToken.x === 1000 && heroToken.y === 700) {
-    disableMovment.right = true;
-    disableMovment.downRight = true;
-    disableMovment.down = true;
-  }
-  //163
-  if (heroToken.x === 900 && heroToken.y === 750) {
-    disableMovment.downLeft = true;
-    disableMovment.left = true;
-  }
-  //square 164
-  if (heroToken.x === 950 && heroToken.y === 750) {
-    disableMovment.downRight = true;
-    disableMovment.right = true;
-  }
-  //square 165
-  if (heroToken.x === 900 && heroToken.y === 800) {
-    disableMovment.downLeft = true;
-    disableMovment.left = true;
-    disableMovment.upLeft = true;
-  }
-  //square 166
-  if (heroToken.x === 950 && heroToken.y === 800) {
-    disableMovment.downRight = true;
-    disableMovment.right = true;
-    disableMovment.upRight = true;
-  }
-  //square 167
-  if (heroToken.x === 900 && heroToken.y === 850) {
-    disableMovment.downLeft = true;
-    disableMovment.left = true;
-    disableMovment.upLeft = true;
-  }
-  //square 168
-  if (heroToken.x === 950 && heroToken.y === 850) {
-    disableMovment.downRight = true;
-    disableMovment.right = true;
-    disableMovment.upRight = true;
-  }
-  //square 169
-  if (heroToken.x === 900 && heroToken.y === 900) {
-    disableMovment.left = true;
-    disableMovment.upLeft = true;
-  }
-  //square 170
-  if (heroToken.x === 950 && heroToken.y === 900) {
-    disableMovment.right = true;
-    disableMovment.upRight = true;
-  }
-  //square 171
-  if (heroToken.x === 850 && heroToken.y === 950) {
-    disableMovment.up = true;
-    disableMovment.upLeft = true;
-    disableMovment.left = true;
-  }
-  //square 172
-  if (heroToken.x === 900 && heroToken.y === 950) {
-    disableMovment.upLeft = true;
-  }
-  //square 173
-  if (heroToken.x === 950 && heroToken.y === 950) {
-    disableMovment.upRight = true;
-  }
-  //square 174
-  if (heroToken.x === 1000 && heroToken.y === 950) {
-    disableMovment.right = true;
-    disableMovment.up = true;
-    disableMovment.upRight = true;
-  }
-  //square 175
-  if (heroToken.x === 700 && heroToken.y === 950) {
-    disableMovment.upRight = true;
-    disableMovment.up = true;
-    disableMovment.right = true;
-  }
-  //square 176
-  if (heroToken.x === 700 && heroToken.y === 1000) {
-    disableMovment.upRight = true;
-  }
-  //square 177
-  if (heroToken.x === 750 && heroToken.y === 1000) {
-    disableMovment.upRight = true;
-    disableMovment.up = true;
-  }
-  //square 178
-  if (heroToken.x === 800 && heroToken.y === 1000) {
-    disableMovment.upLeft = true;
-    disableMovment.up = true;
-  }
-  //square 179
-  if (heroToken.x === 850 && heroToken.y === 1000) {
-    disableMovment.upLeft = true;
-  }
-  //square 182
-  if (heroToken.x === 1000 && heroToken.y === 1000) {
-    disableMovment.upRight = true;
-  }
-  //square 183
-  if (heroToken.x === 1050 && heroToken.y === 1000) {
-    disableMovment.up = true;
-    disableMovment.upRight = true;
-    disableMovment.right = true;
-    disableMovment.downRight = true;
-  }
-  //square 184
-  if (heroToken.x === 700 && heroToken.y === 1050) {
-    disableMovment.downRight = true;
-  }
-  //square 185
-  if (heroToken.x === 750 && heroToken.y === 1050) {
-    disableMovment.downRight = true;
-    disableMovment.down = true;
-  }
-  //square 186
-  if (heroToken.x === 800 && heroToken.y === 1050) {
-    disableMovment.downLeft = true;
-    disableMovment.down = true;
-  }
-  //square 187
-  if (heroToken.x === 850 && heroToken.y === 1050) {
-    disableMovment.downLeft = true;
-  }
-  //square 190
-  if (heroToken.x === 1000 && heroToken.y === 1050) {
-    disableMovment.downRight = true;
-  }
-  //square 191
-  if (heroToken.x === 1050 && heroToken.y === 1050) {
-    disableMovment.downRight = true;
-    disableMovment.down = true;
-    disableMovment.right = true;
-    disableMovment.upRight = true;
-  }
-  //square 192
-  if (heroToken.x === 700 && heroToken.y === 1100) {
-    disableMovment.downRight = true;
-    disableMovment.down = true;
-    disableMovment.right = true;
-  }
-  //square 193
-  if (heroToken.x === 850 && heroToken.y === 1100) {
-    disableMovment.downLeft = true;
-    disableMovment.down = true;
-    disableMovment.left = true;
-  }
-  //square 194
-  if (heroToken.x === 900 && heroToken.y === 1100) {
-    disableMovment.downLeft = true;
-  }
-  //square 195
-  if (heroToken.x === 950 && heroToken.y === 1100) {
-    disableMovment.downRight = true;
-  }
-  //square 196
-  if (heroToken.x === 1000 && heroToken.y === 1100) {
-    disableMovment.downRight = true;
-    disableMovment.down = true;
-    disableMovment.right = true;
-  }
-  //square 197
-  if (heroToken.x === 900 && heroToken.y === 1150) {
-    disableMovment.downRight = true;
-    disableMovment.down = true;
-    disableMovment.left = true;
-    disableMovment.downLeft = true;
-
-  }
-  //square 198
-  if (heroToken.x === 950 && heroToken.y === 1150) {
-    disableMovment.downRight = true;
-    disableMovment.down = true;
-    disableMovment.downLeft = true;
-    disableMovment.right = true;
-  }
-
-
-  //obstacle collision detection
-  if (heroToken.x !== runLoopX || heroToken.y !== runLoopY) {
+    //obstacle collision detection
     let rubble = quest1.tokenPlacement.obstacles.rubble;
     // console.log('for loop ran')
     for (let rock in rubble) {
-      if (heroToken.x - 50 === rubble[rock].x && heroToken.y === rubble[rock].y) {
+      if (
+        heroToken.x - 50 === rubble[rock].x &&
+        heroToken.y === rubble[rock].y
+      ) {
         disableMovment.left = true;
-      }
-      else if (heroToken.x + 50 === rubble[rock].x && heroToken.y === rubble[rock].y) {
+      } else if (
+        heroToken.x + 50 === rubble[rock].x &&
+        heroToken.y === rubble[rock].y
+      ) {
         disableMovment.right = true;
-      }
-      else if ((heroToken.y - 50) === rubble[rock].y && heroToken.x === rubble[rock].x) {
+      } else if (
+        heroToken.y - 50 === rubble[rock].y &&
+        heroToken.x === rubble[rock].x
+      ) {
         disableMovment.up = true;
-      }
-      else if ((heroToken.y + 50) === rubble[rock].y && heroToken.x === rubble[rock].x) {
+      } else if (
+        heroToken.y + 50 === rubble[rock].y &&
+        heroToken.x === rubble[rock].x
+      ) {
         disableMovment.down = true;
-
-      }
-      else if (heroToken.x + 50 === rubble[rock].x && heroToken.y + 50 === rubble[rock].y) {
+      } else if (
+        heroToken.x + 50 === rubble[rock].x &&
+        heroToken.y + 50 === rubble[rock].y
+      ) {
         disableMovment.downRight = true;
-      }
-      else if (heroToken.x + 50 === rubble[rock].x && heroToken.y - 50 === rubble[rock].y) {
+      } else if (
+        heroToken.x + 50 === rubble[rock].x &&
+        heroToken.y - 50 === rubble[rock].y
+      ) {
         disableMovment.upRight = true;
-
-      }
-      else if (heroToken.x - 50 === rubble[rock].x && heroToken.y + 50 === rubble[rock].y) {
+      } else if (
+        heroToken.x - 50 === rubble[rock].x &&
+        heroToken.y + 50 === rubble[rock].y
+      ) {
         disableMovment.downLeft = true;
-      }
-      else if (heroToken.x - 50 === rubble[rock].x && heroToken.y - 50 === rubble[rock].y) {
+      } else if (
+        heroToken.x - 50 === rubble[rock].x &&
+        heroToken.y - 50 === rubble[rock].y
+      ) {
         disableMovment.upLeft = true;
       }
     }
-    runLoop.x = heroToken.x;
-    runLoop.y = heroToken.y;
-  }
-  if (heroToken.x !== runLoopX || heroToken.y !== runLoopY) {
     let water = quest1.tokenPlacement.obstacles.water;
     // console.log('for loop ran')
     for (let pool in water) {
       if (heroToken.x - 50 === water[pool].x && heroToken.y === water[pool].y) {
         disableMovment.left = true;
-      }
-      else if (heroToken.x + 50 === water[pool].x && heroToken.y === water[pool].y) {
+      } else if (
+        heroToken.x + 50 === water[pool].x &&
+        heroToken.y === water[pool].y
+      ) {
         disableMovment.right = true;
-      }
-      else if ((heroToken.y - 50) === water[pool].y && heroToken.x === water[pool].x) {
+      } else if (
+        heroToken.y - 50 === water[pool].y &&
+        heroToken.x === water[pool].x
+      ) {
         disableMovment.up = true;
-      }
-      else if ((heroToken.y + 50) === water[pool].y && heroToken.x === water[pool].x) {
+      } else if (
+        heroToken.y + 50 === water[pool].y &&
+        heroToken.x === water[pool].x
+      ) {
         disableMovment.down = true;
-
-      }
-      else if (heroToken.x + 50 === water[pool].x && heroToken.y + 50 === water[pool].y) {
+      } else if (
+        heroToken.x + 50 === water[pool].x &&
+        heroToken.y + 50 === water[pool].y
+      ) {
         disableMovment.downRight = true;
-      }
-      else if (heroToken.x + 50 === water[pool].x && heroToken.y - 50 === water[pool].y) {
+      } else if (
+        heroToken.x + 50 === water[pool].x &&
+        heroToken.y - 50 === water[pool].y
+      ) {
         disableMovment.upRight = true;
-
-      }
-      else if (heroToken.x - 50 === water[pool].x && heroToken.y + 50 === water[pool].y) {
+      } else if (
+        heroToken.x - 50 === water[pool].x &&
+        heroToken.y + 50 === water[pool].y
+      ) {
         disableMovment.downLeft = true;
-      }
-      else if (heroToken.x - 50 === water[pool].x && heroToken.y - 50 === water[pool].y) {
+      } else if (
+        heroToken.x - 50 === water[pool].x &&
+        heroToken.y - 50 === water[pool].y
+      ) {
         disableMovment.upLeft = true;
       }
     }
-    runLoop.x = heroToken.x;
-    runLoop.y = heroToken.y;
-  }
-
-
-  //monsters collision detection
-
-  if (heroToken.x !== runLoopX || heroToken.y !== runLoopY) {
+    //monsters collision detection
     let monsters = quest1.tokenPlacement.monsters;
     // console.log('for loop ran')
     for (let monster in monsters) {
       if (monsters[monster].w === 50 && monsters[monster].h === 50) {
-        if (heroToken.x - 50 === monsters[monster].x && heroToken.y === monsters[monster].y) {
+        if (
+          heroToken.x - 50 === monsters[monster].x &&
+          heroToken.y === monsters[monster].y
+        ) {
           disableMovment.left = true;
-        }
-        else if (heroToken.x + 50 === monsters[monster].x && heroToken.y === monsters[monster].y) {
+        } else if (
+          heroToken.x + 50 === monsters[monster].x &&
+          heroToken.y === monsters[monster].y
+        ) {
+          console.log(
+            "this should run in any square to the left of an enemy " +
+              disableMovment.right +
+              " value should be true/disabled"
+          );
           disableMovment.right = true;
-        }
-        else if ((heroToken.y - 50) === monsters[monster].y && heroToken.x === monsters[monster].x) {
+        } else if (
+          heroToken.y - 50 === monsters[monster].y &&
+          heroToken.x === monsters[monster].x
+        ) {
           disableMovment.up = true;
-        }
-        else if ((heroToken.y + 50) === monsters[monster].y && heroToken.x === monsters[monster].x) {
+        } else if (
+          heroToken.y + 50 === monsters[monster].y &&
+          heroToken.x === monsters[monster].x
+        ) {
           disableMovment.down = true;
-
-        }
-        else if (heroToken.x + 50 === monsters[monster].x && heroToken.y + 50 === monsters[monster].y) {
+        } else if (
+          heroToken.x + 50 === monsters[monster].x &&
+          heroToken.y + 50 === monsters[monster].y
+        ) {
           disableMovment.downRight = true;
-        }
-        else if (heroToken.x + 50 === monsters[monster].x && heroToken.y - 50 === monsters[monster].y) {
+        } else if (
+          heroToken.x + 50 === monsters[monster].x &&
+          heroToken.y - 50 === monsters[monster].y
+        ) {
           disableMovment.upRight = true;
-
-        }
-        else if (heroToken.x - 50 === monsters[monster].x && heroToken.y + 50 === monsters[monster].y) {
+        } else if (
+          heroToken.x - 50 === monsters[monster].x &&
+          heroToken.y + 50 === monsters[monster].y
+        ) {
           disableMovment.downLeft = true;
-        }
-        else if (heroToken.x - 50 === monsters[monster].x && heroToken.y - 50 === monsters[monster].y) {
+        } else if (
+          heroToken.x - 50 === monsters[monster].x &&
+          heroToken.y - 50 === monsters[monster].y
+        ) {
           disableMovment.upLeft = true;
         }
       } else if (monsters[monster].w === 100 && monsters[monster].h === 100) {
-        if (heroToken.x - 100 === monsters[monster].x && heroToken.y === monsters[monster].y) {
+        if (
+          heroToken.x - 100 === monsters[monster].x &&
+          heroToken.y === monsters[monster].y
+        ) {
           disableMovment.left = true;
-        }
-        else if (heroToken.x + 100 === monsters[monster].x && heroToken.y === monsters[monster].y) {
+        } else if (
+          heroToken.x + 100 === monsters[monster].x &&
+          heroToken.y === monsters[monster].y
+        ) {
           disableMovment.right = true;
-        }
-        else if ((heroToken.y - 100) === monsters[monster].y && heroToken.x === monsters[monster].x) {
+        } else if (
+          heroToken.y - 100 === monsters[monster].y &&
+          heroToken.x === monsters[monster].x
+        ) {
           disableMovment.up = true;
-        }
-        else if ((heroToken.y + 100) === monsters[monster].y && heroToken.x === monsters[monster].x) {
+        } else if (
+          heroToken.y + 100 === monsters[monster].y &&
+          heroToken.x === monsters[monster].x
+        ) {
           disableMovment.down = true;
-
-        }
-        else if (heroToken.x + 100 === monsters[monster].x && heroToken.y + 100 === monsters[monster].y) {
+        } else if (
+          heroToken.x + 100 === monsters[monster].x &&
+          heroToken.y + 100 === monsters[monster].y
+        ) {
           disableMovment.downRight = true;
-        }
-        else if (heroToken.x + 100 === monsters[monster].x && heroToken.y - 100 === monsters[monster].y) {
+        } else if (
+          heroToken.x + 100 === monsters[monster].x &&
+          heroToken.y - 100 === monsters[monster].y
+        ) {
           disableMovment.upRight = true;
-
-        }
-        else if (heroToken.x - 100 === monsters[monster].x && heroToken.y + 100 === monsters[monster].y) {
+        } else if (
+          heroToken.x - 100 === monsters[monster].x &&
+          heroToken.y + 100 === monsters[monster].y
+        ) {
           disableMovment.downLeft = true;
-        }
-        else if (heroToken.x - 100 === monsters[monster].x && heroToken.y - 100 === monsters[monster].y) {
+        } else if (
+          heroToken.x - 100 === monsters[monster].x &&
+          heroToken.y - 100 === monsters[monster].y
+        ) {
           disableMovment.upLeft = true;
         }
       }
-
     }
-    runLoop.x = heroToken.x;
-    runLoop.y = heroToken.y;
-  }
 
-
-  //door collision detection
-  if (heroToken.x !== runLoopX || heroToken.y !== runLoopY) {
+    //door collision detection
     let doorHorz = quest1.tokenPlacement.doors.horizontal;
     let doorVert = quest1.tokenPlacement.doors.vertical;
 
     for (let doorType in doorVert) {
       for (let door in doorVert[doorType]) {
-        if ((heroToken.x === doorVert[doorType][door].x && heroToken.y === doorVert[doorType][door].y + 50)
-          || (heroToken.x === doorVert[doorType][door].x && heroToken.y === doorVert[doorType][door].y + 100)) {
+        if (
+          (heroToken.x === doorVert[doorType][door].x &&
+            heroToken.y === doorVert[doorType][door].y + 50) ||
+          (heroToken.x === doorVert[doorType][door].x &&
+            heroToken.y === doorVert[doorType][door].y + 100)
+        ) {
           disableMovment.right = true;
         }
-        if ((heroToken.x === doorVert[doorType][door].x + 50 && heroToken.y === doorVert[doorType][door].y + 50)
-          || (heroToken.x === doorVert[doorType][door].x + 50 && heroToken.y === doorVert[doorType][door].y + 100)) {
+        if (
+          (heroToken.x === doorVert[doorType][door].x + 50 &&
+            heroToken.y === doorVert[doorType][door].y + 50) ||
+          (heroToken.x === doorVert[doorType][door].x + 50 &&
+            heroToken.y === doorVert[doorType][door].y + 100)
+        ) {
           disableMovment.left = true;
         }
       }
     }
     for (let doorType in doorHorz) {
       for (let door in doorHorz[doorType]) {
-        if ((heroToken.x === doorHorz[doorType][door].x + 50 && heroToken.y === doorHorz[doorType][door].y + 50)
-          || (heroToken.x === doorHorz[doorType][door].x + 100 && heroToken.y === doorHorz[doorType][door].y + 50)) {
+        if (
+          (heroToken.x === doorHorz[doorType][door].x + 50 &&
+            heroToken.y === doorHorz[doorType][door].y + 50) ||
+          (heroToken.x === doorHorz[doorType][door].x + 100 &&
+            heroToken.y === doorHorz[doorType][door].y + 50)
+        ) {
           disableMovment.up = true;
         }
-        if ((heroToken.x === doorHorz[doorType][door].x + 50 && heroToken.y === doorHorz[doorType][door].y)
-          || (heroToken.x === doorHorz[doorType][door].x + 100 && heroToken.y === doorHorz[doorType][door].y)) {
+        if (
+          (heroToken.x === doorHorz[doorType][door].x + 50 &&
+            heroToken.y === doorHorz[doorType][door].y) ||
+          (heroToken.x === doorHorz[doorType][door].x + 100 &&
+            heroToken.y === doorHorz[doorType][door].y)
+        ) {
           disableMovment.down = true;
         }
       }
     }
 
+    //town collision detection
+    if (
+      heroToken.x === quest1.town.x + 50 &&
+      heroToken.y === quest1.town.y + 50
+    ) {
+      disableMovment.up = true;
+      disableMovment.left = true;
+      disableMovment.right = true;
+      disableMovment.down = true;
+      disableMovment.downRight = true;
+      disableMovment.upLeft = true;
+      disableMovment.upRight = true;
+      disableMovment.downLeft = true;
+    }
     runLoop.x = heroToken.x;
     runLoop.y = heroToken.y;
-  }
-
-  //town collision detection
-  if (heroToken.x === quest1.town.x + 50 && heroToken.y === quest1.town.y + 50) {
-    disableMovment.up = true;
-    disableMovment.left = true;
-    disableMovment.right = true;
-    disableMovment.down = true;
-    disableMovment.downRight = true;
-    disableMovment.upLeft = true;
-    disableMovment.upRight = true;
-    disableMovment.downLeft = true;
   }
 }
 

@@ -1,5 +1,5 @@
 import "../styles/player.css";
-import runLoop from "./Canvas.js";
+import { runLoop } from "./Canvas";
 import Shop, {
   shopItemsArray,
   health_potion,
@@ -36,7 +36,6 @@ import {
 } from "../player_actions/mouseClick";
 import RunBattleadvance from "./RunBattleAdvance";
 import GameOverScreen from "../screens/GameOverScreen";
-import Canvas from "./Canvas";
 
 export function inRange(token, checkPoint) {
   if (
@@ -55,8 +54,7 @@ export function inRange(token, checkPoint) {
   }
 }
 
-
-function Player({ chosenHero, chosenQuest, revealAreas, collisionDetection, turn, setTurn, playgame, setPlayGame }) {
+function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn }) {
   let copper = chosenQuest.tokenPlacement.treasure_chests.copper;
   let silver = chosenQuest.tokenPlacement.treasure_chests.silver;
   let gold = chosenQuest.tokenPlacement.treasure_chests.gold;
@@ -64,10 +62,8 @@ function Player({ chosenHero, chosenQuest, revealAreas, collisionDetection, turn
   function endTurn() {
     if (turn === "player") {
       setTurn("overlord");
-      console.log(disableMovment);
     } else {
       setTurn("player");
-      console.log(disableMovment);
     }
     // console.log(turn)
   }
@@ -77,32 +73,15 @@ function Player({ chosenHero, chosenQuest, revealAreas, collisionDetection, turn
   const [playerOptions, setPlayerOptions] = useState(true);
   useEffect(() => {
     if (turn === "overlord") {
-      // disableMovment.up = true;
-      // disableMovment.left = true;
-      // disableMovment.right = true;
-      // disableMovment.down = true;
-      // disableMovment.downRight = true;
-      // disableMovment.upLeft = true;
-      // disableMovment.upRight = true;
-      // disableMovment.downLeft = true;
       setPlayerOptions(false);
       setSpeed(0);
       setNumberOfAttacks(0);
     } else if (turn === "player") {
-      // disableMovment.up = false;
-      // disableMovment.left = false;
-      // disableMovment.right = false;
-      // disableMovment.down = false;
-      // disableMovment.downRight = false;
-      // disableMovment.upLeft = false;
-      // disableMovment.upRight = false;
-      // disableMovment.downLeft = false;
       setPlayerOptions(true);
       setSpeed(0);
       setNumberOfAttacks(0);
       setShowRunBattleAdvance(true);
-      alert('Players Turn');
-      // console.log(chosenQuest);
+      alert("Players Turn");
     }
   }, [turn]);
 
@@ -114,7 +93,7 @@ function Player({ chosenHero, chosenQuest, revealAreas, collisionDetection, turn
 
   useEffect(() => {
     if (currentHealth <= 0) {
-      alert('You Have Died');
+      alert("You Have Died");
       setLevelConquestTokens(levelConquestTokens - heroConquestValue);
 
       heroToken.x = chosenQuest.town.x + 50;
@@ -122,11 +101,8 @@ function Player({ chosenHero, chosenQuest, revealAreas, collisionDetection, turn
       setShowReturnToTown(false);
       setIsOnGlyph(true);
       setCurrentHealth(heroData[chosenHero].max_wounds);
-
     }
   }, [currentHealth]);
-
-
 
   const [maxHealth, setMaxHealth] = useState(heroData[chosenHero].max_wounds);
   const [currentFatigue, setCurrentFatigue] = useState(
@@ -138,7 +114,9 @@ function Player({ chosenHero, chosenQuest, revealAreas, collisionDetection, turn
   const [heroConquestValue, setHeroConquestValue] = useState(
     heroData[chosenHero].conquest_value
   );
-  const [levelConquestTokens, setLevelConquestTokens] = useState(chosenQuest.startingConquestTokens);
+  const [levelConquestTokens, setLevelConquestTokens] = useState(
+    chosenQuest.startingConquestTokens
+  );
   useEffect(() => {
     if (levelConquestTokens <= 0) {
       alert("Game Over");
@@ -147,7 +125,6 @@ function Player({ chosenHero, chosenQuest, revealAreas, collisionDetection, turn
       // setGameOver(true);
     }
   }, [levelConquestTokens]);
-
 
   const [currentArmor, setCurrentArmor] = useState(
     heroData[chosenHero].base_armor
@@ -160,24 +137,29 @@ function Player({ chosenHero, chosenQuest, revealAreas, collisionDetection, turn
   const [condition, setCondition] = useState("Normal");
 
   useEffect(() => {
-    if (speed <= 0) {
-      disableMovment.up = true;
-      disableMovment.left = true;
-      disableMovment.right = true;
-      disableMovment.down = true;
-      disableMovment.downRight = true;
-      disableMovment.upLeft = true;
-      disableMovment.upRight = true;
-      disableMovment.downLeft = true;
-    } else {
-      disableMovment.up = false;
-      disableMovment.left = false;
-      disableMovment.right = false;
-      disableMovment.down = false;
-      disableMovment.downRight = false;
-      disableMovment.upLeft = false;
-      disableMovment.upRight = false;
-      disableMovment.downLeft = false;
+    if (turn === "player") {
+      if (speed <= 0) {
+        disableMovment.up = true;
+        disableMovment.left = true;
+        disableMovment.right = true;
+        disableMovment.down = true;
+        disableMovment.downRight = true;
+        disableMovment.upLeft = true;
+        disableMovment.upRight = true;
+        disableMovment.downLeft = true;
+      } else {
+        console.log(
+          "this should change on a key press that changes speed only " + speed
+        );
+        /*disableMovment.up = false;
+        disableMovment.left = false;
+        disableMovment.right = false;
+        disableMovment.down = false;
+        disableMovment.downRight = false;
+        disableMovment.upLeft = false;
+        disableMovment.upRight = false;
+        disableMovment.downLeft = false;*/
+      }
     }
   }, [speed]);
 
@@ -222,9 +204,8 @@ function Player({ chosenHero, chosenQuest, revealAreas, collisionDetection, turn
   }
 
   function attackCardsActive() {
-    if (numberOfAttacks <= 0 && weaponCardsActive === false
-    ) {
-      alert('No attacks left');
+    if (numberOfAttacks <= 0 && weaponCardsActive === false) {
+      alert("No attacks left");
     } else {
       if (weaponCardsActive === false) {
         setWeaponCardsActive(true);
@@ -239,7 +220,6 @@ function Player({ chosenHero, chosenQuest, revealAreas, collisionDetection, turn
         }
       }
     }
-
   }
   function attackOn() {
     if (attackActive === false) {
@@ -329,7 +309,6 @@ function Player({ chosenHero, chosenQuest, revealAreas, collisionDetection, turn
         setEquipRunes(true);
       }
       setCurrentArmor(heroData[chosenHero].base_armor + armor.armor);
-
     } else if (!armor) {
       setCurrentArmor(heroData[chosenHero].base_armor);
       setBaseSpeed(heroData[chosenHero].speed);
@@ -610,7 +589,7 @@ function Player({ chosenHero, chosenQuest, revealAreas, collisionDetection, turn
       setShowOpenHorzDoorButton(false);
     }
   }
-
+  //need to execute runLoop change here
   function openVertDoor() {
     if (openThisDoor[0] === "normal") {
       delete chosenQuest.tokenPlacement.doors.vertical[openThisDoor[0]][
@@ -728,12 +707,16 @@ function Player({ chosenHero, chosenQuest, revealAreas, collisionDetection, turn
   // function jumpScreen() {
   //   setShowJumpScreen(true);
   // }
+  // if we moved reduce speed, reset values
   useEffect(() => {
     let currentPositionX = heroToken.x;
     let currentPositionY = heroToken.y;
     const keyPressMovement = (event) => {
-      if (currentPositionX !== heroToken.x || currentPositionY !== heroToken.y) {
-        setSpeed(speed => speed - 1);
+      if (
+        currentPositionX !== heroToken.x ||
+        currentPositionY !== heroToken.y
+      ) {
+        setSpeed((speed) => speed - 1);
         currentPositionX = heroToken.x;
         currentPositionY = heroToken.y;
       }
@@ -743,8 +726,6 @@ function Player({ chosenHero, chosenQuest, revealAreas, collisionDetection, turn
       window.removeEventListener("keydown", keyPressMovement);
     };
   }, []);
-
-
 
   let teleportArray = [chosenQuest.tokenPlacement.start_area];
   const [port, setPort] = useState(teleportArray);
@@ -915,11 +896,13 @@ function Player({ chosenHero, chosenQuest, revealAreas, collisionDetection, turn
           setShowPickUpGoldPileButton(false);
         }
       }
-
+      //change in range and do not run if in pit, ie range < 1
+      let inPit = false;
       let pits = chosenQuest.tokenPlacement.obstacles.pits;
       for (let pit in pits) {
         let nextToPit = inRange(heroToken, pits[pit]);
         if (nextToPit === true) {
+          inPit = false;
           heroToken.w = 50;
           heroToken.h = 50;
           // setShowJumpScreenButton(true);
@@ -928,8 +911,14 @@ function Player({ chosenHero, chosenQuest, revealAreas, collisionDetection, turn
           // setShowJumpScreenButton(false);
         }
       }
+      //check need to stop this, re-run after step-out, if last position is not this position
+      //last position doesn't get here bc we don't technically move, this just runs on every click, so make a toogle or use these values, such as player width
       for (let pit in pits) {
-        if (heroToken.x === pits[pit].x && heroToken.y === pits[pit].y) {
+        if (
+          heroToken.x === pits[pit].x &&
+          heroToken.y === pits[pit].y &&
+          inPit === false
+        ) {
           // setShowJumpScreenButton(false);
           disableMovment.up = true;
           disableMovment.left = true;
@@ -939,6 +928,7 @@ function Player({ chosenHero, chosenQuest, revealAreas, collisionDetection, turn
           disableMovment.upLeft = true;
           disableMovment.upRight = true;
           disableMovment.downLeft = true;
+          inPit = true;
           setCurrentHealth((currentHealth) => currentHealth - 1);
           heroToken.w = 30;
           heroToken.h = 30;
@@ -946,14 +936,19 @@ function Player({ chosenHero, chosenQuest, revealAreas, collisionDetection, turn
             alert("You have fallen into a pit and take 1 wound");
           }, 200);
           setTimeout(() => {
-            disableMovment.up = false;
+            //re-run collision detection
+            runLoop.x -= 50;
+            /*disableMovment.up = false;
             disableMovment.left = false;
             disableMovment.right = false;
             disableMovment.down = false;
             disableMovment.downRight = false;
             disableMovment.upLeft = false;
             disableMovment.upRight = false;
-            disableMovment.downLeft = false;
+            disableMovment.downLeft = false;*/
+            console.log(
+              "we need to run collision detection instead of this for enemies, for the map it is already working"
+            );
           }, 300);
           break;
         } else {
@@ -972,13 +967,14 @@ function Player({ chosenHero, chosenQuest, revealAreas, collisionDetection, turn
     <div id="playerScreen">
       <div id="playerContainer">
         <div id="heroCardDiv">
-          {turn === "player" ?
+          {turn === "player" ? (
             <button
               style={{ height: "20px", width: "100px" }}
               onClick={() => endTurn()}
             >
               End Turn
-            </button> : null}
+            </button>
+          ) : null}
           <br />
           <img
             className="heroCard"
@@ -1350,7 +1346,7 @@ function Player({ chosenHero, chosenQuest, revealAreas, collisionDetection, turn
             <input
               type="image"
               className="card"
-              src={"images/health_potion_card.png"}
+              src={"./images/health_potion_card.png"}
               alt="Potions"
               onClick={turnOnPotionScreen}
             ></input>
@@ -1360,7 +1356,7 @@ function Player({ chosenHero, chosenQuest, revealAreas, collisionDetection, turn
             <input
               type="image"
               className="card"
-              src={"images/bag_card.png"}
+              src={"./images/bag_card.png"}
               alt="Item Bag"
               onClick={turnOnBagScreen}
             ></input>
@@ -1372,7 +1368,7 @@ function Player({ chosenHero, chosenQuest, revealAreas, collisionDetection, turn
             <p style={{ padding: "5px" }}>Skills 1</p>
             <img
               className="card"
-              src={"images/items/shop/leather_armor.png"}
+              src={"./images/items/shop/leather_armor.png"}
               alt="g"
             ></img>
           </div>
@@ -1380,7 +1376,7 @@ function Player({ chosenHero, chosenQuest, revealAreas, collisionDetection, turn
             <p style={{ padding: "5px" }}>Skills 2</p>
             <img
               className="card"
-              src={"images/items/shop/leather_armor.png"}
+              src={"./images/items/shop/leather_armor.png"}
               alt="g"
             ></img>
           </div>
@@ -1388,7 +1384,7 @@ function Player({ chosenHero, chosenQuest, revealAreas, collisionDetection, turn
             <p style={{ padding: "5px" }}>Skills 3</p>
             <img
               className="card"
-              src={"images/items/shop/leather_armor.png"}
+              src={"./images/items/shop/leather_armor.png"}
               alt="g"
             ></img>
           </div>
@@ -1541,7 +1537,7 @@ function Player({ chosenHero, chosenQuest, revealAreas, collisionDetection, turn
           setCurrentHealth={setCurrentHealth}
         />
       ) : null}
-      {showRunBattleAdvance ?
+      {showRunBattleAdvance ? (
         <RunBattleadvance
           numberOfAttacks={numberOfAttacks}
           setNumberOfAttacks={setNumberOfAttacks}
@@ -1549,10 +1545,10 @@ function Player({ chosenHero, chosenQuest, revealAreas, collisionDetection, turn
           setSpeed={setSpeed}
           speed={speed}
           showRunBattleAdvance={showRunBattleAdvance}
-          setShowRunBattleAdvance={setShowRunBattleAdvance} />
-        : null}
+          setShowRunBattleAdvance={setShowRunBattleAdvance}
+        />
+      ) : null}
       {gameOver ? <GameOverScreen /> : null}
-
     </div>
   );
 }

@@ -12,41 +12,48 @@ export const heroToken = {
 }
 
 export const disableMovment = {
-  right: false,
-  left: false,
-  up: false,
-  down: false,
-  upRight: false,
-  downRight: false,
-  upLeft: false,
-  downLeft: false
-}
+  right: true,
+  left: true,
+  up: true,
+  down: true,
+  upRight: true,
+  downRight: true,
+  upLeft: true,
+  downLeft: true,
+};
 export function keyDown(event) {
   event.preventDefault();
   if (
-    ((event.key === 'ArrowRight' && disableMovment.right === false) || (event.key === 'Right' && disableMovment.right === false) || (event.key === 'd' && disableMovment.right === false))
+    (event.key === "ArrowRight" && disableMovment.right === false) ||
+    (event.key === "Right" && disableMovment.right === false) ||
+    (event.key === "d" && disableMovment.right === false)
   ) {
     moveRight();
-
-  } else if ((event.key === 'ArrowLeft' && disableMovment.left === false) || (event.key === 'Left' && disableMovment.left === false) || (event.key === 'a' && disableMovment.left === false)) {
+  } else if (
+    (event.key === "ArrowLeft" && disableMovment.left === false) ||
+    (event.key === "Left" && disableMovment.left === false) ||
+    (event.key === "a" && disableMovment.left === false)
+  ) {
     moveLeft();
-
-  } else if ((event.key === 'ArrowUp' && disableMovment.up === false) || (event.key === 'Up' && disableMovment.up === false) || (event.key === 'w' && disableMovment.up === false)) {
+  } else if (
+    (event.key === "ArrowUp" && disableMovment.up === false) ||
+    (event.key === "Up" && disableMovment.up === false) ||
+    (event.key === "w" && disableMovment.up === false)
+  ) {
     moveUp();
-
-  } else if ((event.key === 'ArrowDown' && disableMovment.down === false) || (event.key === 'Down' && disableMovment.down === false) || (event.key === 's' && disableMovment.down === false)) {
+  } else if (
+    (event.key === "ArrowDown" && disableMovment.down === false) ||
+    (event.key === "Down" && disableMovment.down === false) ||
+    (event.key === "s" && disableMovment.down === false)
+  ) {
     moveDown();
-
-  } else if (event.key === 'e' && disableMovment.upRight === false) {
-    moveUpRight()
-
-  } else if (event.key === 'c' && disableMovment.downRight === false) {
+  } else if (event.key === "e" && disableMovment.upRight === false) {
+    moveUpRight();
+  } else if (event.key === "c" && disableMovment.downRight === false) {
     moveDownRight();
-
-  } else if (event.key === 'q' && disableMovment.upLeft === false) {
+  } else if (event.key === "q" && disableMovment.upLeft === false) {
     moveUpLeft();
-
-  } else if (event.key === 'z' && disableMovment.downLeft === false) {
+  } else if (event.key === "z" && disableMovment.downLeft === false) {
     moveDownLeft();
   }
 }
@@ -54,36 +61,39 @@ export function keyDown(event) {
 export function keyUp(event) {
   event.preventDefault();
   if (
-    event.key === 'ArrowRight' ||
-    event.key === 'Right' ||
-    event.key === 'ArrowLeft' ||
-    event.key === 'Left' ||
-    event.key === 'ArrowUp' ||
-    event.key === 'Up' ||
-    event.key === 'ArrowDown' ||
-    event.key === 'Down'
+    event.key === "ArrowRight" ||
+    event.key === "Right" ||
+    event.key === "ArrowLeft" ||
+    event.key === "Left" ||
+    event.key === "ArrowUp" ||
+    event.key === "Up" ||
+    event.key === "ArrowDown" ||
+    event.key === "Down"
   ) {
     heroToken.dx = 0;
     heroToken.dy = 0;
   }
 }
 
-
 //movement functions
 export let previousPosition = {
   x: 0,
-  y: 0
-}
+  y: 0,
+};
 function moveUp() {
   // heroToken.dy = -heroToken.speed
   heroToken.y -= 50;
   previousPosition.y = heroToken.y + 50;
   previousPosition.x = heroToken.x;
 
-  disableMovment.right = false;
+  /*disableMovment.right = false;
   disableMovment.left = false;
   disableMovment.up = false;
   disableMovment.down = false;
+  disableMovment.upRight = false;
+  disableMovment.downRight = false;
+  disableMovment.upLeft = false;
+  disableMovment.downLeft = false;*/
 }
 function moveDown() {
   // heroToken.dy = heroToken.speed
@@ -91,30 +101,29 @@ function moveDown() {
   previousPosition.y = heroToken.y - 50;
   previousPosition.x = heroToken.x;
 
-  disableMovment.right = false;
+  /*disableMovment.right = false;
   disableMovment.left = false;
   disableMovment.up = false;
   disableMovment.down = false;
   disableMovment.upRight = false;
   disableMovment.downRight = false;
   disableMovment.upLeft = false;
-  disableMovment.downLeft = false;
-
+  disableMovment.downLeft = false;*/
 }
 function moveLeft() {
   // heroToken.dx = -heroToken.speed
-  heroToken.x -= 50
+  heroToken.x -= 50;
   previousPosition.x = heroToken.x + 50;
   previousPosition.y = heroToken.y;
 
-  disableMovment.right = false;
+  /*disableMovment.right = false;
   disableMovment.left = false;
   disableMovment.up = false;
   disableMovment.down = false;
   disableMovment.upRight = false;
   disableMovment.downRight = false;
   disableMovment.upLeft = false;
-  disableMovment.downLeft = false;
+  disableMovment.downLeft = false;*/
 }
 function moveRight() {
   // heroToken.dx = heroToken.speed
@@ -122,56 +131,56 @@ function moveRight() {
   previousPosition.x = heroToken.x - 50;
   previousPosition.y = heroToken.y;
 
-  disableMovment.right = false;
+  /*disableMovment.right = false;
   disableMovment.left = false;
   disableMovment.up = false;
   disableMovment.down = false;
   disableMovment.upRight = false;
   disableMovment.downRight = false;
   disableMovment.upLeft = false;
-  disableMovment.downLeft = false;
+  disableMovment.downLeft = false;*/
 }
 function moveUpRight() {
   // heroToken.dx = heroToken.speed
   heroToken.x += 50;
-  heroToken.y -= 50
+  heroToken.y -= 50;
   previousPosition.x = heroToken.x - 50;
   previousPosition.y = heroToken.y + 50;
 
-  disableMovment.right = false;
+  /*disableMovment.right = false;
   disableMovment.left = false;
   disableMovment.up = false;
   disableMovment.down = false;
   disableMovment.upRight = false;
   disableMovment.downRight = false;
   disableMovment.upLeft = false;
-  disableMovment.downLeft = false;
+  disableMovment.downLeft = false;*/
 }
 
 function moveDownRight() {
   // heroToken.dx = heroToken.speed
   heroToken.x += 50;
-  heroToken.y += 50
+  heroToken.y += 50;
   previousPosition.x = heroToken.x - 50;
   previousPosition.y = heroToken.y - 50;
 
-  disableMovment.right = false;
+  /*disableMovment.right = false;
   disableMovment.left = false;
   disableMovment.up = false;
   disableMovment.down = false;
   disableMovment.upRight = false;
   disableMovment.downRight = false;
   disableMovment.upLeft = false;
-  disableMovment.downLeft = false;
+  disableMovment.downLeft = false;*/
 }
 function moveUpLeft() {
   // heroToken.dx = heroToken.speed
   heroToken.x -= 50;
-  heroToken.y -= 50
+  heroToken.y -= 50;
   previousPosition.x = heroToken.x + 50;
   previousPosition.y = heroToken.y + 50;
 
-  disableMovment.right = false;
+  /* disableMovment.right = false;
   disableMovment.left = false;
   disableMovment.up = false;
   disableMovment.down = false;
@@ -179,23 +188,24 @@ function moveUpLeft() {
   disableMovment.downRight = false;
   disableMovment.upLeft = false;
   disableMovment.downLeft = false;
+  */
 }
 
 function moveDownLeft() {
   // heroToken.dx = heroToken.speed
   heroToken.x -= 50;
-  heroToken.y += 50
+  heroToken.y += 50;
   previousPosition.x = heroToken.x + 50;
   previousPosition.y = heroToken.y - 50;
 
-  disableMovment.right = false;
+  /*disableMovment.right = false;
   disableMovment.left = false;
   disableMovment.up = false;
   disableMovment.down = false;
   disableMovment.upRight = false;
   disableMovment.downRight = false;
   disableMovment.upLeft = false;
-  disableMovment.downLeft = false;
+  disableMovment.downLeft = false;*/
 }
 
 

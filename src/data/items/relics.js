@@ -31,7 +31,7 @@ export let relics = {
     },
     hands: 1,
     cost: "cannot be sold",
-    img_path: "images/items/relics/blade_of_light.jpg",
+    img_path: "./images/items/relics/blade_of_light.jpg",
   },
   soulbiter: {
     treasure: "relic",
@@ -59,7 +59,7 @@ export let relics = {
     },
     hands: 1,
     cost: "cannot be sold",
-    img_path: "images/items/relics/soulbiter.jpg",
+    img_path: "./images/items/relics/soulbiter.jpg",
   },
   touch_of_death: {
     treasure: "relic",
@@ -87,7 +87,7 @@ export let relics = {
     },
     hands: 2,
     cost: "Cannot be sold",
-    img_path: "images/items/relics/touch_of_death.jpg",
+    img_path: "./images/items/relics/touch_of_death.jpg",
   },
   rune_plate: {
     treasure: "relic",
@@ -111,6 +111,6 @@ export let relics = {
       },
     },
     cost: "Cannot be sold",
-    img_path: "images/items/relics/rune_plate.jpg",
+    img_path: "./images/items/relics/rune_plate.jpg",
   },
 };

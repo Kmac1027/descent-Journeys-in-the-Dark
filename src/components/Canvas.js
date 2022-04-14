@@ -1,11 +1,16 @@
 import '../styles/canvas.css';
 import React, { useEffect, useRef } from "react";
-import { heroToken, keyDown, keyUp, detectWalls } from '../player_actions/movement';
-
+import {
+  heroToken,
+  keyDown,
+  keyUp,
+  detectWalls,
+  disableMovment,
+} from "../player_actions/movement";
 
 export let runLoop = {
   x: 0,
-  y: 0
+  y: 0,
 };
 
 function Canvas({ chosenQuest, collisionDetection }) {
@@ -538,6 +543,7 @@ function Canvas({ chosenQuest, collisionDetection }) {
       drawDoors();
       drawTown();
       drawHeroToken();
+      //newPosition runs all the time, why not do this on the event listener
       newPosition();
       // collisionDetection(runLoop.x, runLoop.y);
       requestAnimationFrame(update);
@@ -545,14 +551,19 @@ function Canvas({ chosenQuest, collisionDetection }) {
     update();
   }, []);
 
-  document.addEventListener('keydown', keyDown);
-  document.addEventListener('keyup', keyUp);
+  document.addEventListener("keydown", keyDown);
+  document.addEventListener("keyup", keyUp);
 
   return (
-    <div className='left'>
-      <div id='canvasDivId'>
-        <canvas ref={canvas} id='canvas' width={chosenQuest.mapSize.width} height={chosenQuest.mapSize.height}></canvas>
-      </div >
+    <div className="left">
+      <div id="canvasDivId">
+        <canvas
+          ref={canvas}
+          id="canvas"
+          width={chosenQuest.mapSize.width}
+          height={chosenQuest.mapSize.height}
+        ></canvas>
+      </div>
     </div>
   );
 }

@@ -42,21 +42,21 @@ function ChoseHero({ playGame, setPlayGame, chosenHero, setChosenHero }) {
             style={{ height: "400px", width: "475px" }}
             type="image"
             id="steelhorns"
-            src="images/hero_card/steelhorns.jpg"
+            src="./images/hero_card/steelhorns.jpg"
             onClick={() => choseThisHero("steelhorns")}
           ></input>
           <input
             style={{ height: "400px", width: "475px" }}
             type="image"
             id="silhouette"
-            src="images/hero_card/silhouette.jpg"
+            src="./images/hero_card/silhouette.jpg"
             onClick={() => choseThisHero("silhouette")}
           ></input>
           <input
             style={{ height: "400px", width: "475px" }}
             type="image"
             id="battlemage_jaes"
-            src="images/hero_card/battlemage_jaes.jpg"
+            src="./images/hero_card/battlemage_jaes.jpg"
             onClick={() => choseThisHero("battlemage_jaes")}
           ></input>
         </div>

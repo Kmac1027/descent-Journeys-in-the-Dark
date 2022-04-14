@@ -17,34 +17,39 @@ function App() {
   return (
     <div
       className="App"
-      style={{ backgroundImage: `url("images/background.png")` }}
+      style={{ backgroundImage: `url("../background.png")` }}
     >
       <header>
-        {!playGame ?
-          <HomeScreen playGame={playGame} setPlayGame={setPlayGame} chosenHero={chosenHero} setChosenHero={setChosenHero} />
-          : null}
-        {playGame ? <>
-          <TilesAndTokens chosenHero={chosenHero} />
-          <Canvas
-            chosenHero={chosenHero}
-            chosenQuest={chosenQuest}
-            collisionDetection={chosenQuest.collisionDetection}
-          />
-          <Player
-            chosenHero={chosenHero}
-            chosenQuest={chosenQuest}
-            revealAreas={chosenQuest.revealAreas}
-            collisionDetection={chosenQuest.collisionDetection}
-            turn={turn}
-            setTurn={setTurn}
+        {!playGame ? (
+          <HomeScreen
             playGame={playGame}
             setPlayGame={setPlayGame}
+            chosenHero={chosenHero}
+            setChosenHero={setChosenHero}
           />
-          {/* <Overlord chosenHero={chosenHero} chosenQuest={chosenQuest} turn={turn} setTurn={setTurn} /> */}
-          {/* <button style={{ height: '100px', width: '300px' }} onClick={() => endTurn()}>End Turn</button> */}
-
-        </> : null}
-
+        ) : null}
+        {playGame ? (
+          <>
+            <TilesAndTokens chosenHero={chosenHero} />
+            <Canvas
+              chosenHero={chosenHero}
+              chosenQuest={chosenQuest}
+              collisionDetection={chosenQuest.collisionDetection}
+            />
+            <Player
+              chosenHero={chosenHero}
+              chosenQuest={chosenQuest}
+              revealAreas={chosenQuest.revealAreas}
+              collisionDetection={chosenQuest.collisionDetection}
+              turn={turn}
+              setTurn={setTurn}
+              playGame={playGame}
+              setPlayGame={setPlayGame}
+            />
+            {/* <Overlord chosenHero={chosenHero} chosenQuest={chosenQuest} turn={turn} setTurn={setTurn} /> */}
+            {/* <button style={{ height: '100px', width: '300px' }} onClick={() => endTurn()}>End Turn</button> */}
+          </>
+        ) : null}
       </header>
     </div>
   );
