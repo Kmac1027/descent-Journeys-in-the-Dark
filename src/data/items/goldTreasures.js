@@ -272,7 +272,7 @@ export const goldTreasures = {
     },
     hands: 2,
     cost: 750,
-    img_path: "../images/items/goldTreasures/ice_storm.jpg",
+    img_path: "../images/items/goldTreasures/flame_strike.jpg",
   },
   word_of_vaal: {
     treasure: "gold",
@@ -431,6 +431,10 @@ export const goldTreasures = {
         },
       },
     },
+    combat_dice: false,
+    hands: 0,
+    cost: 750,
+    img_path: "../images/items/goldTreasures/deflect.jpg",
     //treasure cache
     treasure_cache_healing_potion: {
       treasure: "gold",

@@ -17,8 +17,9 @@ let beastman6 = new Beastman(6, 600, 350, 'area4');
 let beastman7 = new Beastman(7, 650, 350, 'area4');
 let masterBeastman1 = new MasterBeastman(1, 350, 1050, 'area1');
 
-// let boss = new MasterGiant(1, 600, 0, "area4");
-let boss = new MasterGiant(1, 50, 1000, "area1");
+let masterGiant1 = new MasterGiant(1, 600, 0, "area4");
+masterGiant1.boss = true;
+// let boss = new MasterGiant(1, 50, 1000, "area1");
 
 export const quest1 = {
   name: 'Quest 1: Into the Dark',
@@ -37,7 +38,8 @@ export const quest1 = {
       beastman6,
       beastman7,
       masterBeastman1,
-      boss
+      masterGiant1
+      // boss
     },
     clue_token: {},
     obstacles: {
@@ -464,22 +466,7 @@ function revealAreas() {
 }
 
 function quest1CollisionDetection(runLoopX, runLoopY) {
-  // if (
-  //   heroToken.x !== runLoopX ||
-  //   heroToken.y !== runLoopY ||
-  //   previousPosition === { x: 0, y: 0 }
-  // ) {
-  //   console.log(disableMovment);
-  //   //if new position allow movement
-  //   disableMovment.right = false;
-  //   disableMovment.left = false;
-  //   disableMovment.up = false;
-  //   disableMovment.down = false;
-  //   disableMovment.upRight = false;
-  //   disableMovment.downRight = false;
-  //   disableMovment.upLeft = false;
-  //   disableMovment.downLeft = false;
-  //   //outer walls
+  //outer walls
   //square 1
   if (heroToken.x === 600 && heroToken.y === 0) {
     disableMovment.up = true;

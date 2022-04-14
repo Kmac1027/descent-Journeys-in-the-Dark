@@ -68,9 +68,16 @@ export function attack(
         // console.log(rangeNeeded)
       }
       if (selectedMonster.max_wounds <= 0) {
-        delete chosenQuest.tokenPlacement.monsters[
-          selectedTarget.name + selectedTarget.id.toString()
-        ];
+        if (selectedMonster.boss === true) {
+          delete chosenQuest.tokenPlacement.monsters[
+            selectedTarget.name + selectedTarget.id.toString()
+          ];
+          alert("You Win!");
+        } else {
+          delete chosenQuest.tokenPlacement.monsters[
+            selectedTarget.name + selectedTarget.id.toString()
+          ];
+        }
       }
       selectedTarget.name = null;
       selectedTarget.id = null;
@@ -110,51 +117,56 @@ export function attack(
             let hitAmount = damage - monsterArmor;
             hitMonster.max_wounds -= hitAmount;
             if (hitMonster.max_wounds <= 0) {
-              delete chosenQuest.tokenPlacement.monsters[hitMonster.name + hitMonster.id.toString()];
+              if (hitMonster.boss === true) {
+                delete chosenQuest.tokenPlacement.monsters[hitMonster.name + hitMonster.id.toString()];
+                alert("You Win!");
+              } else {
+                delete chosenQuest.tokenPlacement.monsters[hitMonster.name + hitMonster.id.toString()];
+              }
             }
           }
         }
       } else {
-        let effectedTiles = [{ x: selectedTarget.id.x, y: selectedTarget.id.y }]
-        let effectedMonsters = []
-        let target = blast * 50
+        let effectedTiles = [{ x: selectedTarget.id.x, y: selectedTarget.id.y }];
+        let effectedMonsters = [];
+        let target = blast * 50;
         for (let i = 50; i <= target; i = i + 50) {
-          let x = selectedTarget.id.x + i
-          let y = selectedTarget.id.y
-          effectedTiles.push({ 'x': x, 'y': y })
-          x = selectedTarget.id.x
-          y = selectedTarget.id.y + i
-          effectedTiles.push({ 'x': x, 'y': y })
-          x = selectedTarget.id.x + i
-          y = selectedTarget.id.y + i
-          effectedTiles.push({ 'x': x, 'y': y })
-          x = selectedTarget.id.x - i
-          y = selectedTarget.id.y
-          effectedTiles.push({ 'x': x, 'y': y })
-          x = selectedTarget.id.x
-          y = selectedTarget.id.y - i
-          effectedTiles.push({ 'x': x, 'y': y })
-          x = selectedTarget.id.x - i
-          y = selectedTarget.id.y - i
-          effectedTiles.push({ 'x': x, 'y': y })
-          x = selectedTarget.id.x + i
-          y = selectedTarget.id.y - i
-          effectedTiles.push({ 'x': x, 'y': y })
-          x = selectedTarget.id.x - i
-          y = selectedTarget.id.y + i
-          effectedTiles.push({ 'x': x, 'y': y })
+          let x = selectedTarget.id.x + i;
+          let y = selectedTarget.id.y;
+          effectedTiles.push({ 'x': x, 'y': y });
+          x = selectedTarget.id.x;
+          y = selectedTarget.id.y + i;
+          effectedTiles.push({ 'x': x, 'y': y });
+          x = selectedTarget.id.x + i;
+          y = selectedTarget.id.y + i;
+          effectedTiles.push({ 'x': x, 'y': y });
+          x = selectedTarget.id.x - i;
+          y = selectedTarget.id.y;
+          effectedTiles.push({ 'x': x, 'y': y });
+          x = selectedTarget.id.x;
+          y = selectedTarget.id.y - i;
+          effectedTiles.push({ 'x': x, 'y': y });
+          x = selectedTarget.id.x - i;
+          y = selectedTarget.id.y - i;
+          effectedTiles.push({ 'x': x, 'y': y });
+          x = selectedTarget.id.x + i;
+          y = selectedTarget.id.y - i;
+          effectedTiles.push({ 'x': x, 'y': y });
+          x = selectedTarget.id.x - i;
+          y = selectedTarget.id.y + i;
+          effectedTiles.push({ 'x': x, 'y': y });
         }
         for (let monster in monsters) {
           for (let i = 0; i < effectedTiles.length; i++) {
             if (monsters[monster].x === effectedTiles[i].x && monsters[monster].y === effectedTiles[i].y) {
-              effectedMonsters.push(monsters[monster])
+              effectedMonsters.push(monsters[monster]);
             }
           }
         }
         // console.log(effectedMonsters)
         for (let i = 0; i < effectedMonsters.length; i++) {
           let effectedMonster = effectedMonsters[i];
-          console.log(effectedMonster)
+          console.log(effectedMonster);
           let monsterArmor = effectedMonster.base_armor - pierce;
           if (monsterArmor <= 0) {
             monsterArmor = 0;
@@ -162,7 +174,12 @@ export function attack(
           let hitAmount = damage - monsterArmor;
           effectedMonster.max_wounds -= hitAmount;
           if (effectedMonster.max_wounds <= 0) {
-            delete chosenQuest.tokenPlacement.monsters[effectedMonster.name + effectedMonster.id.toString()];
+            if (effectedMonster.boss === true) {
+              delete chosenQuest.tokenPlacement.monsters[effectedMonster.name + effectedMonster.id.toString()];
+              alert("You Win!");
+            } else {
+              delete chosenQuest.tokenPlacement.monsters[effectedMonster.name + effectedMonster.id.toString()];
+            }
           }
         }
       }
@@ -180,38 +197,38 @@ export function attack(
 
   if (selectedWeapon.name === 'Word of Vaal') {
     let monsters = chosenQuest.tokenPlacement.monsters;
-    let effectedTiles = [{ x: heroToken.x, y: heroToken.y }]
-    let effectedMonsters = []
+    let effectedTiles = [{ x: heroToken.x, y: heroToken.y }];
+    let effectedMonsters = [];
     for (let i = 50; i <= 3; i = i + 50) {
-      let x = heroToken.x + i
-      let y = heroToken.y
-      effectedTiles.push({ 'x': x, 'y': y })
-      x = heroToken.x
-      y = heroToken.y + i
-      effectedTiles.push({ 'x': x, 'y': y })
-      x = heroToken.x + i
-      y = heroToken.y + i
-      effectedTiles.push({ 'x': x, 'y': y })
-      x = heroToken.x - i
-      y = heroToken.y
-      effectedTiles.push({ 'x': x, 'y': y })
-      x = heroToken.x
-      y = heroToken.y - i
-      effectedTiles.push({ 'x': x, 'y': y })
-      x = heroToken.x - i
-      y = heroToken.y - i
-      effectedTiles.push({ 'x': x, 'y': y })
-      x = heroToken.x + i
-      y = heroToken.y - i
-      effectedTiles.push({ 'x': x, 'y': y })
-      x = heroToken.x - i
-      y = heroToken.y + i
-      effectedTiles.push({ 'x': x, 'y': y })
+      let x = heroToken.x + i;
+      let y = heroToken.y;
+      effectedTiles.push({ 'x': x, 'y': y });
+      x = heroToken.x;
+      y = heroToken.y + i;
+      effectedTiles.push({ 'x': x, 'y': y });
+      x = heroToken.x + i;
+      y = heroToken.y + i;
+      effectedTiles.push({ 'x': x, 'y': y });
+      x = heroToken.x - i;
+      y = heroToken.y;
+      effectedTiles.push({ 'x': x, 'y': y });
+      x = heroToken.x;
+      y = heroToken.y - i;
+      effectedTiles.push({ 'x': x, 'y': y });
+      x = heroToken.x - i;
+      y = heroToken.y - i;
+      effectedTiles.push({ 'x': x, 'y': y });
+      x = heroToken.x + i;
+      y = heroToken.y - i;
+      effectedTiles.push({ 'x': x, 'y': y });
+      x = heroToken.x - i;
+      y = heroToken.y + i;
+      effectedTiles.push({ 'x': x, 'y': y });
     }
     for (let monster in monsters) {
       for (let i = 0; i < effectedTiles.length; i++) {
         if (monsters[monster].x === effectedTiles[i].x && monsters[monster].y === effectedTiles[i].y) {
-          effectedMonsters.push(monsters[monster])
+          effectedMonsters.push(monsters[monster]);
         }
       }
     }
@@ -226,7 +243,12 @@ export function attack(
       let hitAmount = damage - monsterArmor;
       effectedMonster.max_wounds -= hitAmount;
       if (effectedMonster.max_wounds <= 0) {
-        delete chosenQuest.tokenPlacement.monsters[effectedMonster.name + effectedMonster.id.toString()];
+        if (effectedMonster.boss === true) {
+          delete chosenQuest.tokenPlacement.monsters[effectedMonster.name + effectedMonster.id.toString()];
+          alert("You Win!");
+        } else {
+          delete chosenQuest.tokenPlacement.monsters[effectedMonster.name + effectedMonster.id.toString()];
+        }
       }
     }
     selectedTarget.name = null;

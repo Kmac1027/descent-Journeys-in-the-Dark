@@ -29,7 +29,8 @@ export class Beastman {
     };
     this.monster_card_img_path = "../images/monster_card/beastman.jpg";
     this.token_path = "../images/monster_token/beastman.png";
-    this.money_value = 25;
+    this.money_value = 50;
+    this.boss = false;
     this.w = 50;
     this.h = 50;
     this.x = x;
@@ -73,7 +74,8 @@ export class MasterBeastman {
     };
     this.monster_card_img_path = "../images/monster_card/beastman.jpg";
     this.token_path = "../images/monster_token/beastman_master.png";
-    this.money_value = 50;
+    this.money_value = 100;
+    this.boss = false;
     this.w = 50;
     this.h = 50;
     this.x = x;
@@ -119,7 +121,8 @@ export class Skeleton {
     };
     this.monster_card_img_path = "../images/monster_card/skeleton.jpg";
     this.token_path = "../images/monster_token/skeleton.png";
-    this.money_value = 25;
+    this.money_value = 50;
+    this.boss = false;
     this.w = 50;
     this.h = 50;
     this.x = x;
@@ -166,7 +169,8 @@ export class MasterSkeleton {
     };
     this.monster_card_img_path = "../images/monster_card/skeleton.jpg";
     this.token_path = "../images/monster_token/skeleton_master.png";
-    this.money_value = 50;
+    this.money_value = 100;
+    this.boss = false;
     this.w = 50;
     this.h = 50;
     this.x = x;
@@ -213,7 +217,8 @@ export class MasterGiant {
     };
     this.monster_card_img_path = "../images/monster_card/giant.jpg";
     this.token_path = "../images/monster_token/giant_master.png";
-    this.money_value = 500;
+    this.money_value = 100;
+    this.boss = false;
     this.w = 50;
     this.h = 50;
     this.x = x;

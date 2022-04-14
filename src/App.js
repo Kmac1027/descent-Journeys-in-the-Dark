@@ -40,11 +40,7 @@ function App() {
             setPlayGame={setPlayGame}
             collisionDetection={chosenQuest.collisionDetection}
           />
-          {/* <Overlord chosenHero={chosenHero} chosenQuest={chosenQuest} turn={turn} setTurn={setTurn} /> */}
-          {/* <button style={{ height: '100px', width: '300px' }} onClick={() => endTurn()}>End Turn</button> */}
-
         </> : null}
-
       </header>
     </div>
   );

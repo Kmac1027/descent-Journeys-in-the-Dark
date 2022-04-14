@@ -42,7 +42,9 @@ function DiceRoll({
   threatTokens,
   setThreatTokens,
   numberOfAttacks,
-  setNumberOfAttacks
+  setNumberOfAttacks,
+  money,
+  setMoney
 }) {
   const [checkSelectedTarget, setCheckSelectedTarget] =
     useState(selectedTarget);
@@ -478,6 +480,14 @@ function DiceRoll({
     attackCardsActive,
     showDiceRoll) {
     setNumberOfAttacks(numberOfAttacks - 1);
+    let selectedMonster =
+      chosenQuest.tokenPlacement.monsters[
+      selectedTarget.name + selectedTarget.id.toString()
+      ];
+    // This Adds the Gold value of the monster to the players money
+    if (damage + pierce >= selectedMonster.max_wounds + selectedMonster.base_armor) {
+      setMoney((money) => money + selectedMonster.money_value);
+    }
     attack(
       checkSelectedTarget,
       chosenQuest,
@@ -494,6 +504,7 @@ function DiceRoll({
       attackCardsActive,
       showDiceRoll
     );
+
   }
 
   useEffect(() => {
@@ -638,6 +649,7 @@ function DiceRoll({
                 `${diceSideData.white.sides.side5.img_path}`,
                 `${diceSideData.white.sides.side6.img_path}`,
               ]}
+              cheatValue={4}
             />
           </div>
         ))}
@@ -657,6 +669,7 @@ function DiceRoll({
                 `${diceSideData.blue.sides.side5.img_path}`,
                 `${diceSideData.blue.sides.side6.img_path}`,
               ]}
+              cheatValue={4}
             />
           </div>
         ))}

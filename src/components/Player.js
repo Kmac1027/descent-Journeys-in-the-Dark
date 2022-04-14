@@ -1,5 +1,6 @@
 import "../styles/player.css";
 import runLoop from "./Canvas.js";
+import { relics } from "../data/items/relics";
 import Shop, {
   shopItemsArray,
   health_potion,
@@ -51,6 +52,7 @@ export function inRange(token, checkPoint) {
 
 
 function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame, setPlayGame, collisionDetection }) {
+
   let copper = chosenQuest.tokenPlacement.treasure_chests.copper;
   let silver = chosenQuest.tokenPlacement.treasure_chests.silver;
   let gold = chosenQuest.tokenPlacement.treasure_chests.gold;
@@ -73,7 +75,6 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
       setSpeed(0);
       setNumberOfAttacks(0);
     } else if (turn === "player") {
-      console.log(disableMovment);
       setPlayerOptions(true);
       setSpeed(0);
       setNumberOfAttacks(0);
@@ -156,8 +157,8 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
     }
   }, [speed]);
 
-  const [money, setMoney] = useState(chosenQuest.startingMoney);
-  // const [money, setMoney] = useState(10000);
+  // const [money, setMoney] = useState(chosenQuest.startingMoney);
+  const [money, setMoney] = useState(10000);
   useEffect(() => {
     if (money < 0) {
       setMoney(0);
@@ -279,22 +280,20 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
   }
 
   //weapons and items
-  const [weapon1, setWeapon1] = useState(shopItemData.sword);
-  const [weapon2, setWeapon2] = useState(shopItemData.crossbow);
+  const [weapon1, setWeapon1] = useState(relics.soulbiter);
+  const [weapon2, setWeapon2] = useState();
   // const [weapon1, setWeapon1] = useState(relics.touch_of_death);
   // const [weapon2, setWeapon2] = useState();
-  const [armor, setArmor] = useState(shopItemData.leather_armor);
+  const [armor, setArmor] = useState();
   const [other1, setOther1] = useState();
   const [other2, setOther2] = useState();
 
   useEffect(() => {
     if (armor) {
-      // console.log('Armor triggered')
       if (armor.special_abilities !== false) {
         if (heroData[chosenHero].speed > armor.special_abilities.speedReduce) {
           setBaseSpeed(armor.special_abilities.speedReduce);
           if (armor.special_abilities.equipRunes === false) {
-            // console.log("Equiped Runes set to false");
             setEquipRunes(false);
           }
         }
@@ -373,7 +372,6 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
       alert("This item is a relic and cannot be sold");
     } else if (item.treasure !== "relic") {
       if (item.type === "armor") {
-        // console.log(item.special_abilities.equipRunes)
         if (item.special_abilities.equipRunes === false) {
           setEquipRunes(true);
         }
@@ -434,8 +432,6 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
   const [showPickUpGoldPileButton, setShowPickUpGoldPileButton] =
     useState(false);
   const [pickUpThisGoldPile, setPickUpThisGoldPile] = useState();
-  // const [showJumpScreenButton, setShowJumpScreenButton] = useState(false);
-  // const [showJumpScreen, setShowJumpScreen] = useState(false);
 
   function pickUpPotion() {
     if (potionsArray.length >= 3) {
@@ -523,7 +519,6 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
           let pickRandomItem = Math.floor(
             Math.random() * (silverTreasureArray.length - 1)
           );
-          // console.log(silverTreasureArray[pickRandomItem])
           let randomItem = silverTreasureArray[pickRandomItem];
           setRandomTreasure(randomItem);
           bagArray.push(randomItem);
@@ -550,7 +545,6 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
           let pickRandomItem = Math.floor(
             Math.random() * (goldTreasureArray.length - 1)
           );
-          // console.log(goldTreasureArray[pickRandomItem])
           let randomItem = goldTreasureArray[pickRandomItem];
           setRandomTreasure(randomItem);
           bagArray.push(randomItem);
@@ -562,7 +556,6 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
         }
       }
     }
-    // setTreasureChestType()
   }
 
   function returnToTown() {
@@ -694,15 +687,12 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
   }
 
   function pickUpGoldPile() {
-    alert("YOU FOUND 100 GOLD");
-    setMoney((money) => money + 100);
+    alert("YOU FOUND 200 GOLD");
+    setMoney((money) => money + 200);
     delete chosenQuest.tokenPlacement.gold_pile[pickUpThisGoldPile];
     setShowPickUpGoldPileButton(false);
   }
 
-  // function jumpScreen() {
-  //   setShowJumpScreen(true);
-  // }
   useEffect(() => {
     let currentPositionX = heroToken.x;
     let currentPositionY = heroToken.y;
@@ -719,8 +709,6 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
     };
   }, []);
 
-
-
   let teleportArray = [chosenQuest.tokenPlacement.start_area];
   const [port, setPort] = useState(teleportArray);
   useEffect(() => {
@@ -730,6 +718,8 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
     let activeGlyphs = chosenQuest.tokenPlacement.activated_glyphs;
     let doorHorz = chosenQuest.tokenPlacement.doors.horizontal;
     let doorVert = chosenQuest.tokenPlacement.doors.vertical;
+    let currentPositionX = heroToken.x;
+    let currentPositionY = heroToken.y;
 
     const keyPress = (event) => {
       for (let active in activeGlyphs) {
@@ -773,7 +763,6 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
         }
       }
       for (let box in copper) {
-        // let chestInRange = inRange(heroToken, copper[box])
         if (heroToken.x === copper[box].x && heroToken.y === copper[box].y) {
           setShowCTButton(true);
           setTreasureChestType("copper");
@@ -785,7 +774,6 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
         }
       }
       for (let box in silver) {
-        // let chestInRange = inRange(heroToken, silver[box])
         if (heroToken.x === silver[box].x && heroToken.y === silver[box].y) {
           setShowSTButton(true);
           setTreasureChestType("silver");
@@ -796,7 +784,6 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
         }
       }
       for (let box in gold) {
-        // let chestInRange = inRange(heroToken, gold[box])
         if (heroToken.x === gold[box].x && heroToken.y === gold[box].y) {
           setShowGTButton(true);
           setTreasureChestType("gold");
@@ -897,15 +884,11 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
         if (nextToPit === true) {
           heroToken.w = 50;
           heroToken.h = 50;
-          // setShowJumpScreenButton(true);
           break;
-        } else {
-          // setShowJumpScreenButton(false);
         }
       }
       for (let pit in pits) {
-        if (heroToken.x === pits[pit].x && heroToken.y === pits[pit].y) {
-          // setShowJumpScreenButton(false);
+        if (heroToken.x === pits[pit].x && heroToken.y === pits[pit].y && heroToken.w !== 30) {
           disableMovment.up = true;
           disableMovment.left = true;
           disableMovment.right = true;
@@ -914,9 +897,11 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
           disableMovment.upLeft = true;
           disableMovment.upRight = true;
           disableMovment.downLeft = true;
-          setCurrentHealth((currentHealth) => currentHealth - 1);
           heroToken.w = 30;
           heroToken.h = 30;
+          setCurrentHealth((currentHealth) => currentHealth - 1);
+          currentPositionX = heroToken.x;
+          currentPositionY = heroToken.y;
           setTimeout(() => {
             alert("You have fallen into a pit and take 1 wound");
           }, 200);
@@ -932,9 +917,6 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
             collisionDetection();
           }, 300);
           break;
-        } else {
-          heroToken.w = 50;
-          heroToken.h = 50;
         }
       }
     };
@@ -1420,6 +1402,8 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
           setThreatTokens={setThreatTokens}
           numberOfAttacks={numberOfAttacks}
           setNumberOfAttacks={setNumberOfAttacks}
+          money={money}
+          setMoney={setMoney}
         />
       ) : null}
 

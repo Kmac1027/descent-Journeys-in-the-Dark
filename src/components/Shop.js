@@ -451,6 +451,7 @@ function Shop({
     <div id="shop" style={{ left: "30%", top: "50%" }}>
       <h2>Shop</h2>
       <button onClick={() => showShopItems()}>Close Shop</button>
+      <h4>Your Gold: {money}</h4>
       <br />
       <br />
       <div id="shopItems">
@@ -700,21 +701,8 @@ function Shop({
         </div>
       </div>
       <br />
+      <h4>Your Gold: {money}</h4>
       <button onClick={() => showShopItems()}>Close Shop</button>
-      {/* 
-      {showTreasureDiv ?
-        <RandomTreasure
-          showTreasureDiv={showTreasureDiv}
-          setShowTreasureDiv={setShowTreasureDiv}
-          randomTreasure={randomTreasure}
-          setRandomTreasure={setRandomTreasure}
-          potionsArray={potionsArray}
-          money={money}
-          setMoney={setMoney}
-          copperTreasureArray={copperTreasureArray}
-          silverTreasureArray={silverTreasureArray}
-          goldTreasureArray={goldTreasureArray}
-        /> : null} */}
     </div>
   );
 }
