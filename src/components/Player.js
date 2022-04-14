@@ -8,10 +8,6 @@ import Shop, {
   silverTreasureArray,
   goldTreasureArray,
 } from "./Shop";
-// import { copperTreasures } from "../data/items/copperTreasures";
-// import { silverTreasures } from "../data/items/silverTreasures";
-// import { goldTreasures } from "../data/items/goldTreasures";
-// import { relics } from "../data/items/relics";
 import Overlord from "./Overlord";
 import SkillFunctions from "./SkillFunctions";
 import DiceRoll from "./Dice";
@@ -20,10 +16,8 @@ import Bag, { bagArray } from "./Bag";
 import Teleport from "./Teleport";
 import Conditions from "./Conditions";
 import RandomTreasure from "./RandomTreasure";
-// import JumpScreen from "./JumpScreen";
 import { useState, useEffect } from "react";
 import { heroData } from "../data/heroData.js";
-// import { monsterData } from '../data/monsterData.js';
 import { shopItemData } from "../data/items/shopItems";
 import { heroToken, disableMovment } from "../player_actions/movement";
 import { attack, attackType } from "../player_actions/attack";
@@ -64,12 +58,10 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
   function endTurn() {
     if (turn === "player") {
       setTurn("overlord");
-      // console.log(disableMovment);
+
     } else {
       setTurn("player");
-      // console.log(disableMovment);
     }
-    // console.log(turn)
   }
 
   const [gameOver, setGameOver] = useState(false);
@@ -77,13 +69,11 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
   const [playerOptions, setPlayerOptions] = useState(true);
   useEffect(() => {
     if (turn === "overlord") {
-      // runLoop.x -= 50;
       setPlayerOptions(false);
       setSpeed(0);
       setNumberOfAttacks(0);
     } else if (turn === "player") {
       console.log(disableMovment);
-      // runLoop.x -= 50;
       setPlayerOptions(true);
       setSpeed(0);
       setNumberOfAttacks(0);
@@ -129,8 +119,6 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
     if (levelConquestTokens <= 0) {
       alert("Game Over");
       document.location.reload(true);
-      // setPlayGame(false);
-      // setGameOver(true);
     }
   }, [levelConquestTokens]);
 
@@ -933,15 +921,15 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
             alert("You have fallen into a pit and take 1 wound");
           }, 200);
           setTimeout(() => {
-            runLoop.x -= 50;
-            // disableMovment.up = false;
-            // disableMovment.left = false;
-            // disableMovment.right = false;
-            // disableMovment.down = false;
-            // disableMovment.downRight = false;
-            // disableMovment.upLeft = false;
-            // disableMovment.upRight = false;
-            // disableMovment.downLeft = false;
+            disableMovment.up = false;
+            disableMovment.left = false;
+            disableMovment.right = false;
+            disableMovment.down = false;
+            disableMovment.downRight = false;
+            disableMovment.upLeft = false;
+            disableMovment.upRight = false;
+            disableMovment.downLeft = false;
+            collisionDetection();
           }, 300);
           break;
         } else {
@@ -1065,15 +1053,6 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
                     Pick up Gold Pile
                   </button>
                 ) : null}
-                {/* {showJumpScreenButton ? (
-                  <button
-                    height="100px"
-                    width="100px"
-                    onClick={() => jumpScreen()}
-                  >
-                    Jump
-                  </button>
-                ) : null} */}
               </div>
             ) : null}
           </div>
@@ -1360,7 +1339,7 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
             <p style={{ padding: "5px" }}>Skills 1</p>
             <img
               className="card"
-              src={"images/items/shop/leather_armor.png"}
+              src={"images/melee_skill_back.png"}
               alt="g"
             ></img>
           </div>
@@ -1368,7 +1347,7 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
             <p style={{ padding: "5px" }}>Skills 2</p>
             <img
               className="card"
-              src={"images/items/shop/leather_armor.png"}
+              src={"images/subterfuge_skill_back.png"}
               alt="g"
             ></img>
           </div>
@@ -1376,7 +1355,7 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
             <p style={{ padding: "5px" }}>Skills 3</p>
             <img
               className="card"
-              src={"images/items/shop/leather_armor.png"}
+              src={"images/wizardry_skill_back.png"}
               alt="g"
             ></img>
           </div>
@@ -1510,12 +1489,6 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
           setShowReturnToTown={setShowReturnToTown}
         />
       ) : null}
-      {/* {showJumpScreen ? (
-        <JumpScreen
-          heroToken={heroToken}
-          setShowJumpScreen={setShowJumpScreen}
-        />
-      ) : null} */}
       <SkillFunctions />
       <Conditions />
       {turn === "overlord" ? (
@@ -1540,7 +1513,6 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
           setShowRunBattleAdvance={setShowRunBattleAdvance} />
         : null}
       {gameOver ? <GameOverScreen /> : null}
-
     </div>
   );
 }
