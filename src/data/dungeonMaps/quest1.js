@@ -1,7 +1,7 @@
 import { heroToken, previousPosition } from '../../player_actions/movement';
 // import { monsterData } from '../../data/monsterData';
 import { disableMovment } from '../../player_actions/movement';
-import { Skeleton, MasterSkeleton, Beastman, MasterBeastman, MasterGiant } from '../monsterData';
+import { Skeleton, MasterSkeleton, Beastman, MasterBeastman, MasterGiant, HellHound, Ogre, Razorwing, MasterRazorwing, Sorcerer, Manticore, BaneSpider } from '../monsterData';
 import { runLoop } from '../../components/Canvas';
 
 let skeleton1 = new Skeleton(1, 450, 1050, 'area1');
@@ -16,6 +16,23 @@ let beastman5 = new Beastman(5, 600, 750, 'area3');
 let beastman6 = new Beastman(6, 600, 350, 'area4');
 let beastman7 = new Beastman(7, 650, 350, 'area4');
 let masterBeastman1 = new MasterBeastman(1, 350, 1050, 'area1');
+
+let hellHound1 = new HellHound(1, 950, 1100, 'area2');
+let hellHound2 = new HellHound(2, 950, 900, 'area2');
+let hellHound3 = new HellHound(3, 900, 750, 'area2');
+
+let ogre1 = new Ogre(1, 950, 600, 'area2');
+
+let baneSpider1 = new BaneSpider(1, 550, 550, 'area3');
+
+let razorwing1 = new Razorwing(1, 750, 600, 'area3');
+let razorwing2 = new Razorwing(2, 650, 600, 'area3');
+let masterRazorwing1 = new MasterRazorwing(1, 400, 650, 'area3');
+
+let sorcerer1 = new Sorcerer(1, 300, 600, 'area3');
+
+let manticore1 = new Manticore(1, 500, 150, 'area4');
+let manticore2 = new Manticore(2, 700, 150, 'area4');
 
 // let masterGiant1 = new MasterGiant(1, 50, 1000, "area1");
 let masterGiant1 = new MasterGiant(1, 600, 0, "area4");
@@ -40,6 +57,16 @@ export const quest1 = {
       beastman6,
       beastman7,
       masterBeastman1,
+      hellHound1,
+      hellHound2,
+      hellHound3,
+      ogre1,
+      baneSpider1,
+      razorwing1,
+      razorwing2,
+      masterRazorwing1,
+      manticore1,
+      manticore2,
       masterGiant1
       // boss
     },

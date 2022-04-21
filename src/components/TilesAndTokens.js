@@ -103,14 +103,14 @@ function TilesAndTokens({ chosenHero }) {
       <div>
         {/* monster tokens */}
         <img
-          id="skeleton"
-          src={"../images/monster_token/skeleton.png"}
-          alt={"Skeleton token"}
+          id="baneSpider"
+          src={"../images/monster_token/bane_spider.png"}
+          alt={"bane spider token"}
         />
         <img
-          id="masterSkeleton"
-          src={"../images/monster_token/skeleton_master.png"}
-          alt={"Master Skeleton token"}
+          id="masterBaneSpider"
+          src={"../images/monster_token/bane_spider_master.png"}
+          alt={"master bane spider token"}
         />
         <img
           id="beastman"
@@ -123,9 +123,104 @@ function TilesAndTokens({ chosenHero }) {
           alt={"Master Beastman token"}
         />
         <img
+          id="demon"
+          src={"../images/monster_token/demon.png"}
+          alt={"demon token"}
+        />
+        <img
+          id="masterDemon"
+          src={"../images/monster_token/demon_master.png"}
+          alt={"master demon token"}
+        />
+        <img
+          id="dragon"
+          src={"../images/monster_token/dragon.png"}
+          alt={"dragon token"}
+        />
+        <img
+          id="masterDragon"
+          src={"../images/monster_token/dragon_master.png"}
+          alt={"master dragon token"}
+        />
+        <img
+          id="giant"
+          src={"../images/monster_token/giant.png"}
+          alt={"Giant Token"}
+        />
+        <img
           id="masterGiant"
           src={"../images/monster_token/giant_master.png"}
           alt={"Master Giant Token"}
+        />
+        <img
+          id="hellHound"
+          src={"../images/monster_token/hellhound.png"}
+          alt={"hell hound token"}
+        />
+        <img
+          id="masterHellHound"
+          src={"../images/monster_token/hellhound_master.png"}
+          alt={"master hell hound token"}
+        />
+        <img
+          id="manticore"
+          src={"../images/monster_token/manticore.png"}
+          alt={"manticore token"}
+        />
+        <img
+          id="masterManticore"
+          src={"../images/monster_token/manticore_master.png"}
+          alt={"master manticore token"}
+        />
+        <img
+          id="naga"
+          src={"../images/monster_token/naga.png"}
+          alt={"naga token"}
+        />
+        <img
+          id="masterNaga"
+          src={"../images/monster_token/naga_master.png"}
+          alt={"master naga token"}
+        />
+        <img
+          id="ogre"
+          src={"../images/monster_token/ogre.png"}
+          alt={"ogre token"}
+        />
+        <img
+          id="masterOgre"
+          src={"../images/monster_token/ogre_master.png"}
+          alt={"master ogre token"}
+        />
+        <img
+          id="razorwing"
+          src={"../images/monster_token/razorwing.png"}
+          alt={"razorwing token"}
+        />
+        <img
+          id="masterRazorwing"
+          src={"../images/monster_token/razorwing_master.png"}
+          alt={"master razorwing token"}
+        />
+        <img
+          id="skeleton"
+          src={"../images/monster_token/skeleton.png"}
+          alt={"Skeleton token"}
+        />
+        <img
+          id="masterSkeleton"
+          src={"../images/monster_token/skeleton_master.png"}
+          alt={"Master Skeleton token"}
+        />
+        <img
+          id="sorcerer"
+          src={"../images/monster_token/sorcerer.png"}
+          alt={"sorcerer token"}
+        />
+        <img
+          id="masterSorcerer"
+          src={"../images/monster_token/sorcerer_master.png"}
+          alt={"master sorcerer token"}
         />
       </div>
       {/* items and icons */}

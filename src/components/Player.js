@@ -595,6 +595,7 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
       setShowOpenVertDoorButton(false);
       disableMovment.right = false;
       disableMovment.left = false;
+      revealAreas();
     } else if (openThisDoor[0] === "red") {
       if (hasRedRuneKey === true) {
         delete chosenQuest.tokenPlacement.doors.horizontal[openThisDoor[0]][
@@ -603,6 +604,7 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
         setShowOpenHorzDoorButton(false);
         disableMovment.right = false;
         disableMovment.left = false;
+        revealAreas();
       } else {
         alert("You do not have the correct Rune Key to open this door");
       }
@@ -614,6 +616,7 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
         setShowOpenHorzDoorButton(false);
         disableMovment.right = false;
         disableMovment.left = false;
+        revealAreas();
       } else {
         alert("You do not have the correct Rune Key to open this door");
       }
@@ -625,11 +628,11 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
         setShowOpenHorzDoorButton(false);
         disableMovment.right = false;
         disableMovment.left = false;
+        revealAreas();
       } else {
         alert("You do not have the correct Rune Key to open this door");
       }
     }
-    revealAreas();
   }
 
   function openHorzDoor() {
@@ -641,6 +644,7 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
       setShowOpenHorzDoorButton(false);
       disableMovment.up = false;
       disableMovment.down = false;
+      revealAreas();
     } else if (openThisDoor[0] === "red") {
       console.log("Red Door");
       console.log(hasRedRuneKey);
@@ -651,6 +655,7 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
         setShowOpenHorzDoorButton(false);
         disableMovment.up = false;
         disableMovment.down = false;
+        revealAreas();
       } else {
         alert("You do not have the correct Rune Key to open this door");
       }
@@ -662,6 +667,7 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
         setShowOpenHorzDoorButton(false);
         disableMovment.up = false;
         disableMovment.down = false;
+        revealAreas();
       } else {
         alert("You do not have the correct Rune Key to open this door");
       }
@@ -673,11 +679,11 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
         setShowOpenHorzDoorButton(false);
         disableMovment.up = false;
         disableMovment.down = false;
+        revealAreas();
       } else {
         alert("You do not have the correct Rune Key to open this door");
       }
     }
-    revealAreas();
   }
 
   function pickUpRuneKey() {
@@ -961,6 +967,7 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
                   <div>
                     {showReturnToTown ? (
                       <button
+                        id='disableAttackButton'
                         height="100px"
                         width="100px"
                         onClick={attackCardsActive}
@@ -1415,6 +1422,8 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
           collisionDetection={collisionDetection}
           setEndScreen={setEndScreen}
           setPlayGame={setPlayGame}
+          currentFatigue={currentFatigue}
+          setCurrentFatigue={setCurrentFatigue}
         />
       ) : null}
 

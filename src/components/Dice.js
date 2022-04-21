@@ -5,6 +5,7 @@ import { heroData } from "../data/heroData";
 import { } from "../data/monsterData";
 import { diceSideData } from "../data/diceSideData.js";
 import SurgePurchase from "./SurgePurchase";
+import Fatigue from "./Fatigue";
 
 let redDiceArray = [];
 let blueDiceArray = [];
@@ -47,7 +48,9 @@ function DiceRoll({
   setMoney,
   collisionDetection,
   setEndScreen,
-  setPlayGame
+  setPlayGame,
+  currentFatigue,
+  setCurrentFatigue
 }) {
 
   const [checkSelectedTarget, setCheckSelectedTarget] =
@@ -55,6 +58,7 @@ function DiceRoll({
   const [turnDiceOff, setTurnDiceOff] = useState(true);
   const [turnMainDiceOff, setTurnMainDiceOff] = useState(true);
   const [addToAttackPannel, setAddToAttackPannel] = useState(false);
+  const [showSpendFatigue, setShowSpendFatigue] = useState(false);
   const [enhance, setEnhance] = useState(0);
   const [enhanceChoice, setEnhanceChoice] = useState(false);
   const [purchaseSurgeAbilities, setPurchaseSurgeAbilities] = useState(false);
@@ -217,6 +221,7 @@ function DiceRoll({
   }
 
   function addDiceRoll(roll, color, id) {
+    document.querySelector('#disableAttackButton').disabled = true;
     if (diceSideData[color].sides[`side${roll}`].miss === true) {
       alert("Attack Missed");
       setNumberOfAttacks(numberOfAttacks - 1);
@@ -224,6 +229,7 @@ function DiceRoll({
       selectedTarget.id = null;
       attackOn();
       attackCardsActive();
+      document.querySelector('#disableAttackButton').disabled = false;
     } else {
       setTurnDiceOff(false);
 
@@ -528,6 +534,7 @@ function DiceRoll({
         setTimeout(() => win(), 2000);
       }
     }
+    document.querySelector('#disableAttackButton').disabled = false;
   }
 
   useEffect(() => {
@@ -598,6 +605,11 @@ function DiceRoll({
               Add Enhancment: {enhance}
             </button>
           ) : null}
+          {currentFatigue > 0 ?
+            <button onClick={() => setShowSpendFatigue(true)}>
+              Spend Fatigue: {currentFatigue}
+            </button> : null}
+
         </div>
 
         <div id="dicePic">
@@ -651,13 +663,12 @@ function DiceRoll({
                 `${diceSideData.red.sides.side5.img_path}`,
                 `${diceSideData.red.sides.side6.img_path}`,
               ]}
-              cheatValue={4}
+            // cheatValue={4}
             />
           </div>
         ))}
         {whiteDice.map((die, i) => (
           <div key={i} id={i + 100} className="singleDie">
-            {/* {console.log(document.getElementById(i))} */}
             <Dice
               size={100}
               onRoll={(roll) => addDiceRoll(roll, "white", i + 100)}
@@ -672,7 +683,7 @@ function DiceRoll({
                 `${diceSideData.white.sides.side5.img_path}`,
                 `${diceSideData.white.sides.side6.img_path}`,
               ]}
-              cheatValue={4}
+            // cheatValue={4}
             />
           </div>
         ))}
@@ -692,7 +703,7 @@ function DiceRoll({
                 `${diceSideData.blue.sides.side5.img_path}`,
                 `${diceSideData.blue.sides.side6.img_path}`,
               ]}
-              cheatValue={4}
+            // cheatValue={4}
             />
           </div>
         ))}
@@ -840,6 +851,16 @@ function DiceRoll({
           setThreatTokens={setThreatTokens}
         />
       ) : null}
+      {showSpendFatigue && currentFatigue !== 0 ?
+        <Fatigue
+          currentFatigue={currentFatigue}
+          setCurrentFatigue={setCurrentFatigue}
+          setShowSpendFatigue={setShowSpendFatigue}
+          damage={damage}
+          range={range}
+          setDamage={setDamage}
+          setRange={setRange}
+        /> : null}
     </div>
   );
 }
