@@ -51,7 +51,7 @@ export function inRange(token, checkPoint) {
 }
 
 
-function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame, setPlayGame, collisionDetection }) {
+function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame, setPlayGame, collisionDetection, setEndScreen, setGameOverScreen }) {
 
   let copper = chosenQuest.tokenPlacement.treasure_chests.copper;
   let silver = chosenQuest.tokenPlacement.treasure_chests.silver;
@@ -118,8 +118,11 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
   const [levelConquestTokens, setLevelConquestTokens] = useState(chosenQuest.startingConquestTokens);
   useEffect(() => {
     if (levelConquestTokens <= 0) {
-      alert("Game Over");
-      document.location.reload(true);
+      let playerScreenElement = document.getElementById("playerScreen");
+      let canvasScreenElement = document.getElementById("canvasDivId");
+      playerScreenElement.classList.add("hidden");
+      canvasScreenElement.classList.add("hidden");
+      setGameOverScreen(true);
     }
   }, [levelConquestTokens]);
 
@@ -1404,6 +1407,9 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
           setNumberOfAttacks={setNumberOfAttacks}
           money={money}
           setMoney={setMoney}
+          collisionDetection={collisionDetection}
+          setEndScreen={setEndScreen}
+          setPlayGame={setPlayGame}
         />
       ) : null}
 

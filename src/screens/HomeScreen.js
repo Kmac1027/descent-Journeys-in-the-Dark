@@ -3,7 +3,7 @@ import ChoseHero from "./ChoseHero";
 import HowToPlay from "./HowToPlay";
 
 
-function HomeScreen({ playGame, setPlayGame, chosenHero, setChosenHero }) {
+function HomeScreen({ playGame, setPlayGame, chosenHero, setChosenHero, setHomeScreen }) {
     const [showHowToPlay, setShowHowToPlay] = useState(false);
     const [choseHero, setChoseHero] = useState(false);
 
@@ -39,7 +39,7 @@ function HomeScreen({ playGame, setPlayGame, chosenHero, setChosenHero }) {
             </div>
             <br />
             {showHowToPlay ? <HowToPlay showHowToPlay={showHowToPlay} setShowHowToPlay={setShowHowToPlay} /> : null}
-            {choseHero ? <ChoseHero playGame={playGame} setPlayGame={setPlayGame} chosenHero={chosenHero} setChosenHero={setChosenHero} /> : null}
+            {choseHero ? <ChoseHero playGame={playGame} setPlayGame={setPlayGame} chosenHero={chosenHero} setChosenHero={setChosenHero} setHomeScreen={setHomeScreen} /> : null}
 
         </div >
     );

@@ -17,7 +17,8 @@ let beastman6 = new Beastman(6, 600, 350, 'area4');
 let beastman7 = new Beastman(7, 650, 350, 'area4');
 let masterBeastman1 = new MasterBeastman(1, 350, 1050, 'area1');
 
-let masterGiant1 = new MasterGiant(1, 600, 0, "area4");
+// let masterGiant1 = new MasterGiant(1, 600, 0, "area4");
+let masterGiant1 = new MasterGiant(1, 50, 1000, "area1");
 masterGiant1.boss = true;
 // let boss = new MasterGiant(1, 50, 1000, "area1");
 
@@ -393,7 +394,9 @@ export const quest1 = {
     area1: 'At the center of this room is a large, covered well. The wooden covering is rotted in places, and you see that the well itself is full of mud and slime. A pale green mist rises from the well and clings to the floor. You hear the shuffling of several creatures approaching from the shadows...',
     area2: 'The ceiling slopes upwards to the east here, seemingly carved out of the rock with some enormouse hammer and chisel. chunks of rock litter the floor, and heavy footsteps echo in this area...',
     area3: 'An old stone pillar has fallen into a pool of water here, while cobwebs cover the floor. The ceiling rises high above, shrouded in webbing and darkness. you can hear the faint sounds of flapping and scratching coming from the darkness above...',
-    area4: 'Towering before you in an imposing sight. Narthak the giant looms upward in the shadows like a great tree, his eyes gleeming red as he peers down at you with disdain. "You have come here to die, heroes, and Narthak will bury you!"'
+    area4: 'Towering before you in an imposing sight. Narthak the giant looms upward in the shadows like a great tree, his eyes gleeming red as he peers down at you with disdain. "You have come here to die, heroes, and Narthak will bury you!"',
+    win: 'With an unearthly howl, Narthak falls to the ground, mortally wounded. With his dying breath, he curses you. "This place will be your grave yet, heroes. Though you strike a thousand of us down, the giantkind are numberless, and sooner or later, one of us will triumph over the light."',
+    lose: 'Narthak has Triumphed over you... perhas another hero will be able to succeed where you could not'
   },
   labels: {
     start_area: { x: 0, y: 1110, height: 20, width: 100 },

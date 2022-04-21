@@ -72,7 +72,7 @@ export function attack(
           delete chosenQuest.tokenPlacement.monsters[
             selectedTarget.name + selectedTarget.id.toString()
           ];
-          alert("You Win!");
+          console.log("You Win!");
         } else {
           delete chosenQuest.tokenPlacement.monsters[
             selectedTarget.name + selectedTarget.id.toString()
@@ -119,7 +119,7 @@ export function attack(
             if (hitMonster.max_wounds <= 0) {
               if (hitMonster.boss === true) {
                 delete chosenQuest.tokenPlacement.monsters[hitMonster.name + hitMonster.id.toString()];
-                alert("You Win!");
+                console.log("You Win!");
               } else {
                 delete chosenQuest.tokenPlacement.monsters[hitMonster.name + hitMonster.id.toString()];
               }
@@ -176,7 +176,7 @@ export function attack(
           if (effectedMonster.max_wounds <= 0) {
             if (effectedMonster.boss === true) {
               delete chosenQuest.tokenPlacement.monsters[effectedMonster.name + effectedMonster.id.toString()];
-              alert("You Win!");
+              console.log("You Win!");
             } else {
               delete chosenQuest.tokenPlacement.monsters[effectedMonster.name + effectedMonster.id.toString()];
             }
@@ -245,7 +245,7 @@ export function attack(
       if (effectedMonster.max_wounds <= 0) {
         if (effectedMonster.boss === true) {
           delete chosenQuest.tokenPlacement.monsters[effectedMonster.name + effectedMonster.id.toString()];
-          alert("You Win!");
+          console.log("You Win!");
         } else {
           delete chosenQuest.tokenPlacement.monsters[effectedMonster.name + effectedMonster.id.toString()];
         }

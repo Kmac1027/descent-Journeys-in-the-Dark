@@ -44,8 +44,12 @@ function DiceRoll({
   numberOfAttacks,
   setNumberOfAttacks,
   money,
-  setMoney
+  setMoney,
+  collisionDetection,
+  setEndScreen,
+  setPlayGame
 }) {
+
   const [checkSelectedTarget, setCheckSelectedTarget] =
     useState(selectedTarget);
   const [turnDiceOff, setTurnDiceOff] = useState(true);
@@ -464,6 +468,15 @@ function DiceRoll({
     }
   }, []);
 
+  function win() {
+    // setPlayGame(false);
+    let playerScreenElement = document.getElementById("playerScreen");
+    let canvasScreenElement = document.getElementById("canvasDivId");
+    playerScreenElement.classList.add("hidden");
+    canvasScreenElement.classList.add("hidden");
+    setEndScreen(true);
+  }
+
   function clickToAttack(
     checkSelectedTarget,
     chosenQuest,
@@ -484,10 +497,6 @@ function DiceRoll({
       chosenQuest.tokenPlacement.monsters[
       selectedTarget.name + selectedTarget.id.toString()
       ];
-    // This Adds the Gold value of the monster to the players money
-    if (damage + pierce >= selectedMonster.max_wounds + selectedMonster.base_armor) {
-      setMoney((money) => money + selectedMonster.money_value);
-    }
     attack(
       checkSelectedTarget,
       chosenQuest,
@@ -504,7 +513,21 @@ function DiceRoll({
       attackCardsActive,
       showDiceRoll
     );
-
+    // This Adds the Gold value of the monster to the players money
+    // and runs collision detection if monster is killed
+    let targetNumber;
+    if (selectedMonster.base_armor - pierce < 0) {
+      targetNumber = 0;
+    } else {
+      targetNumber = selectedMonster.base_armor - pierce;
+    }
+    if (damage >= targetNumber) {
+      setMoney((money) => money + selectedMonster.money_value);
+      collisionDetection();
+      if (selectedMonster.boss === true) {
+        setTimeout(win(), 2000);
+      }
+    }
   }
 
   useEffect(() => {
