@@ -17,10 +17,11 @@ let beastman6 = new Beastman(6, 600, 350, 'area4');
 let beastman7 = new Beastman(7, 650, 350, 'area4');
 let masterBeastman1 = new MasterBeastman(1, 350, 1050, 'area1');
 
-// let masterGiant1 = new MasterGiant(1, 600, 0, "area4");
-let masterGiant1 = new MasterGiant(1, 50, 1000, "area1");
+// let masterGiant1 = new MasterGiant(1, 50, 1000, "area1");
+let masterGiant1 = new MasterGiant(1, 600, 0, "area4");
 masterGiant1.boss = true;
-// let boss = new MasterGiant(1, 50, 1000, "area1");
+masterGiant1.base_armor = 8;
+masterGiant1.max_wounds += 4;
 
 export const quest1 = {
   name: 'Quest 1: Into the Dark',

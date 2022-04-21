@@ -160,8 +160,8 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
     }
   }, [speed]);
 
-  // const [money, setMoney] = useState(chosenQuest.startingMoney);
-  const [money, setMoney] = useState(10000);
+  const [money, setMoney] = useState(chosenQuest.startingMoney);
+  // const [money, setMoney] = useState(10000);
   useEffect(() => {
     if (money < 0) {
       setMoney(0);
@@ -283,8 +283,9 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
   }
 
   //weapons and items
-  const [weapon1, setWeapon1] = useState(relics.soulbiter);
+  const [weapon1, setWeapon1] = useState();
   const [weapon2, setWeapon2] = useState();
+  // const [weapon1, setWeapon1] = useState(relics.soulbiter);
   // const [weapon1, setWeapon1] = useState(relics.touch_of_death);
   // const [weapon2, setWeapon2] = useState();
   const [armor, setArmor] = useState();
@@ -566,7 +567,11 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
       heroToken.x === chosenQuest.town.x + 50 &&
       heroToken.y === chosenQuest.town.y + 50
     ) {
-      setShowTeleport(true);
+      if (!weapon1 && !weapon2) {
+        alert('You need to purchase a weapon before entering the dungeon');
+      } else {
+        setShowTeleport(true);
+      }
     } else {
       heroToken.x = chosenQuest.town.x + 50;
       heroToken.y = chosenQuest.town.y + 50;
@@ -1477,6 +1482,7 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
           herotoken={heroToken}
           setShowTeleport={setShowTeleport}
           setShowReturnToTown={setShowReturnToTown}
+          collisionDetection={collisionDetection}
         />
       ) : null}
       <SkillFunctions />

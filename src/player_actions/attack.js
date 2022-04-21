@@ -2,7 +2,6 @@ import { heroData } from "../data/heroData";
 import { diceSideData } from "../data/diceSideData";
 import { shopItems } from "../data/items/shopItems";
 
-
 export const disableAttack = {
   melee: true,
   ranged: true,
@@ -49,7 +48,6 @@ export function attack(
         let rangeNeeded;
         let x = Math.abs(heroToken.x - selectedMonster.x) / 50;
         let y = Math.abs(heroToken.y - selectedMonster.y) / 50;
-        // console.log('x: ', x, 'y: ', y);
         if (x >= y) {
           rangeNeeded = x;
         } else {
@@ -65,27 +63,16 @@ export function attack(
           let hitAmount = damage - monsterArmor;
           selectedMonster.max_wounds -= hitAmount;
         }
-        // console.log(rangeNeeded)
       }
       if (selectedMonster.max_wounds <= 0) {
-        if (selectedMonster.boss === true) {
-          delete chosenQuest.tokenPlacement.monsters[
-            selectedTarget.name + selectedTarget.id.toString()
-          ];
-          console.log("You Win!");
-        } else {
-          delete chosenQuest.tokenPlacement.monsters[
-            selectedTarget.name + selectedTarget.id.toString()
-          ];
-        }
+        delete chosenQuest.tokenPlacement.monsters[
+          selectedTarget.name + selectedTarget.id.toString()
+        ];
       }
       selectedTarget.name = null;
       selectedTarget.id = null;
-      // console.log(selectedWeapon)
-      // console.log(offHand)
       attackOn();
       attackCardsActive();
-      // showDiceRoll()
     }
   }
 
@@ -117,12 +104,7 @@ export function attack(
             let hitAmount = damage - monsterArmor;
             hitMonster.max_wounds -= hitAmount;
             if (hitMonster.max_wounds <= 0) {
-              if (hitMonster.boss === true) {
-                delete chosenQuest.tokenPlacement.monsters[hitMonster.name + hitMonster.id.toString()];
-                console.log("You Win!");
-              } else {
-                delete chosenQuest.tokenPlacement.monsters[hitMonster.name + hitMonster.id.toString()];
-              }
+              delete chosenQuest.tokenPlacement.monsters[hitMonster.name + hitMonster.id.toString()];
             }
           }
         }
@@ -163,7 +145,6 @@ export function attack(
             }
           }
         }
-        // console.log(effectedMonsters)
         for (let i = 0; i < effectedMonsters.length; i++) {
           let effectedMonster = effectedMonsters[i];
           console.log(effectedMonster);
@@ -174,12 +155,7 @@ export function attack(
           let hitAmount = damage - monsterArmor;
           effectedMonster.max_wounds -= hitAmount;
           if (effectedMonster.max_wounds <= 0) {
-            if (effectedMonster.boss === true) {
-              delete chosenQuest.tokenPlacement.monsters[effectedMonster.name + effectedMonster.id.toString()];
-              console.log("You Win!");
-            } else {
-              delete chosenQuest.tokenPlacement.monsters[effectedMonster.name + effectedMonster.id.toString()];
-            }
+            delete chosenQuest.tokenPlacement.monsters[effectedMonster.name + effectedMonster.id.toString()];
           }
         }
       }
@@ -187,12 +163,8 @@ export function attack(
     selectedTarget.name = null;
     selectedTarget.id = null;
     attackType.blast = false;
-    // console.log(selectedWeapon)
-    // console.log(offHand)
     attackOn();
     attackCardsActive();
-    // showDiceRoll()
-
   }
 
   if (selectedWeapon.name === 'Word of Vaal') {
@@ -243,22 +215,14 @@ export function attack(
       let hitAmount = damage - monsterArmor;
       effectedMonster.max_wounds -= hitAmount;
       if (effectedMonster.max_wounds <= 0) {
-        if (effectedMonster.boss === true) {
-          delete chosenQuest.tokenPlacement.monsters[effectedMonster.name + effectedMonster.id.toString()];
-          console.log("You Win!");
-        } else {
-          delete chosenQuest.tokenPlacement.monsters[effectedMonster.name + effectedMonster.id.toString()];
-        }
+        delete chosenQuest.tokenPlacement.monsters[effectedMonster.name + effectedMonster.id.toString()];
       }
     }
     selectedTarget.name = null;
     selectedTarget.id = null;
     attackType.blast = false;
-    // console.log(selectedWeapon)
-    // console.log(offHand)
     attackOn();
     attackCardsActive();
-    // showDiceRoll()
   }
 }
 

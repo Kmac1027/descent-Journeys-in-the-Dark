@@ -1,30 +1,28 @@
-import '../styles/teleport.css'
-import { useEffect, useState } from 'react'
-import { disableMovment } from '../player_actions/movement'
+import '../styles/teleport.css';
+import { useEffect, useState } from 'react';
+import { disableMovment } from '../player_actions/movement';
 
+function Teleport({ port, herotoken, setShowTeleport, setShowReturnToTown, collisionDetection }) {
 
-
-function Teleport({ port, herotoken, setShowTeleport, setShowReturnToTown }) {
-  // const [teleport, setTeleport] = useState(teleportArray)
-  // setTeleport(teleportArray)
   function teleport(glyph) {
-    setShowReturnToTown(true)
-    herotoken.x = glyph.x
-    herotoken.y = glyph.y
+    setShowReturnToTown(true);
+    herotoken.x = glyph.x;
+    herotoken.y = glyph.y;
     disableMovment.up = false;
     disableMovment.left = false;
     disableMovment.right = false;
     disableMovment.down = false;
-    disableMovment.downRight = false
+    disableMovment.downRight = false;
     disableMovment.upLeft = false;
     disableMovment.upRight = false;
     disableMovment.downLeft = false;
-    setShowTeleport(false)
+    collisionDetection();
+    setShowTeleport(false);
   }
 
   function close() {
-    setShowReturnToTown(false)
-    setShowTeleport(false)
+    setShowReturnToTown(false);
+    setShowTeleport(false);
   }
 
   useEffect(() => {
@@ -63,7 +61,7 @@ function Teleport({ port, herotoken, setShowTeleport, setShowReturnToTown }) {
         document.onmousemove = null;
       }
     }
-  }, [])
+  }, []);
   return (
     <div id='teleport' style={{ left: '30%', top: '50%', }}>
       <button onClick={() => close()}>Close</button>
