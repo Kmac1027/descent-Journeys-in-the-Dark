@@ -13,7 +13,8 @@ export const heroData = {
       magic_trait: 0,
     },
     hero_ability:
-      "Steelhorns can make one MELEE attack when he declares a RUN action. He must move in a straight line and end his movement after making the attack",
+      // "Steelhorns can make one MELEE attack when he declares a RUN action. He must move in a straight line and end his movement after making the attack",
+      "Steelhorns can make one MELEE attack when he declares a RUN action. --- Adjusted for BETA",
     starting_skills: {
       fighting_skill: 3,
       subterfuge_skill: 0,
@@ -57,7 +58,8 @@ export const heroData = {
       magic_trait: 0,
     },
     hero_ability:
-      "While Silhouette has a readied order, she may spend 2 fatigue to exchange it for a different order at any time",
+      // "While Silhouette has a readied order, she may spend 2 fatigue to exchange it for a different order at any time",
+      "Silhouette receives 2 free surges on every attack roll --- changed for BETA",
     starting_skills: {
       fighting_skill: 0,
       subterfuge_skill: 3,

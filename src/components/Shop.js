@@ -222,7 +222,7 @@ function Shop({
         item.type === "magic" ||
         item.type === "shield"
       ) {
-        if (item.rune === true && equipRunes === false) {
+        if (item.rune === true && equipRunes === false && chosenHero !== 'battlemage_jaes') {
           let result = window.confirm(
             `Your Armor Prevents you from Equiping this ${item.name}, would you like to add it to your Bag?`
           );
@@ -346,7 +346,7 @@ function Shop({
           }
         }
       } else if (item.type === "other") {
-        if (item.rune === true && equipRunes === false) {
+        if (item.rune === true && equipRunes === false && chosenHero !== 'battlemage_jaes') {
           let result = window.confirm(
             `Your Armor Prevents you from Equiping this ${item.name}, would you like to add it to your Bag?`
           );

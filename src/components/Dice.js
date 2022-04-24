@@ -288,6 +288,9 @@ function DiceRoll({
 
   //calculate special abilities and off hand weapon bonuses
   useEffect(() => {
+    if (chosenHero === 'silhouette') {
+      setSurge((surge) => surge + 2);
+    }
     //special abilities
     if (selectedWeapon.special_abilities.other !== false) {
       // console.log('Special Abilities ', selectedWeapon.special_abilities.other)

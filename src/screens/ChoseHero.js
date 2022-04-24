@@ -46,6 +46,7 @@ function ChoseHero({ setPlayGame, setHomeScreen, chosenHero, setChosenHero }) {
           src="../images/hero_card/steelhorns.jpg"
           onClick={() => choseThisHero("steelhorns")}
         ></input>
+        <p>Hero Ability adjusted for Beta to: "Steelhorns can make one MELEE attack when he declares a RUN action"</p>
         <input
           style={{ height: "400px", width: "475px" }}
           type="image"
@@ -53,6 +54,7 @@ function ChoseHero({ setPlayGame, setHomeScreen, chosenHero, setChosenHero }) {
           src="../images/hero_card/silhouette.jpg"
           onClick={() => choseThisHero("silhouette")}
         ></input>
+        <p>Hero Ability adjusted for Beta to: "Silhouette receives 2 free surges on every attack roll"</p>
         <input
           style={{ height: "400px", width: "475px" }}
           type="image"

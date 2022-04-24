@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 
 
 
-function RunBattleadvance({ numberOfAttacks, setNumberOfAttacks, speed, baseSpeed, setSpeed, showRunBattleAdvance, setShowRunBattleAdvance }) {
+function RunBattleadvance({ numberOfAttacks, setNumberOfAttacks, speed, baseSpeed, setSpeed, showRunBattleAdvance, setShowRunBattleAdvance, chosenHero }) {
     const [chosenAction, setChosenaction] = useState("");
 
     function battle() {
@@ -14,9 +14,15 @@ function RunBattleadvance({ numberOfAttacks, setNumberOfAttacks, speed, baseSpee
         setChosenaction("BATTLE");
     }
     function run() {
-        setNumberOfAttacks(0);
-        setSpeed(baseSpeed * 3);
-        setChosenaction("RUN");
+        if (chosenHero === 'steelhorns') {
+            setNumberOfAttacks(1);
+            setSpeed(baseSpeed * 3);
+            setChosenaction("RUN");
+        } else {
+            setNumberOfAttacks(0);
+            setSpeed(baseSpeed * 3);
+            setChosenaction("RUN");
+        }
     }
     function advance() {
         setNumberOfAttacks(2);

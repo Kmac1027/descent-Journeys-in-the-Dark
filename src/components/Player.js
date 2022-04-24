@@ -1467,6 +1467,7 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
           hasRedRuneKey={hasRedRuneKey}
           hasYellowRuneKey={hasYellowRuneKey}
           hasBlueRuneKey={hasBlueRuneKey}
+          chosenHero={chosenHero}
         />
       ) : null}
 
@@ -1515,7 +1516,9 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
           setSpeed={setSpeed}
           speed={speed}
           showRunBattleAdvance={showRunBattleAdvance}
-          setShowRunBattleAdvance={setShowRunBattleAdvance} />
+          setShowRunBattleAdvance={setShowRunBattleAdvance}
+          chosenHero={chosenHero}
+        />
         : null}
       {gameOver ? <GameOverScreen /> : null}
     </div>

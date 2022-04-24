@@ -1,5 +1,5 @@
-import '../styles/bag.css'
-import { useEffect, useState } from 'react'
+import '../styles/bag.css';
+import { useEffect, useState } from 'react';
 import { potionsArray } from './Potions';
 import {
   health_potion,
@@ -37,117 +37,122 @@ function Bag({
   hasRedRuneKey,
   hasYellowRuneKey,
   hasBlueRuneKey,
+  chosenHero
 }) {
 
   const [bag, setBag] = useState(bagArray);
-  const [bagCheck, setBagCheck] = useState(true)
-  const [discardButton, setDiscardButton] = useState(false)
-
+  const [bagCheck, setBagCheck] = useState(true);
+  const [discardButton, setDiscardButton] = useState(false);
+  console.log(chosenHero);
 
   function swap(item) {
-    let result = window.confirm(`Do you want to Equip this ${item.name}?`)
+    let result = window.confirm(`Do you want to Equip this ${item.name}?`);
     if (result === true) {
       if (item.type === 'melee' || item.type === 'ranged' || item.type === 'magic' || item.type === 'shield') {
-        if (item.rune === true && equipRunes === false) {
-          alert('Your Armor Prevents you from Equiping this rune')
+        if (item.rune === true && equipRunes === false && chosenHero !== 'battlemage_jaes') {
+          alert('Your Armor Prevents you from Equiping this rune');
         } else {
           if (item.hands === 2) {
             if (weapon1 && weapon2) {
-              bagArray.push(weapon1, weapon2)
-              setWeapon1(item)
-              setWeapon2()
+              bagArray.push(weapon1, weapon2);
+              setWeapon1(item);
+              setWeapon2();
             } else if (!weapon1 && !weapon2) {
-              setWeapon1(item)
+              setWeapon1(item);
             } else if (weapon1 && !weapon2) {
-              bagArray.push(weapon1)
-              setWeapon1(item)
+              bagArray.push(weapon1);
+              setWeapon1(item);
             } else if (!weapon1 && weapon2) {
-              bagArray.push(weapon2)
-              setWeapon2()
-              setWeapon1(item)
+              bagArray.push(weapon2);
+              setWeapon2();
+              setWeapon1(item);
             }
 
 
           } else if (item.hands === 1) {
             if (weapon1 && weapon2) {
-              let result = window.confirm(`Do you want to Swap out your ${weapon1.name}?`)
+              let result = window.confirm(`Do you want to Swap out your ${weapon1.name}?`);
               if (result === true) {
-                bagArray.push(weapon1)
-                setWeapon1(item)
+                bagArray.push(weapon1);
+                setWeapon1(item);
               } else {
-                let result = window.confirm(`Do you want to Swap out your ${weapon2.name}?`)
+                let result = window.confirm(`Do you want to Swap out your ${weapon2.name}?`);
                 if (result === true) {
-                  bagArray.push(weapon2)
-                  setWeapon2(item)
+                  bagArray.push(weapon2);
+                  setWeapon2(item);
                 }
               }
             }
             else if (!weapon1 || (!weapon1 && !weapon2)) {
-              setWeapon1(item)
+              setWeapon1(item);
             } else if ((weapon1 && !weapon2) && weapon1.hands !== 2) {
-              setWeapon2(item)
+              setWeapon2(item);
             } else if (weapon1.hands === 2) {
-              bagArray.push(weapon1)
-              setWeapon1(item)
+              bagArray.push(weapon1);
+              setWeapon1(item);
             } else if (weapon2.hands === 2) {
-              bagArray.push(weapon2)
-              setWeapon1(item)
+              bagArray.push(weapon2);
+              setWeapon1(item);
             }
           }
-          bagArray.splice(bagArray.indexOf(item), 1)
+          bagArray.splice(bagArray.indexOf(item), 1);
         }
       } else if (item.type === 'armor') {
-        if (((weapon1 && weapon1.rune === true) && item.special_abilities.equipRunes === false)
+        if ((((weapon1 && weapon1.rune === true) && item.special_abilities.equipRunes === false)
           || ((weapon2 && weapon2.rune === true) && item.special_abilities.equipRunes === false)
           || ((other1 && other1.rune === true) && item.special_abilities.equipRunes === false)
-          || ((other2 && other2.rune === true) && item.special_abilities.equipRunes === false)
+          || ((other2 && other2.rune === true) && item.special_abilities.equipRunes === false))
+          && chosenHero !== 'battlemage_jaes'
         ) {
-          alert(`Your Equipt Runes prevent you from weaing this type of Armor`)
+          alert(`Your Equipt Runes prevent you from weaing this type of Armor`);
         } else {
           if (armor) {
-            bagArray.push(armor)
+            bagArray.push(armor);
           }
-          setArmor(item)
+          setArmor(item);
           if (item.special_abilities.equipRunes === false) {
-            setEquipRunes(false)
+            setEquipRunes(false);
           } else {
-            setEquipRunes(true)
+            setEquipRunes(true);
           }
-          bagArray.splice(bagArray.indexOf(item), 1)
+          bagArray.splice(bagArray.indexOf(item), 1);
         }
       } else if (item.type === 'other') {
-        if (other1 && other2) {
-          let result = window.confirm(`Do you want to Swap out your ${other1.name}?`)
-          if (result === true) {
-            bagArray.push(other1)
-            setOther1(item)
-          } else {
-            let result = window.confirm(`Do you want to Swap out your ${other2.name}?`)
+        if (item.rune === true && equipRunes === false && chosenHero !== 'battlemage_jaes') {
+          alert('Your Armor Prevents you from Equiping this rune');
+        } else {
+          if (other1 && other2) {
+            let result = window.confirm(`Do you want to Swap out your ${other1.name}?`);
             if (result === true) {
-              bagArray.push(other2)
-              setOther2(item)
+              bagArray.push(other1);
+              setOther1(item);
+            } else {
+              let result = window.confirm(`Do you want to Swap out your ${other2.name}?`);
+              if (result === true) {
+                bagArray.push(other2);
+                setOther2(item);
+              }
             }
           }
+          else if (!other1 || (!other1 && !other2)) {
+            setOther1(item);
+          } else if ((other1 && !other2) && other1.hands !== 2) {
+            setOther2(item);
+          } else if (other1.hands === 2) {
+            bagArray.push(other1);
+            setOther1(item);
+          } else if (other2.hands === 2) {
+            bagArray.push(other2);
+            setOther1(item);
+          }
+          bagArray.splice(bagArray.indexOf(item), 1);
         }
-        else if (!other1 || (!other1 && !other2)) {
-          setOther1(item)
-        } else if ((other1 && !other2) && other1.hands !== 2) {
-          setOther2(item)
-        } else if (other1.hands === 2) {
-          bagArray.push(other1)
-          setOther1(item)
-        } else if (other2.hands === 2) {
-          bagArray.push(other2)
-          setOther1(item)
-        }
-        bagArray.splice(bagArray.indexOf(item), 1)
       }
-
     }
     if (bagCheck === true) {
-      setBagCheck(false)
+      setBagCheck(false);
     } else {
-      setBagCheck(true)
+      setBagCheck(true);
     }
   }
 
@@ -155,103 +160,103 @@ function Bag({
 
   function addPotionToPotionBag(potion) {
     if (potionsArray.length >= 3) {
-      alert('You have no room to add a potion to your potion bag')
+      alert('You have no room to add a potion to your potion bag');
     } else {
-      potionsArray.push(potion)
-      bagArray.splice(bagArray.indexOf(potion), 1)
+      potionsArray.push(potion);
+      bagArray.splice(bagArray.indexOf(potion), 1);
     }
     if (bagCheck === true) {
-      setBagCheck(false)
+      setBagCheck(false);
     } else {
-      setBagCheck(true)
+      setBagCheck(true);
     }
   }
 
   function discardItemButton() {
     if (discardButton === false) {
-      setDiscardButton(true)
+      setDiscardButton(true);
     } else {
-      setDiscardButton(false)
+      setDiscardButton(false);
     }
 
   }
   function discardItem(item) {
-    let result = window.confirm(`Once you Discard this ${item.name} it is gone Forever. Do you Really Want to Discard it?`)
+    let result = window.confirm(`Once you Discard this ${item.name} it is gone Forever. Do you Really Want to Discard it?`);
     if (result === true) {
-      bagArray.splice(bagArray.indexOf(item), 1)
+      bagArray.splice(bagArray.indexOf(item), 1);
     }
     if (bagCheck === true) {
-      setBagCheck(false)
+      setBagCheck(false);
     } else {
-      setBagCheck(true)
+      setBagCheck(true);
     }
   }
 
   function closeBag() {
     if (bagArray.length > 3) {
-      alert('Your Bag is too Full! You Must Discard Something')
+      alert('Your Bag is too Full! You Must Discard Something');
     } else if (bagArray.length <= 3) {
-      setShowBag(false)
+      setShowBag(false);
     }
   }
 
   useEffect(() => {
-    setBag(bagArray)
+    setBag(bagArray);
 
-  }, [bagCheck, sell])
+  }, [bagCheck, sell]);
 
   function treasureCache(item) {
-    let randomItem
-    setMoney(money => money + item.gold)
+    let randomItem;
+    setMoney(money => money + item.gold);
     if (item.health_potion === true) {
-      potionsArray.push(health_potion)
+      potionsArray.push(health_potion);
     }
     if (item.vitality_potion === true) {
-      potionsArray.push(vitality_potion)
+      potionsArray.push(vitality_potion);
     }
-    bagArray.splice(bagArray.indexOf(item), 1)
+    bagArray.splice(bagArray.indexOf(item), 1);
 
     if (item.treasure === 'copper') {
       if (copperTreasureArray.length <= 0) {
-        alert('There are no more copper treasures, instead you gain 250 gold')
-        setMoney(money => money + 250)
+        alert('There are no more copper treasures, instead you gain 250 gold');
+        setMoney(money => money + 250);
       } else {
-        let pickRandomItem = Math.floor(Math.random() * (copperTreasureArray.length - 1))
-        randomItem = copperTreasureArray[pickRandomItem]
+        let pickRandomItem = Math.floor(Math.random() * (copperTreasureArray.length - 1));
+        randomItem = copperTreasureArray[pickRandomItem];
         copperTreasureArray.splice(copperTreasureArray.indexOf(randomItem), 1);
-        bagArray.push(randomItem)
-        setRandomTreasure(randomItem)
-        setShowTreasureDiv(true)
+        bagArray.push(randomItem);
+        setRandomTreasure(randomItem);
+        setShowTreasureDiv(true);
       }
     } else if (item.treasure === 'silver') {
       if (silverTreasureArray.length <= 0) {
-        alert('There are no more silver treasures, instead you gain 500 gold')
-        setMoney(money => money + 500)
+        alert('There are no more silver treasures, instead you gain 500 gold');
+        setMoney(money => money + 500);
       } else {
-        let pickRandomItem = Math.floor(Math.random() * (silverTreasureArray.length - 1))
-        randomItem = silverTreasureArray[pickRandomItem]
+        let pickRandomItem = Math.floor(Math.random() * (silverTreasureArray.length - 1));
+        randomItem = silverTreasureArray[pickRandomItem];
         silverTreasureArray.splice(silverTreasureArray.indexOf(randomItem), 1);
-        bagArray.push(randomItem)
-        setRandomTreasure(randomItem)
-        setShowTreasureDiv(true)
+        bagArray.push(randomItem);
+        setRandomTreasure(randomItem);
+        setShowTreasureDiv(true);
       }
     } else if (item.treasure === 'gold') {
       if (goldTreasureArray.length <= 0) {
-        alert('There are no more gold treasures, instead you gain 750 gold')
-        setMoney(money => money + 750)
+        alert('There are no more gold treasures, instead you gain 750 gold');
+        setMoney(money => money + 750);
       } else {
-        let pickRandomItem = Math.floor(Math.random() * (goldTreasureArray.length - 1))
-        randomItem = goldTreasureArray[pickRandomItem]
+        let pickRandomItem = Math.floor(Math.random() * (goldTreasureArray.length - 1));
+        randomItem = goldTreasureArray[pickRandomItem];
         goldTreasureArray.splice(goldTreasureArray.indexOf(randomItem), 1);
-        bagArray.push(randomItem)
-        setRandomTreasure(randomItem)
-        setShowTreasureDiv(true)
+        bagArray.push(randomItem);
+        setRandomTreasure(randomItem);
+        setShowTreasureDiv(true);
       }
     }
     if (bagCheck === true) {
-      setBagCheck(false)
+      setBagCheck(false);
     } else {
-      setBagCheck(true)
+      setBagCheck(true);
     }
   }
 
@@ -291,7 +296,7 @@ function Bag({
         document.onmousemove = null;
       }
     }
-  }, [])
+  }, []);
 
   return (
     <div id="storageBag" style={{ left: "30%", top: "50%" }}>
@@ -301,8 +306,8 @@ function Bag({
       <div style={{ display: "flex", flexdirection: "row" }}>
         {bag.map((item, i) =>
           item.type !== "potion" &&
-          item.type !== "treasure_cache" &&
-          item.type !== "rune_key" ? (
+            item.type !== "treasure_cache" &&
+            item.type !== "rune_key" ? (
             <div key={i} id={i} style={{ padding: "10px" }}>
               <input
                 className="card"
