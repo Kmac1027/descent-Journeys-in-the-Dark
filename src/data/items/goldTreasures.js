@@ -359,6 +359,7 @@ export const goldTreasures = {
           text: "Exhaust to cancel 4 wound being dalt to you. You cannot use this item to cancel wounds dealt by attacks that ignore armor.",
         },
       },
+      wounds_canceled: 4,
     },
     combat_dice: false,
     hands: 1,

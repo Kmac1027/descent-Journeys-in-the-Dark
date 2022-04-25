@@ -312,6 +312,7 @@ export const silverTreasures = {
           text: "Exhaust to cancel 3 wound being dalt to you. You cannot use this item to cancel wounds dealt by attacks that ignore armor.",
         },
       },
+      wounds_canceled: 3,
     },
     combat_dice: false,
     hands: 1,

@@ -60,7 +60,6 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
   function endTurn() {
     if (turn === "player") {
       setTurn("overlord");
-
     } else {
       setTurn("player");
     }
@@ -250,27 +249,31 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
   const [offHand, setOffHand] = useState({});
 
   function attacking(weapon, offHandWeapon) {
-    attackType.type = weapon.type;
-    if (weapon.surge !== false) {
-      for (let key in weapon.surge) {
-        if (weapon.surge[key].type === "addBlast") {
-          attackType.blast = true;
-          break;
+    if (weapon.type === 'shield') {
+      alert('You cannot attack with a shield');
+    } else {
+      attackType.type = weapon.type;
+      if (weapon.surge !== false) {
+        for (let key in weapon.surge) {
+          if (weapon.surge[key].type === "addBlast") {
+            attackType.blast = true;
+            break;
+          }
         }
       }
-    }
-    if (weapon.special_abilities !== false) {
-      for (let key in weapon.special_abilities) {
-        if (weapon.special_abilities[key].type === "addBlast") {
-          attackType.blast = true;
-          break;
+      if (weapon.special_abilities !== false) {
+        for (let key in weapon.special_abilities) {
+          if (weapon.special_abilities[key].type === "addBlast") {
+            attackType.blast = true;
+            break;
+          }
         }
       }
+      attackOn();
+      setSelectedWeapon(weapon);
+      setOffHand(offHandWeapon);
+      showDiceRoll();
     }
-    attackOn();
-    setSelectedWeapon(weapon);
-    setOffHand(offHandWeapon);
-    showDiceRoll();
   }
 
   const [showDice, setShowDice] = useState(false);
@@ -372,7 +375,7 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
     if (!item) {
       alert("you have no item to sell");
     }
-    if (item.treasure === "relic") {
+    else if (item.treasure === "relic") {
       alert("This item is a relic and cannot be sold");
     } else if (item.treasure !== "relic") {
       if (item.type === "armor") {
@@ -567,7 +570,7 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
       heroToken.x === chosenQuest.town.x + 50 &&
       heroToken.y === chosenQuest.town.y + 50
     ) {
-      if (!weapon1 && !weapon2) {
+      if ((!weapon1 && !weapon2)) {
         alert('You need to purchase a weapon before entering the dungeon');
       } else {
         setShowTeleport(true);
@@ -1117,7 +1120,11 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
                 <button
                   onClick={() => {
                     sell(weapon1);
-                    weapon1.treasure !== "relic" && setWeapon1();
+                    if (weapon1) {
+                      weapon1.treasure !== "relic" && setWeapon1();
+                    } else {
+                      setWeapon1();
+                    }
                   }}
                 >
                   Sell
@@ -1171,7 +1178,11 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
                 <button
                   onClick={() => {
                     sell(weapon2);
-                    weapon2.treasure !== "relic" && setWeapon2();
+                    if (weapon2) {
+                      weapon2.treasure !== "relic" && setWeapon2();
+                    } else {
+                      setWeapon2();
+                    }
                   }}
                 >
                   Sell
@@ -1201,7 +1212,11 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
                 <button
                   onClick={() => {
                     sell(armor);
-                    armor.treasure !== "relic" && setArmor();
+                    if (armor) {
+                      armor.treasure !== "relic" && setArmor();
+                    } else {
+                      setArmor();
+                    }
                   }}
                 >
                   Sell
@@ -1245,7 +1260,11 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
                 <button
                   onClick={() => {
                     sell(other1);
-                    other1.treasure !== "relic" && setOther1();
+                    if (other1) {
+                      other1.treasure !== "relic" && setOther1();
+                    } else {
+                      setOther1();
+                    }
                   }}
                 >
                   Sell
@@ -1288,7 +1307,11 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
                 <button
                   onClick={() => {
                     sell(other2);
-                    other1.treasure !== "relic" && setOther1();
+                    if (other2) {
+                      other2.treasure !== "relic" && setOther2();
+                    } else {
+                      setOther2();
+                    }
                   }}
                 >
                   Sell
@@ -1506,6 +1529,8 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
           currentArmor={currentArmor}
           currentHealth={currentHealth}
           setCurrentHealth={setCurrentHealth}
+          weapon1={weapon1}
+          weapon2={weapon2}
         />
       ) : null}
       {showRunBattleAdvance ?

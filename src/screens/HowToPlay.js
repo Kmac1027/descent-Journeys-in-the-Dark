@@ -20,7 +20,7 @@ function HowToPlay({ showHowToPlay, setShowHowToPlay }) {
                 <button onClick={closeHowTOPlayScreen}>Close Rules</button>
                 <br />
                 <h2>PLEASE NOTE</h2>
-                <p>For those familiar with Descent: Journeys in the dark 1st edition, you will notice that not all features have been implemented at this time, Skills and Hero Orders are absent, as well as most Hero Skills. The Ready Action is not an option at this time. Transformations and Conditions are also not implemented. Additional Buffs have been granted to the Player due to this being a single player game at this time. The missing game features are planned to be added at another time after the Beta Testing of this stripped down version has ended.</p>
+                <p>For those familiar with Descent: Journeys in the dark 1st edition, you will notice that not all features have been implemented at this time, Skills and Hero Orders are absent, as well as most Hero Skills being changed. The Ready Action is not an option at this time. Transformations and Conditions are also not implemented. Additional Buffs have been granted to the Player due to this being a single player game at this time. The missing game features are planned to be added at another time after the Beta Testing of this stripped down version has ended.</p>
                 <br />
                 <br />
                 <h2> Introduction</h2>

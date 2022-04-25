@@ -39,29 +39,35 @@ function ChoseHero({ setPlayGame, setHomeScreen, chosenHero, setChosenHero }) {
       ) : null}
       <br />
       <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-        <input
-          style={{ height: "400px", width: "475px" }}
-          type="image"
-          id="steelhorns"
-          src="../images/hero_card/steelhorns.jpg"
-          onClick={() => choseThisHero("steelhorns")}
-        ></input>
-        <p>Hero Ability adjusted for Beta to: "Steelhorns can make one MELEE attack when he declares a RUN action"</p>
-        <input
-          style={{ height: "400px", width: "475px" }}
-          type="image"
-          id="silhouette"
-          src="../images/hero_card/silhouette.jpg"
-          onClick={() => choseThisHero("silhouette")}
-        ></input>
-        <p>Hero Ability adjusted for Beta to: "Silhouette receives 2 free surges on every attack roll"</p>
-        <input
-          style={{ height: "400px", width: "475px" }}
-          type="image"
-          id="battlemage_jaes"
-          src="../images/hero_card/battlemage_jaes.jpg"
-          onClick={() => choseThisHero("battlemage_jaes")}
-        ></input>
+        <div style={{ height: "400px", width: "475px" }}>
+          <input
+
+            type="image"
+            id="steelhorns"
+            src="../images/hero_card/steelhorns.jpg"
+            onClick={() => choseThisHero("steelhorns")}
+          ></input>
+          <p style={{ width: '70%' }}>Hero Ability adjusted for Beta: "Steelhorns can make one MELEE attack when he declares a RUN action"</p>
+        </div>
+        <div style={{ height: "400px", width: "475px" }}>
+          <input
+
+            type="image"
+            id="silhouette"
+            src="../images/hero_card/silhouette.jpg"
+            onClick={() => choseThisHero("silhouette")}
+          ></input>
+          <p style={{ width: '70%' }}>Hero Ability adjusted for Beta: "Silhouette receives 2 free surges on every attack roll"</p>
+        </div>
+        <div style={{ height: "400px", width: "475px" }}>
+          <input
+
+            type="image"
+            id="battlemage_jaes"
+            src="../images/hero_card/battlemage_jaes.jpg"
+            onClick={() => choseThisHero("battlemage_jaes")}
+          ></input>
+        </div>
       </div>
     </>
   );

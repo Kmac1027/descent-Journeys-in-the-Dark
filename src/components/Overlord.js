@@ -3,19 +3,16 @@ import { heroToken } from '../player_actions/movement';
 import runLoop from './Canvas.js';
 import { inRange } from './Player';
 import Canvas from './Canvas';
-// import { monsterData } from '../data/monsterData.js';
 let obstacleArray;
 let mapFloorArray;
 let openSquareArray;
 let activeMonsterArray = [];
 
 
-function Overlord({ chosenHero, chosenQuest, turn, setTurn, currentArmor, currentHealth, setCurrentHealth }) {
+function Overlord({ chosenHero, chosenQuest, turn, setTurn, currentArmor, currentHealth, setCurrentHealth, weapon1, weapon2 }) {
   const [runObstacle, setRunObstacle] = useState(true);
-  // const [nextMonsterInArray, setNextMonsterInArray] = useState(true)
 
   function obstacleArrayFillCheck() {
-    // console.log('array check ran')
     if (runObstacle === true) {
       setRunObstacle(false);
     } else {
@@ -24,7 +21,6 @@ function Overlord({ chosenHero, chosenQuest, turn, setTurn, currentArmor, curren
   }
 
   useEffect(() => {
-    // console.log('Filled openSquare Array')
     obstacleArray = [];
     mapFloorArray = [];
     openSquareArray = [];
@@ -60,8 +56,6 @@ function Overlord({ chosenHero, chosenQuest, turn, setTurn, currentArmor, curren
         obstacleArray.push(monsterPositionObj);
       }
     }
-    // console.log('mapfloorarray ', mapFloorArray)
-    // console.log('obstaclearray ', obstacleArray)
     for (let i = 0; i < obstacleArray.length; i++) {
       for (let j = 0; j < mapFloorArray.length; j++) {
         if (obstacleArray[i].x === mapFloorArray[j].x && obstacleArray[i].y === mapFloorArray[j].y) {
@@ -71,15 +65,12 @@ function Overlord({ chosenHero, chosenQuest, turn, setTurn, currentArmor, curren
       }
     }
     openSquareArray = mapFloorArray;
-    // console.log('open square array', openSquareArray)
-    // console.log('mapfloorarray ', mapFloorArray)
   }, [turn, runObstacle]);
 
 
   useEffect(() => {
     if (heroToken.x === chosenQuest.town.x + 50 &&
       heroToken.y === chosenQuest.town.y + 50) {
-      // console.log('Player in town');
       setTurn("player");
     } else {
       overLordsTurn().then(setTurn("player"));
@@ -124,7 +115,7 @@ function Overlord({ chosenHero, chosenQuest, turn, setTurn, currentArmor, curren
     } else {
       distance = Ydist;
     }
-    // console.log(distance)
+
     //melee attack
     if (monster.class === 'melee') {
       if (heroInMeleeRange === false) {
@@ -140,6 +131,28 @@ function Overlord({ chosenHero, chosenQuest, turn, setTurn, currentArmor, curren
           let hitAmount = attackAmount - currentArmor;
           if (hitAmount <= 0) {
             hitAmount = 0;
+          }
+          if (weapon1 && weapon1.type === 'shield' && hitAmount > 0) {
+            let result = window.confirm(
+              `${monster.name}${monster.id} attacks you for ${hitAmount}. Would you like to use your ${weapon1.name}?`
+            );
+            if (result === true) {
+              hitAmount -= weapon1.wounds_canceled;
+              if (hitAmount <= 0) {
+                hitAmount = 0;
+              }
+            }
+          }
+          if (weapon2 && weapon2.type === 'shield' && hitAmount > 0) {
+            let result = window.confirm(
+              `${monster.name}${monster.id} attacks you for ${hitAmount}. Would you like to use your ${weapon2.name}?`
+            );
+            if (result === true) {
+              hitAmount -= weapon2.wounds_canceled;
+              if (hitAmount <= 0) {
+                hitAmount = 0;
+              }
+            }
           }
           setCurrentHealth(currentHealth => currentHealth - hitAmount);
           monster.numberOfAttacks -= 1;
@@ -178,12 +191,6 @@ function Overlord({ chosenHero, chosenQuest, turn, setTurn, currentArmor, curren
       }
 
     }
-
-    // if (monster.class === 'magic') {
-    //   // console.log(`${monster.class}`)
-
-    // }
-
   }
 
   async function getInMeleeRange(monster, monsterMovement) {
