@@ -42,6 +42,7 @@ masterGiant1.max_wounds += 4;
 
 export const quest1 = {
   name: 'Quest 1: Into the Dark',
+  introduction: 'You were sitting by the fire in the Salty Dog tavern enjoying a bowl of stew when an old man in a tattered robe approached you. Leaning Heavily on his walking stick, he said "I see great potential in you." Eyes glittering, he thrusts a crumpled scroll towards you. "Here take this map. It leads to a section of the dungeon ruled by the giant, Narthak. He is a dangerous foe, but there is great wealth to be won in his domain. Prove yourself by killing him and perhaps we will meet again." With that, the old man hobbled out the front door, vanishing into the night.',
   startingMoney: 300,
   startingConquestTokens: 5,
   tokenPlacement: {
