@@ -10,8 +10,9 @@ import GameOverScreen from "./screens/GameOverScreen";
 import { quest1 } from "./data/dungeonMaps/quest1";
 
 
+
 function App() {
-  let chosenQuest = quest1;
+  const [chosenQuest, setChosenQuest] = useState(null);
 
   const [turn, setTurn] = useState("player");
   const [chosenHero, setChosenHero] = useState(null);
@@ -27,7 +28,7 @@ function App() {
     >
       <header>
         {homeScreen ?
-          <HomeScreen playGame={playGame} setPlayGame={setPlayGame} chosenHero={chosenHero} setChosenHero={setChosenHero} homeScreen={homeScreen} setHomeScreen={setHomeScreen} />
+          <HomeScreen playGame={playGame} setPlayGame={setPlayGame} chosenHero={chosenHero} setChosenHero={setChosenHero} homeScreen={homeScreen} setHomeScreen={setHomeScreen} chosenQuest={chosenQuest} setChosenQuest={setChosenQuest} />
           : null}
         {endScreen ? <EndScreen chosenQuest={chosenQuest} /> : null}
         {gameOverScreen ? <GameOverScreen chosenQuest={chosenQuest} /> : null}

@@ -1,8 +1,11 @@
 // import { map1 } from '../data/dungeonMaps/map1'
-import { quest1 } from '../data/dungeonMaps/quest1';
+// import { quest1 } from '../data/dungeonMaps/quest1';
+import { questForMouseClick } from '../screens/ChoseQuest';
 import { attackType, disableAttack } from './attack';
 import { heroToken } from './movement';
 
+
+let quest;
 
 export let returnGlyph = { x: null, y: null };
 
@@ -22,15 +25,23 @@ export let correctedPosition = {
 };
 
 export function targetClicked() {
+  quest = questForMouseClick;
   //mouse correction
-  for (let x = 0; x <= quest1.mapSize.width; x += 50) {
+  for (let x = 0; x <= quest.mapSize.width; x += 50) {
     if (mousePos.x > x) {
       correctedPosition.x = x;
     }
   }
-  for (let y = 0; y <= quest1.mapSize.height; y += 50) {
+  for (let y = 0; y <= quest.mapSize.height; y += 50) {
     if (mousePos.y > y) {
       correctedPosition.y = y;
+    }
+  }
+  let monsters = quest.tokenPlacement.monsters;
+  for (let monster in monsters) {
+    if (monsters[monster].x === correctedPosition.x && monsters[monster].y === correctedPosition.y) {
+      alert(`${monsters[monster].name} Health: ${monsters[monster].max_wounds}`);
+      break;
     }
   }
   console.log('X: ', correctedPosition.x, 'Y: ', correctedPosition.y);
@@ -38,7 +49,7 @@ export function targetClicked() {
 
 
 export function attackTargetClicked() {
-
+  quest = questForMouseClick;
   //mouse correction
 
   if (mousePos.x % 50 === mousePos.x) {
@@ -70,13 +81,12 @@ export function attackTargetClicked() {
       (heroToken.x - 50 === correctedPosition.x && heroToken.y + 50 === correctedPosition.y) || (
         heroToken.x - 50 === correctedPosition.x && heroToken.y - 50 === correctedPosition.y)) {
 
-      let monsters = quest1.tokenPlacement.monsters;
+      let monsters = quest.tokenPlacement.monsters;
       for (let monster in monsters) {
-        // console.log(monsters[monster])
         if (correctedPosition.x === monsters[monster].x && correctedPosition.y === monsters[monster].y) {
           console.log(monster, ' Selected to attack');
-          quest1.tokenPlacement.marker.x = monsters[monster].x;
-          quest1.tokenPlacement.marker.y = monsters[monster].y;
+          quest.tokenPlacement.marker.x = monsters[monster].x;
+          quest.tokenPlacement.marker.y = monsters[monster].y;
           disableAttack.melee = false;
           selectedTarget.id = monsters[monster].id;
           selectedTarget.name = monsters[monster].name;
@@ -90,12 +100,12 @@ export function attackTargetClicked() {
     }
   } else if ((attackType.type === 'ranged' && (attackType.blast === false || attackType.blast === null))
     || (attackType.type === 'magic' && (attackType.blast === false || attackType.blast === null))) {
-    let monsters = quest1.tokenPlacement.monsters;
+    let monsters = quest.tokenPlacement.monsters;
     for (let monster in monsters) {
       if (correctedPosition.x === monsters[monster].x && correctedPosition.y === monsters[monster].y) {
         console.log(monster, ' Selected to attack');
-        quest1.tokenPlacement.marker.x = monsters[monster].x;
-        quest1.tokenPlacement.marker.y = monsters[monster].y;
+        quest.tokenPlacement.marker.x = monsters[monster].x;
+        quest.tokenPlacement.marker.y = monsters[monster].y;
         disableAttack.ranged = false;
         disableAttack.magic = false;
         selectedTarget.id = monsters[monster].id;
@@ -107,12 +117,12 @@ export function attackTargetClicked() {
       }
     }
   } else if (attackType.blast === true) {
-    let tiles = quest1.floor.floor_tiles;
+    let tiles = quest.floor.floor_tiles;
     for (let tile in tiles) {
       if (correctedPosition.x === tiles[tile].x && correctedPosition.y === tiles[tile].y) {
         console.log('Blast Attack!');
-        quest1.tokenPlacement.marker.x = tiles[tile].x;
-        quest1.tokenPlacement.marker.y = tiles[tile].y;
+        quest.tokenPlacement.marker.x = tiles[tile].x;
+        quest.tokenPlacement.marker.y = tiles[tile].y;
         selectedTarget.id = tiles[tile];
         selectedTarget.name = tiles;
         disableAttack.ranged = false;

@@ -441,7 +441,7 @@ export class HellHound {
       },
     };
     this.monster_card_img_path = "../images/monster_card/hell_hound.jpg";
-    this.token_path = "../images/monster_token/hell_hound.png";
+    this.token_path = "../images/monster_token/hellhound.png";
     this.money_value = 50;
     this.boss = false;
     this.w = 50;
@@ -483,7 +483,7 @@ export class MasterHellHound {
       },
     };
     this.monster_card_img_path = "../images/monster_card/hell_hound.jpg";
-    this.token_path = "../images/monster_token/hell_hound_master.png";
+    this.token_path = "../images/monster_token/hellhound_master.png";
     this.money_value = 100;
     this.boss = false;
     this.w = 50;

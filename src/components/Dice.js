@@ -6,6 +6,7 @@ import { } from "../data/monsterData";
 import { diceSideData } from "../data/diceSideData.js";
 import SurgePurchase from "./SurgePurchase";
 import Fatigue from "./Fatigue";
+import { blastArray } from '../player_actions/attack';
 
 let redDiceArray = [];
 let blueDiceArray = [];
@@ -524,21 +525,35 @@ function DiceRoll({
     );
     // This Adds the Gold value of the monster to the players money
     // and runs collision detection if monster is killed
-    let targetNumber;
-    if (selectedMonster.base_armor - pierce <= 0) {
-      targetNumber = 0;
-    } else {
-      targetNumber = selectedMonster.base_armor - pierce;
-    }
-    if (damage >= targetNumber + selectedMonster.max_wounds) {
-      setMoney((money) => money + selectedMonster.money_value);
-      collisionDetection();
-      if (selectedMonster.boss === true) {
-        setTimeout(() => win(), 2000);
+    if (blast === false) {
+      let targetNumber;
+      if (selectedMonster.base_armor - pierce <= 0) {
+        targetNumber = 0;
+      } else {
+        targetNumber = selectedMonster.base_armor - pierce;
       }
+      if (damage >= targetNumber + selectedMonster.max_wounds) {
+        setMoney((money) => money + selectedMonster.money_value);
+        collisionDetection();
+        if (selectedMonster.boss === true) {
+          // setTimeout(() => win(), 2000);
+          win();
+        }
+      }
+    } else {
+      let moneyTotalFromBlast = 0;
+      for (let i = 0; i < blastArray.length; i++) {
+        moneyTotalFromBlast += blastArray[i].money_value;
+        if (blastArray[i].boss === true) {
+          // setTimeout(() => win(), 2000);
+          win();
+        }
+      }
+      setMoney((money) => money + moneyTotalFromBlast);
+      collisionDetection();
     }
     document.querySelector('#disableAttackButton').disabled = false;
-  }
+  };
 
   useEffect(() => {
     dragElement(document.getElementById("attackPannel"));

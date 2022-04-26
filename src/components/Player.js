@@ -1,6 +1,7 @@
 import "../styles/player.css";
 import runLoop from "./Canvas.js";
 import { relics } from "../data/items/relics";
+import { goldTreasures } from '../data/items/goldTreasures';
 import Shop, {
   shopItemsArray,
   health_potion,
@@ -286,7 +287,7 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
   }
 
   //weapons and items
-  const [weapon1, setWeapon1] = useState();
+  const [weapon1, setWeapon1] = useState(goldTreasures.flame_strike);
   const [weapon2, setWeapon2] = useState();
   // const [weapon1, setWeapon1] = useState(relics.soulbiter);
   // const [weapon1, setWeapon1] = useState(relics.touch_of_death);

@@ -9,6 +9,7 @@ export const disableAttack = {
 };
 
 export const attackType = { type: null, blast: null };
+export var blastArray = [];
 
 export function attack(
   checkSelectedTarget,
@@ -78,6 +79,7 @@ export function attack(
 
 
   else if (attackType.blast === true) {
+    blastArray = [];
     let monsters = chosenQuest.tokenPlacement.monsters;
     let rangeNeeded;
     let x = Math.abs(heroToken.x - selectedTarget.id.x) / 50;
@@ -145,9 +147,9 @@ export function attack(
             }
           }
         }
+
         for (let i = 0; i < effectedMonsters.length; i++) {
           let effectedMonster = effectedMonsters[i];
-          console.log(effectedMonster);
           let monsterArmor = effectedMonster.base_armor - pierce;
           if (monsterArmor <= 0) {
             monsterArmor = 0;
@@ -155,6 +157,7 @@ export function attack(
           let hitAmount = damage - monsterArmor;
           effectedMonster.max_wounds -= hitAmount;
           if (effectedMonster.max_wounds <= 0) {
+            blastArray.push(effectedMonster);
             delete chosenQuest.tokenPlacement.monsters[effectedMonster.name + effectedMonster.id.toString()];
           }
         }
@@ -204,10 +207,9 @@ export function attack(
         }
       }
     }
-    // console.log(effectedMonsters)
+
     for (let i = 0; i < effectedMonsters.length; i++) {
       let effectedMonster = effectedMonsters[i];
-      // console.log(effectedMonster)
       let monsterArmor = effectedMonster.base_armor - pierce;
       if (monsterArmor <= 0) {
         monsterArmor = 0;

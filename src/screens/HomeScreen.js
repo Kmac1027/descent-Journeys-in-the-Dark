@@ -1,15 +1,18 @@
 import { useState, useEffect } from "react";
 import ChoseHero from "./ChoseHero";
+import ChoseQuest from "./ChoseQuest";
 import HowToPlay from "./HowToPlay";
 
 
-function HomeScreen({ playGame, setPlayGame, chosenHero, setChosenHero, setHomeScreen }) {
+function HomeScreen({ playGame, setPlayGame, chosenHero, setChosenHero, setHomeScreen, chosenQuest, setChosenQuest }) {
     const [showHowToPlay, setShowHowToPlay] = useState(false);
     const [choseHero, setChoseHero] = useState(false);
+    const [pickQuest, setPickQuest] = useState(false);
 
     function startGame() {
         window.scrollBy(0, 700);
         setShowHowToPlay(false);
+        setPickQuest(true);
         setChoseHero(true);
     }
     function rules() {
@@ -39,7 +42,8 @@ function HomeScreen({ playGame, setPlayGame, chosenHero, setChosenHero, setHomeS
             </div>
             <br />
             {showHowToPlay ? <HowToPlay showHowToPlay={showHowToPlay} setShowHowToPlay={setShowHowToPlay} /> : null}
-            {choseHero ? <ChoseHero playGame={playGame} setPlayGame={setPlayGame} chosenHero={chosenHero} setChosenHero={setChosenHero} setHomeScreen={setHomeScreen} /> : null}
+            {pickQuest ? <ChoseQuest setChosenQuest={setChosenQuest} /> : null}
+            {choseHero ? <ChoseHero playGame={playGame} setPlayGame={setPlayGame} chosenHero={chosenHero} setChosenHero={setChosenHero} setHomeScreen={setHomeScreen} chosenQuest={chosenQuest} /> : null}
 
         </div >
     );

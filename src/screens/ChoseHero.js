@@ -2,14 +2,21 @@ import { useState, useEffect } from "react";
 import HowToPlay from "./HowToPlay";
 
 
-function ChoseHero({ setPlayGame, setHomeScreen, chosenHero, setChosenHero }) {
+function ChoseHero({ setPlayGame, setHomeScreen, chosenHero, setChosenHero, chosenQuest }) {
   const [showStartButton, setShowStartButton] = useState(false);
   const [nameForStartButton, setNameForStartButton] = useState();
 
   function startGame() {
     if (chosenHero === null) {
       alert('You have Not Chosen a Hero');
-    } else {
+    }
+    if (chosenQuest === null) {
+      alert('You have Not Chosen a Quest');
+    }
+    if (chosenHero === null && chosenQuest === null) {
+      alert('You must chose a Hero and a Quest');
+    }
+    else if (chosenHero !== null && chosenQuest !== null) {
       setHomeScreen(false);
       setPlayGame(true);
     }
@@ -27,8 +34,12 @@ function ChoseHero({ setPlayGame, setHomeScreen, chosenHero, setChosenHero }) {
       <h2>Chose Your Hero!</h2>
       {showStartButton ? (
         <div>
-          <button style={{ height: "75px" }} onClick={startGame}>
-            Start Game as
+          <button style={{ height: "85px" }} onClick={startGame}>
+            Start
+            <br />
+            {!chosenQuest ? null : chosenQuest.name}
+            <br />
+            as
             <br />
             <br />
             {nameForStartButton === "battlemage_jaes"

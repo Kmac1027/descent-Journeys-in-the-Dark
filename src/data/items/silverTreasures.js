@@ -239,6 +239,12 @@ export const silverTreasures = {
         amount: 2,
         text: "Pierce 2",
       },
+      2: {
+        type: "addDamage",
+        cost: 1,
+        amount: 1,
+        text: "+1 Damage",
+      },
     },
     special_abilities: {
       off_hand_bonus: false,

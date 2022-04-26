@@ -11,6 +11,8 @@ let activeMonsterArray = [];
 
 function Overlord({ chosenHero, chosenQuest, turn, setTurn, currentArmor, currentHealth, setCurrentHealth, weapon1, weapon2 }) {
   const [runObstacle, setRunObstacle] = useState(true);
+  var shield1 = true;
+  var shield2 = true;
 
   function obstacleArrayFillCheck() {
     if (runObstacle === true) {
@@ -132,7 +134,7 @@ function Overlord({ chosenHero, chosenQuest, turn, setTurn, currentArmor, curren
           if (hitAmount <= 0) {
             hitAmount = 0;
           }
-          if (weapon1 && weapon1.type === 'shield' && hitAmount > 0) {
+          if (weapon1 && weapon1.type === 'shield' && hitAmount > 0 && shield1 === true) {
             let result = window.confirm(
               `${monster.name}${monster.id} attacks you for ${hitAmount}. Would you like to use your ${weapon1.name}?`
             );
@@ -141,9 +143,10 @@ function Overlord({ chosenHero, chosenQuest, turn, setTurn, currentArmor, curren
               if (hitAmount <= 0) {
                 hitAmount = 0;
               }
+              shield1 = false;
             }
           }
-          if (weapon2 && weapon2.type === 'shield' && hitAmount > 0) {
+          if (weapon2 && weapon2.type === 'shield' && hitAmount > 0 && shield2 === true) {
             let result = window.confirm(
               `${monster.name}${monster.id} attacks you for ${hitAmount}. Would you like to use your ${weapon2.name}?`
             );
@@ -152,6 +155,7 @@ function Overlord({ chosenHero, chosenQuest, turn, setTurn, currentArmor, curren
               if (hitAmount <= 0) {
                 hitAmount = 0;
               }
+              shield2 = false;
             }
           }
           setCurrentHealth(currentHealth => currentHealth - hitAmount);
@@ -178,6 +182,30 @@ function Overlord({ chosenHero, chosenQuest, turn, setTurn, currentArmor, curren
             let hitAmount = attackAmount - currentArmor;
             if (hitAmount <= 0) {
               hitAmount = 0;
+            }
+            if (weapon1 && weapon1.type === 'shield' && hitAmount > 0 && shield1 === true) {
+              let result = window.confirm(
+                `${monster.name}${monster.id} attacks you for ${hitAmount}. Would you like to use your ${weapon1.name}?`
+              );
+              if (result === true) {
+                hitAmount -= weapon1.wounds_canceled;
+                if (hitAmount <= 0) {
+                  hitAmount = 0;
+                }
+                shield1 = false;
+              }
+            }
+            if (weapon2 && weapon2.type === 'shield' && hitAmount > 0 && shield2 === true) {
+              let result = window.confirm(
+                `${monster.name}${monster.id} attacks you for ${hitAmount}. Would you like to use your ${weapon2.name}?`
+              );
+              if (result === true) {
+                hitAmount -= weapon2.wounds_canceled;
+                if (hitAmount <= 0) {
+                  hitAmount = 0;
+                }
+                shield2 = false;
+              }
             }
             setCurrentHealth(currentHealth => currentHealth - hitAmount);
             monster.numberOfAttacks -= 1;
