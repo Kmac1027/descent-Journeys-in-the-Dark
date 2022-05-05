@@ -1,5 +1,5 @@
 {
-  "homepage": "http://localhost:3000/",
+  "homepage": "http://Kmac1027.github.io/descent-Journeys-in-the-dark",
   "name": "descent",
   "version": "0.1.0",
   "private": true,
@@ -18,7 +18,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+"deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
