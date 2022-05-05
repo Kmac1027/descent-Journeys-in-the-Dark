@@ -228,14 +228,14 @@ function TilesAndTokens({ chosenHero }) {
         <img
           id="whiteGlyph"
           src={
-            "images/map_tiles/item_icons/ancient glyph of teleportation white.jpg"
+            "images/map_tiles/item_icons/white_glyph.jpg"
           }
           alt={"white glyph"}
         />
         <img
           id="redGlyph"
           src={
-            "images/map_tiles/item_icons/ancient glyph of teleportation red.jpg"
+            "images/map_tiles/item_icons/red_glyph.jpg"
           }
           alt={"red glyph"}
         />
