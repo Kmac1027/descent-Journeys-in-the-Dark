@@ -1,22 +1,15 @@
 {
   "files": {
-    "main.css": "https://Kmac1027.github.io/descent-Journeys-in-the-Dark/static/css/main.f788e524.chunk.css",
-    "main.js": "https://Kmac1027.github.io/descent-Journeys-in-the-Dark/static/js/main.260f6531.chunk.js",
-    "main.js.map": "https://Kmac1027.github.io/descent-Journeys-in-the-Dark/static/js/main.260f6531.chunk.js.map",
-    "runtime-main.js": "https://Kmac1027.github.io/descent-Journeys-in-the-Dark/static/js/runtime-main.1822f4d6.js",
-    "runtime-main.js.map": "https://Kmac1027.github.io/descent-Journeys-in-the-Dark/static/js/runtime-main.1822f4d6.js.map",
-    "static/js/2.33c31015.chunk.js": "https://Kmac1027.github.io/descent-Journeys-in-the-Dark/static/js/2.33c31015.chunk.js",
-    "static/js/2.33c31015.chunk.js.map": "https://Kmac1027.github.io/descent-Journeys-in-the-Dark/static/js/2.33c31015.chunk.js.map",
-    "static/js/3.62b563a0.chunk.js": "https://Kmac1027.github.io/descent-Journeys-in-the-Dark/static/js/3.62b563a0.chunk.js",
-    "static/js/3.62b563a0.chunk.js.map": "https://Kmac1027.github.io/descent-Journeys-in-the-Dark/static/js/3.62b563a0.chunk.js.map",
-    "index.html": "https://Kmac1027.github.io/descent-Journeys-in-the-Dark/index.html",
-    "static/css/main.f788e524.chunk.css.map": "https://Kmac1027.github.io/descent-Journeys-in-the-Dark/static/css/main.f788e524.chunk.css.map",
-    "static/js/2.33c31015.chunk.js.LICENSE.txt": "https://Kmac1027.github.io/descent-Journeys-in-the-Dark/static/js/2.33c31015.chunk.js.LICENSE.txt"
+    "main.css": "/descent-Journeys-in-the-dark/static/css/main.990e7f6b.css",
+    "main.js": "/descent-Journeys-in-the-dark/static/js/main.fd50dd38.js",
+    "static/js/787.425bec40.chunk.js": "/descent-Journeys-in-the-dark/static/js/787.425bec40.chunk.js",
+    "index.html": "/descent-Journeys-in-the-dark/index.html",
+    "main.990e7f6b.css.map": "/descent-Journeys-in-the-dark/static/css/main.990e7f6b.css.map",
+    "main.fd50dd38.js.map": "/descent-Journeys-in-the-dark/static/js/main.fd50dd38.js.map",
+    "787.425bec40.chunk.js.map": "/descent-Journeys-in-the-dark/static/js/787.425bec40.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.1822f4d6.js",
-    "static/js/2.33c31015.chunk.js",
-    "static/css/main.f788e524.chunk.css",
-    "static/js/main.260f6531.chunk.js"
+    "static/css/main.990e7f6b.css",
+    "static/js/main.fd50dd38.js"
   ]
 }
