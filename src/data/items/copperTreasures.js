@@ -35,7 +35,7 @@ export const copperTreasures =
     },
     hands: 2,
     cost: 250,
-    img_path: "../images/items/copperTreasures/dragontooth_hammer.jpg",
+    img_path: "images/items/copperTreasures/dragontooth_hammer.jpg",
   },
   bone_blade: {
     treasure: "copper",
@@ -69,7 +69,7 @@ export const copperTreasures =
     },
     hands: 1,
     cost: 250,
-    img_path: "../images/items/copperTreasures/bone_blade.jpg",
+    img_path: "images/items/copperTreasures/bone_blade.jpg",
   },
   dwarven_fire_bombs: {
     treasure: "copper",
@@ -100,7 +100,7 @@ export const copperTreasures =
     },
     hands: 1,
     cost: 250,
-    img_path: "../images/items/copperTreasures/dwarven_fire_bombs.jpg",
+    img_path: "images/items/copperTreasures/dwarven_fire_bombs.jpg",
   },
   great_bow: {
     treasure: "copper",
@@ -140,7 +140,7 @@ export const copperTreasures =
     },
     hands: 2,
     cost: 250,
-    img_path: "../images/items/copperTreasures/great_bow.jpg",
+    img_path: "images/items/copperTreasures/great_bow.jpg",
   },
   pacify: {
     treasure: "copper",
@@ -170,7 +170,7 @@ export const copperTreasures =
     },
     hands: 2,
     cost: 250,
-    img_path: "../images/items/copperTreasures/pacify.jpg",
+    img_path: "images/items/copperTreasures/pacify.jpg",
   },
   crystalize: {
     treasure: "copper",
@@ -195,7 +195,7 @@ export const copperTreasures =
     },
     hands: 2,
     cost: 250,
-    img_path: "../images/items/copperTreasures/crystalize.jpg",
+    img_path: "images/items/copperTreasures/crystalize.jpg",
   },
   staff_of_punishment: {
     treasure: "copper",
@@ -226,7 +226,7 @@ export const copperTreasures =
     },
     hands: 2,
     cost: 250,
-    img_path: "../images/items/copperTreasures/staff_of_punishment.jpg",
+    img_path: "images/items/copperTreasures/staff_of_punishment.jpg",
   },
   bane: {
     treasure: "copper",
@@ -251,7 +251,7 @@ export const copperTreasures =
     },
     hands: 2,
     cost: 250,
-    img_path: "../images/items/copperTreasures/bane.jpg",
+    img_path: "images/items/copperTreasures/bane.jpg",
   },
 
   //Armor
@@ -268,7 +268,7 @@ export const copperTreasures =
       text: "your base speed is reduced to 3. You cannot equip runes",
     },
     cost: 250,
-    img_path: "../images/items/copperTreasures/plate_mail.jpg",
+    img_path: "images/items/copperTreasures/plate_mail.jpg",
   },
   cloak_of_deception: {
     treasure: "copper",
@@ -283,7 +283,7 @@ export const copperTreasures =
       text: "When you suffer 1 or more wounds, roll 1 power die for each wound suffered. Cancel 1 wound for each blank you roll.",
     },
     cost: 250,
-    img_path: "../images/items/copperTreasures/cloak_of_deception.jpg",
+    img_path: "images/items/copperTreasures/cloak_of_deception.jpg",
   },
 
   //shields
@@ -307,7 +307,7 @@ export const copperTreasures =
     combat_dice: false,
     hands: 1,
     cost: 250,
-    img_path: "../images/items/copperTreasures/crystal_shield.jpg",
+    img_path: "images/items/copperTreasures/crystal_shield.jpg",
   },
   crystal_shield_2: {
     treasure: "copper",
@@ -329,7 +329,7 @@ export const copperTreasures =
     combat_dice: false,
     hands: 1,
     cost: 250,
-    img_path: "../images/items/copperTreasures/crystal_shield.jpg",
+    img_path: "images/items/copperTreasures/crystal_shield.jpg",
   },
 
   //Others
@@ -353,7 +353,7 @@ export const copperTreasures =
     combat_dice: false,
     hands: 0,
     cost: 250,
-    img_path: "../images/items/copperTreasures/belt_of_strength.jpg",
+    img_path: "images/items/copperTreasures/belt_of_strength.jpg",
   },
   mana_weave: {
     activate: false,
@@ -375,7 +375,7 @@ export const copperTreasures =
     combat_dice: false,
     hands: 0,
     cost: 250,
-    img_path: "../images/items/copperTreasures/mana_weave.jpg",
+    img_path: "images/items/copperTreasures/mana_weave.jpg",
   },
   minor_healing: {
     activate: true,
@@ -396,7 +396,7 @@ export const copperTreasures =
     combat_dice: false,
     hands: 0,
     cost: 250,
-    img_path: "../images/items/copperTreasures/minor_healing.jpg",
+    img_path: "images/items/copperTreasures/minor_healing.jpg",
   },
   ring_of_quickness: {
     activate: false,
@@ -417,7 +417,7 @@ export const copperTreasures =
     combat_dice: false,
     hands: 0,
     cost: 250,
-    img_path: "../images/items/copperTreasures/ring_of_quickness.jpg",
+    img_path: "images/items/copperTreasures/ring_of_quickness.jpg",
   },
   crystal_of_tival: {
     activate: false,
@@ -438,7 +438,7 @@ export const copperTreasures =
     combat_dice: false,
     hands: 0,
     cost: 250,
-    img_path: "../images/items/copperTreasures/crystal_of_tival.jpg",
+    img_path: "images/items/copperTreasures/crystal_of_tival.jpg",
   },
   crystal_of_tival_2: {
     activate: false,
@@ -459,7 +459,7 @@ export const copperTreasures =
     combat_dice: false,
     hands: 0,
     cost: 250,
-    img_path: "../images/items/copperTreasures/crystal_of_tival.jpg",
+    img_path: "images/items/copperTreasures/crystal_of_tival.jpg",
   },
 
   //treasure cache
@@ -472,7 +472,7 @@ export const copperTreasures =
     health_potion: 0,
     vitality_potion: 0,
     cost: 250,
-    img_path: "../images/items/copperTreasures/treasure_cache_gold.jpg",
+    img_path: "images/items/copperTreasures/treasure_cache_gold.jpg",
   },
   treasure_cache_gold_2: {
     treasure: "copper",
@@ -483,7 +483,7 @@ export const copperTreasures =
     health_potion: false,
     vitality_potion: false,
     cost: 250,
-    img_path: "../images/items/copperTreasures/treasure_cache_gold.jpg",
+    img_path: "images/items/copperTreasures/treasure_cache_gold.jpg",
   },
   treasure_cache_healing_potion: {
     treasure: "copper",
@@ -495,7 +495,7 @@ export const copperTreasures =
     vitality_potion: false,
     cost: 250,
     img_path:
-      "../images/items/copperTreasures/treasure_cache_healing_potion.jpg",
+      "images/items/copperTreasures/treasure_cache_healing_potion.jpg",
   },
   treasure_cache_vitality_potion: {
     treasure: "copper",
@@ -507,6 +507,6 @@ export const copperTreasures =
     vitality_potion: true,
     cost: 250,
     img_path:
-      "../images/items/copperTreasures/treasure_cache_vitality_potion.jpg",
+      "images/items/copperTreasures/treasure_cache_vitality_potion.jpg",
   },
 };

@@ -38,7 +38,7 @@ export const goldTreasures = {
     },
     hands: 2,
     cost: 750,
-    img_path: "../images/items/goldTreasures/frost_axe.jpg",
+    img_path: "images/items/goldTreasures/frost_axe.jpg",
   },
   rage_blade: {
     treasure: "gold",
@@ -72,7 +72,7 @@ export const goldTreasures = {
     },
     hands: 1,
     cost: 750,
-    img_path: "../images/items/goldTreasures/rage_blade.jpg",
+    img_path: "images/items/goldTreasures/rage_blade.jpg",
   },
   scarab_of_death: {
     treasure: "gold",
@@ -106,7 +106,7 @@ export const goldTreasures = {
     },
     hands: 1,
     cost: 750,
-    img_path: "../images/items/goldTreasures/scarab_of_death.jpg",
+    img_path: "images/items/goldTreasures/scarab_of_death.jpg",
   },
   elven_bow: {
     treasure: "gold",
@@ -146,7 +146,7 @@ export const goldTreasures = {
     },
     hands: 2,
     cost: 750,
-    img_path: "../images/items/goldTreasures/elven_bow.jpg",
+    img_path: "images/items/goldTreasures/elven_bow.jpg",
   },
   staff_of_knowledge: {
     treasure: "gold",
@@ -192,7 +192,7 @@ export const goldTreasures = {
     },
     hands: 2,
     cost: 750,
-    img_path: "../images/items/goldTreasures/staff_of_knowledge.jpg",
+    img_path: "images/items/goldTreasures/staff_of_knowledge.jpg",
   },
   curse_of_rot: {
     treasure: "gold",
@@ -227,7 +227,7 @@ export const goldTreasures = {
     },
     hands: 2,
     cost: 750,
-    img_path: "../images/items/goldTreasures/curse_of_rot.jpg",
+    img_path: "images/items/goldTreasures/curse_of_rot.jpg",
   },
   flame_strike: {
     treasure: "gold",
@@ -272,7 +272,7 @@ export const goldTreasures = {
     },
     hands: 2,
     cost: 750,
-    img_path: "../images/items/goldTreasures/flame_strike.jpg",
+    img_path: "images/items/goldTreasures/flame_strike.jpg",
   },
   word_of_vaal: {
     treasure: "gold",
@@ -306,7 +306,7 @@ export const goldTreasures = {
     },
     hands: 2,
     cost: 750,
-    img_path: "../images/items/goldTreasures/word_of_vaal.jpg",
+    img_path: "images/items/goldTreasures/word_of_vaal.jpg",
   },
   //Armor
   dragon_scale_mail: {
@@ -326,7 +326,7 @@ export const goldTreasures = {
       },
     },
     cost: 750,
-    img_path: "../images/items/goldTreasures/dragon_scale_mail.jpg",
+    img_path: "images/items/goldTreasures/dragon_scale_mail.jpg",
   },
   elven_cloak: {
     treasure: "gold",
@@ -341,7 +341,7 @@ export const goldTreasures = {
       text: "When you suffer 1 or more wounds, roll 1 power die for each wound suffered. Cancel 1 wound for each Power Enhancment you roll.",
     },
     cost: 750,
-    img_path: "../images/items/goldTreasures/elven_cloak.jpg",
+    img_path: "images/items/goldTreasures/elven_cloak.jpg",
   },
   //shields
   shield_of_the_warrior: {
@@ -364,7 +364,7 @@ export const goldTreasures = {
     combat_dice: false,
     hands: 1,
     cost: 750,
-    img_path: "../images/items/goldTreasures/shield_of_the_warrior.jpg",
+    img_path: "images/items/goldTreasures/shield_of_the_warrior.jpg",
   },
   //Others
   ring_of_the_arcane: {
@@ -393,7 +393,7 @@ export const goldTreasures = {
     combat_dice: false,
     hands: 0,
     cost: 750,
-    img_path: "../images/items/goldTreasures/ring_of_the_arcane.jpg",
+    img_path: "images/items/goldTreasures/ring_of_the_arcane.jpg",
   },
   jinns_lamp: {
     activate: false,
@@ -414,7 +414,7 @@ export const goldTreasures = {
     combat_dice: false,
     hands: 0,
     cost: 750,
-    img_path: "../images/items/goldTreasures/jinns_lamp.jpg",
+    img_path: "images/items/goldTreasures/jinns_lamp.jpg",
   },
   deflect: {
     activate: false,
@@ -435,7 +435,7 @@ export const goldTreasures = {
     combat_dice: false,
     hands: 0,
     cost: 750,
-    img_path: "../images/items/goldTreasures/deflect.jpg",
+    img_path: "images/items/goldTreasures/deflect.jpg",
     //treasure cache
     treasure_cache_healing_potion: {
       treasure: "gold",
@@ -447,7 +447,7 @@ export const goldTreasures = {
       vitality_potion: false,
       cost: 750,
       img_path:
-        "../images/items/goldTreasures/treasure_cache_150_coins_healing.jpg",
+        "images/items/goldTreasures/treasure_cache_150_coins_healing.jpg",
     },
     treasure_cache_vitality_potion: {
       treasure: "gold",
@@ -459,7 +459,7 @@ export const goldTreasures = {
       vitality_potion: true,
       cost: 750,
       img_path:
-        "../images/items/goldTreasures/treasure_cache_150_coins_vitality.jpg",
+        "images/items/goldTreasures/treasure_cache_150_coins_vitality.jpg",
     },
   },
 };

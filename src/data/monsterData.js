@@ -22,8 +22,8 @@ export class BaneSpider {
     this.special_abilities = {
       // poison
     };
-    this.monster_card_img_path = "../images/monster_card/bane_spider.jpg";
-    this.token_path = "../images/monster_token/bane_spider.png";
+    this.monster_card_img_path = "images/monster_card/bane_spider.jpg";
+    this.token_path = "images/monster_token/bane_spider.png";
     this.money_value = 50;
     this.boss = false;
     this.w = 50;
@@ -60,8 +60,8 @@ export class MasterBaneSpider {
     this.special_abilities = {
       // poison
     };
-    this.monster_card_img_path = "../images/monster_card/bane_spider.jpg";
-    this.token_path = "../images/monster_token/bane_spider_master.png";
+    this.monster_card_img_path = "images/monster_card/bane_spider.jpg";
+    this.token_path = "images/monster_token/bane_spider_master.png";
     this.money_value = 100;
     this.boss = false;
     this.w = 50;
@@ -102,8 +102,8 @@ export class Beastman {
         text: "+1 Damage",
       },
     };
-    this.monster_card_img_path = "../images/monster_card/beastman.jpg";
-    this.token_path = "../images/monster_token/beastman.png";
+    this.monster_card_img_path = "images/monster_card/beastman.jpg";
+    this.token_path = "images/monster_token/beastman.png";
     this.money_value = 50;
     this.boss = false;
     this.w = 50;
@@ -147,8 +147,8 @@ export class MasterBeastman {
         type: "Command",
       },
     };
-    this.monster_card_img_path = "../images/monster_card/beastman.jpg";
-    this.token_path = "../images/monster_token/beastman_master.png";
+    this.monster_card_img_path = "images/monster_card/beastman.jpg";
+    this.token_path = "images/monster_token/beastman_master.png";
     this.money_value = 100;
     this.boss = false;
     this.w = 50;
@@ -192,8 +192,8 @@ export class Demon {
       // aura
       // fear1
     };
-    this.monster_card_img_path = "../images/monster_card/demon.jpg";
-    this.token_path = "../images/monster_token/demon.png";
+    this.monster_card_img_path = "images/monster_card/demon.jpg";
+    this.token_path = "images/monster_token/demon.png";
     this.money_value = 50;
     this.boss = false;
     this.w = 50;
@@ -236,8 +236,8 @@ export class MasterDemon {
       // aura
       // fear2
     };
-    this.monster_card_img_path = "../images/monster_card/demon.jpg";
-    this.token_path = "../images/monster_token/demon_master.png";
+    this.monster_card_img_path = "images/monster_card/demon.jpg";
+    this.token_path = "images/monster_token/demon_master.png";
     this.money_value = 100;
     this.boss = false;
     this.w = 50;
@@ -279,8 +279,8 @@ export class Dragon {
         text: "Pierce 5",
       },
     };
-    this.monster_card_img_path = "../images/monster_card/dragon.jpg";
-    this.token_path = "../images/monster_token/dragon.png";
+    this.monster_card_img_path = "images/monster_card/dragon.jpg";
+    this.token_path = "images/monster_token/dragon.png";
     this.money_value = 50;
     this.boss = false;
     this.w = 50;
@@ -321,8 +321,8 @@ export class MasterDragon {
         text: "Pierce 5",
       },
     };
-    this.monster_card_img_path = "../images/monster_card/dragon.jpg";
-    this.token_path = "../images/monster_token/dragon_master.png";
+    this.monster_card_img_path = "images/monster_card/dragon.jpg";
+    this.token_path = "images/monster_token/dragon_master.png";
     this.money_value = 100;
     this.boss = false;
     this.w = 50;
@@ -359,8 +359,8 @@ export class Giant {
       //  1 reach
       //  2 stun
     };
-    this.monster_card_img_path = "../images/monster_card/giant.jpg";
-    this.token_path = "../images/monster_token/giant.png";
+    this.monster_card_img_path = "images/monster_card/giant.jpg";
+    this.token_path = "images/monster_token/giant.png";
     this.money_value = 50;
     this.boss = false;
     this.w = 50;
@@ -398,8 +398,8 @@ export class MasterGiant {
       // stun 
       // sweep
     };
-    this.monster_card_img_path = "../images/monster_card/giant.jpg";
-    this.token_path = "../images/monster_token/giant_master.png";
+    this.monster_card_img_path = "images/monster_card/giant.jpg";
+    this.token_path = "images/monster_token/giant_master.png";
     this.money_value = 100;
     this.boss = false;
     this.w = 50;
@@ -440,8 +440,8 @@ export class HellHound {
         text: "Pierce 3",
       },
     };
-    this.monster_card_img_path = "../images/monster_card/hell_hound.jpg";
-    this.token_path = "../images/monster_token/hellhound.png";
+    this.monster_card_img_path = "images/monster_card/hell_hound.jpg";
+    this.token_path = "images/monster_token/hellhound.png";
     this.money_value = 50;
     this.boss = false;
     this.w = 50;
@@ -482,8 +482,8 @@ export class MasterHellHound {
         text: "Pierce 4",
       },
     };
-    this.monster_card_img_path = "../images/monster_card/hell_hound.jpg";
-    this.token_path = "../images/monster_token/hellhound_master.png";
+    this.monster_card_img_path = "images/monster_card/hell_hound.jpg";
+    this.token_path = "images/monster_token/hellhound_master.png";
     this.money_value = 100;
     this.boss = false;
     this.w = 50;
@@ -525,8 +525,8 @@ export class Manticore {
         text: "Pierce 2",
       },
     };
-    this.monster_card_img_path = "../images/monster_card/manticore.jpg";
-    this.token_path = "../images/monster_token/manticore.png";
+    this.monster_card_img_path = "images/monster_card/manticore.jpg";
+    this.token_path = "images/monster_token/manticore.png";
     this.money_value = 50;
     this.boss = false;
     this.w = 50;
@@ -568,8 +568,8 @@ export class MasterManticore {
         text: "Pierce 3",
       },
     };
-    this.monster_card_img_path = "../images/monster_card/manticore.jpg";
-    this.token_path = "../images/monster_token/manticore_master.png";
+    this.monster_card_img_path = "images/monster_card/manticore.jpg";
+    this.token_path = "images/monster_token/manticore_master.png";
     this.money_value = 100;
     this.boss = false;
     this.w = 50;
@@ -612,8 +612,8 @@ export class Naga {
       },
 
     };
-    this.monster_card_img_path = "../images/monster_card/naga.jpg";
-    this.token_path = "../images/monster_token/naga.png";
+    this.monster_card_img_path = "images/monster_card/naga.jpg";
+    this.token_path = "images/monster_token/naga.png";
     this.money_value = 50;
     this.boss = false;
     this.w = 50;
@@ -656,8 +656,8 @@ export class MasterNaga {
       },
 
     };
-    this.monster_card_img_path = "../images/monster_card/naga.jpg";
-    this.token_path = "../images/monster_token/naga_master.png";
+    this.monster_card_img_path = "images/monster_card/naga.jpg";
+    this.token_path = "images/monster_token/naga_master.png";
     this.money_value = 100;
     this.boss = false;
     this.w = 50;
@@ -694,8 +694,8 @@ export class Ogre {
     this.special_abilities = {
       //knockback
     };
-    this.monster_card_img_path = "../images/monster_card/ogre.jpg";
-    this.token_path = "../images/monster_token/ogre.png";
+    this.monster_card_img_path = "images/monster_card/ogre.jpg";
+    this.token_path = "images/monster_token/ogre.png";
     this.money_value = 50;
     this.boss = false;
     this.w = 50;
@@ -731,8 +731,8 @@ export class MasterOgre {
     this.special_abilities = {
       //knockback, undying
     };
-    this.monster_card_img_path = "../images/monster_card/ogre.jpg";
-    this.token_path = "../images/monster_token/ogre_master.png";
+    this.monster_card_img_path = "images/monster_card/ogre.jpg";
+    this.token_path = "images/monster_token/ogre_master.png";
     this.money_value = 100;
     this.boss = false;
     this.w = 50;
@@ -769,8 +769,8 @@ export class Razorwing {
     this.special_abilities = {
       //fly
     };
-    this.monster_card_img_path = "../images/monster_card/razorwing.jpg";
-    this.token_path = "../images/monster_token/razorwing.png";
+    this.monster_card_img_path = "images/monster_card/razorwing.jpg";
+    this.token_path = "images/monster_token/razorwing.png";
     this.money_value = 50;
     this.boss = false;
     this.w = 50;
@@ -806,8 +806,8 @@ export class MasterRazorwing {
     this.special_abilities = {
       //fly, stun
     };
-    this.monster_card_img_path = "../images/monster_card/razorwing.jpg";
-    this.token_path = "../images/monster_token/razorwing_master.png";
+    this.monster_card_img_path = "images/monster_card/razorwing.jpg";
+    this.token_path = "images/monster_token/razorwing_master.png";
     this.money_value = 100;
     this.boss = false;
     this.w = 50;
@@ -852,8 +852,8 @@ export class Skeleton {
         text: "+1 Range",
       },
     };
-    this.monster_card_img_path = "../images/monster_card/skeleton.jpg";
-    this.token_path = "../images/monster_token/skeleton.png";
+    this.monster_card_img_path = "images/monster_card/skeleton.jpg";
+    this.token_path = "images/monster_token/skeleton.png";
     this.money_value = 50;
     this.boss = false;
     this.w = 50;
@@ -899,8 +899,8 @@ export class MasterSkeleton {
       },
       3: { type: "undying" },
     };
-    this.monster_card_img_path = "../images/monster_card/skeleton.jpg";
-    this.token_path = "../images/monster_token/skeleton_master.png";
+    this.monster_card_img_path = "images/monster_card/skeleton.jpg";
+    this.token_path = "images/monster_token/skeleton_master.png";
     this.money_value = 100;
     this.boss = false;
     this.w = 50;
@@ -943,8 +943,8 @@ export class Sorcerer {
       },
 
     };
-    this.monster_card_img_path = "../images/monster_card/sorcerer.jpg";
-    this.token_path = "../images/monster_token/sorcerer.png";
+    this.monster_card_img_path = "images/monster_card/sorcerer.jpg";
+    this.token_path = "images/monster_token/sorcerer.png";
     this.money_value = 50;
     this.boss = false;
     this.w = 50;
@@ -986,8 +986,8 @@ export class MasterSorcerer {
       },
 
     };
-    this.monster_card_img_path = "../images/monster_card/sorcerer.jpg";
-    this.token_path = "../images/monster_token/sorcerer_master.png";
+    this.monster_card_img_path = "images/monster_card/sorcerer.jpg";
+    this.token_path = "images/monster_token/sorcerer_master.png";
     this.money_value = 100;
     this.boss = false;
     this.w = 50;

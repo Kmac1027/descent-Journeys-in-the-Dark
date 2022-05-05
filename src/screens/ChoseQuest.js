@@ -18,7 +18,7 @@ function ChoseQuest({ setChosenQuest }) {
                     <h3>{quest1.name}</h3>
                     <input
                         type="image"
-                        src="../images/"
+                        src="images/"
                         onClick={() => setQuest(quest1)}
                     ></input>
                     <p>{quest1.introduction}</p>
@@ -26,14 +26,14 @@ function ChoseQuest({ setChosenQuest }) {
                 <div id='quest2' style={{ border: 'solid', width: '400px', margin: '10px' }}>
                     <input
                         type="image"
-                        src="../images/"
+                        src="images/"
                     // onClick={() => setQuest(quest2)}
                     ></input>
                 </div>
                 <div id='quest3' style={{ border: 'solid', width: '400px', margin: '10px' }}>
                     <input
                         type="image"
-                        src="../images/"
+                        src="images/"
                     // onClick={() => setQuest(quest3)}
                     ></input>
                 </div>
