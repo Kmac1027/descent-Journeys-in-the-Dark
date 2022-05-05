@@ -287,8 +287,9 @@ function Player({ chosenHero, chosenQuest, revealAreas, turn, setTurn, playgame,
   }
 
   //weapons and items
-  const [weapon1, setWeapon1] = useState(goldTreasures.flame_strike);
+  const [weapon1, setWeapon1] = useState();
   const [weapon2, setWeapon2] = useState();
+  // const [weapon1, setWeapon1] = useState(goldTreasures.flame_strike);
   // const [weapon1, setWeapon1] = useState(relics.soulbiter);
   // const [weapon1, setWeapon1] = useState(relics.touch_of_death);
   // const [weapon2, setWeapon2] = useState();

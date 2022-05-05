@@ -34,8 +34,8 @@ let sorcerer1 = new Sorcerer(1, 300, 600, 'area3');
 let manticore1 = new Manticore(1, 500, 150, 'area4');
 let manticore2 = new Manticore(2, 700, 150, 'area4');
 
-let masterGiant1 = new MasterGiant(1, 50, 1000, "area1");
-// let masterGiant1 = new MasterGiant(1, 600, 0, "area4");
+// let masterGiant1 = new MasterGiant(1, 50, 1000, "area1");
+let masterGiant1 = new MasterGiant(1, 600, 0, "area4");
 masterGiant1.boss = true;
 masterGiant1.base_armor = 8;
 masterGiant1.max_wounds += 4;
