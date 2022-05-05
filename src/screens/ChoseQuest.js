@@ -18,7 +18,7 @@ function ChoseQuest({ setChosenQuest }) {
                     <h3>{quest1.name}</h3>
                     <input
                         type="image"
-                        src="images/"
+                        src="images/monster_token/giant_master.png"
                         onClick={() => setQuest(quest1)}
                     ></input>
                     <p>{quest1.introduction}</p>
